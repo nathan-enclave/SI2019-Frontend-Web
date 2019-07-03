@@ -9,14 +9,16 @@ class RowData extends Component {
         return (
             <tr>
             <td className="highlight">
-              Hannah
+              {this.props.firstName}
             </td>
-            <td className="hidden-xs"> hannah@gmail.com </td>
-            <td>0123456789</td>
-            <td> 1 years </td>
-            <td> JAVA,PHP,Android </td>
+            <td className="hidden-xs"> {this.props.lastName} </td>
+            <td>{this.props.englishName}</td>
+            <td> {this.props.phoneNumber} </td>
+            <td> {this.props.email} </td>
+            <td> {this.props.skype} </td>
+            <td> {this.props.dayOffRemain} </td>
             <td>
-              <Link to = "/engineer/view" className="btn btn-outline btn-circle green btn-sm purple">
+              <Link to = {"/engineers/view/" + this.props.firstName} className="btn btn-outline btn-circle green btn-sm purple">
                 <i className="fa fa-edit" /> View </Link>
               <Link to = "/engineer/edit" className="btn btn-outline btn-circle yellow btn-sm yellow">
                 <i className="fa fa-trash-o" /> Edit </Link>
