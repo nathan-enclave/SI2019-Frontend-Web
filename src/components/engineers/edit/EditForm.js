@@ -22,7 +22,7 @@ class EditForm extends Component {
             <div className="portlet-title tabbable-line">
               <div className="caption caption-md">
                 <i className="icon-globe theme-font hide" />
-                <span className="caption-subject font-blue-madison bold uppercase">Engineer Profile </span>
+                <span className="caption-subject font-blue-madison bold uppercase">EDIT PROFILE </span>
               </div>
             </div>
             <div className="portlet-body">
@@ -30,28 +30,30 @@ class EditForm extends Component {
                 <div className="tab-pane active" id="tab_1_1">
                   <form>
                     <div className="form-group" style={{textAlign: 'center'}}>     
-                      <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" alt="abc" /><br /><br /> 
-                      <div className="form-group"  style={{width: '100px', marginLeft: '615px'}}>
-                        <input type = "text" name = "engName" value="Hannah" onChange={(event) =>this.isChange(event)} className="form-control"  placeholder="Eng name"/> </div>
-                    </div> 
+                      <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" alt="abc" /><br /><br />                         
+                    </div>                    
                     
-                    <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="control-label">First Name</label>
-                      <input type = "text" name= "firstName" value="Trang" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Last Name</label>
-                      <input type="text" name="lastName" value="Tran" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Address</label>
-                      <input type="text" name="address" value = "Da Nang" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Experiences</label>
-                      <input type="text" name="exp" value = "1" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Phone Number</label>
-                      <input type="text" name="phone" value = "123456789" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
-                    </div>   
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label className="control-label">English Name</label>
+                    <input type="text" name="Engname" value="Hannah" className="form-control" /> </div>
+                  <div className="form-group">
+                    <label className="control-label">First Name</label>
+                    <input type="text" name="firstName" value = "Trang" className="form-control" /> </div>
+                  <div className="form-group">
+                    <label className="control-label">Last Name</label>
+                    <input type="text" name="lastName" value = "tran" className="form-control" /> </div>
+                  <div className="form-group">
+                    <label className="control-label">Address</label>
+                    <input type="text" name="address" value = "Da Nang" className="form-control" /> </div>
+                  <div className="form-group">
+                    <label className="control-label">Experiences</label>
+                    <input type="text" name="exp" value = "1" className="form-control" /> </div>
+                  <div className="form-group">
+                    <label className="control-label">Phone Number</label>
+                    <input type="text" name="phone" value = "123456789" className="form-control" /> </div>
+                </div>
+
 
                     <div className="col-md-6">                   
                     <div className="form-group">

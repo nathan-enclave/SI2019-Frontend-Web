@@ -15,8 +15,9 @@ class Modal extends React.Component {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      padding: 50
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      padding: 50,
+      zIndex : 100
     };
 
     // The modal "window"
@@ -32,12 +33,13 @@ class Modal extends React.Component {
     return (
       <div className="backdrop" style={backdropStyle}>
         <div className="modal" style={modalStyle}>
+        <button onClick={this.props.onClose}  className="btn btn-outline btn-circle red btn-sm red" style={{float: 'right',margin:'10px'}}>
+             X
+            </button>
           {this.props.children}
 
           <div className="footer">
-            <button onClick={this.props.onClose}>
-              Close
-            </button>
+           
           </div>
         </div>
       </div>
