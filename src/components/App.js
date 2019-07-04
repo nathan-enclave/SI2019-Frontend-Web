@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Header from './Header';
 import LeftBar from './LeftBar';
 import Footer from './Footer';
-import LoginFunc from './login/LoginFunc';
 import HeaderContent from './HeaderContent';
 import {Redirect } from 'react-router'
 
