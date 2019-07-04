@@ -13,7 +13,7 @@ class TeamIndex extends Component {
                     <i />Team Table </div>
                 </div>
                 <div className="portlet-body">
-                  <Link to="/team/add" className="btn btn-outline btn-circle blue btn-sm blue">
+                  <Link to="/teams/add" className="btn btn-outline btn-circle blue btn-sm blue">
                     <i className="fa fa-edit" /> Add</Link>
                   <TableData />
                 </div>

@@ -1,5 +1,3 @@
-import { log } from "util";
-
 export default function PostData(type, userData) {
     let BaseUrl = 'https://cool-demo-api.herokuapp.com/api/v1/auth/'
 
@@ -17,4 +15,4 @@ export default function PostData(type, userData) {
             reject(error)
         });
     });
-}
+}   

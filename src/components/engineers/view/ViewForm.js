@@ -72,7 +72,7 @@ class EditForm extends Component {
       </div>
                     <div className="form-group">
                       <label className="control-label">Status</label>
-                      <select class="form-control" onChange={(event) =>this.isChange(event)} name="status" id="" disabled>
+                      <select className="form-control" onChange={(event) =>this.isChange(event)} name="status" id="" disabled>
                         <option  value="available">Available</option>
                         <option value = "Unavailable">Unavailable</option>
                       </select> 

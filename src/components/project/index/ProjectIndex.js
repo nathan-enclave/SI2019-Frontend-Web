@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import TableDataProject from './TableDataProject';
+import TableData from './TableData';
 
 export default class ProjectManagement extends Component {
     render() {
@@ -27,9 +27,7 @@ export default class ProjectManagement extends Component {
                                 
                                 </div>
                             </div>
-                            <TableDataProject/>
-                            <TableDataProject/>
-                            <TableDataProject/>
+                            <TableData />
                         </div>
                     </div>
                     {/* END EXAMPLE TABLE PORTLET*/}

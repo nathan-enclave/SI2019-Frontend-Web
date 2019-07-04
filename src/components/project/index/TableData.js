@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import RowDataProject from './RowDataProject';
+import RowData from './RowData';
 
 export default class TableDataProject extends Component {
     render() {
@@ -19,9 +19,9 @@ export default class TableDataProject extends Component {
                 </tr>
             </thead>
             <tbody>
-            <RowDataProject/>
-            <RowDataProject/>
-            <RowDataProject/>
+            <RowData/>
+            <RowData/>
+            <RowData/>
             </tbody>
         </table>
         )
