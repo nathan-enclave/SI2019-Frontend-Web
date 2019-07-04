@@ -33,7 +33,7 @@ class Modal extends React.Component {
     return (
       <div className="backdrop" style={backdropStyle}>
         <div className="modal" style={modalStyle}>
-        <button onClick={this.props.onClose}  className="btn btn-outline btn-circle red btn-sm red" style={{float: 'right',margin:'10px'}}>
+        <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}}>
              X
             </button>
           {this.props.children}

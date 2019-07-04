@@ -132,16 +132,16 @@ export default class LoginFunc extends Component {
                             <h4>Or login with</h4>
                             <ul className="social-icons">
                                 <li>
-                                    <a className="social-icon-color facebook" data-original-title="facebook" href="javascript:;" />
+                                    <a className="social-icon-color facebook" data-original-title="facebook" href="abc" />
                                 </li>
                                 <li>
-                                    <a className="social-icon-color twitter" data-original-title="Twitter" href="javascript:;" />
+                                    <a className="social-icon-color twitter" data-original-title="Twitter" href="abc" />
                                 </li>
                                 <li>
-                                    <a className="social-icon-color googleplus" data-original-title="Goole Plus" href="javascript:;" />
+                                    <a className="social-icon-color googleplus" data-original-title="Goole Plus" href="abc" />
                                 </li>
                                 <li>
-                                    <a className="social-icon-color linkedin" data-original-title="Linkedin" href="javascript:;" />
+                                    <a className="social-icon-color linkedin" data-original-title="Linkedin" href="abc" />
                                 </li>
                             </ul>
                         </div>

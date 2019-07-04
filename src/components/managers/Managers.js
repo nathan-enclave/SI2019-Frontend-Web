@@ -12,7 +12,7 @@ export default class Managers extends Component {
                                     <div className="caption">
                                         <i className="fa fa-cogs" />Manager Management </div>
                                     <div className="actions">
-                                        <a href="javascript:;" className="btn btn-default btn-sm">
+                                        <a href="abc" className="btn btn-default btn-sm">
                                             <i className="fa fa-pencil" /> Edit </a>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@ export default class Managers extends Component {
                                     <div className="caption">
                                         <i className="fa fa-cogs" />Manager Management </div>
                                     <div className="actions">
-                                        <a href="javascript:;" className="btn btn-default btn-sm">
+                                        <a href="abc" className="btn btn-default btn-sm">
                                             <i className="fa fa-pencil" /> Edit </a>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ export default class Managers extends Component {
                                     <div className="caption">
                                         <i className="fa fa-cogs" />Manager Management </div>
                                     <div className="actions">
-                                        <a href="javascript:;" className="btn btn-default btn-sm">
+                                        <a href="abc" className="btn btn-default btn-sm">
                                             <i className="fa fa-pencil" /> Edit </a>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@ export default class Managers extends Component {
                                     <div className="caption">
                                         <i className="fa fa-cogs" />Manager Management </div>
                                     <div className="actions">
-                                        <a href="javascript:;" className="btn btn-default btn-sm">
+                                        <a href="abc" className="btn btn-default btn-sm">
                                             <i className="fa fa-pencil" /> Edit </a>
                                     </div>
                                 </div>

@@ -10,11 +10,11 @@ class AddTeam extends Component {
     }
   }
   isClick = (event)=>{
-    if(this.state.status == 0) this.setState({status:1});
+    if(this.state.status === 0) this.setState({status:1});
     else this.setState({status:0});
   }
   checkDisplay = ()=>{
-    if(this.state.status == 0) return (<div className="form-group">
+    if(this.state.status === 0) return (<div className="form-group">
     <a onClick={(event)=>this.isClick(event)} className="btn violet"> Add members </a>
   </div>);
     else return (<div><div className="form-group">
@@ -48,7 +48,7 @@ class AddTeam extends Component {
                         {this.checkDisplay()}
                         <EditMember />
                       <div className="margiv-top-10">
-                        <a href="" className="btn green"> SAVE </a>
+                        <a href="abc" className="btn green"> SAVE </a>
                       </div>
                     </form>
                   </div>

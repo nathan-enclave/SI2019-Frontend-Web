@@ -8,18 +8,35 @@ class Index extends Component {
   constructor(props){
     super(props);
     this.state={
-      data : ""
+      data : {
+        engineer: 0,
+        project : 0,
+        team : 0,
+        manager : 5
+      }
     }
   }
   async componentWillMount(){
     const res = await getTotal();
-    console.log(res);
+    this.setState({
+      data: {
+        engineer: res.engineer,
+        project : res.project,
+        team : res.team,
+        manager : res.manager
+      }
+    });
+    
   }
     render() {
       console.log(sessionStorage.getItem('userData'));
         return (
         <div>
-                  <Stats />
+                  <Stats engineer = {this.state.data.engineer} 
+                        project = {this.state.data.project}
+                        team = {this.state.data.team}
+                        manager = {this.state.data.manager}
+                  />
                 <div className="col-lg-6 col-xs-12 col-sm-12">
                     <Action />
                 </div>

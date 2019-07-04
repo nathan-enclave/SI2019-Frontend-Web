@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RouterURL from './router/RouterURL';
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from './Header';

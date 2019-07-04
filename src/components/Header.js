@@ -21,7 +21,7 @@ class Header extends Component {
                         <img src="../assets/layouts/layout6/img/avatar1.jpg" alt="" /> </button>
                       <ul className="dropdown-menu-v2" role="menu">
                         <li>
-                          <a href="page_user_profile_1.html">
+                          <a href="abc">
                             <i className="icon-user" /> My Profile
                             <span className="badge badge-danger">1</span>
                           </a>

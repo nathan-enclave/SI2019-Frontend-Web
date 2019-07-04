@@ -7,16 +7,19 @@ class EditForm extends Component {
       super(props);
       this.state = {
           id : 0,
-          startDate: ""
+          startDate: new Date('07/02/1998')
       };
       this.handleChange = this.handleChange.bind(this);
   }
-  handleChange(date) {
+  handleChange = (event)=> {
+    console.log(typeof(event));
     this.setState({
-      startDate: date
+      startDate: event
     });
   }
     render() {
+     
+    console.log("Edit = > default date : " +this.state.startDate)
         return (
             <div className="portlet light bordered">
             <div className="portlet-title tabbable-line">
@@ -64,7 +67,7 @@ class EditForm extends Component {
                       <input type="text" name="skype"  value = "trang@gmail.com" onChange={(event) =>this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label">Birthday</label><br/>
-                      <DatePicker  selected={this.state.startDate} value="11/20/1998" onChange={this.handleChange}/></div>
+                      <DatePicker selected={this.state.startDate} onChange={this.handleChange} /> </div>
                       <div className="form-check">
         <label className="form-check-label"> Skills <br />
           <input type="checkbox" className="form-check-input" name id defaultValue="checkedValue" defaultChecked />
