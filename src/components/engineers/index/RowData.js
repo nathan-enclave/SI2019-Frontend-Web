@@ -55,7 +55,7 @@ class RowData extends Component {
             </td>
             <Modal show={this.state.isOpenView}
           onClose={this.toggleModalView}>
-                <ViewForm />
+                <ViewForm id = {this.props.id} />
             </Modal>
 
             <Modal show={this.state.isOpenEdit}

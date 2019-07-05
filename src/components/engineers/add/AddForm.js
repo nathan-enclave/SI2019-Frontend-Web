@@ -83,7 +83,7 @@ class AddForm extends Component {
                     <input type="text" name="phone" className="form-control" /> </div>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-6" style={{height:"444px"}}>
                   <div className="form-group">
                     <label className="control-label">Email</label>
                     <input type="text" name="email" className="form-control" /> </div>
@@ -113,11 +113,13 @@ class AddForm extends Component {
                     </select>
                   </div>
                 </div>
-                <div className="margiv-top-10" style={{ textAlign: 'center' }}>
-                  <a className="btn green" onClick={(event) => this.submitAddForm(event)}> Add + </a>
-                </div>
+                
               </form>
+              
             </div>
+            <div className="margiv-top-10" style={{ textAlign: 'center'  }}>
+                  <a className="btn green" onClick={(event) => this.submitAddForm(event)} style={{right:'220px',top:"50px"}}> Add + </a>
+                </div>
           </div>
         </div>
       </div>

@@ -1,29 +1,65 @@
 import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router-dom';
+
  
 import "react-datepicker/dist/react-datepicker.css";
+import getData from '../../../services/GetDetailEng';
 class EditForm extends Component {
   constructor(props){
       super(props);
       this.state = {
-          id : 0,
+          id : props.id,
           startDate: ""
-      };
-      this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(date) {
-    this.setState({
-      startDate: date
+      };      
+    }
+  async componentDidMount(){
+    const res = await getData(this.state.id);
+    let s = ""
+     res.skills.forEach(element => {
+      s+=element.name
     });
-  } 
+    this.setState({
+      id : res.id,
+      firstName : res.firstName,
+      lastName : res.lastName,
+      englishName : res.englishName,
+      phoneNumber : res.phoneNumber,
+      address : res.address,
+      email : res.email,
+      skype : res.skype,
+      expYear : res.expYear,
+      dayOffRemain : res.dayOffRemain,
+      status : res.status,
+      createdAt : res.createdAt,
+      updatedAt : res.updatedAt,
+      skills : s
+      // startDate: new Date("")
+    });
+  }
+  selected = ()=>{
+      if(this.state.status == 1) return (<input type="text" name="status" value="Available" className="form-control" disabled /> );
+      else return (<input type="text" name="status" value="Unavailable" className="form-control" disabled />);
+  }
+
+  displaySkills = ()=>{
+    console.log(this.state.skills)
+    const display= "";
+    this.state.skills.map((item, i) =>{     
+        display += item.name
+    })
+    return display;
+  }
+  
     render() {
+      
+    //  console.log( this.state.skills);
         return (
             <div className="portlet light bordered">
             <div className="portlet-title tabbable-line">
               <div className="caption caption-md">
                 <i className="icon-globe theme-font hide" />
-                <span className="caption-subject font-blue-madison bold uppercase">View Profile </span>
+                <span className="caption-subject font-blue-madison bold uppercase">{this.state.englishName} </span>
               </div>
             </div>
             <div className="portlet-body">
@@ -36,22 +72,22 @@ class EditForm extends Component {
                     <div className="col-md-6">
                   <div className="form-group">
                     <label className="control-label">English Name</label>
-                    <input type="text" name="Engname" value="Hannah" className="form-control" disabled/> </div>
+                    <input type="text" name="Engname" value={this.state.englishName} className="form-control" disabled/> </div>
                   <div className="form-group">
                     <label className="control-label">First Name</label>
-                    <input type="text" name="firstName" value = "Trang" className="form-control" disabled/> </div>
+                    <input type="text" name="firstName" value = {this.state.firstName} className="form-control" disabled/> </div>
                   <div className="form-group">
                     <label className="control-label">Last Name</label>
-                    <input type="text" name="lastName" value = "tran" className="form-control" disabled/> </div>
+                    <input type="text" name="lastName" value = {this.state.lastName} className="form-control" disabled/> </div>
                   <div className="form-group">
                     <label className="control-label">Address</label>
-                    <input type="text" name="address" value = "Da Nang" className="form-control" disabled /> </div>
+                    <input type="text" name="address" value = {this.state.address} className="form-control" disabled /> </div>
                   <div className="form-group">
                     <label className="control-label">Experiences</label>
-                    <input type="text" name="exp" value = "1 year" className="form-control" disabled/> </div>
+                    <input type="text" name="exp" value = {this.state.expYear + " exp year"}  className="form-control" disabled/> </div>
                   <div className="form-group">
                     <label className="control-label">Phone Number</label>
-                    <input type="text" name="phone" value = "123456789" className="form-control" disabled /> </div>
+                    <input type="text" name="phone" value = {this.state.phoneNumber} className="form-control" disabled /> </div>
                 </div>
 
                 
@@ -59,25 +95,22 @@ class EditForm extends Component {
                     <div className="col-md-6">                   
                     <div className="form-group">
                       <label className="control-label">Email</label>
-                      <input type="text" name="email" value = "trang@gmail.com" onChange={(event) =>this.isChange(event)}  className="form-control" disabled /> </div>                    
+                      <input type="text" name="email" value = {this.state.email}  className="form-control" disabled /> </div>                    
                     <div className="form-group">
                       <label className="control-label">Skype</label>
-                      <input type="text" name="skype"  value = "trang@gmail.com" onChange={(event) =>this.isChange(event)} className="form-control" disabled /> </div>
+                      <input type="text" name="skype"  value = {this.state.skype} className="form-control" disabled /> </div>
                     <div className="form-group">
                       <label className="control-label">Birthday</label><br/>
-                      <DatePicker  selected={this.state.startDate} value="11/20/1998" onChange={this.handleChange} disabled/></div>
+                      <DatePicker  selected={this.state.startDate}  disabled/></div>
                       <div className="form-check">
         <label className="form-check-label"> Skills <br />
-          <input type = "text" value = "JAVA || React" name="skill" className="form-control" disabled/>
-       
+          <input type = "text" value = {this.state.skills} name="skill" className="form-control" disabled/>
+      {/* {()=>this.displaySkills()} */}
         </label>
       </div>
                     <div className="form-group">
                       <label className="control-label">Status</label>
-                      <select className="form-control" onChange={(event) =>this.isChange(event)} name="status" id="" disabled>
-                        <option  value="available">Available</option>
-                        <option value = "Unavailable">Unavailable</option>
-                      </select> 
+                     {this.selected()}
                     </div>    
                     </div>            
                     <div className="margiv-top-10" style={{textAlign: 'center'}}>

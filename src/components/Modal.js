@@ -38,8 +38,7 @@ class Modal extends React.Component {
             </button>
           {this.props.children}
 
-          <div className="footer">
-           
+          <div className="footer">        
           </div>
         </div>
       </div>
