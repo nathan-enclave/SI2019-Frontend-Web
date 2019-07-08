@@ -1,47 +1,25 @@
 import React, { Component } from 'react';
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-// import AddSkills from './AddSkills';
+import Select from 'react-select';
 import AddEngineer from './../../../services/AddEngineer';
+
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // startDate: ""
-      skills: [1,2]
+      options:  [
+        { label: "Java", value: 1 },
+        { label: "C/C++", value: 2 },
+        { label: "NodeJS", value: 3 },
+        { label: "React", value: 4 },
+        { label: "Angular", value: 5 },
+        { label: "PHP", value: 6 },
+      ],
+      selectOptions: [],
+      skills : []
     };
     // this.handleChange = this.handleChange.bind(this);
   }
 
-  // clickButton = (event)=>{
-  //   this.setState({openSkillOption : !this.state.openSkillOption});
-  // }
-  // clickButtonAddSkill = (event) =>{
-  //   let value = event.target.value;
-  //   console.log(value);
-  //   this.setState(
-  //     {
-  //       skills : [value]
-  //     }
-  //   )
-  // }
-
-  // checkDisplaySkillOption = ()=>{
-  //   if(this.state.openSkillOption == true){
-  //     return (<div><a name="addSkills"  className="btn btn-primary green" onClick={(event)=>this.clickButton(event)}>+</a></div>);
-  //   }else{     
-  //     return (<div>
-  //       <a name="addSkills"  className="btn btn-primary green" onClick={(event)=>this.clickButton(event)}>-</a>
-        
-  //       </div>);
-  //   }
-  // }
-
-  // handleChange(date) {
-  //   this.setState({
-  //     startDate: date
-  //   });
-  // }
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -51,16 +29,41 @@ class AddForm extends Component {
     });
   }
   submitAddForm = (event) => {
-    event.preventDefault();  // stop loading    
-    this.setState({
-      status : Number(this.state.status),
-      expYear : Number(this.state.expYear)
-    });
+    event.preventDefault();  // stop loading        
     console.log(this.state);
-    AddEngineer(this.state);
+    this.setState({
+      status: Number(this.state.status),
+      expYear: Number(this.state.expYear)
+    });
+    const data = {
+      firstName : this.state.firstName,
+      lastName : this.state.lastName,
+      englishName : this.state.englishName,
+      phoneNumber : this.state.phoneNumber,
+      address : this.state.address,
+      email : this.state.email,
+      skype : this.state.skype,
+      expYear : this.state.expYear,
+      status : this.state.status,
+      skills : this.state.skills
+
+    }
+    console.log("data: " +data.address)
+    AddEngineer(data);
+  }
+  handleChange = (selectOptions) => {
+    this.setState({ selectOptions });
+    let temp = []
+    selectOptions.forEach(element => {
+      temp.push(element.value)
+    });   
+   
+    this.setState({skills : temp});
+    // console.log("skills: " +this.state.skills);
   }
 
   render() {
+
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
@@ -93,13 +96,13 @@ class AddForm extends Component {
                     <input type="text" name="address" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Experiences</label>
-                    <input type="number" name="expYear"onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                    <input type="number"  name="expYear" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Phone Number</label>
                     <input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                 </div>
 
-                <div className="col-md-6" style={{height:"444px"}}>
+                <div className="col-md-6" style={{ height: "444px" }}>
                   <div className="form-group">
                     <label className="control-label">Email</label>
                     <input type="text" name="email" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
@@ -110,25 +113,28 @@ class AddForm extends Component {
                     <label className="control-label">Birthday</label><br />
                     <DatePicker selected={this.state.startDate} onChange={this.handleChange} /> </div> */}
                   <div className="form-check">
-                    <label className="form-check-label"> Skills: {this.state.skills} </label>                    
-                    {/* {this.checkDisplaySkillOption()} */}
+                    <label className="form-check-label"> selectOptions:  </label>
+                    <div className="col-md-12">
+                      <Select value ={this.state.selectOptions} options={this.state.options} isMulti  onChange={this.handleChange} />
+                    </div>
+                  
                   </div>
                   <div className="form-group">
                     <label className="control-label">Status</label>
-                    <select className="form-control"  onChange={(event) => this.isChange(event)} name="status" >
-                    <option value="2" >--------------</option>
-                      <option value="1" >Available</option>
-                      <option value="0" >Unavailable</option>
+                    <select className="form-control" onChange={(event) => this.isChange(event)} name="status"   >
+                      <option value={2} >--------------</option>
+                      <option value={1} >Available</option>
+                      <option value={0} >Unavailable</option>
                     </select>
                   </div>
                 </div>
-                
+
               </form>
-              
+
             </div>
-            <div className="margiv-top-10" style={{ textAlign: 'center'  }}>
-                  <a className="btn green" onClick={(event) => this.submitAddForm(event)} style={{right:'220px',top:"50px"}}> Add + </a>
-                </div>
+            <div className="margiv-top-10" style={{ textAlign: 'center' }}>
+              <a className="btn green" onClick={(event) => this.submitAddForm(event)} style={{ right: '220px', top: "50px" }}> Add + </a>
+            </div>
           </div>
         </div>
       </div>
