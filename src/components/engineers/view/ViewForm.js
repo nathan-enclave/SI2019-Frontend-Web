@@ -81,9 +81,9 @@ class EditForm extends Component {
             <div className="portlet-body">
               <div className="tab-content">
                 <div className="tab-pane active" id="tab_1_1">
-                  <form role="form" action="#">
+                  <form role="form">
                     <div className="form-group" style={{textAlign: 'center'}}>     
-                      <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" alt /><br /><br /> 
+                      <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" alt="true" /><br /><br /> 
                     </div> 
                     <div className="col-md-6">
                   <div className="form-group">
@@ -115,9 +115,9 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Skype</label>
                       <input type="text" name="skype"  value = {this.state.skype} className="form-control" disabled /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Birthday</label><br/>
-                      <DatePicker  selected={this.state.startDate}  disabled/></div>
+                    {/* <div className="form-group">
+                      <label className="control-label">Birthday</label><br/> */}
+                      {/* <DatePicker  selected={this.state.startDate}  disabled/></div> */}
                       <div className="form-check">
                         
                         <label className="form-check-label"> Skills <br />
