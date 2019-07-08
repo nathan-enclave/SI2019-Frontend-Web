@@ -37,9 +37,9 @@ class Index extends Component {
                         team = {this.state.data.team}
                         manager = {this.state.data.manager}
                   />
-                <div className="col-lg-6 col-xs-12 col-sm-12">
+                {/* <div className="col-lg-6 col-xs-12 col-sm-12">
                     <Action />
-                </div>
+                </div> */}
                 <div className="col-lg-6 col-xs-12 col-sm-12">
                   <Portlet />
                 </div>

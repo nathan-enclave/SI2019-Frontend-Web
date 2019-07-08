@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
-import DatePicker from "react-datepicker";
-
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+// import AddSkills from './AddSkills';
+import AddEngineer from './../../../services/AddEngineer';
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
-      startDate: ""
+      // startDate: ""
+      skills: [1,2]
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
+
+  // clickButton = (event)=>{
+  //   this.setState({openSkillOption : !this.state.openSkillOption});
+  // }
+  // clickButtonAddSkill = (event) =>{
+  //   let value = event.target.value;
+  //   console.log(value);
+  //   this.setState(
+  //     {
+  //       skills : [value]
+  //     }
+  //   )
+  // }
+
+  // checkDisplaySkillOption = ()=>{
+  //   if(this.state.openSkillOption == true){
+  //     return (<div><a name="addSkills"  className="btn btn-primary green" onClick={(event)=>this.clickButton(event)}>+</a></div>);
+  //   }else{     
+  //     return (<div>
+  //       <a name="addSkills"  className="btn btn-primary green" onClick={(event)=>this.clickButton(event)}>-</a>
+        
+  //       </div>);
+  //   }
+  // }
+
+  // handleChange(date) {
+  //   this.setState({
+  //     startDate: date
+  //   });
+  // }
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -23,25 +49,15 @@ class AddForm extends Component {
     this.setState({
       [fieldName]: value
     });
-    //pakage to item
-    var item = {};
-    item.id = this.state.id;
-    item.engName = this.state.engName;
-    item.fisrtName = this.state.fisrtName;
-    item.lastName = this.state.lastName;
-    item.address = this.state.address;
-    item.experiences = this.state.experiences;
-    item.phone = this.state.phone;
-    item.email = this.state.email;
-    item.skype = this.state.skype;
-    item.birthday = this.state.birthday;
-    item.skill = this.state.skill;
-    item.status = this.state.status;
-    console.log(item);
   }
   submitAddForm = (event) => {
-    event.preventDefault();  // stop loading
-    console.log(this.state)
+    event.preventDefault();  // stop loading    
+    this.setState({
+      status : Number(this.state.status),
+      expYear : Number(this.state.expYear)
+    });
+    console.log(this.state);
+    AddEngineer(this.state);
   }
 
   render() {
@@ -65,51 +81,44 @@ class AddForm extends Component {
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="control-label">English Name</label>
-                    <input type="text" name="Engname" className="form-control" /> </div>
+                    <input type="text" name="englishName" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">First Name</label>
-                    <input type="text" name="firstName" className="form-control" /> </div>
+                    <input type="text" name="firstName" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Last Name</label>
-                    <input type="text" name="lastName" className="form-control" /> </div>
+                    <input type="text" name="lastName" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Address</label>
-                    <input type="text" name="address" className="form-control" /> </div>
+                    <input type="text" name="address" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Experiences</label>
-                    <input type="text" name="exp" className="form-control" /> </div>
+                    <input type="number" name="expYear"onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Phone Number</label>
-                    <input type="text" name="phone" className="form-control" /> </div>
+                    <input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                 </div>
 
                 <div className="col-md-6" style={{height:"444px"}}>
                   <div className="form-group">
                     <label className="control-label">Email</label>
-                    <input type="text" name="email" className="form-control" /> </div>
+                    <input type="text" name="email" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   <div className="form-group">
                     <label className="control-label">Skype</label>
-                    <input type="text" name="skype" className="form-control" /> </div>
-                  <div className="form-group">
+                    <input type="text" name="skype" onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                  {/* <div className="form-group">
                     <label className="control-label">Birthday</label><br />
-                    <DatePicker selected={this.state.startDate} onChange={this.handleChange} /> </div>
+                    <DatePicker selected={this.state.startDate} onChange={this.handleChange} /> </div> */}
                   <div className="form-check">
-                    <label className="form-check-label"> Skills <br />
-                      <input type="checkbox" className="form-check-input" />
-                      JAVA<br />
-                      <input type="checkbox" className="form-check-input" />
-                      React JS<br />
-                      <input type="checkbox" className="form-check-input" />
-                      Node JS<br />
-                      <input type="checkbox" className="form-check-input" />
-                      PHP<br />
-                    </label>
+                    <label className="form-check-label"> Skills: {this.state.skills} </label>                    
+                    {/* {this.checkDisplaySkillOption()} */}
                   </div>
                   <div className="form-group">
                     <label className="control-label">Status</label>
-                    <select className="form-control" onChange={(event) => this.isChange(event)} name="status" id="">
-                      <option value="available">Available</option>
-                      <option value="Unavailable">Unavailable</option>
+                    <select className="form-control"  onChange={(event) => this.isChange(event)} name="status" >
+                    <option value="2" >--------------</option>
+                      <option value="1" >Available</option>
+                      <option value="0" >Unavailable</option>
                     </select>
                   </div>
                 </div>

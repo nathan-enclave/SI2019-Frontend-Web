@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
 import { Link } from 'react-router-dom';
+import TagsInput from 'react-tagsinput'; 
+import 'react-tagsinput/react-tagsinput.css';
+
+
+import moment     from 'moment';
+import 'moment-timezone';
+
+
 
  
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,15 +18,22 @@ class EditForm extends Component {
       super(props);
       this.state = {
           id : props.id,
-          startDate: ""
+          startDate: "",
+          tags: []
       };      
     }
+    handleChange = (tags)=> {
+      this.setState({tags})
+    }
+
   async componentDidMount(){
     const res = await getData(this.state.id);
-    let s = ""
-     res.skills.forEach(element => {
-      s+=element.name
+    // let tagsTemp = []
+    res.skills.forEach(element => {
+      this.setState({ tags: [...this.state.tags, element.name] })
     });
+    // this.setState({tags : tagsTemp})
+
     this.setState({
       id : res.id,
       firstName : res.firstName,
@@ -31,9 +46,9 @@ class EditForm extends Component {
       expYear : res.expYear,
       dayOffRemain : res.dayOffRemain,
       status : res.status,
-      createdAt : res.createdAt,
-      updatedAt : res.updatedAt,
-      skills : s
+      createdAt : moment(res.createdAt).format('DD/MM/YYYY'),
+      updatedAt : moment(res.updatedAt).format('DD/MM/YYYY'),
+      skills : res.skills
       // startDate: new Date("")
     });
   }
@@ -42,18 +57,19 @@ class EditForm extends Component {
       else return (<input type="text" name="status" value="Unavailable" className="form-control" disabled />);
   }
 
-  displaySkills = ()=>{
-    console.log(this.state.skills)
-    const display= "";
-    this.state.skills.map((item, i) =>{     
-        display += item.name
-    })
-    return display;
-  }
+  // displaySkills = ()=>{
+  //   console.log(this.state.skills)
+  //   const display= "";
+  //   this.state.skills.map((item, i) =>{     
+  //       display += item.name
+  //   })
+  //   return display;
+  // }
   
+ 
     render() {
       
-    //  console.log( this.state.skills);
+      console.log( this.state.skills);
         return (
             <div className="portlet light bordered">
             <div className="portlet-title tabbable-line">
@@ -103,26 +119,38 @@ class EditForm extends Component {
                       <label className="control-label">Birthday</label><br/>
                       <DatePicker  selected={this.state.startDate}  disabled/></div>
                       <div className="form-check">
-        <label className="form-check-label"> Skills <br />
-          <input type = "text" value = {this.state.skills} name="skill" className="form-control" disabled/>
-      {/* {()=>this.displaySkills()} */}
-        </label>
-      </div>
+                        
+                        <label className="form-check-label"> Skills <br />
+                          {/* <input type = "text" value = {this.state.skills} name="skill" className="form-control" disabled/> */}
+                          <TagsInput value={this.state.tags} onChange={(tags) =>this.handleChange(tags)} disabled  />
+                        </label>
+                       
+                      </div>
                     <div className="form-group">
                       <label className="control-label">Status</label>
                      {this.selected()}
                     </div>    
-                    </div>            
-                    <div className="margiv-top-10" style={{textAlign: 'center'}}>
-                      <Link to = "/engineer"  className="btn green" >  BACK </Link>
-                    </div>
+
+                    <div className="form-group">
+                      <label className="control-label">Create at </label>
+                      <input type="text" name="createdAt" value = {this.state.createdAt}  className="form-control" disabled /> </div>   
+
+                      <div className="form-group">
+                      <label className="control-label">Last update at</label>
+                      <input type="text" name="updatedAt" value = {this.state.updatedAt}   className="form-control" disabled /> </div>   
+
+                    </div>        
                   </form>
                 </div>
               </div>
             </div>
+          
           </div>
+         
         );
+        
     }
 }
+
 
 export default EditForm;

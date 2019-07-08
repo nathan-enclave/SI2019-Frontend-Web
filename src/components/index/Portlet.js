@@ -1,32 +1,51 @@
 import React, { Component } from 'react';
+import Chart from 'react-google-charts';
 
 class Portlet extends Component {
-    render() {
-        return (
-            <div className="portlet light bordered">
-            <div className="portlet-title">
-              <div className="caption">
-                <i className="icon-bar-chart font-dark hide" />
-                <span className="caption-subject font-dark bold uppercase">Overview</span>
-                <span className="caption-helper">weekly stats...</span>
-              </div>
-              <div className="actions">
-                <div className="btn-group btn-group-devided" data-toggle="buttons">
-                  <label className="btn red btn-outline btn-circle btn-sm active">
-                    <input type="radio" name="options" className="toggle" id="option1" />New list project</label>
-                </div>
-              </div>
-            </div>
-            <div className="portlet-body">
-              <div id="site_statistics_loading">
-                <img src="../assets/global/img/loading.gif" alt="loading" /> </div>
-              <div id="site_statistics_content" className="display-none">
-                <div id="site_statistics" className="chart"> </div>
-              </div>
-            </div>
+  render() {
+    return (
+      <div className="portlet light bordered">
+        <div className="portlet-title">
+          <div className="caption">
+            <i className="icon-bar-chart font-dark hide" />
+            <span className="caption-subject font-dark bold uppercase">Overview</span>
+            <span className="caption-helper">weekly stats...</span>
           </div>
-        );
-    }
+
+        </div>
+        {/* chart here */}
+        <div style={{ border: "1px solid black" }}>
+          <Chart
+            width={600}
+            height={500}
+            chartType="PieChart"
+            loader={<div>Loading Chart</div>}
+            data={[
+              ['year', 'Number of projects'],
+              ['2015', 500],
+              ['2016',512 ],
+              ['2017', 430],
+              ['2018',502 ],
+              ['2019',444 ],
+            ]}
+            options={{
+              title: 'Overview of projects each year',
+              chartArea: { width: '40%' },
+              hAxis: {
+                title: 'year',
+                minValue: 0,
+              },
+              vAxis: {
+                title: 'Number of projects',
+              },
+            }}
+            legendToggle
+          />
+        </div>
+
+      </div>
+    );
+  }
 }
 
 export default Portlet;
