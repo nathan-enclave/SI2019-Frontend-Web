@@ -1,12 +1,17 @@
 export default async function AddEngineer(data){
-    console.log(data)
-    fetch('https://si-enclave.herokuapp.com/api/v1/engineers', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })  
-      console.log(JSON.stringify(data))
+  return new Promise((resolve, reject) =>{
+  fetch('https://si-enclave.herokuapp.com/api/v1/engineers', {
+      method: 'POST',
+      body: JSON.stringify(data)
+  })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          
+          resolve(responseJson)
+      })
+      .catch((error) => {
+          reject(error)
+      });
+  });
 }
+

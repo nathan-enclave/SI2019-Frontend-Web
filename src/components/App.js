@@ -12,7 +12,7 @@ function App() {
     if (!sessionStorage.getItem('userData')) {
         
         return (
-            <div>
+            <div >
                 <Router>
                 <RouterURL />
                 <Redirect to ="/login" />
@@ -28,8 +28,7 @@ function App() {
                 <Router>
                     <Header />
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup">
-                            <HeaderContent />
+                        <div className="page-content page-content-popup">                            
                             <LeftBar />
                             <div className="page-fixed-main-content">
                                 <RouterURL />

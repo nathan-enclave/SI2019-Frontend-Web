@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
-import Chart from 'react-google-charts';
+// import Chart from 'react-google-charts';
+import Chart from "react-apexcharts";
 
 class Portlet extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      options: {
+        chart: {
+          id: "basic-bar"
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        }
+      },
+      series: [
+        {
+          name: "series-1",
+          data: [-30, 40, 45, 50, 49, 60, 70, 91]
+        }
+      ]
+    };
+  }
   render() {
     return (
       <div className="portlet light bordered">
@@ -14,33 +35,13 @@ class Portlet extends Component {
 
         </div>
         {/* chart here */}
-        <div style={{ border: "1px solid black" }}>
-          <Chart
-            width={600}
-            height={500}
-            chartType="PieChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-              ['year', 'Number of projects'],
-              ['2015', 500],
-              ['2016',512 ],
-              ['2017', 430],
-              ['2018',502 ],
-              ['2019',444 ],
-            ]}
-            options={{
-              title: 'Overview of projects each year',
-              chartArea: { width: '40%' },
-              hAxis: {
-                title: 'year',
-                minValue: 0,
-              },
-              vAxis: {
-                title: 'Number of projects',
-              },
-            }}
-            legendToggle
-          />
+        <div >
+        <Chart
+              options={this.state.options}
+              series={this.state.series}
+              type="line"
+              width="500"
+            />
         </div>
 
       </div>

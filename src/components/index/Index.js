@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Action from './Action';
+// import Action from './Action';
 import Stats from './Stats';
 import Portlet from './Portlet';
 import getTotal from '../../services/GetTotal';
