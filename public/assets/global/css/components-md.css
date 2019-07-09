@@ -7739,7 +7739,9 @@ Portlets
     -moz-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
-    border-radius: 0 0 2px 2px; }
+    border-radius: 0 0 2px 2px;
+    height: -webkit-fill-available;
+  }
     .portlet > .portlet-body p {
       margin-top: 0; }
   .portlet > .portlet-empty {
@@ -7800,10 +7802,12 @@ Portlets
 
 /* Light Portlet */
 .portlet.light {
-  padding: 12px 20px 15px 20px;
-  background-color: #fff; }
+  /* padding: 12px 20px 15px 20px; */
+  /* background-color: #fff; */
+  }
   .portlet.light.bordered {
-    border: 1px solid #e7ecf1 !important; }
+/*     border: 1px solid #e7ecf1 !important; */
+    }
     .portlet.light.bordered > .portlet-title {
       border-bottom: 1px solid #eef1f5; }
   .portlet.light.bg-inverse {
@@ -7923,7 +7927,8 @@ Portlets
     display: none; } }
 
 .portlet {
-  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.03); }
+  /* box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.03); */
+ }
 
 /***
 Custom colored portlets 

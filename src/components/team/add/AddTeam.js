@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import AddMemder from "./AddMember";
 
 class AddTeam extends Component {
@@ -10,11 +9,11 @@ class AddTeam extends Component {
     }
   }
   isClick = (event)=>{
-    if(this.state.status == 0) this.setState({status:1});
+    if(this.state.status === 0) this.setState({status:1});
     else this.setState({status:0});
   }
   checkDisplay = ()=>{
-    if(this.state.status == 0) return (<div className="form-group">
+    if(this.state.status === 0) return (<div className="form-group">
     <a onClick={(event)=>this.isClick(event)} className="btn violet"> Add members </a>
   </div>);
     else return (<div><div className="form-group">

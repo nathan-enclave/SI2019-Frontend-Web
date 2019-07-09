@@ -1,10 +1,8 @@
-export default function PostData(type, userData) {
-    let BaseUrl = 'https://cool-demo-api.herokuapp.com/api/v1/auth/'
-
+export default async function DelEngineer(id){
     return new Promise((resolve, reject) =>{
-    fetch(BaseUrl + type, {
-        method: 'POST',
-        body: JSON.stringify(userData)
+    fetch('https://si-enclave.herokuapp.com/api/v1/engineers' + '/' +id, {
+        method: 'DELETE',
+        body: JSON.stringify(id)
     })
         .then((response) => response.json())
         .then((responseJson) => {
@@ -15,4 +13,6 @@ export default function PostData(type, userData) {
             reject(error)
         });
     });
-}   
+  }
+  
+  

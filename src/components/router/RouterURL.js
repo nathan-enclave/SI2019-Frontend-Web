@@ -10,6 +10,9 @@ import AddTeam from '../team/add/AddTeam';
 import EditTeam from '../team/edit/EditTeam';
 import TeamDetail from '../team/view/TeamDetail';
 import LoginFunc from '../login/LoginFunc'
+import Overview from '../project/editProject/Overview';
+import Managers from '../managers/Managers';
+import ProjectIndex from '../project/index/ProjectIndex'
 
 class RouterURL extends Component {
   render() {
@@ -18,13 +21,18 @@ class RouterURL extends Component {
           <Route  exact path="/login" component={LoginFunc} /> 
           <Route exact path="/home" component={Index} />
           <Route  path="/engineer" component={EngineerIndex} />
-          <Route  path="/engineer/add" component={AddForm} />
-          <Route  path="/engineer/edit" component={EditForm} />
-          <Route  path="/engineer/view" component={ViewForm} />
+          <Route  path="/engineers/add" component={AddForm} />
+          <Route  path="/engineers/edit" component={EditForm} />
+          <Route  path="/engineers/view" component={ViewForm} />
           <Route  path="/team" component={TeamIndex} />
-          <Route  path="/team/view" component={TeamDetail} />
-          <Route  path="/team/add" component={AddTeam} />
-          <Route  path="/team/edit" component={EditTeam} />
+          <Route  path="/teams/view" component={TeamDetail} />
+          <Route  path="/teams/add" component={AddTeam} />
+          <Route  path="/teams/edit" component={EditTeam} />
+          <Route  path="/project" component={ProjectIndex} />          
+          <Route  path="/projects/edit" component={Overview} />
+          <Route  path="/user" component={Managers} />
+
+
         </div>
     );
   }
