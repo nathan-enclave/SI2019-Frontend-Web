@@ -19,7 +19,7 @@ import Dashboard2 from '../index/Dashboard2';
 class RouterURL extends Component {
   render() {
     return (
-        <div>
+        <div className="MainRouter">
           <Route  exact path="/login" component={LoginFunc} /> 
           <Route exact path="/home" component={Index} />
           <Route exact path="/dashboard1" component={Dashboard1} />
