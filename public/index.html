@@ -37,13 +37,31 @@
 
   <link href="../assets/layouts/layout6/css/layout.css" rel="stylesheet" type="text/css" />
   <link href="../assets/layouts/layout6/css/custom.css" rel="stylesheet" type="text/css" />
+
+  
  
   <style>
     .react-tagsinput-input {
       display: none
     }
+   
+    @keyframes modal-animation{
+      from {
+        top: -200%;
+        opacity: 0;
+        transform: translateY('-50%')
+        }
+      to {
+        top: 50%;
+        opacity: 1;
+        transform: translateY('-50%')
+        }
+    }
   </style>
-  <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
+
+
+<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
@@ -91,6 +109,7 @@
   <!-- END THEME GLOBAL SCRIPTS -->
   <!-- END PAGE LEVEL SCRIPTS -->
 
+  
   <title>Manager</title>
 </head>
 
@@ -108,5 +127,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
+  
 
 </html>

@@ -24,15 +24,20 @@ class Modal extends React.Component {
     const modalStyle = {
       backgroundColor: '#fff',
       borderRadius: 5,
-      maxWidth: 1000,
-      minHeight: 500,
+      width: '80%',
+      maxWidth: 800,
+      maxHeight: 600,
+      height: '80%',
       margin: '0 auto',
-      padding: 30
+      padding: 30,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      animation: 'modal-animation ease-out 1.5s'
     };
 
     return (
       <div className="backdrop" style={backdropStyle}>
-        <div className="modal" style={modalStyle}>
+        <div className="modal custom-modal-animation" style={modalStyle}>
         <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}}>
              X
             </button>
