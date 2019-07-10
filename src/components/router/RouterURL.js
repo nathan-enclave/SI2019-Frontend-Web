@@ -12,7 +12,9 @@ import TeamDetail from '../team/view/TeamDetail';
 import LoginFunc from '../login/LoginFunc'
 import Overview from '../project/editProject/Overview';
 import Managers from '../managers/Managers';
-import ProjectIndex from '../project/index/ProjectIndex'
+import ProjectIndex from '../project/index/ProjectIndex';
+import Dashboard1 from '../index/Dashboard1';
+import Dashboard2 from '../index/Dashboard2';
 
 class RouterURL extends Component {
   render() {
@@ -20,6 +22,8 @@ class RouterURL extends Component {
         <div>
           <Route  exact path="/login" component={LoginFunc} /> 
           <Route exact path="/home" component={Index} />
+          <Route exact path="/dashboard1" component={Dashboard1} />
+          <Route exact path="/dashboard2" component={Dashboard2} />
           <Route  path="/engineer" component={EngineerIndex} />
           <Route  path="/engineers/add" component={AddForm} />
           <Route  path="/engineers/edit" component={EditForm} />
