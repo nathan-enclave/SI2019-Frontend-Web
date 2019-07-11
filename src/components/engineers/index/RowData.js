@@ -1,28 +1,89 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import ViewForm from './../view/ViewForm';
+import Modal from './../../Modal';
+import EditForm from './../edit/EditForm';
+import DeletePopUp from './../delete/DeletePopUp';
+import DelEngineer from '../../../services/DelEngineer';
 
 class RowData extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { 
+      isOpenView: false,
+      isOpenEdit : false,
+      isOpenDelete: false,
+    };
+  }
+
+  toggleModalView = () => {
+    this.setState({
+      isOpenView: !this.state.isOpenView
+    });
+  } 
+  toggleModalEdit = () => {
+    this.setState({
+      isOpenEdit: !this.state.isOpenEdit
+    });
+  }
+  toggleModalDelete = () => {
+    this.setState({
+      isOpenDelete: !this.state.isOpenDelete
+    });
+  }
+
+  
   removeItem = ()=>{
-    alert('Item deleted ! ');
+    DelEngineer(this.props.id).then((result) => {
+      let rediect = false;
+      if (!result.statusCode) {
+        rediect = true;
+        alert('Delete successful ! ');
+      } else {
+          this.setState({msg: "Something wrong." })
+      }
+      if(rediect){
+        window.location = "/engineer";
+      }
+    }) 
   }
       render() {
         return (
             <tr>
             <td className="highlight">
-              Hannah
+              {this.props.id}
             </td>
-            <td className="hidden-xs"> hannah@gmail.com </td>
-            <td>0123456789</td>
-            <td> 1 years </td>
-            <td> JAVA,PHP,Android </td>
+            <td className="highlight">
+              {this.props.englishName} 
+            </td>
+            <td className = "highlight">
+              {this.props.firstName} {this.props.lastName} 
+            </td>          
+            <td className="hidden-xs"> {this.props.email} </td>
+            <td>{this.props.phoneNumber}</td>
+            <td>{this.props.expYear} exp y</td>
             <td>
-              <Link to = "/engineer/view" className="btn btn-outline btn-circle green btn-sm purple">
-                <i className="fa fa-edit" /> View </Link>
-              <Link to = "/engineer/edit" className="btn btn-outline btn-circle yellow btn-sm yellow">
-                <i className="fa fa-trash-o" /> Edit </Link>
-              <Link to = "/engineer" onClick={() => {if(window.confirm('Delete the item?')){this.removeItem()};}} className="btn btn-outline btn-circle dark btn-sm black">
+              <button onClick={this.toggleModalView} className="btn btn-outline btn-circle green btn-sm purple">
+                <i className="fa fa-edit" /> View </button>
+                <button onClick={this.toggleModalEdit} className="btn btn-outline btn-circle green btn-sm purple">
+                <i className="fa fa-trash-o" /> Edit </button>
+              {/* <Link to = "/engineer" onClick={() => {if(window.confirm('Delete this engineer?')){this.removeItem()};}} className="btn btn-outline btn-circle dark btn-sm black">
+                <i className="fa fa-trash-o" /> Delete </Link> */}
+              <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black">
                 <i className="fa fa-trash-o" /> Delete </Link>
             </td>
+            <Modal show={this.state.isOpenView}
+          onClose={this.toggleModalView}>
+                <ViewForm id = {this.props.id}/>
+            </Modal>
+            <Modal show={this.state.isOpenEdit}
+          onClose={this.toggleModalEdit}>
+              <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+            </Modal>
+            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}>
+              <DeletePopUp />  
+            </Modal>
           </tr>
         );
     }

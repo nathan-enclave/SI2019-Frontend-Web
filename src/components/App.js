@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RouterURL from './router/RouterURL';
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from './Header';
 import LeftBar from './LeftBar';
 import Footer from './Footer';
-import LoginFunc from './login/LoginFunc';
 import HeaderContent from './HeaderContent';
 import {Redirect } from 'react-router'
 
@@ -13,7 +12,7 @@ function App() {
     if (!sessionStorage.getItem('userData')) {
         
         return (
-            <div>
+            <div >
                 <Router>
                 <RouterURL />
                 <Redirect to ="/login" />
@@ -29,8 +28,7 @@ function App() {
                 <Router>
                     <Header />
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup">
-                            <HeaderContent />
+                        <div className="page-content page-content-popup">                            
                             <LeftBar />
                             <div className="page-fixed-main-content">
                                 <RouterURL />

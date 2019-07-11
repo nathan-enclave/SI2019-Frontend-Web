@@ -9,7 +9,7 @@ class DefaultProject extends Component {
                 <div className="portlet light profile-sidebar-portlet bordered">
                     {/* SIDEBAR USERPIC */}
                     <div className="profile-userpic">
-                        <img src="https://i2.wp.com/explorista.net/wp-content/uploads/2019/02/beautiful-places-in-the-netherlands.jpg?fit=1270%2C846&ssl=1" className="img-responsive" alt /> </div>
+                        <img src="https://i2.wp.com/explorista.net/wp-content/uploads/2019/02/beautiful-places-in-the-netherlands.jpg?fit=1270%2C846&ssl=1" className="img-responsive" alt="pictu" /> </div>
                     {/* END SIDEBAR USERPIC */}
                     {/* SIDEBAR USER TITLE */}
                     <div className="profile-usertitle">

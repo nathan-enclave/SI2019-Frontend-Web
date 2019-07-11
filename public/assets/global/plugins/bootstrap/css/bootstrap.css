@@ -5062,7 +5062,7 @@ button.close {
   overflow: hidden; }
 
 .modal {
-  display: none;
+  display: inline;
   overflow: hidden;
   position: fixed;
   top: 0;

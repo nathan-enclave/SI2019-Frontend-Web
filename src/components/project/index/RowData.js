@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link, NavLink }  from 'react-router-dom'
+import {  NavLink }  from 'react-router-dom'
 
 export default class RowDataProject extends Component {
     render() {
@@ -13,10 +13,10 @@ export default class RowDataProject extends Component {
                 <td> 1/1/1990 </td>
                 <td> 1/1/1990 </td> 
                 <td>
-                <NavLink to="/contact" >Edit </NavLink>
+                <NavLink to="/projects/edit" >Edit </NavLink>
  </td>
                 <td>
-                    <a className="delete" href="javascript:;"> Delete </a>
+                    <a className="delete" href="abc"> Delete </a>
                 </td>
             </tr>
         )

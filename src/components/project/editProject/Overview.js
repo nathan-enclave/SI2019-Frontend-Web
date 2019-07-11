@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import EditProject from './EditProject';
+import EditProject from './DefaultProject';
 import DefaultProject from './DefaultProject';
 
 export default class Overview extends Component {

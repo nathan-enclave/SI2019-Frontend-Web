@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class Stats extends Component {
+  constructor(props){
+    super(props)
+  }
     render() {
         return (
             <div>
@@ -13,7 +16,7 @@ class Stats extends Component {
               </div>
               <div className="details">
                 <div className="number">
-                  <span data-counter="counterup" data-value={1349}>0</span>
+                  <span data-counter="counterup" >{this.props.engineer}</span>
                 </div>
                 <div className="desc"> Engineer </div>
               </div>
@@ -26,7 +29,7 @@ class Stats extends Component {
               </div>
               <div className="details">
                 <div className="number">
-                  <span data-counter="counterup" data-value="12">0</span>
+                  <span data-counter="counterup" >{this.props.team}</span>
                   </div>
                 <div className="desc"> Team </div>
               </div>
@@ -39,7 +42,7 @@ class Stats extends Component {
               </div>
               <div className="details">
                 <div className="number">
-                  <span data-counter="counterup" data-value={549}>0</span>
+                  <span data-counter="counterup" >{this.props.project}</span>
                 </div>
                 <div className="desc"> Project </div>
               </div>
@@ -51,9 +54,9 @@ class Stats extends Component {
                 <i className="fa fa-globe" />
               </div>
               <div className="details">
-                <div className="number"> +
-                  <span data-counter="counterup" data-value={89} />% </div>
-                <div className="desc"> Something else </div>
+                <div className="number"> 
+                  <span data-counter="counterup"  />{this.props.manager} </div>
+                <div className="desc"> Manager </div>
               </div>
             </a>
           </div>
