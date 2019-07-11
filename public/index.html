@@ -47,15 +47,28 @@
    
     @keyframes modal-animation{
       from {
-        top: -200%;
+        top: -100%;
         opacity: 0;
-        transform: translateY('-50%')
         }
       to {
         top: 50%;
         opacity: 1;
         transform: translateY('-50%')
         }
+    }
+    @keyframes modal-animation-delete {
+      from {
+        top: -100%;
+        opacity: 0;
+        }
+      to {
+        top: 10%;
+        opacity: 1;
+        transform: translateY('-10%')
+        }
+    }
+    .overflow-hidden-important{
+      overflow-y: hidden!important
     }
   </style>
 

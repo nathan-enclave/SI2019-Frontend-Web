@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ViewForm from './../view/ViewForm';
 import Modal from './../../Modal';
 import EditForm from './../edit/EditForm';
+import DeletePopUp from './../delete/DeletePopUp';
 import DelEngineer from '../../../services/DelEngineer';
 
 class RowData extends Component {
@@ -11,7 +12,8 @@ class RowData extends Component {
 
     this.state = { 
       isOpenView: false,
-      isOpenEdit : false
+      isOpenEdit : false,
+      isOpenDelete: false,
     };
   }
 
@@ -24,7 +26,13 @@ class RowData extends Component {
     this.setState({
       isOpenEdit: !this.state.isOpenEdit
     });
-  }   
+  }
+  toggleModalDelete = () => {
+    this.setState({
+      isOpenDelete: !this.state.isOpenDelete
+    });
+  }
+
   
   removeItem = ()=>{
     DelEngineer(this.props.id).then((result) => {
@@ -60,7 +68,9 @@ class RowData extends Component {
                 <i className="fa fa-edit" /> View </button>
                 <button onClick={this.toggleModalEdit} className="btn btn-outline btn-circle green btn-sm purple">
                 <i className="fa fa-trash-o" /> Edit </button>
-              <Link to = "/engineer" onClick={() => {if(window.confirm('Delete this engineer?')){this.removeItem()};}} className="btn btn-outline btn-circle dark btn-sm black">
+              {/* <Link to = "/engineer" onClick={() => {if(window.confirm('Delete this engineer?')){this.removeItem()};}} className="btn btn-outline btn-circle dark btn-sm black">
+                <i className="fa fa-trash-o" /> Delete </Link> */}
+              <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black">
                 <i className="fa fa-trash-o" /> Delete </Link>
             </td>
             <Modal show={this.state.isOpenView}
@@ -69,7 +79,10 @@ class RowData extends Component {
             </Modal>
             <Modal show={this.state.isOpenEdit}
           onClose={this.toggleModalEdit}>
-                <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+              <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+            </Modal>
+            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}>
+              <DeletePopUp />  
             </Modal>
           </tr>
         );

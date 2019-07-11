@@ -24,21 +24,21 @@ class Modal extends React.Component {
     const modalStyle = {
       backgroundColor: '#fff',
       borderRadius: 5,
-      width: '80%',
+      width: this.props.deleteStyleModel ? '500px': '80%',
       maxWidth: 800,
       maxHeight: 600,
-      height: '80%',
+      height: this.props.deleteStyleModel ? '230px': '80%',
       margin: '0 auto',
       padding: 30,
-      top: '50%',
-      transform: 'translateY(-50%)',
-      animation: 'modal-animation ease-out 1.5s'
+      top: this.props.deleteStyleModel ? '10%' :'50%',
+      transform: this.props.deleteStyleModel ? 'translateY(-10%)': 'translateY(-50%)',
+      animation: this.props.deleteStyleModel ? 'modal-animation-delete ease-out 0.5s': 'modal-animation ease-out 0.69s'
     };
 
     return (
       <div className="backdrop" style={backdropStyle}>
-        <div className="modal custom-modal-animation" style={modalStyle}>
-        <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}}>
+        <div className={ this.props.deleteStyleModel ? "modal custom-modal-animation overflow-hidden-important" : "modal custom-modal-animation"} style={modalStyle}>
+        <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}} >
              X
             </button>
           {this.props.children}

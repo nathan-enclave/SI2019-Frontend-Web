@@ -62,7 +62,10 @@ toggleModal = () => {
     render() {
       
         return (
-        <div className="portlet-body TableBody"> 
+        <div className="TableArea"> 
+          <div className="portlet-title">
+            <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table </div>
+          </div>
           <div style={{paddingBottom: '20px'}}> 
             <div style={{ width: '200px', float: 'left' }}>
               <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
@@ -80,23 +83,25 @@ toggleModal = () => {
             </div>
           </div> 
           <br />
-          <div className="table-scrollable">
-            <table className="table table-striped table-bordered table-advance table-hover">
-              <thead>
-                <tr>                 
-                  <th style={{fontWeight: 'bold'}}>Id </th>
-                  <th style={{fontWeight: 'bold'}}>Name </th>
-                  <th style={{fontWeight: 'bold'}}>Fullname </th>
-                  <th style={{fontWeight: 'bold'}}>Email </th>
-                  <th style={{fontWeight: 'bold'}}>Phone </th>
-                  <th style={{fontWeight: 'bold'}}>Experiences </th>
-                  <th style={{fontWeight: 'bold'}}>Actions </th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.data}
-              </tbody>
-            </table>
+          <div className="portlet-body">
+            <div className="table-scrollable">
+              <table className="table table-striped table-bordered table-advance table-hover">
+                <thead>
+                  <tr>                 
+                    <th style={{fontWeight: 'bold'}}>Id </th>
+                    <th style={{fontWeight: 'bold'}}>Name </th>
+                    <th style={{fontWeight: 'bold'}}>Fullname </th>
+                    <th style={{fontWeight: 'bold'}}>Email </th>
+                    <th style={{fontWeight: 'bold'}}>Phone </th>
+                    <th style={{fontWeight: 'bold'}}>Experiences </th>
+                    <th style={{fontWeight: 'bold'}}>Actions </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.data}
+                </tbody>
+              </table>
+            </div>
             <div className="PaginationArea"style={{textAlign:"center"}}>
               <Pagination
               activePage={this.state.activePage +1}
@@ -108,11 +113,14 @@ toggleModal = () => {
               />
             </div>
           </div>
+
          
           <Modal show={this.state.isOpen}
             onClose={this.toggleModal}>
             <AddForm />
           </Modal>
+
+
         </div>
         );
     }
