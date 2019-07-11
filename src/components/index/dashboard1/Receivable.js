@@ -4,15 +4,18 @@ import Chart from "react-apexcharts";
 
 class Receivable extends Component {
     constructor(props) {
-        super(props);
-    
-       
+        super(props);        
         this.state = {
             options: {},
             series: [65,35],
             labels: ['A']
           }
       }
+    async componentDidMount(){
+      const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/projects?limit=10&offset=0');
+      const data = await res.json();
+      console.log(data)
+    }
     
   render() {
     return (

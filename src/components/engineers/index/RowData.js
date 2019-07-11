@@ -5,7 +5,6 @@ import Modal from './../../Modal';
 import EditForm from './../edit/EditForm';
 import DelEngineer from '../../../services/DelEngineer';
 import DeletePopUp from '../delete/DeletePopUp';
-import ModalDelete from '../../ModalDelete';
 import MSGDelete from '../delete/MSGDelete';
 
 class RowData extends Component {
@@ -98,10 +97,9 @@ class RowData extends Component {
                 <MSGDelete message = {this.state.msg}/>
             </Modal>
 
-            <ModalDelete show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true} 
-            confirm = {(redirect) =>{this.removeItem(redirect)}} >
-              <DeletePopUp />  
-            </ModalDelete>
+            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
+              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete}/>  
+            </Modal>
           </tr>
         );
     }

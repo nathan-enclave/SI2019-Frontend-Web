@@ -7,7 +7,7 @@ class CashFlowPortlet extends Component {
 
         this.state = {
             options: {
-                colors: ['#00BB00', '#F2F200', '#FF0000'],
+                colors: ['#00CECE', '#FFFF33', '#FF5B5B'],
                 chart: {
                     height: 350,
                     type: "line",
@@ -66,8 +66,41 @@ class CashFlowPortlet extends Component {
                 },
             ]
         };
+
+    }
+    async componentDidMount(){
+        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
+        const data = await res.json();
+        console.log(data)
+        let catData = [], seriesData1 =[], seriesData2 = [],seriesData3 = [];
+        data.forEach(element => {
+            catData.push(element.month)
+            seriesData1.push(element.cashIn)
+            seriesData2.push(element.cashOut)
+            seriesData3.push(element.numOfProject)
+        });
+        this.setState({
+            options :{
+                xaxis: {
+                    categories: catData
+                }
+            },
+            series: [
+                {                   
+                    data: seriesData1
+                },
+                {                   
+                    data: seriesData2
+                },
+                {                    
+                    data: seriesData3
+                },
+            ]
+        })
+
     }
     render() {
+        // console.log(new Date().getFullYear());
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
-import getLang from './LanguegesFetch';
 
 class Languages extends Component {
     constructor(props) {
