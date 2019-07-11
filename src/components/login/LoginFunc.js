@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom'
 import React, { Component } from 'react'
 import PostData from '../login/PostData'
 import {  isEmpty } from 'validator';
@@ -37,9 +36,9 @@ export default class LoginFunc extends Component {
         this.form.validateAll();
     }
 
-    checkBug(){
+    checkError(){
         if(!this.state.error)
-        return(<small style={{ backgroundColor: 'yellow' }} className="form-title font-red" > Username or password is wrong !</small>)
+        return(<big style={{ fontWeight: 'bold',backgroundColor: '#F2F200',fontSize: "17px"}} className="form-title font-red" > Username or password is incorrect!</big>)
     }
 
     login() {
@@ -48,8 +47,7 @@ export default class LoginFunc extends Component {
             PostData('login', {username, password}).then ((result) => {
                 console.log(result);
                 if(!result.statusCode && result.token) {
-                    sessionStorage.setItem('userData', result.username)
-                    console.log(sessionStorage.getItem('userData'));
+                    localStorage.setItem('userData', result.username)                    
                     this.setState({
                         redirect: true
                     })
@@ -74,20 +72,21 @@ export default class LoginFunc extends Component {
         if(this.state.redirect){
             return(<div>{this.redirect()} </div>  )
         }
-        if(sessionStorage.getItem('userData')){
+        if(localStorage.getItem('userData')){
             return(<div>{this.redirect()} </div>  )
         }
         return (
-            <div className="login">
+            <div className="login" >
                 {/* BEGIN LOGO */}
-                <div className="logo">
+                
+                {/* END LOGO */}
+                {/* BEGIN LOGIN */}
+                <div className="content" style={{backgroundColor: 'rgba(0,0,0,0.7)'}}>
+                    {/* BEGIN LOGIN FORM */}
+                    <div className="logo">
                     <a href="/login">
                         <img src="https://cdn.itviec.com/employers/enclave/logo/w170/Jh9Wg4u5AojsvtWicfNPjVge/enclave-logo.png" alt="" /> </a>
                 </div>
-                {/* END LOGO */}
-                {/* BEGIN LOGIN */}
-                <div className="content">
-                    {/* BEGIN LOGIN FORM */}
                     <div className="login-form">
                         <h3 className="form-title font-green">Sign In</h3>
                         <div className="alert alert-danger display-hide">
@@ -95,7 +94,7 @@ export default class LoginFunc extends Component {
                             <span> Enter any username and password. </span>
                         </div>
                         <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                            {this.checkBug()}
+                            {this.checkError()}
 
                             <div className="form-group" >
                                 {/*ie8, ie9 does not support html5 placeholder, so we just show field title for that*/}
@@ -119,16 +118,16 @@ export default class LoginFunc extends Component {
                                     onChange={this.onChange}
                                     validations={[required, minLength]}/> 
                             </div>
-                            <div className="form-actions">
+                            <div className="form-actions" style={{textAlign: "center"}}>
                                 <button type="submit" className="btn green uppercase" onClick={this.login}>Login</button>
-                                <label className="rememberme check mt-checkbox mt-checkbox-outline">
+                                {/* <label className="rememberme check mt-checkbox mt-checkbox-outline">
                                     <input type="checkbox" name="remember" defaultValue={1} />Remember
                                     <span />
                                 </label>
-                                <NavLink to="" id="forget-password" className="forget-password">Forgot Password?</NavLink>
+                                <NavLink to="" id="forget-password" className="forget-password">Forgot Password?</NavLink> */}
                             </div>
                         </Form>
-                        <div className="login-options">
+                        {/* <div className="login-options">
                             <h4>Or login with</h4>
                             <ul className="social-icons">
                                 <li>
@@ -144,12 +143,12 @@ export default class LoginFunc extends Component {
                                     <a className="social-icon-color linkedin" data-original-title="Linkedin" href="abc" />
                                 </li>
                             </ul>
-                        </div>
-                        <div className="create-account">
+                        </div> */}
+                        {/* <div className="create-account">
                             <p>
                                 <a href="/signup" id="register-btn" className="uppercase">Create an account</a>
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                     {/* END LOGIN FORM */}
                 </div>
