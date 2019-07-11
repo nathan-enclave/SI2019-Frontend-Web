@@ -37,13 +37,44 @@
 
   <link href="../assets/layouts/layout6/css/layout.css" rel="stylesheet" type="text/css" />
   <link href="../assets/layouts/layout6/css/custom.css" rel="stylesheet" type="text/css" />
+
+  
  
   <style>
     .react-tagsinput-input {
       display: none
     }
+   
+    @keyframes modal-animation{
+      from {
+        top: -100%;
+        opacity: 0;
+        }
+      to {
+        top: 50%;
+        opacity: 1;
+        transform: translateY('-50%')
+        }
+    }
+    @keyframes modal-animation-delete {
+      from {
+        top: -100%;
+        opacity: 0;
+        }
+      to {
+        top: 10%;
+        opacity: 1;
+        transform: translateY('-10%')
+        }
+    }
+    .overflow-hidden-important{
+      overflow-y: hidden!important
+    }
   </style>
-  <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
+
+
+<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
   <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
@@ -91,6 +122,7 @@
   <!-- END THEME GLOBAL SCRIPTS -->
   <!-- END PAGE LEVEL SCRIPTS -->
 
+  
   <title>Manager</title>
 </head>
 
