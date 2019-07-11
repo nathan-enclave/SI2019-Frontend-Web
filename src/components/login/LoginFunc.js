@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom'
 import React, { Component } from 'react'
 import PostData from '../login/PostData'
 import {  isEmpty } from 'validator';
@@ -37,7 +36,7 @@ export default class LoginFunc extends Component {
         this.form.validateAll();
     }
 
-    checkBug(){
+    checkError(){
         if(!this.state.error)
         return(<big style={{ fontWeight: 'bold',backgroundColor: '#F2F200',fontSize: "17px"}} className="form-title font-red" > Username or password is incorrect!</big>)
     }
@@ -48,8 +47,7 @@ export default class LoginFunc extends Component {
             PostData('login', {username, password}).then ((result) => {
                 console.log(result);
                 if(!result.statusCode && result.token) {
-                    sessionStorage.setItem('userData', result.username)
-                    console.log(sessionStorage.getItem('userData'));
+                    localStorage.setItem('userData', result.username)                    
                     this.setState({
                         redirect: true
                     })
@@ -74,7 +72,7 @@ export default class LoginFunc extends Component {
         if(this.state.redirect){
             return(<div>{this.redirect()} </div>  )
         }
-        if(sessionStorage.getItem('userData')){
+        if(localStorage.getItem('userData')){
             return(<div>{this.redirect()} </div>  )
         }
         return (
@@ -96,7 +94,7 @@ export default class LoginFunc extends Component {
                             <span> Enter any username and password. </span>
                         </div>
                         <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                            {this.checkBug()}
+                            {this.checkError()}
 
                             <div className="form-group" >
                                 {/*ie8, ie9 does not support html5 placeholder, so we just show field title for that*/}

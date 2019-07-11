@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Chart from 'react-google-charts';
 import Chart from "react-apexcharts";
 
-class Portlet extends Component {
+class ProfitPortlet extends Component {
   constructor(props) {
     super(props);
 
@@ -29,8 +29,7 @@ class Portlet extends Component {
         <div className="portlet-title">
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Overview</span>
-            <span className="caption-helper">weekly stats...</span>
+            <span className="caption-subject font-dark bold uppercase">Profit/Loss</span>
           </div>
 
         </div>
@@ -39,7 +38,7 @@ class Portlet extends Component {
         <Chart
               options={this.state.options}
               series={this.state.series}
-              type="line"
+              type="bar"
               width="500"
             />
         </div>
@@ -49,4 +48,4 @@ class Portlet extends Component {
   }
 }
 
-export default Portlet;
+export default ProfitPortlet;

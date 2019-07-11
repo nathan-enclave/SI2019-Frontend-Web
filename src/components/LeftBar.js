@@ -13,22 +13,22 @@ class LeftBar extends Component {
               </NavLink>
             </li> */}
             <li class="nav-item start">
-              <a class="nav-link nav-toggle">
+              <NavLink class="nav-link nav-toggle" to ="/home">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>
                 <span class="selected"></span>
                 <span class="arrow open"></span>
-              </a>
+              </NavLink>
               <ul class="sub-menu">
-                <li class="nav-item start active open">
+                <li class="nav-item start">
                   <NavLink to = "/dashboard1" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                    <i class="icon-bar-chart"></i>
-                    <span class="title">Dashboard</span>               
+                    <i class="icon-wallet"></i>
+                    <span class="title">Cash flow dashboard</span>               
                   </NavLink>
                 </li>
                 <li class="nav-item start ">
                   <NavLink to = "/dashboard2"activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                    <i class="icon-bulb"></i>
+                    <i class="icon-user-female"></i>
                     <span class="title">Human dashboard</span>                    
                   </NavLink>
                 </li>
@@ -36,26 +36,26 @@ class LeftBar extends Component {
             </li>
             <li className="nav-item start" >
               <NavLink to="/engineer" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                <i className="icon-bar-chart" />
-                <span className="title">Cash flow dashboard</span>
+                <i className="icon-user-following" />
+                <span className="title">Engineer</span>
               </NavLink>
             </li>
             <li className="nav-item start">
               <NavLink to="/team" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                <i className="icon-bar-chart" />
+                <i className="icon-users" />
                 <span className="title">Team</span>
               </NavLink>
             </li>
             <li className="nav-item start">
               <NavLink to="/project" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                <i className="icon-bar-chart" />
+                <i className="icon-screen-desktop" />
                 <span className="title">Project</span>
 
               </NavLink>
             </li>
             <li className="nav-item start">
               <NavLink to="/user" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                <i className="icon-bar-chart" />
+                <i className="icon-list" />
                 <span className="title">User</span>
                 <span className="selected" />
               </NavLink>

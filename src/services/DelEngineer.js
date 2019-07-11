@@ -4,7 +4,15 @@ export default async function DelEngineer(id){
         method: 'DELETE',
         body: JSON.stringify(id)
     })
-        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            if(response.status !==200) {
+                return response.status
+            }
+            else{
+                return response.json()
+            }
+        })
         .then((responseJson) => {
             
             resolve(responseJson)

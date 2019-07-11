@@ -1,6 +1,6 @@
 
 export default async function getTotal(){
-    let response = await fetch('https://si-enclave.herokuapp.com/api/v1/Skill?limit=100');
+    let response = await fetch('https://si-enclave.herokuapp.com/api/v1/skills?limit=100');
     let data = await response.json()
     data = data.results
     data.map(e => {

@@ -85,7 +85,7 @@ class AddForm extends Component {
         // alert("Something wrong!")
       }
       if (rediect) {
-        window.location = "/engineer";
+        this.props.reloadData(true)  
       }
     })
   }
@@ -121,9 +121,10 @@ class AddForm extends Component {
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
               <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                <div className="form-group" style={{ textAlign: 'center' }}>
+                {/* <div className="form-group" style={{ textAlign: 'center' }}>
                   <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div>
+                </div> */}
+                <div>
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="control-label">English Name</label>
@@ -166,8 +167,9 @@ class AddForm extends Component {
                       <option value={1} >Available</option>
                       <option value={0} >Unavailable</option>
                     </select>
-                  </div>
-                  <div className="margiv-top-10" style={{ textAlign: 'center' }}>
+                  </div>                
+                </div>
+                <div className="margiv-top-10" style={{textAlign: 'center' }}>
                     <button type="submit" className="btn green" onClick={this.submitAddForm} style={{ right: '220px', top: "50px" }}> Add + </button>
                   </div>
                 </div>
