@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import ViewForm from './../view/ViewForm';
 import Modal from './../../Modal';
 import EditForm from './../edit/EditForm';
+import DeletePopUp from './../delete/DeletePopUp';
 import DelEngineer from '../../../services/DelEngineer';
-import DeletePopUp from '../delete/DeletePopUp';
 import MSGDelete from '../delete/MSGDelete';
 
 class RowData extends Component {
@@ -69,9 +69,9 @@ class RowData extends Component {
             <td className = "highlight">
               {this.props.firstName} {this.props.lastName} 
             </td>          
-            <td className="hidden-xs"> {this.props.email} </td>
+            <td className="highlight"> {this.props.email} </td>
             <td>{this.props.phoneNumber}</td>
-            <td>{this.props.expYear} exp y</td>
+            <td>{this.props.expYear}</td>
             <td>
               <button onClick={this.toggleModalView} className="btn btn-outline btn-circle green btn-sm purple">
                 <i className="fa fa-edit" /> View </button>
@@ -89,7 +89,10 @@ class RowData extends Component {
             </Modal>
             <Modal show={this.state.isOpenEdit}
           onClose={this.toggleModalEdit}>
-                <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+              <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+            </Modal>
+            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}>
+              <DeletePopUp />  
             </Modal>
 
             <Modal show={this.state.isOpenMSGDelete}

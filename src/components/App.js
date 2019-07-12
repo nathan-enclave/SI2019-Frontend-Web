@@ -28,7 +28,27 @@ function App() {
                 <Router>
                     <Header />
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup">                            
+                        <div className="page-content page-content-popup">      
+                            <div className="page-content-fixed-header">
+                                {/* BEGIN BREADCRUMBS */}
+                                <ul className="page-breadcrumb">
+                                    <li>
+                                        <a href="/">Dashboard</a>
+                                    </li>
+                                    <li>Admin Dashboard</li>
+                                </ul>
+                                {/* END BREADCRUMBS */}
+                                <div className="content-header-menu">
+                                    {/* BEGIN MENU TOGGLER */}
+                                    <button type="button" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span className="toggle-icon toggle-icon-custom">
+                                        <i className="fa fa-bars"></i>
+                                        </span>
+                                    </button>
+                                    {/* END MENU TOGGLER */}
+                                </div>
+                            </div>
+
                             <LeftBar />
                             <div className="page-fixed-main-content">
                                 <RouterURL />

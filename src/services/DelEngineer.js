@@ -14,7 +14,6 @@ export default async function DelEngineer(id){
             }
         })
         .then((responseJson) => {
-            
             resolve(responseJson)
         })
         .catch((error) => {

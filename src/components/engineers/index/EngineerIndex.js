@@ -11,6 +11,7 @@ class EngineerIndex extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
   render() {
     return (
       <div className="EngineerIndex" >
@@ -21,7 +22,6 @@ class EngineerIndex extends Component {
             </div>
           </div>
         </div>
-       
       </div>
     );
   }
