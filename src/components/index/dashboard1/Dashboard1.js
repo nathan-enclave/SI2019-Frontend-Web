@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import getTotal from '../../../services/GetTotal';
 import CashStats from './CashStats';
 import CashFlowPortlet from './CashFlowPortlet';
-import ProfitPortlet from './ProfitPortlet';
+import ProfitPortlet from './ProjectPortlet';
 import Payable from './Payable';
 import StatProject from './StatProject';
 

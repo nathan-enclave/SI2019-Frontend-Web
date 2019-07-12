@@ -22,7 +22,45 @@ class CashFlowPortlet extends Component {
 
         // ];
         this.state ={
-                options: optionsWorkingStatusColumn,
+                options: {
+                    colors: ['#00CECE', '#FFFF33', '#FF5B5B'],
+                    xaxis: {
+                        categories: []
+                      },
+                      yaxis:[
+                          {
+                            title: {
+                                text: "Millions"
+                              }
+                          }
+                      ]
+                    //   yaxis: [
+                    //     {
+                    //       seriesName: 'Column A',
+                    //       axisTicks: {
+                    //         show: true
+                    //       },
+                    //       axisBorder: {
+                    //         show: true,
+                    //       },
+                    //       title: {
+                    //         text: "Columns"
+                    //       }
+                    //     },{
+                    //       opposite: true,
+                    //       seriesName: 'Line C',
+                    //       axisTicks: {
+                    //         show: true
+                    //       },
+                    //       axisBorder: {
+                    //         show: true,
+                    //       },
+                    //       title: {
+                    //         text: "Line"
+                    //       }
+                    //     }
+                    //   ]
+                },
                 series: [
                     {
                         name: 'Cash in',
@@ -35,7 +73,7 @@ class CashFlowPortlet extends Component {
                         data: []
                     },  
                     {
-                        name: 'Project',
+                        name: 'Profit',
                         type: 'line',
                         data : []
                     }      
@@ -51,9 +89,15 @@ class CashFlowPortlet extends Component {
             catData.push(element.month)
             seriesData1.push(element.cashIn/1000000)
             seriesData2.push(element.cashOut/1000000)
-            seriesData3.push(element.numOfProject)
+            // seriesData3.push(element.numOfProject)
+            seriesData3.push(element.cashIn/1000000 -element.cashOut/1000000 )
         });
-        this.setState({           
+        this.setState({   
+                options:{
+                    xaxis: {
+                        categories: catData
+                      }
+                },        
                 series: [
                     {
                         name: 'Cash in',
@@ -66,7 +110,7 @@ class CashFlowPortlet extends Component {
                         data: seriesData2
                     },
                     {
-                        name: 'Project',
+                        name: 'Profit',
                         type: 'line',
                         data : seriesData3
                     } 
@@ -82,7 +126,7 @@ class CashFlowPortlet extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">Cash flow</span>
+                        <span className="caption-subject font-dark bold uppercase">Cash flow in {new Date().getFullYear()}</span>
                     </div>
 
                 </div>

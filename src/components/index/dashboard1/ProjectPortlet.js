@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import Chart from 'react-google-charts';
 import Chart from "react-apexcharts";
 
-class ProfitPortlet extends Component {
+class ProjectPortlet extends Component {
   constructor(props) {
     super(props);
 
@@ -12,13 +11,13 @@ class ProfitPortlet extends Component {
           id: "basic-bar"
         },
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+          categories: []
         }
       },
       series: [
         {
           name: "series-1",
-          data: [-30, 40, 45, 50, 49, 60, 70, 91]
+          data: []
         }
       ]
     };
@@ -30,7 +29,7 @@ class ProfitPortlet extends Component {
         let catData = [], seriesData1 =[];
         data.forEach(element => {
             catData.push(element.month)
-            seriesData1.push(element.cashIn/1000000 - element.cashOut/1000000)
+            seriesData1.push(element.numOfProject)
            ;
         });
         this.setState({
@@ -51,7 +50,7 @@ class ProfitPortlet extends Component {
         <div className="portlet-title">
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Profit</span>
+            <span className="caption-subject font-dark bold uppercase">Project</span>
           </div>
 
         </div>
@@ -70,4 +69,4 @@ class ProfitPortlet extends Component {
   }
 }
 
-export default ProfitPortlet;
+export default ProjectPortlet;
