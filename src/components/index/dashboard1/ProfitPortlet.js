@@ -23,13 +23,35 @@ class ProfitPortlet extends Component {
       ]
     };
   }
+  async componentDidMount(){
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
+        const data = await res.json();
+        console.log(data)
+        let catData = [], seriesData1 =[];
+        data.forEach(element => {
+            catData.push(element.month)
+            seriesData1.push(element.cashIn/1000000 - element.cashOut/1000000)
+           ;
+        });
+        this.setState({
+          options:{
+            xaxis: {
+              categories : catData
+            }
+          },
+          series: [{
+            data : seriesData1
+          }]
+        })
+
+  }
   render() {
     return (
       <div className="portlet light bordered">
         <div className="portlet-title">
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Profit/Loss</span>
+            <span className="caption-subject font-dark bold uppercase">Profit</span>
           </div>
 
         </div>

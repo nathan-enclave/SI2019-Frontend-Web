@@ -17,7 +17,7 @@ class HireLeft extends Component {
             {
                 name: 'Left',
                 type: 'column',
-                data: [11.1, 13, 13.1, 14, 14.1, 14.9, 16.5, 18.5]
+                data: [101.1, 13, 13.1, 14, 14.1, 14.9, 16.5, 18.5]
             },
 
         ];

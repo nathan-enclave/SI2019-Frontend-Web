@@ -3,8 +3,8 @@ import getTotal from '../../../services/GetTotal';
 import CashStats from './CashStats';
 import CashFlowPortlet from './CashFlowPortlet';
 import ProfitPortlet from './ProfitPortlet';
-import Receivable from './Receivable';
 import Payable from './Payable';
+import StatProject from './StatProject';
 
 class Dashboard1 extends Component {
     constructor(props) {
@@ -39,15 +39,10 @@ class Dashboard1 extends Component {
                 />
                 <CashFlowPortlet />
                 <div className="col-lg-6 col-xs-12 col-sm-12">
-                    <ProfitPortlet />
+                    < StatProject/>
                 </div>
-                <div className="col-lg-6 col-xs-12 col-sm-12">
-                    <div className="col-lg-6 col-xs-12 col-sm-6">
-                        <Receivable />
-                    </div>
-                    <div className="col-lg-6 col-xs-12 col-sm-6">
-                        <Payable />
-                    </div>
+                <div className="col-lg-6 col-xs-12 col-sm-12">                   
+                        <ProfitPortlet />                    
                 </div>
             </div>
         );
