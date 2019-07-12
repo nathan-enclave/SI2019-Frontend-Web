@@ -52,11 +52,11 @@ class AddForm extends Component {
   submitAddForm = () => {
     //  event.preventDefault();  // stop loading        
     console.log(this.state);
-    this.setState({
-      status: Number(this.state.status),
-      expYear: Number(this.state.expYear)
-    });
-    const data = {
+    // this.setState({
+    //   status: Number(this.state.status),
+    //   expYear: Number(this.state.expYear)
+    // });
+    let data = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       englishName: this.state.englishName,
@@ -64,11 +64,11 @@ class AddForm extends Component {
       address: this.state.address,
       email: this.state.email,
       skype: this.state.skype,
-      expYear: this.state.expYear,
-      status: this.state.status,
+      expYear: Number(this.state.expYear),
+      status: Number(this.state.status),
       skills: this.state.skills
     }
-    console.log("data: " + data.address)
+    console.log("data: " + data.englishName)
     AddEngineer(data).then((result) => {
       console.log(result);
       let rediect = false;
@@ -77,7 +77,8 @@ class AddForm extends Component {
         alert("Add successful!")
       } else {
         if (result.statusCode == 500) {
-          this.setState({ msg: "Email or Skype was used by another account." })
+          // this.setState({ msg: "Email or Skype was used by another account." })
+          this.setState({msg: 'Error'});
         }
         // }
         // alert("Email or Skype was used by another account.");

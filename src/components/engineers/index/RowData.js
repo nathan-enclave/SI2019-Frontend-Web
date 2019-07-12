@@ -97,11 +97,11 @@ class RowData extends Component {
 
             <Modal show={this.state.isOpenMSGDelete}
           onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-                <MSGDelete message = {this.state.msg}/>
+                <MSGDelete message = {this.state.msg} />
             </Modal>
 
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete}/>  
+              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName}/>  
             </Modal>
           </tr>
         );

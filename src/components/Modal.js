@@ -28,7 +28,7 @@ class Modal extends React.Component {
       height: this.props.deleteStyleModel ? '230px': '80%',
       width: this.props.deleteStyleModel ? '500px': '80%',
       maxWidth: 800,
-      maxHeight: 600,
+      maxHeight: 850,
       height: this.props.deleteStyleModel ? '230px': '80%',
       margin: '0 auto',
       padding: 30,

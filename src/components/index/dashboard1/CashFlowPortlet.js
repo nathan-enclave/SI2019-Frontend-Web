@@ -126,7 +126,7 @@ class CashFlowPortlet extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">Cash flow in {new Date().getFullYear()}</span>
+                        <span className="caption-subject font-dark bold uppercase">Cash flow - {new Date().getFullYear()}</span>
                     </div>
 
                 </div>
