@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Modal extends React.Component {
+class ModalDelete extends React.Component {
   render() {
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
@@ -40,11 +40,14 @@ class Modal extends React.Component {
     return (
       <div className="backdrop" style={backdropStyle}>
         <div className={ this.props.deleteStyleModel ? "modal custom-modal-animation overflow-hidden-important" : "modal custom-modal-animation"} style={modalStyle}>
-        <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}} >
-             X
-            </button>
           {this.props.children}
-          <div className="footer">        
+          <div className="footer">    
+          <button onClick={this.props.onClose}  className="btn btn-outline btn-sm green" style={{float: 'right',margin:'10px'}} >
+             Cancel
+            </button>
+            <button onClick={this.props.confirm}    className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}} >
+            CONFIRM
+            </button>
           </div>
         </div>
       </div>
@@ -52,10 +55,10 @@ class Modal extends React.Component {
   }
 }
 
-Modal.propTypes = {
+ModalDelete.propTypes = {
   onClose: PropTypes.func.isRequired,
   show: PropTypes.bool,
   children: PropTypes.node
 };
 
-export default Modal;
+export default ModalDelete;

@@ -23,6 +23,7 @@ class EditForm extends Component {
   async componentDidMount() {
     const res = await getData(this.state.id);
     // let tagsTemp = []
+    console.log(res.skills)
     res.skills.forEach(element => {
       this.setState({ tags: [...this.state.tags, element.name] })
     });

@@ -4,12 +4,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Header from './Header';
 import LeftBar from './LeftBar';
 import Footer from './Footer';
-import HeaderContent from './HeaderContent';
 import {Redirect } from 'react-router'
 
 function App() {
+    
    
-    if (!sessionStorage.getItem('userData')) {
+    if (!localStorage.getItem('userData')) {
         
         return (
             <div >

@@ -16,7 +16,7 @@ class EngineerIndex extends Component {
     return (
       <div className="EngineerIndex" >
         <div className="row">
-          <div className="col-md-12">
+        <div className="col-md-12">
             <div className="portlet box">
               <TableData/>
             </div>

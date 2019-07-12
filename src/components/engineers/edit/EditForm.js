@@ -15,7 +15,7 @@ const required = (value) => {
   }
 }
 const phone = (value) => {
-  if (!isNumeric(value, [{ no_symbols: false }])) {
+  if (!isNumeric(value, [{ no_symbols: true }])) {
     return <small className="form-text text-danger">The phone number contains only numbers.</small>;
   }
   else if (value.trim().length < 10) {
@@ -44,9 +44,7 @@ class EditForm extends Component {
     };
     // this.handleChange = this.handleChange.bind(this);
   }
-  async componentDidMount() {
-    // const res1 = await getTotal();
-    // this.setState({ options: res1 });
+  async componentDidMount() {   
     const res = await getData(this.props.id);
     // let tagsTemp = []
     // res.skills.forEach(element => {
@@ -68,7 +66,7 @@ class EditForm extends Component {
       status: String(res.status),
       createdAt: moment(res.createdAt).format('DD/MM/YYYY'),
       updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
-      skills: res.skills
+      skills: res.skills.id
       // startDate: new Date("")
     });
     res.skills.map(e => {
@@ -90,10 +88,6 @@ class EditForm extends Component {
   submitSaveForm = () => {
     //  event.preventDefault();  // stop loading        
     console.log(this.state);
-    this.setState({
-      status: Number(this.state.status),
-      expYear: Number(this.state.expYear)
-    });
     const data = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -102,11 +96,11 @@ class EditForm extends Component {
       address: this.state.address,
       email: this.state.email,
       skype: this.state.skype,
-      expYear: this.state.expYear,
-      status: this.state.status,
+      expYear: Number(this.state.expYear),
+      status: Number(this.state.status),
       skills: this.state.skills
     }
-    console.log("data: " + data.address)
+    console.log("data: " + data)
     EditEngineer(data,this.props.id).then((result) => {
       console.log(result);
       let rediect = false;
@@ -120,7 +114,7 @@ class EditForm extends Component {
        
       }
       if (rediect) {
-        // window.location = "/engineer";
+        window.location = "/engineer";
       }
     })
   }
@@ -153,9 +147,10 @@ class EditForm extends Component {
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
               <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                <div className="form-group" style={{ textAlign: 'center' }}>
+                {/* <div className="form-group" style={{ textAlign: 'center' }}>
                   <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div>
+                </div> */}
+                <div >
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="control-label">English Name</label>
@@ -198,11 +193,12 @@ class EditForm extends Component {
                       <option value={1} >Available</option>
                       <option value={0} >Unavailable</option>
                     </select>
-                  </div>
-                  <div className="margiv-top-10" style={{ textAlign: 'center' }}>
+                  </div>                  
+                </div>
+                </div>
+                <div className="margiv-top-10" style={{ textAlign: 'center' }}>
                     <button type="submit" className="btn green" onClick={this.submitSaveForm} style={{ right: '220px', top: "50px" }}> SAVE </button>
                   </div>
-                </div>
               </Form>
             </div>
           </div>

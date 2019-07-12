@@ -13,14 +13,15 @@ import LoginFunc from '../login/LoginFunc'
 import Overview from '../project/editProject/Overview';
 import Managers from '../managers/Managers';
 import ProjectIndex from '../project/index/ProjectIndex';
-import Dashboard1 from '../index/Dashboard1';
-import Dashboard2 from '../index/Dashboard2';
+import Dashboard1 from '../index/dashboard1/Dashboard1';
+import Dashboard2 from '../index/dashboard2/Dashboard2';
 
 class RouterURL extends Component {
   render() {
     return (
         <div className="MainRouter">
           <Route  exact path="/login" component={LoginFunc} /> 
+          <Route exact path="/" component={Index} />
           <Route exact path="/home" component={Index} />
           <Route exact path="/dashboard1" component={Dashboard1} />
           <Route exact path="/dashboard2" component={Dashboard2} />
