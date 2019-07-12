@@ -1,6 +1,31 @@
 import React, { Component } from 'react';
 
 class Stats extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      totalSalary : 0,
+      avgSalary : 0,
+      avgAge : 0,
+      total : 0 
+    }
+}
+async componentDidMount(){
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/salary');
+    const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/total');
+    const data = await res.json();
+    const totalEng = await res2.json();
+    console.log(totalEng)
+    // let totalSalary = 0, avgSalary = 0,avgAge = 0;
+    this.setState({
+      totalSalary : data.totalSalary,
+      avgSalary : data.avgSalary,
+      avgAge : data.avgAge,
+      total : totalEng.engineer 
+    })
+    
+
+}
     render() {
         return (
                  <div className="overview-engineer">
@@ -12,7 +37,8 @@ class Stats extends Component {
                     <div class="widget-thumb-wrap">
                       <i class="widget-thumb-icon bg-green fa fa-user"></i>
                       <div class="widget-thumb-body">
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">200</span>
+                      <span class="widget-thumb-subtitle">Engineer</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.total}</span>
                       </div>
                     </div>
                   </div>
@@ -25,7 +51,7 @@ class Stats extends Component {
                       <i class="widget-thumb-icon bg-red fa fa-money"></i>
                       <div class="widget-thumb-body">
                         <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">100M</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.totalSalary/1000000} M</span>
                       </div>
                     </div>
                   </div>
@@ -38,7 +64,7 @@ class Stats extends Component {
                       <i class="widget-thumb-icon bg-purple fa fa-money"></i>
                       <div class="widget-thumb-body">
                         <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">10M</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.avgSalary/1000000} M</span>
                       </div>
                     </div>
                   </div>
@@ -51,7 +77,8 @@ class Stats extends Component {
                       <i class="widget-thumb-icon bg-blue icon-bulb"></i>
                       <div class="widget-thumb-body">
                         <span class="widget-thumb-subtitle"></span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">24</span>
+                        <span class="widget-thumb-subtitle">Age</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.avgAge}</span>
                       </div>
                     </div>
                   </div>

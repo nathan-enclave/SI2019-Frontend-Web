@@ -10,7 +10,7 @@ class TableData extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: "",
+      data: [],
       itemsCountPerPage: 10,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
@@ -66,7 +66,7 @@ toggleModal = () => {
   });
 }
     render() {
-      
+      console.log(this.state.data)
         return (
         <div className="TableArea"> 
           <div className="portlet-title">

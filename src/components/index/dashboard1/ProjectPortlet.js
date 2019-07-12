@@ -61,6 +61,7 @@ class ProjectPortlet extends Component {
               series={this.state.series}
               type="bar"
               width="500"
+              width="100%"
             />
         </div>
 

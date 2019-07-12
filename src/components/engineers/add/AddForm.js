@@ -6,6 +6,10 @@ import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotal from './../../../services/GetListSkills';
 
+import "react-datepicker/dist/react-datepicker.css";
+
+import DatePicker from "react-datepicker";
+
 const required = (value) => {
   if (isEmpty(value)) {
     return <small className="form-text text-danger">This field is required</small>;
@@ -33,6 +37,8 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      birthday: "",
+      dayIn: "",
       options: [],
       selectOptions: [],
       status: 1,
@@ -76,9 +82,9 @@ class AddForm extends Component {
         rediect = true;
         alert("Add successful!")
       } else {
-        if (result.statusCode == 500) {
+        if (result.statusCode === 500) {
           // this.setState({ msg: "Email or Skype was used by another account." })
-          this.setState({msg: 'Error'});
+          this.setState({ msg: 'Error' });
         }
         // }
         // alert("Email or Skype was used by another account.");
@@ -86,9 +92,21 @@ class AddForm extends Component {
         // alert("Something wrong!")
       }
       if (rediect) {
-        this.props.reloadData(true)  
+        this.props.reloadData(true)
       }
     })
+  }
+  handleChangeBirthday = (date) => {
+    console.log(date)
+    this.setState({
+      birthday: date
+    });
+  }
+  handleChangeDayIn = (date) => {
+    console.log(date)
+    this.setState({
+      dayIn: date
+    });
   }
   handleChange = (selectOptions) => {
     this.setState({ selectOptions });
@@ -126,52 +144,61 @@ class AddForm extends Component {
                   <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
                 </div> */}
                 <div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label className="control-label">English Name</label>
-                    <Input type="text" name="englishName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">First Name</label>
-                    <Input type="text" name="firstName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Last Name</label>
-                    <Input type="text" name="lastName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Address</label>
-                    <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Experiences</label>
-                    <Input type="number" name="expYear" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Phone Number</label>
-                    <Input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} validations={[required, phone]} className="form-control" /> </div>
-                </div>
-                <div className="col-md-6" style={{ height: "444px" }}>
-                  <div className="form-group">
-                    <label className="control-label">Email</label>
-                    <Input type="text" name="email" onChange={(event) => this.isChange(event)} validations={[required, email]} className="form-control" /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Skype</label>
-                    <Input type="text" name="skype" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                  {/* <div className="form-group">
-                    <label className="control-label">Birthday</label><br />
-                    <DatePicker selected={this.state.startDate} onChange={this.handleChange} /> </div> */}
-                  <div className="form-check">
-                    <label className="form-check-label"> Skills:  </label>
-                    <div className="col-md-12">
-                      <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChange} />
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">English Name</label>
+                      <Input type="text" name="englishName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">First Name</label>
+                      <Input type="text" name="firstName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Last Name</label>
+                      <Input type="text" name="lastName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                      <div className="form-group">
+                      <label className="control-label">Image</label>
+                      <Input type="file" name="avatar" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Address</label>
+                      <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Experiences</label>
+                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Phone Number</label>
+                      <Input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} validations={[required, phone]} className="form-control" /> </div>
+                  </div>
+                  <div className="col-md-6" style={{ height: "444px" }}>
+                    <div className="form-group">
+                      <label className="control-label">Email</label>
+                      <Input type="text" name="email" onChange={(event) => this.isChange(event)} validations={[required, email]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Skype</label>
+                      <Input type="text" name="skype" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Salary</label>
+                      <Input type="number" name="salary" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Birthday</label><br />
+                      <DatePicker selected={this.state.birthday} onChange={this.handleChangeBirthday} /> </div>
+                    <div className="form-check">
+                      <label className="control-label">Day in</label><br />
+                      <DatePicker selected={this.state.dayIn} onChange={this.handleChangeDayIn} /> </div>
+                    <div className="form-check">
+                      <label className="form-check-label"> Skills:  </label>
+                      {/* <div className="col-md-12"> */}
+                        <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChange} />
+                      {/* </div> */}
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">Status</label>
+                      <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
+                        <option value={1} >Available</option>
+                        <option value={0} >Unavailable</option>
+                      </select>
                     </div>
                   </div>
-                  <div className="form-group">
-                    <label className="control-label">Status</label>
-                    <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
-                      <option value={1} >Available</option>
-                      <option value={0} >Unavailable</option>
-                    </select>
-                  </div>                
-                </div>
-                <div className="margiv-top-10" style={{textAlign: 'center' }}>
-                    <button type="submit" className="btn green" onClick={this.submitAddForm} style={{ right: '220px', top: "50px" }}> Add + </button>
+                  <div className="margiv-top-10" style={{ textAlign: 'center' }}>
+                    <button type="submit" className="btn green" onClick={this.submitAddForm} style={{ right:"180px",top: "100px" }}> Add + </button>
                   </div>
                 </div>
               </Form>

@@ -4,10 +4,9 @@ import Chart from "react-apexcharts";
 class CashFlowPortlet extends Component {
     constructor(props) {
         super(props);
+        // const optionsWorkingStatusColumn = {
 
-        const optionsWorkingStatusColumn = {
-
-        };
+        // };
         // const seriesWorkingStatusColumn = [
         //     {
         //         name: 'Hire',

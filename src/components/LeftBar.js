@@ -12,24 +12,24 @@ class LeftBar extends Component {
                 <span className="title">Dashboard</span>
               </NavLink>
             </li> */}
-            <li class="nav-item start">
-              <NavLink class="nav-link nav-toggle" to ="/home">
-                <i class="icon-home"></i>
-                <span class="title">Dashboard</span>
-                <span class="selected"></span>
-                <span class="arrow open"></span>
+            <li className="nav-item start">
+              <NavLink className="nav-link nav-toggle" to ="/home">
+                <i className="icon-home"></i>
+                <span className="title">Dashboard</span>
+                <span className="selected"></span>
+                <span className="arrow open"></span>
               </NavLink>
-              <ul class="sub-menu">
-                <li class="nav-item start">
+              <ul className="sub-menu">
+                <li className="nav-item start">
                   <NavLink to = "/dashboard1" activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                    <i class="icon-wallet"></i>
-                    <span class="title">Cash flow dashboard</span>               
+                    <i className="icon-wallet"></i>
+                    <span className="title">Cash flow dashboard</span>               
                   </NavLink>
                 </li>
-                <li class="nav-item start ">
+                <li className="nav-item start ">
                   <NavLink to = "/dashboard2"activeStyle={{ backgroundColor: '#B9ECF0' }}>
-                    <i class="icon-user-female"></i>
-                    <span class="title">Human dashboard</span>                    
+                    <i className="icon-user-female"></i>
+                    <span className="title">Human dashboard</span>                    
                   </NavLink>
                 </li>
               </ul>

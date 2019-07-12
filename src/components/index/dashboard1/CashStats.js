@@ -44,7 +44,7 @@ class CashStats extends Component {
                             <div className="details">
                                 <div className="number">
                                     <div className="desc"  style={{fontSize:"22px"}}> Cash going in</div>
-                                    <span data-counter="counterup" >{this.state.cashIn}M</span>
+                                    <span data-counter="counterup" >{this.state.cashIn} M</span>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@ class CashStats extends Component {
                             <div className="details">
                                 <div className="number">
                                     <div className="desc" style={{fontSize:"22px"}}> Cash going out </div>
-                                    <span data-counter="counterup" >{this.state.cashOut}M</span>
+                                    <span data-counter="counterup" >{this.state.cashOut} M</span>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@ class CashStats extends Component {
                             <div className="details">
                                 <div className="number">
                                     <div className="desc"  style={{fontSize:"22px"}}> Profit</div>
-                                    <span data-counter="counterup" />{this.state.profit}M </div>
+                                    <span data-counter="counterup" />{this.state.profit} M </div>
                             </div>
                         </div>
                     </div>

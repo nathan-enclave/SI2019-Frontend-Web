@@ -3,7 +3,6 @@ import getTotal from '../../../services/GetTotal';
 import CashStats from './CashStats';
 import CashFlowPortlet from './CashFlowPortlet';
 import ProfitPortlet from './ProjectPortlet';
-import Payable from './Payable';
 import StatProject from './StatProject';
 
 class Dashboard1 extends Component {

@@ -3,23 +3,29 @@ import Chart from "react-apexcharts";
 
 class Status extends Component {
     constructor(props) {
-        super(props);
-
-        const optionsStatusEngineer = {
-            colors: ['#2da68a', '#bfacac'],
-            labels: ['On Team', 'Free']
-        }
-        const seriesStatusEngineer = [200, 25]
-
+        super(props);        
         this.state = {
-            statusEngineer: {
-                options: optionsStatusEngineer,
-                series: seriesStatusEngineer
-            }
-        };
+            options: {
+              labels: ['Available','In team']
+            },
+            series: [65,35],
+            
+          }
+      }
+    async componentDidMount(){
+      const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/statistic/engineers/status');
+      const data = await res.json();
+      console.log(data)
+      let seriesData = []     
+      seriesData.push(data.available)
+      seriesData.push(data.inTeam)      
+      this.setState({
+        series : seriesData
+      })
     }
 
     render() {
+        // console.log(this.state.statusEngineer.series)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title">
@@ -31,7 +37,7 @@ class Status extends Component {
                 </div>
                 {/* chart here */}
                 <div>
-                    <Chart options={this.state.statusEngineer.options} series={this.state.statusEngineer.series} type="donut" width="380" width="80%" />
+                    <Chart options={this.state.options} series={this.state.series} type="donut" width="380" width="80%" />
                 </div>
             </div>
         );

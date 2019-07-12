@@ -197,7 +197,7 @@ class EditForm extends Component {
                 </div>
                 </div>
                 <div className="margiv-top-10" style={{ textAlign: 'center' }}>
-                    <button type="submit" className="btn green" onClick={this.submitSaveForm} style={{ right: '220px', top: "50px" }}> SAVE </button>
+                    <button type="submit" className="btn green" onClick={this.submitSaveForm} style={{  top: "50px" }}> SAVE </button>
                   </div>
               </Form>
             </div>
