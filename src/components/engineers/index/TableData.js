@@ -66,7 +66,7 @@ toggleModal = () => {
   });
 }
     render() {
-      
+      if(this.state.data.length>0) {
         return (
         <div className="TableArea"> 
           <div className="portlet-title">
@@ -90,7 +90,7 @@ toggleModal = () => {
             <br />
             <div className="portlet-body">
               <div className="table-scrollable">
-              <table className="table table-striped table-bordered table-advance table-hover">
+                <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
                     <tr>                 
                       <th style={{fontWeight: 'bold'}}>Id </th>
@@ -127,6 +127,47 @@ toggleModal = () => {
           </div>
        </div>
         );
+      }
+
+      return (
+        <div className="TableArea"> 
+          <div className="portlet-title">
+            <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table </div>    
+            <div style={{paddingBottom: '20px'}}> 
+              <div style={{ width: '200px', float: 'left' }}>
+                <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
+                  <i className="fa fa-edit"></i> Add  </button>
+              </div>                     
+              <div className="search-form" style={{float:'right',width: '200px',backgroundColor:'#B9ECF0'}} >
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Search here" name="query" />
+                  <span className="input-group-btn">
+                    <a href="abc" className="btn md-skip submit">
+                      <i className="fa fa-search" />
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div className="portlet-body">
+              <div class="wrap">
+                <div class="loading">
+                  <div class="bounceball"></div>
+                  <div class="text">NOW LOADING</div>
+                </div>
+              </div>
+            </div>
+
+         
+            <Modal show={this.state.isOpen}
+            onClose={this.toggleModal}>
+            <AddForm />
+          </Modal>
+          </div>
+       </div>
+
+      );
     }
 }
 

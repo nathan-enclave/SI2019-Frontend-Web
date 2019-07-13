@@ -46,8 +46,13 @@ export default class LoginFunc extends Component {
         if(this.state.username && this.state.password){
             PostData('login', {username, password}).then ((result) => {
                 console.log(result);
-                if(!result.statusCode && result.token) {
-                    localStorage.setItem('userData', result.username)                    
+                
+                if(result.status !== 200) {
+                    localStorage.setItem('userData', JSON.stringify({
+                        name: result.username,
+                        id: result.engineerId,
+                        token: result.token
+                    }))                    
                     this.setState({
                         redirect: true
                     })
@@ -77,10 +82,6 @@ export default class LoginFunc extends Component {
         }
         return (
             <div className="login" >
-                {/* BEGIN LOGO */}
-                
-                {/* END LOGO */}
-                {/* BEGIN LOGIN */}
                 <div className="content" style={{backgroundColor: 'rgba(0,0,0,0.7)'}}>
                     {/* BEGIN LOGIN FORM */}
                     <div className="logo">
