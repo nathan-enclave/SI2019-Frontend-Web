@@ -5,9 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotal from './../../../services/GetListSkills';
-
 import "react-datepicker/dist/react-datepicker.css";
-
 import DatePicker from "react-datepicker";
 
 const required = (value) => {
@@ -38,7 +36,7 @@ class AddForm extends Component {
     super(props);
     this.state = {
       birthday: "",
-      dayIn: "",
+      dateIn: "",
       options: [],
       selectOptions: [],
       status: 1,
@@ -58,10 +56,6 @@ class AddForm extends Component {
   submitAddForm = () => {
     //  event.preventDefault();  // stop loading        
     console.log(this.state);
-    // this.setState({
-    //   status: Number(this.state.status),
-    //   expYear: Number(this.state.expYear)
-    // });
     let data = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -70,11 +64,14 @@ class AddForm extends Component {
       address: this.state.address,
       email: this.state.email,
       skype: this.state.skype,
+      birthday : this.state.birthday,
+      dateIn : this.state.dateIn,
+      salary : this.state.salary,
       expYear: Number(this.state.expYear),
       status: Number(this.state.status),
       skills: this.state.skills
     }
-    console.log("data: " + data.englishName)
+    console.log("data: " + data)
     AddEngineer(data).then((result) => {
       console.log(result);
       let rediect = false;
@@ -82,7 +79,7 @@ class AddForm extends Component {
         rediect = true;
         alert("Add successful!")
       } else {
-        if (result.statusCode === 500) {
+        if (result.statusCode != 200) {
           // this.setState({ msg: "Email or Skype was used by another account." })
           this.setState({ msg: 'Error' });
         }
@@ -92,7 +89,7 @@ class AddForm extends Component {
         // alert("Something wrong!")
       }
       if (rediect) {
-        this.props.reloadData(true)
+        // return <Redirect to ='/engineer' />
       }
     })
   }
@@ -102,10 +99,10 @@ class AddForm extends Component {
       birthday: date
     });
   }
-  handleChangeDayIn = (date) => {
+  handleChangeDateIn = (date) => {
     console.log(date)
     this.setState({
-      dayIn: date
+      dateIn: date
     });
   }
   handleChange = (selectOptions) => {
@@ -124,9 +121,12 @@ class AddForm extends Component {
   }
   async componentDidMount() {
     const res = await getTotal();
+    // console.log(res)
     this.setState({ options: res });
   }
   render() {
+    // console.log(new Date("1989-06-21"))
+    // console.log(this.state.birthday +"-" + this.state.dayIn)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
@@ -156,7 +156,7 @@ class AddForm extends Component {
                       <Input type="text" name="lastName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
                       <div className="form-group">
                       <label className="control-label">Image</label>
-                      <Input type="file" name="avatar" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                      <Input type="file" name="avatar" className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label">Address</label>
                       <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
@@ -181,8 +181,8 @@ class AddForm extends Component {
                       <label className="control-label">Birthday</label><br />
                       <DatePicker selected={this.state.birthday} onChange={this.handleChangeBirthday} /> </div>
                     <div className="form-check">
-                      <label className="control-label">Day in</label><br />
-                      <DatePicker selected={this.state.dayIn} onChange={this.handleChangeDayIn} /> </div>
+                      <label className="control-label">Date in</label><br />
+                      <DatePicker selected={this.state.dateIn} onChange={this.handleChangeDateIn} /> </div>
                     <div className="form-check">
                       <label className="form-check-label"> Skills:  </label>
                       {/* <div className="col-md-12"> */}

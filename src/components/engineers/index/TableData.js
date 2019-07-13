@@ -6,6 +6,7 @@ import getDataPag from '../../../services/GetEngineerPagination';
 import Modal from '../../Modal';
 import AddForm from '../add/AddForm';
 
+
 class TableData extends Component {
   constructor(props){
     super(props);
@@ -70,7 +71,7 @@ toggleModal = () => {
         return (
         <div className="TableArea"> 
           <div className="portlet-title">
-            <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table </div>    
+            <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table ({this.state.totalItemsCount}) </div>    
             <div style={{paddingBottom: '20px'}}> 
               <div style={{ width: '200px', float: 'left' }}>
                 <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
@@ -120,7 +121,7 @@ toggleModal = () => {
             </div>         
             <Modal show={this.state.isOpen}
             onClose={this.toggleModal}>
-            <AddForm />
+            <AddForm reloadData = {this.props.reload}/>
           </Modal>
           </div>
        </div>

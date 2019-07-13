@@ -38,8 +38,7 @@ class RowData extends Component {
     this.setState({
       isOpenDelete: !this.state.isOpenDelete
     });
-  }
-    
+  }    
   removeItem = ()=>{
     DelEngineer(this.props.id).then((result) => {
       let rediect = false;
@@ -69,19 +68,16 @@ class RowData extends Component {
             <td className = "highlight">
               {this.props.firstName} {this.props.lastName} 
             </td>          
-            <td className="highlight"> {this.props.email} </td>
+            <td className="highlight"><a href={"mailto:" + this.props.email}> {this.props.email}</a> </td>
             <td>{this.props.phoneNumber}</td>
-            <td>{this.props.expYear}</td>
+            <td >{this.props.expYear}</td>
             <td>
-              <button onClick={this.toggleModalView} className="btn btn-outline btn-circle green btn-sm purple">
-                <i className="fa fa-edit" /> View </button>
-                <button onClick={this.toggleModalEdit} className="btn btn-outline btn-circle green btn-sm purple">
-                <i className="fa fa-trash-o" /> Edit </button>
-              <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black">
-                <i className="fa fa-trash-o" /> Delete </Link>
-
-                {/* <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black"></Link> */}
-                  
+              <button onClick={this.toggleModalView} className="btn btn-outline green btn-sm yellow">
+                <i className="fa fa-eye" style={{fontSize:'15px'}}/></button>
+                <a onClick={this.toggleModalEdit} className="btn btn-outline green btn-sm purple" alt = "edit">
+                <i className="fa fa-edit" style={{fontSize:'15px'}} /></a>
+                <a onClick={this.toggleModalDelete} className="btn btn-outline  dark btn-sm red">
+                <i className="fa fa-trash-o" style={{fontSize:'15px'}}/> </a>               
             </td>
             <Modal show={this.state.isOpenView}
           onClose={this.toggleModalView}>
@@ -94,12 +90,10 @@ class RowData extends Component {
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}>
               <DeletePopUp />  
             </Modal>
-
             <Modal show={this.state.isOpenMSGDelete}
           onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
                 <MSGDelete message = {this.state.msg} />
             </Modal>
-
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
               <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName}/>  
             </Modal>

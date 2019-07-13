@@ -13,12 +13,12 @@ class Header extends Component {
               <div className="container-fluid">
                 <div className="havbar-header">
                   <NavLink to = "/home" className="navbar-brand">
-                    <img src="../assets/layouts/layout6/img/logo.png" alt="Logo" /> </NavLink>
+                  <i className="fa fa-home" style={{fontSize:"50px",marginTop:'7px'}}/> </NavLink>
                   <div className="topbar-actions">                  
-                    <span style={{color: '#32C5D2',padding:'10px'}}>Hi {localStorage.getItem('userData')}.</span>
+                    <span style={{color: '#32C5D2',padding:'10px',fontWeight:'bold',fontSize:"20px"}}>Welcome, {localStorage.getItem('userData')}.</span>
                     <div className="btn-group-img btn-group">
-                      <button type="button" className="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="" /> </button>
+                      <button type="button"  className="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img  src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"/> </button>
                       <ul className="dropdown-menu-v2" role="menu">
                         <li>
                           {/* <a href="abc">
