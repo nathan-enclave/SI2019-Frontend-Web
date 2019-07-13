@@ -23,13 +23,13 @@ class ProjectPortlet extends Component {
     };
   }
   async componentDidMount(){
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/statistic/projects/earning/'+ new Date().getFullYear());
         const data = await res.json();
-        console.log(data)
+        // console.log(data.results)
         let catData = [], seriesData1 =[];
-        data.forEach(element => {
-            catData.push(element.month)
-            seriesData1.push(element.numOfProject)
+        data.results.forEach(element => {
+            catData.push(element.name)
+            seriesData1.push(element.earning/1000000)
            ;
         });
         this.setState({

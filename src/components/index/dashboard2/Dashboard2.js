@@ -10,19 +10,21 @@ class Dashboard2 extends Component {
     render() {
         return ( 
           <div className="Dashboard2">
-           <Stats />           
+           <Stats /> 
             <div className="row">
-              <div class="col-lg-12 col-xs-12 col-sm-12">
-            <HireLeft />
-              </div>
-            </div>
-            <div className="row">
-              <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div className="col-lg-6 col-xs-12 col-sm-12">
                 <Languages />
               </div>
-              <div class="col-lg-6 col-xs-12 col-sm-12">
+              <div className="col-lg-6 col-xs-12 col-sm-6">
                 <Status />
               </div>
+            </div>
+                      
+            <div className="row">
+              <div class="col-lg-12 col-xs-12 col-sm-6">
+            <HireLeft />
+              </div>
+              
             </div>
           </div>
         );

@@ -83,7 +83,7 @@ class HireLeft extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">Overview</span>
+                        <span className="caption-subject font-dark bold uppercase">Hire/Left per month</span>
                     </div>
                 </div>
                 {/* chart here */}

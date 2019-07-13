@@ -42,6 +42,7 @@ class StatProject extends Component {
               options={this.state.options}
               series={this.state.series}
               type="donut"
+              width="80%"
               height="400px"
             />
         </div>

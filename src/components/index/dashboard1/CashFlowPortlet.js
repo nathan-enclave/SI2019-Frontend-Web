@@ -82,7 +82,7 @@ class CashFlowPortlet extends Component {
     async componentDidMount(){
         const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
         const data = await res.json();
-        console.log(data)
+        // console.log(data)
         let catData = [], seriesData1 =[], seriesData2 = [],seriesData3 = [];
         data.forEach(element => {
             catData.push(element.month)
@@ -135,7 +135,7 @@ class CashFlowPortlet extends Component {
                         options={this.state.options}
                         series={this.state.series}
                         type="line"
-                        height="300px"
+                        height="400px"
                     />
                 </div>
 

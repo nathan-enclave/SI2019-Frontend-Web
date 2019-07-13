@@ -37,7 +37,7 @@ class Status extends Component {
                 </div>
                 {/* chart here */}
                 <div>
-                    <Chart options={this.state.options} series={this.state.series} type="donut" width="380" width="80%" />
+                    <Chart options={this.state.options} series={this.state.series} type="donut" width="75%" />
                 </div>
             </div>
         );
