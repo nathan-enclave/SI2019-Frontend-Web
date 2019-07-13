@@ -67,7 +67,7 @@ class AddForm extends Component {
       birthday : this.state.birthday,
       dateIn : this.state.dateIn,
       salary : this.state.salary,
-      expYear: Number(this.state.expYear),
+      // expYear: Number(this.state.expYear),
       status: Number(this.state.status),
       skills: this.state.skills
     }
@@ -160,9 +160,9 @@ class AddForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Address</label>
                       <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <label className="control-label">Experiences</label>
-                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div>
+                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> </div> */}
                     <div className="form-group">
                       <label className="control-label">Phone Number</label>
                       <Input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} validations={[required, phone]} className="form-control" /> </div>

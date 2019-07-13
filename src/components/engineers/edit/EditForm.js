@@ -44,7 +44,9 @@ class EditForm extends Component {
       dateOut : "",
       dateIn : "",
       birthday : "",
-      error: 0
+      error: 0,
+      selectedStatus : "",
+      data : {}
     };
     // this.handleChange = this.handleChange.bind(this);
   }
@@ -85,63 +87,78 @@ class EditForm extends Component {
       delete e.name
   })   
   // console.log(this.state)
-  // this.setState({selectOptions :res.skills })
+  this.setState({selectOptions :res.skills })
   }
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({
       [fieldName]: value
     });
+    this.setState({
+      data : {
+        [fieldName] : value
+      }
+    })
   }
   handleChangeBirthday = (date) => {
-    console.log(date)
+    // console.log(date)
     this.setState({
-      birthday: date
+      birthday: date,
+      data :{
+        birthday : date
+      }
     });
   }
   handleChangeDateIn = (date) => {
-    console.log(date)
+    // console.log(date)
     this.setState({
-      dateIn: date
+      dateIn: date,
+      data : {
+        dateIn : date
+      }
     });
   }
   handleChangeDateOut = (date) => {
-    console.log(date)
+    // console.log(date)
     this.setState({
-      dateOut: date
+      dateOut: date,
+      data : {
+        dayOut : date
+      }
     });
   }
-  
-  submitSaveForm = () => {
-    //  event.preventDefault();  // stop loading        
-    console.log(this.state);
-    const data = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      englishName: this.state.englishName,
-      phoneNumber: this.state.phoneNumber,
-      address: this.state.address,
-      birthday : this.state.birthday,
-      dateIn : this.state.dateIn,
-      dateOut : this.state.dateOut,
-      salary : this.state.salary,
-      email: this.state.email,
-      skype: this.state.skype,
-      // expYear: Number(this.state.expYear),
-      status: Number(this.state.status),
-      skills: this.state.skills
+  handleChangeSkill = (selectOptions) => {
+    this.setState({ selectOptions });
+    let temp = []
+    if (selectOptions != null) {
+      selectOptions.forEach(element => {
+        temp.push(element.value)
+      });
+      // this.setState({ skills: temp });
+      this.setState({
+        data :{
+          skills : temp
+        }
+      })
+      console.log(this.state.data.skills)
     }
-    console.log("data: " + data)
-    EditEngineer(data,this.props.id).then((result) => {
+  }
+  
+  submitSaveForm = (event) => {
+    event.preventDefault() // stop loading        
+    console.log(this.state)
+    // console.log(this.state.data)
+    // console.log("data: " + this.state.data.skills)
+    EditEngineer(this.state.data,this.props.id).then((result) => {
       console.log(result);
       let rediect = false;
       if (!result.statusCode) {
         rediect = true;
         alert("Edit successful!")
       } else {
-        if (result.statusCode == 500) {
+        if (result.statusCode != 500) {
           // this.setState({ msg: "Email or Skype was used by another account." })
           this.setState({ msg: "Error." })
         }
@@ -152,19 +169,12 @@ class EditForm extends Component {
       }
     })
   }
-  handleChange = (selectOptions) => {
-    this.setState({ selectOptions });
-    let temp = []
-    if (selectOptions != null) {
-      selectOptions.forEach(element => {
-        temp.push(element.value)
-      });
-      this.setState({ skills: temp });
-    }
-  }
   onSubmit = (e) => {
     e.preventDefault();
     this.form.validateAll();
+  }
+  displayStatus = ()=>{
+    if(this.state.status == 0) this.setState({selectedStatus : "selected"})
   }
  
   render() {
@@ -181,10 +191,10 @@ class EditForm extends Component {
           <div className="tab-content">
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
-            <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div> */}
+            <Form >
+                <div className="form-group" style={{ textAlign: 'center' }}>
+                  <img height="130px" src={this.state.avatar} /><br /><br />
+                </div>
                 <div>
                   <div className="col-md-6">
                     <div className="form-group">
@@ -233,19 +243,19 @@ class EditForm extends Component {
                     <div className="form-check">
                       <label className="form-check-label"> Skills:  </label>
                       {/* <div className="col-md-12"> */}
-                        <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChange} />
+                        <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChangeSkill} />
                       {/* </div> */}
                     </div>
                     <div className="form-group">
                       <label className="control-label">Status</label>
                       <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
                         <option value={1} >Available</option>
-                        <option value={0} >Unavailable</option>
+                        <option value={0}  selected={this.state.selectedStatus}>Unavailable</option>
                       </select>
                     </div>
                   </div>
                   <div className="margiv-top-10" style={{ textAlign: 'center' }}>
-                    <button type="submit" className="btn green" onClick={this.submitAddForm} style={{ right:"180px",top: "100px" }}> SAVE </button>
+                    <button type="submit" className="btn green" onClick={(event) =>this.submitSaveForm(event)} style={{ right:"180px",top: "100px" }}> SAVE </button>
                   </div>
                 </div>
               </Form>
