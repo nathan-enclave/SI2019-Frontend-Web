@@ -3,7 +3,7 @@ import PostData from '../login/PostData'
 import {  isEmpty } from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
- 
+import LoginLoader from '../LoginLoader'
 
 const required = (value) => {
   if (isEmpty(value)) {
@@ -24,8 +24,8 @@ export default class LoginFunc extends Component {
             username:'',
             password:'',
             redirect: false,
-            error : true
-            
+            error : false,
+            loginLoader:false
         }
         this.login = this.login.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -37,23 +37,40 @@ export default class LoginFunc extends Component {
     }
 
     checkError(){
-        if(!this.state.error)
-        return(<big style={{ fontWeight: 'bold',backgroundColor: '#F2F200',fontSize: "17px"}} className="form-title font-red" > Username or password is incorrect!</big>)
+        if(this.state.error) {
+            if(this.state.loginLoader) {
+                this.setState({
+                    loginLoader: false
+                })
+            }
+            return (
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> Username or Password is not correct.
+                </div>
+            )
+        }
     }
 
     login() {
         const {username, password} = this.state
+        this.setState({
+            loginLoader: true
+        })
         if(this.state.username && this.state.password){
             PostData('login', {username, password}).then ((result) => {
-                console.log(result);
-                if(!result.statusCode && result.token) {
-                    localStorage.setItem('userData', result.username)                    
+                if(!result.token) {
+                    this.setState({
+                        error: true
+                    })
+                   
+                }else {
+                    localStorage.setItem('userData', JSON.stringify({
+                        name: result.username,
+                        id: result.engineerId,
+                        token: result.token
+                    }))                    
                     this.setState({
                         redirect: true
-                    })
-                }else {
-                    this.setState({
-                        error: false
                     })
                 }
             })
@@ -75,13 +92,11 @@ export default class LoginFunc extends Component {
         if(localStorage.getItem('userData')){
             return(<div>{this.redirect()} </div>  )
         }
+        const loader = this.state.loginLoader ? <LoginLoader/> : null
+       
         return (
             <div className="login" >
-                {/* BEGIN LOGO */}
-                
-                {/* END LOGO */}
-                {/* BEGIN LOGIN */}
-                <div className="content" style={{backgroundColor: 'rgba(0,0,0,0.7)'}}>
+                <div className="content">
                     {/* BEGIN LOGIN FORM */}
                     <div className="logo">
                     <a href="/login">
@@ -118,14 +133,19 @@ export default class LoginFunc extends Component {
                                     onChange={this.onChange}
                                     validations={[required, minLength]}/> 
                             </div>
-                            <div className="form-actions" style={{textAlign: "center"}}>
-                                <button type="submit" className="btn green uppercase" onClick={this.login}>Login</button>
+                            <div className="form-actions" style={{textAlign: "center", border:"none"}}>
+                                <button type="submit" className="btn green uppercase" onClick={()=>this.login()}>Login</button>
+                                <div className="padding-tb-15">
+                                    {loader}
+                                </div>
+                               
                                 {/* <label className="rememberme check mt-checkbox mt-checkbox-outline">
                                     <input type="checkbox" name="remember" defaultValue={1} />Remember
                                     <span />
                                 </label>
                                 <NavLink to="" id="forget-password" className="forget-password">Forgot Password?</NavLink> */}
                             </div>
+                          
                         </Form>
                         {/* <div className="login-options">
                             <h4>Or login with</h4>

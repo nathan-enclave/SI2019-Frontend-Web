@@ -9,6 +9,8 @@ import { throwStatement } from '@babel/types';
 import MSGSuccess from './../add/MSGSuccess';
 
 
+import Preloader from '../../Preloader'
+
 class TableData extends Component {
   constructor(props){
     super(props);
@@ -39,7 +41,7 @@ class TableData extends Component {
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
     let dataRender = res.results.map((value,key) =>(
-      <RowData  
+<RowData  
       key = {key}
       id = {value.id}
       firstName={value.firstName} 
@@ -65,44 +67,22 @@ class TableData extends Component {
 toggleModal = () => {
   this.setState({
     isOpen: !this.state.isOpen
-  });
+  })
 }
 reloadData = ()=>{
   this.setState({isOpen : false})
   this.componentWillMount()
 }
 reload = ()=>{
-  this.componentWillMount();
+  this.componentWillMount()
 }
-    render() {
-      console.log(this.state.data)
-        return (
-        <div className="TableArea"> 
-          <div className="portlet-title">
-            <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table ({this.state.totalItemsCount}) </div>    
-            <div style={{paddingBottom: '20px'}}> 
-              <div style={{ width: '200px', float: 'left' }}>
-                <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
-                  <i className="fa fa-edit"></i> Add  </button>
-              </div>                     
-              <div className="search-form" style={{float:'right',width: '200px',backgroundColor:'#B9ECF0'}} >
-                <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Search here" name="query" />
-                  <span className="input-group-btn">
-                    <a href="abc" className="btn md-skip submit">
-                      <i className="fa fa-search" />
-                    </a>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="portlet-body">
+  render() {
+    const  loader = this.state.data.length > 0 ? 
+            <div className="table-main-pagination">
               <div className="table-scrollable">
-              <table className="table table-striped table-bordered table-advance table-hover">
+                <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
                     <tr>                 
-                      <th style={{fontWeight: 'bold'}}>Id </th>
                       <th style={{fontWeight: 'bold'}}>English name </th>
                       <th style={{fontWeight: 'bold'}}>Full name </th>
                       <th style={{fontWeight: 'bold'}}>Email </th>
@@ -126,8 +106,32 @@ reload = ()=>{
                 itemClass = 'page-item'         
                 />
               </div>
-            </div>         
-            <Modal show={this.state.isOpen}
+            </div> : <Preloader/>
+    return (
+      <div className="TableArea"> 
+        <div className="portlet-title">
+          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Engineer Table ({this.state.totalItemsCount}) </div>    
+          <div style={{paddingBottom: '20px'}}> 
+            <div style={{ width: '200px', float: 'left' }}>
+              <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
+                <i className="fa fa-edit"></i> Add  </button>
+            </div>                     
+            <div className="search-form" style={{float:'right',width: '200px',backgroundColor:'#B9ECF0'}} >
+              <div className="input-group">
+                <input type="text" className="form-control" placeholder="Search here" name="query" />
+                <span className="input-group-btn">
+                  <a href="abc" className="btn md-skip submit">
+                    <i className="fa fa-search" />
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="portlet-body">
+            {loader}
+          </div>         
+          <Modal show={this.state.isOpen}
             onClose={this.toggleModal}>
             <AddForm reloadData = {this.props.reload} onClose = {this.toggleModal} onReload = {this.reloadData}
              openMSGSuccess = {this.toggleMSGSuccess} />
@@ -136,10 +140,10 @@ reload = ()=>{
           onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
                 <MSGSuccess message = {"Add successful."} />
             </Modal>
-          </div>
-       </div>
-        );
-    }
+        </div>
+      </div>
+    );
+  }
 }
 
 export default TableData;

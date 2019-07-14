@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Preloader from '../../Preloader'
 class CashStats extends Component {
     constructor(props){
         super(props)
@@ -26,63 +26,89 @@ class CashStats extends Component {
 
     }
     render() {
+        let loader = {}
+        if (Object.keys(this.state).length > 0) {
+            loader.cashInTemplate = 
+                    <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in</div>
+                            <span data-counter="counterup" >{this.state.cashIn} M</span>
+                        </div>
+                    </div>
+              
+            loader.cashOutTemplate = 
+                    <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out</div>
+                            <span data-counter="counterup" >{this.state.cashOut} M</span>
+                        </div>
+                    </div>
+
+            loader.profitTemplate =
+                    <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Profit</div>
+                            <span data-counter="counterup" />{this.state.profit} M </div>
+                    </div>
+
+            loader.projectTemplate = 
+                    <div className="details">
+                        <div className="number">
+                            <div className="desc" style={{fontSize:"22px"}}> Project </div>
+                            <span data-counter="counterup" />{this.state.project} </div>
+                    </div>
+
+        } else {
+            loader.cashInTemplate = <Preloader style={"unset"}/>
+            loader.cashOutTemplate = <Preloader style={"unset"}/>
+            loader.profitTemplate = <Preloader style={"unset"}/>
+            loader.projectTemplate = <Preloader style={"unset"}/>
+            
+        }
         return (
-            <div className="overview-engineer">
-              <div className="row overview-hr widget-row">
-                {/* Total Engineer */}
-                <div class="col-md-3">
-                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                    <h4 class="widget-thumb-heading">Cash going in</h4>
-                    <div class="widget-thumb-wrap">
-                      <i class="widget-thumb-icon bg-green fa fa-money"></i>
-                      <div class="widget-thumb-body">
-                      <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.cashIn} M</span>
-                      </div>
+            <div className="CashStats">
+                <div className="portlet-title">
+                    <div className="caption">
+                        <i className="icon-bar-chart font-dark hide" />
+                        <span className="caption-subject font-dark bold uppercase" style={{fontSize:"18px"}}>Stats</span>
                     </div>
-                  </div>
+                    <br />
                 </div>
-                
-                <div class="col-md-3">
-                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                    <h4 class="widget-thumb-heading">Cash going out</h4>
-                    <div class="widget-thumb-wrap">
-                      <i class="widget-thumb-icon bg-red fa fa-money"></i>
-                      <div class="widget-thumb-body">
-                        <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.cashOut} M</span>
-                      </div>
+                <div className="row">
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div className="dashboard-stat dashboard-stat-v2 purple">
+                            <div className="visual">
+                                <i className="fa fa-bar-chart-o" />
+                            </div>
+                            {loader.cashInTemplate}
+                        </div>
                     </div>
-                  </div>
-                </div>
-                
-                <div class="col-md-3">
-                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                    <h4 class="widget-thumb-heading">Profit</h4>
-                    <div class="widget-thumb-wrap">
-                      <i class="widget-thumb-icon bg-purple fa fa-money"></i>
-                      <div class="widget-thumb-body">
-                        <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.profit} M</span>
-                      </div>
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#2e86de"}}>
+                            <div className="visual">
+                                <i className="fa fa-bar-chart-o" />
+                            </div>
+                            {loader.cashOutTemplate}
+                        </div>
                     </div>
-                  </div>
-                </div>
-                
-                <div class="col-md-3">
-                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                    <h4 class="widget-thumb-heading">Number of Project</h4>
-                    <div class="widget-thumb-wrap">
-                      <i class="widget-thumb-icon bg-blue icon-bulb"></i>
-                      <div class="widget-thumb-body">
-                        <span class="widget-thumb-subtitle"></span>
-                        <span class="widget-thumb-subtitle">project</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.project}</span>
-                      </div>
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#10ac84"}}>
+                            <div className="visual">
+                                <i className="fa fa-bar-chart-o" />
+                            </div>
+                            {loader.profitTemplate}
+                        </div>
                     </div>
-                  </div>
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#1B1464"}}>
+                            <div className="visual">
+                                <i className="fa fa-bar-chart-o" />
+                            </div>
+                            {loader.projectTemplate}
+                        </div>  
+                    </div>
                 </div>
-              </div>
+                <div className="clearfix" />
             </div>
         );
     }

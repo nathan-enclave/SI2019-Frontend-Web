@@ -45,7 +45,7 @@ class EditForm extends Component {
       status: res.status,
       // dayOffRemain: res.dayOffRemain,
       // createdAt: moment(res.createdAt).format('DD/MM/YYYY'),
-      // updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
+      updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
       skills: res.skills
       // startDate: new Date("")
     });
@@ -69,63 +69,69 @@ class EditForm extends Component {
         <div className="portlet-body">
           <div className="tab-content">
             <div className="tab-pane active" id="tab_1_1">
-              <form role="form" action="#">
+              <form>
                 <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src={this.state.avatar} alt /><br /><br />
+                  <img height="130px" src={this.state.avatar} alt="" /><br /><br />
                 </div>
-                <div className="col-md-6">
-                  {/* <div className="form-group">
-                    <label className="control-label">English Name</label>
-                    <input type="text" name="Engname" value={this.state.englishName} className="form-control" disabled /> </div> */}
-                  <div className="form-group">
-                    <label className="control-label">First Name</label>
-                    <input type="text" name="firstName" value={this.state.firstName} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Last Name</label>
-                    <input type="text" name="lastName" value={this.state.lastName} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Address</label>
-                    <input type="text" name="address" value={this.state.address} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Experiences</label>
-                    <input type="text" name="exp" value={this.state.expYear + " exp year"} className="form-control" disabled /> </div>
+                <div className="row">
+                  <div className="col-md-6">
                     <div className="form-group">
-                    <label className="control-label">Salary (M)</label>
-                    <input type="text" name="skype" value={this.state.salary/1000000} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Phone Number</label>
-                    <input type="text" name="phone" value={this.state.phoneNumber} className="form-control" disabled /> </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label className="control-label">Email</label>
-                    <input type="text" name="email" value={this.state.email} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Skype</label>
-                    <input type="text" name="skype" value={this.state.skype} className="form-control" disabled /> </div>                   
-                  <div className="form-group">
-                      <label className="control-label">Birthday</label><br/>
-                      <DatePicker  selected={this.state.birthday}  disabled/></div>
+                      <label className="control-label">English Name</label>
+                      <input type="text" name="Engname" value={this.state.englishName} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">First Name</label>
+                      <input type="text" name="firstName" value={this.state.firstName} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Last Name</label>
+                      <input type="text" name="lastName" value={this.state.lastName} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Address</label>
+                      <input type="text" name="address" value={this.state.address} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Experiences</label>
+                      <input type="text" name="exp" value={this.state.expYear + " exp year"} className="form-control" disabled /> </div>
                       <div className="form-group">
+                      <label className="control-label">Salary (M)</label>
+                      <input type="text" name="skype" value={this.state.salary/1000000} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Phone Number</label>
+                      <input type="text" name="phone" value={this.state.phoneNumber} className="form-control" disabled /> </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="control-label">Email</label>
+                      <input type="text" name="email" value={this.state.email} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Skype</label>
+                      <input type="text" name="skype" value={this.state.skype} className="form-control" disabled /> </div>                   
+                    <div className="form-group">
+                      <label className="control-label">Birthday</label><br/>
+                      <DatePicker className="form-control"  selected={this.state.birthday}  disabled />
+                      </div>
+                    <div className="form-group">
                       <label className="control-label">Date in</label><br/>
-                      <DatePicker  selected={this.state.dateIn}  disabled/></div>
-                  <div className="form-check">
-                    <label className="form-check-label"> Skills <br />
-                      {/* <input type = "text" value = {this.state.skills} name="skill" className="form-control" disabled/> */}
-                      <TagsInput value={this.state.tags} onChange={(tags) => this.handleChange(tags)} disabled />
-                    </label>
+                      <DatePicker className="form-control"  selected={this.state.dateIn}  disabled/>
+                    </div>
+                    <div className="form-group">
+                      <div className="form-check">
+                        <label className="form-check-label"> Skills</label> <br />
+                          {/* <input type = "text" value = {this.state.skills} name="skill" className="form-control" disabled/> */}
+                        <TagsInput value={this.state.tags} onChange={(tags) => this.handleChange(tags)} disabled  className="form-control custom-padding-none"/>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="form-group">
+                        <label className="control-label">Status</label>
+                        {this.selected()}
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="control-label">Last update at</label>
+                      <input type="text" name="updatedAt" value={this.state.updatedAt} className="form-control" disabled /> </div>
                   </div>
-                  <div className="form-group">
-                    <label className="control-label">Status</label>
-                    {this.selected()}
-                  </div>
-                  {/* <div className="form-group">
-                    <label className="control-label">Create at </label>
-                    <input type="text" name="createdAt" value={this.state.createdAt} className="form-control" disabled /> </div>
-                  <div className="form-group">
-                    <label className="control-label">Last update at</label>
-                    <input type="text" name="updatedAt" value={this.state.updatedAt} className="form-control" disabled /> </div> */}
+                
                 </div>
+               
               </form>
             </div>
           </div>

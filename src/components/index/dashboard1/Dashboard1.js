@@ -6,9 +6,11 @@ import ProjectPortlet from './ProjectPortlet';
 import StatProject from './StatProject';
 
 class Dashboard1 extends Component {      
+
     render() {
+        
         return (
-            <div>
+            <div className="FinanceDashboard">
                 <CashStats />
                 <CashFlowPortlet />
                 <div className="col-lg-6 col-xs-12 col-sm-12">

@@ -15,7 +15,7 @@ export default class DeletePopUp extends Component {
               <button type="button" onClick={this.props.onClose} class="btn red">OK</button>
           </div> */}
       {/* </div> */}
-      <button onClick={this.props.onClose}  className="btn btn-outline btn-sm green" style={{float: 'right',margin:'10px'}} >
+        <button onClick={this.props.onClose}  className="btn btn-outline btn-sm green" style={{float: 'right',margin:'10px'}} >
              Cancel
             </button>
             <button onClick={this.props.confirm}    className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}} >

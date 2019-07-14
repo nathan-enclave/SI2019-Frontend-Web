@@ -41,11 +41,11 @@ class EditForm extends Component {
       selectOptions: [],
       status: 1,
       skills: [],
-      dateOut : "",
-      dateIn : "",
-      birthday : "",
+      dateOut : null,
+      dateIn : null,
+      birthday : null,
       error: 0,
-      selectedStatus : "",
+      selectedStatus : null,
       data : {}
     };
     // this.handleChange = this.handleChange.bind(this);
@@ -125,7 +125,7 @@ class EditForm extends Component {
     this.setState({
       dateOut: date,
       data : {
-        dayOut : date
+        dateOut : date
       }
     });
   }
@@ -155,8 +155,9 @@ class EditForm extends Component {
       console.log(result);
       let rediect = false;
       if (!result.statusCode) {
-        rediect = true;
-        alert("Edit successful!")
+        // rediect = true;
+        this.props.onClose();
+        this.props.onOpenMSG();
       } else {
         if (result.statusCode != 500) {
           // this.setState({ msg: "Email or Skype was used by another account." })
@@ -195,7 +196,7 @@ class EditForm extends Component {
                 <div className="form-group" style={{ textAlign: 'center' }}>
                   <img height="130px" src={this.state.avatar} /><br /><br />
                 </div>
-                <div>
+                <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="control-label">English Name</label>
@@ -232,33 +233,35 @@ class EditForm extends Component {
                       <Input type="text" name="skype" value ={this.state.skype} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
                    
                     <div className="form-group">
-                      <label className="control-label">Birthday</label><br />
-                      <DatePicker selected={this.state.birthday} onChange={this.handleChangeBirthday} /> </div>
-                    <div className="form-check">
-                      <label className="control-label">Date in</label><br />
-                      <DatePicker selected={this.state.dateIn} onChange={this.handleChangeDateIn} /> </div>
-                      <div className="form-check">
-                      <label className="control-label">Date out</label><br />
-                      <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut} /> </div>
-                    <div className="form-check">
-                      <label className="form-check-label"> Skills:  </label>
-                      {/* <div className="col-md-12"> */}
-                        <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChangeSkill} />
-                      {/* </div> */}
+                      <label className="control-label">Birthday</label><br/>
+                      <DatePicker selected={this.state.birthday} onChange={this.handleChangeBirthday}  className="form-control" /> 
                     </div>
                     <div className="form-group">
-                      <label className="control-label">Status</label>
-                      <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
-                        <option value={1} >Available</option>
-                        <option value={0}  selected={this.state.selectedStatus}>Unavailable</option>
-                      </select>
+                      <div className="form-check">
+                        <label className="control-label">Date in</label><br/>
+                        <DatePicker selected={this.state.dateIn} onChange={this.handleChangeDateIn} className="form-control" /> 
+                      </div>
                     </div>
-                  </div>
-                  <div className="margiv-top-10" style={{ textAlign: 'center' }}>
-                    <button type="submit" className="btn green" onClick={(event) =>this.submitSaveForm(event)} style={{ right:"180px",top: "100px" }}> SAVE </button>
+                    <div className="form-group">
+                      <div className="form-check">
+                        <label className="control-label">Date out</label><br/>
+                        <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut}  className="form-control" /> 
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="form-check">
+                        <label className="form-check-label"> Skills:  </label>
+                          <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChangeSkill} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Form>
+              <div className="row">
+                <div className="margin-top-20" style={{ textAlign: 'center' }}>
+                  <button type="submit" className="btn green" onClick={(event) =>this.submitSaveForm(event)} > SAVE </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

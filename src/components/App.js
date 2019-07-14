@@ -22,9 +22,11 @@ function App() {
         return (
             <div>
                 <Router>
-                    <Header />
+                    {/* <Header /> */}
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup">      
+                        <div className="page-content page-content-popup" style={{borderRadius: '10px', position: 'relative'}}>      
+                            <Header />
+
                             <div className="page-content-fixed-header">
                                 <ul className="page-breadcrumb">
                                     <li>

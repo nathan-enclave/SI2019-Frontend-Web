@@ -12,24 +12,17 @@ class HireLeft extends Component {
                     xaxis: {
                         categories: []
                       },
-                    //   yaxis:[
-                    //       {
-                    //         title: {
-                    //             text: "Millions"
-                    //           }
-                    //       }
-                    //   ]
                 },
                 series: [
                     {
                         name: 'Hire',
                         type: 'column',
-                        data: [21.1, 23, 33.1, 34, 44.1, 44.9, 56.5, 58.5]
+                        data: []
                     },
                     {
                         name: 'Left',
                         type: 'column',
-                        data: [101.1, 13, 13.1, 14, 14.1, 14.9, 16.5, 18.5]
+                        data: []
                     },
         
                 ]
