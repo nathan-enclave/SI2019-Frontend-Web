@@ -51,7 +51,7 @@ class RowData extends Component {
           this.setState({msg: "Something wrong." })
       }
       if(rediect){
-      this.props.reloadData(true)  
+      this.props.reloadData()  
       }
     })
     this.setState({isOpenDelete: !this.state.isOpenDelete}) 

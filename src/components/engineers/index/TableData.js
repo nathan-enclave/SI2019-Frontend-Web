@@ -5,12 +5,15 @@ import Pagination from "react-js-pagination";
 import getDataPag from '../../../services/GetEngineerPagination';
 import Modal from '../../Modal';
 import AddForm from '../add/AddForm';
+import { throwStatement } from '@babel/types';
+import MSGSuccess from './../add/MSGSuccess';
 
 
 class TableData extends Component {
   constructor(props){
     super(props);
     this.state = {
+      isOpenMSGSuccess : false,
       data: [],
       itemsCountPerPage: 10,
       totalItemsCount: 0,
@@ -19,11 +22,10 @@ class TableData extends Component {
       isOpen: false
     }
   }
-
-  reload = ()=>{
-    this.componentWillMount();
+  toggleMSGSuccess = ()=>{
+    this.setState({isOpenMSGSuccess: !this.state.isOpenMSGSuccess})
+    this.reloadData()
   }
-  
   handlePageChange =(pageNumber)=> {
     console.log('active page is: ' + pageNumber);
     this.setState({activePage: pageNumber-1})
@@ -52,7 +54,6 @@ class TableData extends Component {
       create = {value.createdAt}
       update = {value.updatedAt}
       dayOffRemain={value.dayOffRemain}
-
       reloadData = {() =>{this.reload()}}
       />
     )
@@ -65,6 +66,13 @@ toggleModal = () => {
   this.setState({
     isOpen: !this.state.isOpen
   });
+}
+reloadData = ()=>{
+  this.setState({isOpen : false})
+  this.componentWillMount()
+}
+reload = ()=>{
+  this.componentWillMount();
 }
     render() {
       console.log(this.state.data)
@@ -121,8 +129,13 @@ toggleModal = () => {
             </div>         
             <Modal show={this.state.isOpen}
             onClose={this.toggleModal}>
-            <AddForm reloadData = {this.props.reload}/>
+            <AddForm reloadData = {this.props.reload} onClose = {this.toggleModal} onReload = {this.reloadData}
+             openMSGSuccess = {this.toggleMSGSuccess} />
           </Modal>
+          <Modal show={this.state.isOpenMSGSuccess}
+          onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
+                <MSGSuccess message = {"Add successful."} />
+            </Modal>
           </div>
        </div>
         );

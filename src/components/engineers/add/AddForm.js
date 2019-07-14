@@ -7,6 +7,8 @@ import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotal from './../../../services/GetListSkills';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import Modal from './../../Modal';
+import MSGSuccess from './MSGSuccess';
 
 const required = (value) => {
   if (isEmpty(value)) {
@@ -35,6 +37,7 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isOpenMSGSuccess : false,
       birthday: "",
       dateIn: "",
       options: [],
@@ -45,6 +48,7 @@ class AddForm extends Component {
     };
     // this.handleChange = this.handleChange.bind(this);
   }
+ 
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -75,9 +79,9 @@ class AddForm extends Component {
     AddEngineer(data).then((result) => {
       console.log(result);
       let rediect = false;
-      if (!result.statusCode) {
-        rediect = true;
-        alert("Add successful!")
+      if (!result.statusCode) {      
+        this.props.openMSGSuccess()
+        // this.props.onClose()
       } else {
         if (result.statusCode != 200) {
           // this.setState({ msg: "Email or Skype was used by another account." })
@@ -88,9 +92,11 @@ class AddForm extends Component {
         // else 
         // alert("Something wrong!")
       }
-      if (rediect) {
-        // return <Redirect to ='/engineer' />
-      }
+      // if (rediect) {
+      //   // return <Redirect to ='/engineer' />
+      //   this.setState({msg : "Add successful."})
+      //   this.toggleMSGSuccess(); 
+      // }
     })
   }
   handleChangeBirthday = (date) => {
@@ -203,7 +209,7 @@ class AddForm extends Component {
                 </div>
               </Form>
             </div>
-          </div>
+          </div>         
         </div>
       </div>
     );
