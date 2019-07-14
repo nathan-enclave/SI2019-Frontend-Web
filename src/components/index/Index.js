@@ -7,14 +7,10 @@ import Action from './Action';
 class Index extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: {
-        engineer: 0,
-        project: 0,
-        team: 0,
-        manager: 5
-      }
+    this.state={
+      data:null
     }
+
   }
   async componentWillMount() {
     const res = await getTotal();
@@ -28,27 +24,59 @@ class Index extends Component {
     });
   }
   render() {
-    return (
-      <div>
-        <Stats engineer={this.state.data.engineer}
-          project={this.state.data.project}
-          team={this.state.data.team}
-          manager={this.state.data.manager}
-        />     
-       <div className="portlet light bordered">
-        <div className="portlet-title">
-          <div className="caption">
-            <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+    if(this.state.data) {
+      return (
+       
+        <div className="Home">
+          <Stats engineer={this.state.data.engineer}
+            project={this.state.data.project}
+            team={this.state.data.team}
+            manager={this.state.data.manager}
+          />     
+          <div className="portlet light bordered">
+            <div className="portlet-title">
+              <div className="caption">
+                <i className="icon-bar-chart font-dark hide" />
+                <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+              </div>
+            </div>
+            <div >
+              <Action />
+            </div>
+
           </div>
         </div>
-        <div >
-       <Action />
-        </div>
+      );
+    }
+    else {
+      return (
+        <div className="loading-error">
+          <div className="loading-area" style={{position:"relative"}}>
+            <div class="wrap">
+              <div class="loading">
+                <div class="bounceball"></div>
+                <div class="text">NOW LOADING</div>
+              </div>
+            </div>
 
-      </div>
-      </div>
-    );
+          </div>
+        
+           <div className="portlet light bordered">
+            <div className="portlet-title">
+              <div className="caption">
+                <i className="icon-bar-chart font-dark hide" />
+                <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+              </div>
+            </div>
+            <div >
+              <Action />
+            </div>
+          </div>
+        </div>
+        
+
+      );
+    }  
   }
 }
 export default Index;

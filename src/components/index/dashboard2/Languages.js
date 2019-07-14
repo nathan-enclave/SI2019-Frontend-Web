@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
-import getLang from './LanguegesFetch';
 
 class Languages extends Component {
     constructor(props) {
@@ -66,7 +65,8 @@ class Languages extends Component {
               options={this.state.options}
               series={this.state.series}
               type="bar"
-              width="500"
+              width="100%"
+              height="500px"
             />
                 </div>
             </div>

@@ -4,30 +4,71 @@ import Chart from "react-apexcharts";
 class HireLeft extends Component {
     constructor(props) {
         super(props);
-
-        const optionsWorkingStatusColumn = {
-
-        };
-        const seriesWorkingStatusColumn = [
-            {
-                name: 'Hire',
-                type: 'column',
-                data: [21.1, 23, 33.1, 34, 44.1, 44.9, 56.5, 58.5]
-            },
-            {
-                name: 'Left',
-                type: 'column',
-                data: [11.1, 13, 13.1, 14, 14.1, 14.9, 16.5, 18.5]
-            },
-
-        ];
+       
         this.state ={
             workingStatus: {
-                options: optionsWorkingStatusColumn,
-                series: seriesWorkingStatusColumn
+                options: {
+                    colors: ['#00CECE', '#FFFF33'],
+                    xaxis: {
+                        categories: []
+                      },
+                },
+                series: [
+                    {
+                        name: 'Hire',
+                        type: 'column',
+                        data: []
+                    },
+                    {
+                        name: 'Left',
+                        type: 'column',
+                        data: []
+                    },
+        
+                ]
               }
         }
     }
+    async componentDidMount(){
+        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/workstatus/' + new Date().getFullYear());
+        const data = await res.json();
+        console.log(data) 
+        let cat = [],numHired = [],numLeft = []
+        data.forEach(element => {
+            cat.push(element.month)
+            numHired.push(element.numHired)
+            numLeft.push(element.numLeft)
+        });
+        this.setState({
+            workingStatus: {
+                options: {                   
+                    xaxis: {
+                        categories: cat
+                      },
+                      yaxis:[
+                          {
+                            title: {
+                                text: "Millions"
+                              }
+                          }
+                      ]
+                },
+                series: [
+                    {
+                        name: 'Hire',
+                        type: 'column',
+                        data: numHired
+                    },
+                    {
+                        name: 'Left',
+                        type: 'column',
+                        data: numLeft
+                    },
+        
+                ]
+              }
+        })        
+     }
 
     render() {
         return (
@@ -45,7 +86,7 @@ class HireLeft extends Component {
                         series={this.state.workingStatus.series}
                         type="bar"
                         width="100%"
-                        height="400"
+                        height="300px"
                     />
                 </div>
             </div>

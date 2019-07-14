@@ -6,16 +6,7 @@ export default function PostData(type, userData) {
         method: 'POST',
         body: JSON.stringify(userData)
     })
-        .then((response) =>{
-            if (response.status === 200) {
-                return response.json()
-            }else {
-                return {
-                    status: response.status,
-                    statusText: response.statusText
-                }
-            }
-        } )
+        .then((response) =>response.json() )
         .then((responseJson) => {
             resolve(responseJson)
         })

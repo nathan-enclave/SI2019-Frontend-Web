@@ -6,11 +6,8 @@ import LeftBar from './LeftBar';
 import Footer from './Footer';
 import {Redirect } from 'react-router'
 
-function App() {
-    
-   
-    if (!localStorage.getItem('userData')) {
-        
+function App() {  
+    if (!localStorage.getItem('userData')) {        
         return (
             <div >
                 <Router>
@@ -18,7 +15,6 @@ function App() {
                 <Redirect to ="/login" />
                 </Router>
             </div>
-
         );
     }
     else
@@ -26,26 +22,24 @@ function App() {
         return (
             <div>
                 <Router>
-                    <Header />
+                    {/* <Header /> */}
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup">      
+                        <div className="page-content page-content-popup" style={{borderRadius: '10px', position: 'relative'}}>      
+                            <Header />
+
                             <div className="page-content-fixed-header">
-                                {/* BEGIN BREADCRUMBS */}
                                 <ul className="page-breadcrumb">
                                     <li>
                                         <a href="/">Dashboard</a>
                                     </li>
                                     <li>Admin Dashboard</li>
                                 </ul>
-                                {/* END BREADCRUMBS */}
                                 <div className="content-header-menu">
-                                    {/* BEGIN MENU TOGGLER */}
                                     <button type="button" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                                         <span className="toggle-icon toggle-icon-custom">
                                         <i className="fa fa-bars"></i>
                                         </span>
                                     </button>
-                                    {/* END MENU TOGGLER */}
                                 </div>
                             </div>
 
@@ -60,7 +54,6 @@ function App() {
                         </div>
                     </div>
                     <div className="quick-nav-overlay"></div>
-                    {/* <LoginFunc /> */}
                 </Router>
             </div>
         );

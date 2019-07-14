@@ -5,7 +5,6 @@ import Modal from './../../Modal';
 import EditForm from './../edit/EditForm';
 import DeletePopUp from './../delete/DeletePopUp';
 import DelEngineer from '../../../services/DelEngineer';
-import ModalDelete from '../../ModalDelete';
 import MSGDelete from '../delete/MSGDelete';
 
 class RowData extends Component {
@@ -39,8 +38,7 @@ class RowData extends Component {
     this.setState({
       isOpenDelete: !this.state.isOpenDelete
     });
-  }
-    
+  }    
   removeItem = ()=>{
     DelEngineer(this.props.id).then((result) => {
       let rediect = false;
@@ -60,51 +58,42 @@ class RowData extends Component {
   }
       render() {
         return (
-            <tr>
+          <tr className="RowData">
             <td className="highlight">
-              {this.props.id}
-            </td>
-            <td className="highlight">
-              {this.props.englishName} 
+              <a onClick={()=>this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+                {this.props.englishName} 
+              </a>
             </td>
             <td className = "highlight">
               {this.props.firstName} {this.props.lastName} 
             </td>          
-            <td className="highlight"> {this.props.email} </td>
+            <td className="highlight"><a href={"mailto:" + this.props.email}> {this.props.email}</a> </td>
             <td>{this.props.phoneNumber}</td>
-            <td>{this.props.expYear}</td>
+            <td >{this.props.expYear}</td>
             <td>
-              <button onClick={this.toggleModalView} className="btn btn-outline btn-circle green btn-sm purple">
-                <i className="fa fa-edit" /> View </button>
-                <button onClick={this.toggleModalEdit} className="btn btn-outline btn-circle green btn-sm purple">
-                <i className="fa fa-trash-o" /> Edit </button>
-              <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black">
-                <i className="fa fa-trash-o" /> Delete </Link>
-
-                {/* <Link to = "/engineer" onClick={this.toggleModalDelete} className="btn btn-outline btn-circle dark btn-sm black"></Link> */}
-                  
+              {/* <button onClick={()=>this.toggleModalView()} className="btn btn-outline green btn-sm yellow margin-bottom-5 margin-top-5">
+                <i className="fa fa-eye" style={{fontSize:'15px'}}/>
+              </button> */}
+              <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm purple margin-bottom-5 margin-top-5" >
+                <i className="fa fa-edit" style={{fontSize:'15px'}} />
+              </button>
+              <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
+                <i className="fa fa-trash-o" style={{fontSize:'15px'}}/>
+              </button>
             </td>
-            <Modal show={this.state.isOpenView}
-          onClose={this.toggleModalView}>
-                <ViewForm id = {this.props.id}/>
+            <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
+              <ViewForm id = {this.props.id}/>
             </Modal>
-            <Modal show={this.state.isOpenEdit}
-          onClose={this.toggleModalEdit}>
+            <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
               <EditForm  id = {this.props.id} englishName={this.props.englishName} />
             </Modal>
-            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}>
-              <DeletePopUp />  
+        
+            <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
+              <MSGDelete message = {this.state.msg} />
             </Modal>
-
-            <Modal show={this.state.isOpenMSGDelete}
-          onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-                <MSGDelete message = {this.state.msg}/>
+            <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
+              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName}/>  
             </Modal>
-
-            <ModalDelete show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true} 
-            confirm = {(redirect) =>{this.removeItem(redirect)}} >
-              <DeletePopUp />  
-            </ModalDelete>
           </tr>
         );
     }
