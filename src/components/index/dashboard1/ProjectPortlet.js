@@ -12,31 +12,35 @@ class ProjectPortlet extends Component {
         },
         xaxis: {
           categories: []
-        }
+        },
+        colors:  ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e', '#f48024', '#69d2e7','#FFFFA6','#8080C0','#FFC488']
       },
       series: [
         {
-          name: "series-1",
+          name: "Milions",
           data: []
         }
       ]
     };
   }
   async componentDidMount(){
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/statistic/projects/earning/'+ new Date().getFullYear());
         const data = await res.json();
-        console.log(data)
+        // console.log(data.results)
         let catData = [], seriesData1 =[];
-        data.forEach(element => {
-            catData.push(element.month)
-            seriesData1.push(element.numOfProject)
-           ;
+        data.results.forEach((element, idx )=> {
+            catData.push(element.name)
+            seriesData1.push(parseInt(element.earningPerMonth/1000000));
+           
         });
+        seriesData1 = seriesData1.slice(4, 12)
+        catData = catData.slice(4, 12)
         this.setState({
           options:{
             xaxis: {
               categories : catData
-            }
+            },
+            
           },
           series: [{
             data : seriesData1

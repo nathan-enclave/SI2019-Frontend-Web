@@ -22,17 +22,20 @@ class CashFlowPortlet extends Component {
         // ];
         this.state ={
                 options: {
-                    colors: ['#00CECE', '#FFFF33', '#FF5B5B'],
+                    colors: ['#10ac84','#ee5253',  '#48dbfb'],
                     xaxis: {
                         categories: []
                       },
-                      yaxis:[
-                          {
-                            title: {
-                                text: "Millions"
-                              }
-                          }
-                      ]
+                    yaxis:[
+                        {
+                        title: {
+                            text: "Millions"
+                            }
+                        }
+                    ],
+                    stroke: {
+                        width: [1,1,2]
+                    },
                     //   yaxis: [
                     //     {
                     //       seriesName: 'Column A',
@@ -82,7 +85,7 @@ class CashFlowPortlet extends Component {
     async componentDidMount(){
         const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
         const data = await res.json();
-        console.log(data)
+        // console.log(data)
         let catData = [], seriesData1 =[], seriesData2 = [],seriesData3 = [];
         data.forEach(element => {
             catData.push(element.month)
@@ -135,7 +138,7 @@ class CashFlowPortlet extends Component {
                         options={this.state.options}
                         series={this.state.series}
                         type="line"
-                        height="300px"
+                        height="400px"
                     />
                 </div>
 

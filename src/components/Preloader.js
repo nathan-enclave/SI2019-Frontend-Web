@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class Preloader extends Component {
   render() {
     return (
-      <div className="Preloader" style={{position: this.props.style? this.props.style: 'relative'}}>
+      <div className="Preloader" style={{position: this.props.styleCustom? this.props.styleCustom: 'relative'}}>
           <div class="wrap">
             <div class="loading">
               <div class="bounceball" style={{}}></div>

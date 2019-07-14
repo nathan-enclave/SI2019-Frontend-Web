@@ -6,6 +6,8 @@ import EditForm from './../edit/EditForm';
 import DeletePopUp from './../delete/DeletePopUp';
 import DelEngineer from '../../../services/DelEngineer';
 import MSGDelete from '../delete/MSGDelete';
+import MSGSuccess from '../edit/MSGSuccess';
+import { thisTypeAnnotation } from '@babel/types';
 
 class RowData extends Component {
   constructor(props) {
@@ -16,8 +18,15 @@ class RowData extends Component {
       isOpenEdit : false, 
       isOpenDelete: false,
       isOpenMSGDelete: false,
+      isOpenMSGSuccess : false
       
     };
+  }
+  toggleMSGSuccess = ()=>{
+    this.setState({
+      isOpenMSGSuccess : !this.state.isOpenMSGSuccess
+    })
+    this.props.reloadData();
   }
   toggleModalMSGDelete = ()=>{
     this.setState({
@@ -51,7 +60,7 @@ class RowData extends Component {
           this.setState({msg: "Something wrong." })
       }
       if(rediect){
-      this.props.reloadData(true)  
+      this.props.reloadData()  
       }
     })
     this.setState({isOpenDelete: !this.state.isOpenDelete}) 
@@ -65,7 +74,7 @@ class RowData extends Component {
               </a>
             </td>
             <td className = "highlight">
-              {this.props.firstName} {this.props.lastName}  {this.props.id}
+              {this.props.firstName} {this.props.lastName} 
             </td>          
             <td className="highlight"><a href={"mailto:" + this.props.email}> {this.props.email}</a> </td>
             <td>{this.props.phoneNumber}</td>
@@ -75,7 +84,7 @@ class RowData extends Component {
                 {/* <button onClick={()=>this.toggleModalView()} className="btn btn-outline green btn-sm yellow margin-bottom-5 margin-top-5">
                   <i className="fa fa-eye" style={{fontSize:'15px'}}/>
                 </button> */}
-                <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm purple margin-bottom-5 margin-top-5" >
+                <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >
                   <i className="fa fa-edit" style={{fontSize:'15px'}} />
                 </button>
                 <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
@@ -87,7 +96,10 @@ class RowData extends Component {
               <ViewForm id = {this.props.id}/>
             </Modal>
             <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
-              <EditForm  id = {this.props.id} englishName={this.props.englishName} />
+              <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
+            </Modal>
+            <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
+              <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  />
             </Modal>
         
             <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >

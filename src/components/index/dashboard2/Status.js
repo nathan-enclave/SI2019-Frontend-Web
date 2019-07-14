@@ -6,9 +6,13 @@ class Status extends Component {
         super(props);        
         this.state = {
             options: {
-              labels: ['Available','In team']
+              labels: ['Available','In team'],
+              styles: {
+                fontSize: '50px'
+              },
+              colors: ['#8395a7', '#ee5253' ]
             },
-            series: [65,35],
+            series: [],
             
           }
       }
@@ -31,13 +35,13 @@ class Status extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">Engineer status</span>
+                        <span className="caption-subject font-dark bold uppercase">Engineers status</span>
                         <span className="caption-helper"></span>
                     </div>
                 </div>
                 {/* chart here */}
                 <div>
-                    <Chart options={this.state.options} series={this.state.series} type="donut" width="380" width="80%" />
+                    <Chart options={this.state.options} series={this.state.series} type="donut" width="100%" />
                 </div>
             </div>
         );

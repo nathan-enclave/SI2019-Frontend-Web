@@ -11,15 +11,14 @@ class Stats extends Component {
     }
 }
 async componentDidMount(){
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/salary');
-    const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/total');
-    const data = await res.json();
+    let res1 =  fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/salary');
+    let res2 =  fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/total');
+    [res1, res2] = await Promise.all([res1, res2])
+    const data = await res1.json();
     const totalEng = await res2.json();
-    console.log(totalEng)
-    // let totalSalary = 0, avgSalary = 0,avgAge = 0;
     this.setState({
-      totalSalary : data.totalSalary,
-      avgSalary : data.avgSalary,
+      totalSalary :data.totalSalary/1000000,
+      avgSalary :  parseFloat(data.avgSalary/1000000).toFixed(2),
       avgAge : data.avgAge,
       total : totalEng.engineer 
     })
@@ -44,7 +43,7 @@ async componentDidMount(){
                     <div class="widget-thumb-wrap">
                       <i class="widget-thumb-icon bg-green fa fa-user"></i>
                       <div class="widget-thumb-body">
-                      <span class="widget-thumb-subtitle">Engineer</span>
+                      <span class="widget-thumb-subtitle">Engineers</span>
                         <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.total}</span>
                       </div>
                     </div>
@@ -58,7 +57,7 @@ async componentDidMount(){
                       <i class="widget-thumb-icon bg-red fa fa-money"></i>
                       <div class="widget-thumb-body">
                         <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.totalSalary/1000000} M</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.totalSalary} M</span>
                       </div>
                     </div>
                   </div>
@@ -71,7 +70,7 @@ async componentDidMount(){
                       <i class="widget-thumb-icon bg-purple fa fa-money"></i>
                       <div class="widget-thumb-body">
                         <span class="widget-thumb-subtitle">VND</span>
-                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.avgSalary/1000000} M</span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{this.state.avgSalary} M</span>
                       </div>
                     </div>
                   </div>

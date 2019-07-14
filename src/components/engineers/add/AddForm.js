@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom'
+// import {Redirect} from 'react-router-dom'
 import Select from 'react-select';
 import AddEngineer from './../../../services/AddEngineer';
 import Form from 'react-validation/build/form';
@@ -8,6 +8,8 @@ import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotal from './../../../services/GetListSkills';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+// import Modal from './../../Modal';
+// import MSGSuccess from './MSGSuccess';
 
 const required = (value) => {
   if (isEmpty(value)) {
@@ -36,6 +38,7 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isOpenMSGSuccess : false,
       birthday: "",
       dateIn: "",
       options: [],
@@ -46,6 +49,7 @@ class AddForm extends Component {
     };
     // this.handleChange = this.handleChange.bind(this);
   }
+ 
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -70,19 +74,23 @@ class AddForm extends Component {
       skills: this.state.skills
     }
     AddEngineer(data).then((result) => {
-      console.log(result);
-      let redirect = false;
-      if (!result.statusCode) {
-        redirect = true;
-        alert("Add successful!")
+      // console.log(result);
+      // let rediect = false;
+      if (!result.statusCode) {      
+        this.props.openMSGSuccess()
+        // this.props.onClose()
+
       } else {
         if (result.statusCode !== 200) {
           this.setState({ msg: 'Some error occured, please try again later' });
         }
       }
-      if (redirect) {
-        return <Redirect to ='/engineer' />
-      }
+      // if (rediect) {
+      //   // return <Redirect to ='/engineer' />
+      //   this.setState({msg : "Add successful."})
+      //   this.toggleMSGSuccess(); 
+      // }
+
     })
   }
   handleChangeBirthday = (date) => {
@@ -204,7 +212,7 @@ class AddForm extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </div>         
         </div>
       </div>
     );

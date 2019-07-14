@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import getTotal from '../../../services/GetTotal';
 import CashStats from './CashStats';
 import CashFlowPortlet from './CashFlowPortlet';
-import ProfitPortlet from './ProjectPortlet';
+import ProjectPortlet from './ProjectPortlet';
 import StatProject from './StatProject';
 
-class Dashboard1 extends Component {
-   
+class Dashboard1 extends Component {      
+
     render() {
         
         return (
@@ -14,10 +14,10 @@ class Dashboard1 extends Component {
                 <CashStats />
                 <CashFlowPortlet />
                 <div className="col-lg-6 col-xs-12 col-sm-12">
-                    < StatProject/>
+                    <ProjectPortlet/>
                 </div>
                 <div className="col-lg-6 col-xs-12 col-sm-12">                   
-                        <ProfitPortlet />                    
+                        <StatProject />                    
                 </div>
             </div>
         );

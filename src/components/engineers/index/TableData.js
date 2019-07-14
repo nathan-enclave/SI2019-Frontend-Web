@@ -5,12 +5,17 @@ import Pagination from "react-js-pagination";
 import getDataPag from '../../../services/GetEngineerPagination';
 import Modal from '../../Modal';
 import AddForm from '../add/AddForm';
+// import { throwStatement } from '@babel/types';
+import MSGSuccess from './../add/MSGSuccess';
+
+
 import Preloader from '../../Preloader'
 
 class TableData extends Component {
   constructor(props){
     super(props);
     this.state = {
+      isOpenMSGSuccess : false,
       data: [],
       itemsCountPerPage: 10,
       totalItemsCount: 0,
@@ -19,11 +24,10 @@ class TableData extends Component {
       isOpen: false
     }
   }
-
-  reload = ()=>{
-    this.componentWillMount();
+  toggleMSGSuccess = ()=>{
+    this.setState({isOpenMSGSuccess: !this.state.isOpenMSGSuccess})
+    this.reloadData()
   }
-  
   handlePageChange =(pageNumber)=> {
     console.log('active page is: ' + pageNumber);
     this.setState({activePage: pageNumber-1})
@@ -37,42 +41,48 @@ class TableData extends Component {
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
     let dataRender = res.results.map((value,key) =>(
-        <RowData  
-        key = {key}
-        id = {value.id}
-        firstName={value.firstName} 
-        lastName= {value.lastName}
-        englishName={value.englishName}
-        phoneNumber={value.phoneNumber}
-        address={value.address}
-        email={value.email}
-        skype={value.skype}
-        expYear = {value.expYear > 1 ? value.expYear + ' years': value.expYear + ' years'}
-        status = {value.status}
-        create = {value.createdAt}
-        update = {value.updatedAt}
-        dayOffRemain={value.dayOffRemain}
-
-        reloadData = {() =>{this.reload()}}
-        />
-      )
+    <RowData  
+      key = {key}
+      id = {value.id}
+      firstName={value.firstName} 
+      lastName= {value.lastName}
+      englishName={value.englishName}
+      phoneNumber={value.phoneNumber}
+      address={value.address}
+      email={value.email}
+      skype={value.skype}
+      expYear = {value.expYear > 1 ? value.expYear + ' years': value.expYear + ' year' }
+      status = {value.status}
+      create = {value.createdAt}
+      update = {value.updatedAt}
+      dayOffRemain={value.dayOffRemain}
+      reloadData = {() =>{this.reload()}}
+      />
     )
-    this.setState({
-      data : dataRender
-    })
-  } 
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+  )
+  this.setState({
+    data : dataRender
+  })
+} 
+toggleModal = () => {
+  this.setState({
+    isOpen: !this.state.isOpen
+  })
+}
+reloadData = ()=>{
+  this.setState({isOpen : false})
+  this.componentWillMount()
+}
+reload = ()=>{
+  this.componentWillMount()
+}
   render() {
     const  loader = this.state.data.length > 0 ? 
             <div className="table-main-pagination">
               <div className="table-scrollable">
                 <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
-                    <tr>                 
+                    <tr>
                       <th style={{fontWeight: 'bold'}}>English name </th>
                       <th style={{fontWeight: 'bold'}}>Full name </th>
                       <th style={{fontWeight: 'bold'}}>Email </th>
@@ -121,15 +131,19 @@ class TableData extends Component {
           <div className="portlet-body">
             {loader}
           </div>         
-          <Modal show={this.state.isOpen} onClose={this.toggleModal}>
-            <AddForm reloadData = {this.props.reload}/>
+          <Modal show={this.state.isOpen}
+            onClose={this.toggleModal}>
+            <AddForm reloadData = {this.props.reload} onClose = {this.toggleModal} onReload = {this.reloadData}
+             openMSGSuccess = {this.toggleMSGSuccess} />
           </Modal>
+          <Modal show={this.state.isOpenMSGSuccess}
+          onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
+                <MSGSuccess message = {"Add successfully new engineer."} />
+            </Modal>
         </div>
       </div>
     );
   }
-
-     
 }
 
 export default TableData;

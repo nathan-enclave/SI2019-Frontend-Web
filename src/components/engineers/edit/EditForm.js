@@ -154,8 +154,9 @@ class EditForm extends Component {
       console.log(result);
       let rediect = false;
       if (!result.statusCode) {
-        rediect = true;
-        alert("Edit successful!")
+        // rediect = true;
+        this.props.onClose();
+        this.props.onOpenMSG();
       } else {
         if (result.statusCode != 500) {
           // this.setState({ msg: "Email or Skype was used by another account." })
@@ -191,7 +192,7 @@ class EditForm extends Component {
             <div className="tab-pane active" id="tab_1_1">
             <Form >
                 <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src={this.state.avatar} /><br /><br />
+                  <img height="130px" src={this.state.avatar} alt=""/><br /><br />
                 </div>
                 <div className="row">
                   <div className="col-md-6">
