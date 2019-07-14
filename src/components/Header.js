@@ -9,7 +9,7 @@ class Header extends Component {
     render() {
       console.log()
         return (
-            <header className="page-header">
+            <header className="page-header" >
             <nav className="navbar" role="navigation">
               <div className="container-fluid">
                 <div className="havbar-header">
