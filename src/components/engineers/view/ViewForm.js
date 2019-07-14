@@ -7,7 +7,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../services/GetDetailEng';
-
+import numeral from 'numeral'
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ class EditForm extends Component {
       address: res.address,
       birthday: new Date(new Date(res.birthday).toDateString()),
       dateIn: new Date(new Date(res.dateIn).toDateString()),
-      salary : res.salary,
+      salary : numeral(res.salary).format('0,0'),
       email: res.email,
       skype: res.skype,
       avatar: res.avatar,
@@ -91,8 +91,8 @@ class EditForm extends Component {
                       <label className="control-label">Experiences</label>
                       <input type="text" name="exp" value={this.state.expYear + " exp year"} className="form-control" disabled /> </div>
                       <div className="form-group">
-                      <label className="control-label">Salary (M)</label>
-                      <input type="text" name="skype" value={this.state.salary/1000000} className="form-control" disabled /> </div>
+                      <label className="control-label">Salary (VND)</label>
+                      <input type="text" name="skype" value={this.state.salary} className="form-control" disabled /> </div>
                     <div className="form-group">
                       <label className="control-label">Phone Number</label>
                       <input type="text" name="phone" value={this.state.phoneNumber} className="form-control" disabled /> </div>
