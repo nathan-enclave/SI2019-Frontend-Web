@@ -20,11 +20,11 @@ function App() {
     else
     {
         return (
-            <div>
+            <div className="App">
                 <Router>
                     {/* <Header /> */}
                     <div className="container-fluid">
-                        <div className="page-content page-content-popup" style={{borderRadius: '10px', position: 'relative'}}>      
+                        <div className="page-content page-content-popup" style={{position: 'relative',boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'}}>      
                             <Header />
 
                             <div className="page-content-fixed-header">

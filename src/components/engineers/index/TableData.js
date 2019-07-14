@@ -47,7 +47,7 @@ class TableData extends Component {
         address={value.address}
         email={value.email}
         skype={value.skype}
-        expYear = {value.expYear}
+        expYear = {value.expYear > 1 ? value.expYear + ' years': value.expYear + ' years'}
         status = {value.status}
         create = {value.createdAt}
         update = {value.updatedAt}
@@ -77,7 +77,7 @@ class TableData extends Component {
                       <th style={{fontWeight: 'bold'}}>Full name </th>
                       <th style={{fontWeight: 'bold'}}>Email </th>
                       <th style={{fontWeight: 'bold'}}>Phone number </th>
-                      <th style={{fontWeight: 'bold'}}>Experiences (Years) </th>
+                      <th style={{fontWeight: 'bold'}}>Experiences</th>
                       <th style={{fontWeight: 'bold'}}>Action </th>
                     </tr>
                   </thead>

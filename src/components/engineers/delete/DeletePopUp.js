@@ -8,7 +8,7 @@ export default class DeletePopUp extends Component {
       <div className="DeletePopUp">
         {/* <div class="modal-content"> */}
           <div class="modal-header">
-              <h4 style={{color:'red'}} class="modal-title">Delete <span >{this.props.name}</span></h4>
+              <h4 style={{color:'red'}} class="modal-title">Delete engineer: "<span >{this.props.name}"</span></h4>
           </div>
           <div class="modal-body">You will delete completely this engineer.</div>
           {/* <div class="modal-footer">

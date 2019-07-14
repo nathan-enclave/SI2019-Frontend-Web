@@ -71,15 +71,17 @@ class RowData extends Component {
             <td>{this.props.phoneNumber}</td>
             <td >{this.props.expYear}</td>
             <td>
-              {/* <button onClick={()=>this.toggleModalView()} className="btn btn-outline green btn-sm yellow margin-bottom-5 margin-top-5">
-                <i className="fa fa-eye" style={{fontSize:'15px'}}/>
-              </button> */}
-              <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm purple margin-bottom-5 margin-top-5" >
-                <i className="fa fa-edit" style={{fontSize:'15px'}} />
-              </button>
-              <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
-                <i className="fa fa-trash-o" style={{fontSize:'15px'}}/>
-              </button>
+              <div className="flex-center">
+                {/* <button onClick={()=>this.toggleModalView()} className="btn btn-outline green btn-sm yellow margin-bottom-5 margin-top-5">
+                  <i className="fa fa-eye" style={{fontSize:'15px'}}/>
+                </button> */}
+                <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm purple margin-bottom-5 margin-top-5" >
+                  <i className="fa fa-edit" style={{fontSize:'15px'}} />
+                </button>
+                <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
+                  <i className="fa fa-trash-o" style={{fontSize:'15px'}}/>
+                </button>
+              </div>
             </td>
             <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
               <ViewForm id = {this.props.id}/>

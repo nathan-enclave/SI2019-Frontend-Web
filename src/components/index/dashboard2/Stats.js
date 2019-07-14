@@ -28,7 +28,14 @@ async componentDidMount(){
 }
     render() {
         return (
-                 <div className="overview-engineer">
+            <div className="overview-engineer">
+              <div className="portlet-title">
+                  <div className="caption">
+                      <i className="icon-bar-chart font-dark hide" />
+                      <span className="caption-subject font-dark bold uppercase" style={{fontSize:"18px"}}>Stats</span>
+                  </div>
+                  <br />
+              </div>
               <div className="row overview-hr widget-row">
                 {/* Total Engineer */}
                 <div class="col-md-3">
