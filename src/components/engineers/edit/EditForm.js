@@ -142,13 +142,12 @@ class EditForm extends Component {
           skills : temp
         }
       })
-      console.log(this.state.data.skills)
+     
     }
   }
   
   submitSaveForm = (event) => {
     event.preventDefault() // stop loading        
-    console.log(this.state)
     // console.log(this.state.data)
     // console.log("data: " + this.state.data.skills)
     EditEngineer(this.state.data,this.props.id).then((result) => {
@@ -178,7 +177,6 @@ class EditForm extends Component {
   }
  
   render() {
-    console.log(this.state.selectOptions)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">

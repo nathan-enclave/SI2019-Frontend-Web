@@ -1,4 +1,4 @@
-export default async function AddEngineer(data){
+export default function AddEngineer(data){
   return new Promise((resolve, reject) =>{
   fetch('https://si-enclave.herokuapp.com/api/v1/engineers', {
       method: 'POST',

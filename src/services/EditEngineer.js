@@ -1,7 +1,6 @@
-export default async function AddEngineer(data,id){
-    console.log(data)
+export default function Edit(data,id){
     return new Promise((resolve, reject) =>{
-    fetch('https://si-enclave.herokuapp.com/api/v1/engineers' +'/'+id, {
+    fetch('https://si-enclave.herokuapp.com/api/v1/engineers' +'/'+id, { 
         method: 'PUT',
         body: JSON.stringify(data)
     })

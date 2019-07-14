@@ -65,7 +65,7 @@ class RowData extends Component {
               </a>
             </td>
             <td className = "highlight">
-              {this.props.firstName} {this.props.lastName} 
+              {this.props.firstName} {this.props.lastName}  {this.props.id}
             </td>          
             <td className="highlight"><a href={"mailto:" + this.props.email}> {this.props.email}</a> </td>
             <td>{this.props.phoneNumber}</td>
