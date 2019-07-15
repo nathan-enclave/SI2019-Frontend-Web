@@ -18,7 +18,7 @@ class Stats extends Component {
                 <div className="number">
                   <span data-counter="counterup" >{this.props.engineer}</span>
                 </div>
-                <div className="desc"> Engineer </div>
+                <div className="desc"> Engineers </div>
               </div>
             </a>
           </div>
@@ -31,7 +31,7 @@ class Stats extends Component {
                 <div className="number">
                   <span data-counter="counterup" >{this.props.team}</span>
                   </div>
-                <div className="desc"> Team </div>
+                <div className="desc"> Teams </div>
               </div>
             </a>
           </div>
@@ -44,7 +44,7 @@ class Stats extends Component {
                 <div className="number">
                   <span data-counter="counterup" >{this.props.project}</span>
                 </div>
-                <div className="desc"> Project </div>
+                <div className="desc"> Projects </div>
               </div>
             </a>
           </div>
@@ -56,7 +56,7 @@ class Stats extends Component {
               <div className="details">
                 <div className="number"> 
                   <span data-counter="counterup"  />{this.props.manager} </div>
-                <div className="desc"> Manager </div>
+                <div className="desc"> Managers</div>
               </div>
             </a>
           </div>
