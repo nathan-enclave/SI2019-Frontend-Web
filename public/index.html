@@ -42,6 +42,75 @@
  
   <style>
     /* custom style */
+    .relative {
+      position: relative;
+    }
+
+    /* upload image style */
+    .image-preview-area{
+      width: 200px;
+      padding: 10px
+    }
+    .image-preview-area .border-close{
+      float: right;
+      position: relative;
+      margin: 0;
+      top: -7px;
+      width: 15px;
+      height: 15px;
+      background: gainsboro;
+      border-radius: 10px;
+    }
+    .image-preview-area .close{
+      opacity: 1;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+    }
+    .Uploader .btn{
+      width: 100px;
+      height: 35px;
+    }
+    .Uploader .title-upload {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+
+    .Uploader .upload-image-preview-input {
+      opacity: 0;
+      z-index: 10000;
+      width: 100px;
+      margin-left: -15px;
+      margin-top: -10px;
+      height: 30px;
+      cursor: pointer;
+
+    }
+    .Uploader input[type="file"] {
+      z-index: 10000;
+      width: 100px!important;
+      margin-left: -15px;
+      margin-top: -10px;
+      height: 30px !important;
+      cursor: pointer;
+    }
+    .Uploader .image-preview-area img{
+      width: 100%;
+    }
+
+    @media(max-width: 992px){
+      .Uploader {
+        display: flex;
+        /* flex-direction:  */
+        /* justify-content:  */
+      }
+    }
+    /* upload image style */
+
+    
 
     .custom-padding-none {
       padding: 0!important;
