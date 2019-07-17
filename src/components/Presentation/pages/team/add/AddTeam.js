@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
 
 class AddTeam extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      status: 0
+    this.state = {      
+      options: [],
+      selectOptions: [],
     }
   }
-  isClick = () => {
-    if (this.state.status === 0) this.setState({ status: 1 });
-    else this.setState({ status: 0 });
+  handleChange = (selectOptions) => {
+    this.setState({ selectOptions });
+    let temp = []
+    if (selectOptions != null) {
+      selectOptions.forEach(element => {
+        temp.push(element.value)
+      });
+      this.setState({ skills: temp });
+    }
   }
-  checkDisplay = () => {
-    if (this.state.status === 0) return (<div className="form-group">
-      <a onClick={(event) => this.isClick(event)} className="btn violet"> Add members </a>
-    </div>);
-    else return (<div><div className="form-group">
-      <a onClick={(event) => this.isClick(event)} className="btn violet"> CLOSE </a>
-    </div>
-    </div>
-    );
+  async componentWillMount(){
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/engineers');
+    let data = await res.json()
+    let data2 = data.results
+    let temp = []
+    data2.forEach(element => {
+      temp.push({"value":element.id,"label" : element.firstName})
+    });
+    console.log(temp) 
+    this.setState({ options: temp });
   }
   render() {
     return (
@@ -40,7 +49,12 @@ class AddTeam extends Component {
                       <div className="form-group">
                         <label className="control-label">Name</label>
                         <input type="text" name="name" className="form-control" /> </div>
-                      {this.checkDisplay()}
+                        <div className="form-group">
+                    <div className="form-check">
+                      <label className="form-check-label"> Member:  </label>
+                      <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChange} />
+                    </div>
+                   </div> 
                       <div className="margiv-top-10">
                         <a href="" className="btn green"> SUBMIT </a>
                       </div>

@@ -161,6 +161,7 @@ class Action extends Component {
                     </div>
                   </div>
                 </div>
+
                 <div className="mt-actions">
                   <div className="mt-action">
                     <div className="mt-action-body">
@@ -183,6 +184,7 @@ class Action extends Component {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -190,4 +192,5 @@ class Action extends Component {
         );
     }
 }
+
 export default Action;

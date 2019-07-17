@@ -9,15 +9,15 @@ class TeamDetail extends Component {
       data:{
         projectName: "",
         teamName :"",
-        engineers: [],        
-      }
-      ,
+        engineers: [],      
+        createdAt : null  
+      },
       leadId : 0
     }
   }
   async componentDidMount() {
     const res = await getTeamDetail(this.props.id)
-    console.log(res)
+    // console.log(res)
     this.setState({
       data : res,
       leadId : res.leader.id
@@ -35,7 +35,6 @@ class TeamDetail extends Component {
     this.setState({member: dataRender})
   }
   render() {
-    console.log(this.state.data)
     return (
       <div>
         <div className="row">
@@ -54,10 +53,13 @@ class TeamDetail extends Component {
                     <form>
                       <div className="form-group">
                         <label className="control-label" style={{ fontWeight: 'bold' }}>Name</label>
-                        <input type="text" value={this.state.data.teamName} name="name" className="form-control" disabled /> </div>
+                        <input type="text" value={this.state.data.teamName} className="form-control" disabled /> </div>
                         <div className="form-group">
                         <label className="control-label" style={{ fontWeight: 'bold' }}>Project's name</label>
-                        <input type="text" value={this.state.data.projectName} name="name" className="form-control" disabled /> </div>                     
+                        <input type="text" value={this.state.data.projectName}  className="form-control" disabled /> </div>                     
+                        <div className="form-group">
+                        <label className="control-label" style={{ fontWeight: 'bold' }}>Create at</label>                       
+                        <input type="text" value={new Date(this.state.data.createdAt).toISOString().slice(0,10)} className="form-control" disabled /> </div>                     
                       <div className="col-md-12">
                         {/* BEGIN SAMPLE TABLE PORTLET*/}
                         <div className="portlet">
@@ -66,8 +68,8 @@ class TeamDetail extends Component {
                               <table className="table table-striped table-bordered table-advance table-hover">
                                 <thead>
                                   <tr>
-                                    <th>
-                                      <i className="fa fa-user" /> Member </th>    
+                                    <th>Member</th>  
+                                    <th>Role</th> 
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -78,8 +80,6 @@ class TeamDetail extends Component {
                           </div>
                         </div>
                         {/* END SAMPLE TABLE PORTLET*/}
-                      </div>
-                      <div className="margiv-top-10">
                       </div>
                     </form>
                   </div>

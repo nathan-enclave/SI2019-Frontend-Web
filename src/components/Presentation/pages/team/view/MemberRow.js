@@ -10,8 +10,9 @@ class MemberRow extends Component {
         return (
             <tr>
                 <td>
-                    <a href="abc"> {this.props.firstName} {this.props.lastName} <span className={"label label-sm label-"+ typeLabel +" label-mini"}> {label} </span></a>
+                    <a href="abc"> {this.props.firstName} {this.props.lastName} </a>
                 </td>
+                <td><span className={"label label-sm label-"+ typeLabel +" label-mini"}> {label} </span></td>
             </tr>
         );
     }
