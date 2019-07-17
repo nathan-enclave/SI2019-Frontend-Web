@@ -5,6 +5,7 @@ import Preloader from '../../../include/Preloader'
 import getTeamPag from '../../../../container/team/GetTeamPagination';
 import AddTeam from '../add/AddTeam';
 import Modal from '../../../commons/modal/Modal';
+import getTeam from '../../../../container/team/GetTeam';
 
 class TableData extends Component {
   constructor(props) {
@@ -30,9 +31,11 @@ class TableData extends Component {
     this.componentWillMount();
   }
   async componentWillMount() {
-    let offset = ((this.state.activePage) * (this.state.itemsCountPerPage) + 1)
+    const res0 = await getTeam();
+    this.setState({totalItemsCount : res0.total})
+    let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
     const res = await getTeamPag(this.state.itemsCountPerPage, offset);
-    this.setState({ totalItemsCount: res.total })
+    // this.setState({ totalItemsCount: res.total })
     let dataRender = res.results.map((value, key) => (
       <RowData
         key={key}

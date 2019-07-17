@@ -7,6 +7,7 @@ import AddForm from '../../engineers/add/AddForm';
 // import { throwStatement } from '@babel/types';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
+import getData from '../../../../container/engineer/GetViewEng';
 
 class TableData extends Component {
   constructor(props){
@@ -31,10 +32,15 @@ class TableData extends Component {
     this.componentWillMount();
   }
   async componentWillMount(){
+    // let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
+    // console.log(offset)
+    // const res = await getDataPag(this.state.itemsCountPerPage,offset);
+    // this.setState({totalItemsCount : res.total})
+    const res0 = await getData();
+    this.setState({totalItemsCount : res0.total})
+    // console.log("active page: " + this.state.activePage)
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
-    console.log(offset)
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) =>(
     <RowData  
       key = {key}
@@ -124,7 +130,7 @@ reload = ()=>{
           </div>
           <br />
           <div className="portlet-body">
-            {loader}
+          {loader}
           </div>         
           <Modal show={this.state.isOpen}
             onClose={this.toggleModal}>
