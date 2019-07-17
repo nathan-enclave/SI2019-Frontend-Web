@@ -151,16 +151,12 @@ class EditForm extends Component {
                       <Input type="text" name="technology" value ={this.state.technology} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Description</label>
-                      <Input type="text" name="lastName" value ={this.state.lastName} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
-                      {/* <div className="form-group">
-                      <label className="control-label">Image</label>
-                      <Input type="file" name="avatar" className="form-control" /> </div> */}
+                      <Input type="text" name="lastName" value ={this.state.description} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
+                      
                     <div className="form-group">
                       <label className="control-label">Address</label>
                       <Input type="text" name="address" value ={this.state.address} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>                   
-                    {/* <div className="form-group">
-                      <label className="control-label">Experiences</label>
-                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
+                  
                     <div className="form-group">
                       <label className="control-label">Phone Number</label>
                       <Input type="text" name="phoneNumber" value ={this.state.phoneNumber} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
