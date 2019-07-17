@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import PostData from '../login/PostData'
+import PostData from '../../container/login/PostData'
 import {  isEmpty } from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import LoginLoader from './../include/LoginLoader'
+import LoginLoader from '../include/LoginLoader'
 
 const required = (value) => {
   if (isEmpty(value)) {

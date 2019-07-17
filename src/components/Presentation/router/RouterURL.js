@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
-import TeamIndex from '../team/index/TeamIndex';
-import EngineerIndex from '../engineers/index/EngineerIndex';
-import Index from '../index/Index';
-import AddForm from '../engineers/add/AddForm';
-import EditForm from '../engineers/edit/EditForm';
-import ViewForm from '../engineers/view/ViewForm';
-import AddTeam from '../team/add/AddTeam';
-import EditTeam from '../team/edit/EditTeam';
-import TeamDetail from '../team/view/TeamDetail';
+import TeamIndex from '../pages/team/index/TeamIndex';
+import EngineerIndex from '../pages/engineers/index/EngineerIndex';
+import Index from '../pages/dashboards/index/Index';
+import AddForm from '../pages/engineers/add/AddForm';
+import EditForm from '../pages/engineers/edit/EditForm';
+import ViewForm from '../pages/engineers/view/ViewForm';
+import AddTeam from '../pages/team/add/AddTeam';
+import EditTeam from '../pages/team/edit/EditTeam';
+import TeamDetail from '../pages/team/view/TeamDetail';
 import LoginFunc from '../login/LoginFunc'
-import Overview from '../project/editProject/Overview';
-import Managers from '../managers/Managers';
-import ProjectIndex from '../project/index/ProjectIndex';
-import Dashboard1 from '../index/dashboard1/Dashboard1';
-import Dashboard2 from '../index/dashboard2/Dashboard2';
+import Overview from '../pages/project/editProject/Overview';
+import Managers from '../pages/managers/Managers';
+import ProjectIndex from '../pages/project/index/ProjectIndex';
+import Dashboard1 from '../pages/dashboards/dashboard1/Dashboard1';
+import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';
 
 class RouterURL extends Component {
   render() {
