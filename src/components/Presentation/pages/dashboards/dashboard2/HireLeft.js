@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
-import { getDataByIdApi } from "../../../../../api/crud";
+import { getAllApi } from "../../../../../api/crud";
 
 class HireLeft extends Component {
     constructor(props) {
@@ -29,10 +29,7 @@ class HireLeft extends Component {
         }
     }
     async componentDidMount() {
-
-        // const data = await res.json();
-        const data = await getDataByIdApi('dashboard/workstatus',new Date().getFullYear() )
-        console.log(data)
+        const data = await getAllApi('dashboard/workstatus/' + new Date().getFullYear())
         let cat = [], numHired = [], numLeft = []
         data.forEach(element => {
             cat.push(element.month)
