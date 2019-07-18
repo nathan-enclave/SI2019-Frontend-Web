@@ -1,8 +1,6 @@
 export default function checkManagerEmail(email) {
-    let BaseUrl = 'http://si-enclave.herokuapp.com/api/v1/auth/forget'
-
     return new Promise((resolve, reject) =>{
-    fetch(BaseUrl + type, {
+    fetch('https://si-enclave.herokuapp.com/api/v1/auth/forget', {
         method: 'POST',
         body: JSON.stringify(email)
     })
