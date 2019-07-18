@@ -1,6 +1,7 @@
 export default function AddProject(data){
+    console.log(data)
     return new Promise((resolve, reject) =>{
-    fetch('https://si-enclave.herokuapp.com/api/v1/projects?limit=10&offset=0', {
+    fetch('https://si-enclave.herokuapp.com/api/v1/projects', {
         method: 'POST',
         body: JSON.stringify(data)
     })

@@ -1,55 +1,32 @@
 import React, { Component } from 'react';
-// import {Redirect} from 'react-router-dom'
-import Select from 'react-select';
-import AddEngineer from './../../../../container/project/AddProject';
+import AddProject from './../../../../container/project/AddProject';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
-// import getTotal from './../../../services/API_Engineer/GetListSkills';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-// import Modal from './../../Modal';
-// import MSGSuccess from './MSGSuccess';
 
 const required = (value) => {
   if (isEmpty(value)) {
     return <small className="form-text text-danger">This field is required</small>;
   }
 }
-const phone = (value) => {
-  if (!isNumeric(value, [{ no_symbols: false }])) {
-    return <small className="form-text text-danger">The phone number contains only numbers.</small>;
-  }
-  else if (value.trim().length < 10) {
-    return <small className="form-text text-danger">The phone number can't less than 10 letters.</small>;
-  }
-  else if (value.trim().length > 15) {
-    return <small className="form-text text-danger">The phone number can't more than 15 letters.</small>;
-  } if (value.trim().length < 10) {
-    return <small className="form-text text-danger">The phone number can't less than 10 letters.</small>;
-  }
-}
-const email = (value) => {
-  if (!isEmail(value)) {
-    return <small className="form-text text-danger">Invalid email format</small>;
-  }
-}
+
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenMSGSuccess : false,
-      birthday: "",
-      dateIn: "",
-      options: [],
-      selectOptions: [],
-      status: 1,
-      skills: [],
-      error: 0
+      isOpenMSGSuccess: false,
+      start: "",
+      end: "",
+      // options: [],
+      // selectOptions: [],
+      // status: 1,
+      // skills: [],
+      // error: 0
     };
-    // this.handleChange = this.handleChange.bind(this);
   }
- 
+
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -60,21 +37,21 @@ class AddForm extends Component {
   submitAddForm = (e) => {
     e.preventDefault();  // stop loading        
     let data = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      englishName: this.state.englishName,
-      phoneNumber: this.state.phoneNumber,
-      address: this.state.address,
-      email: this.state.email,
-      skype: this.state.skype,
-      birthday : this.state.birthday,
-      dateIn : this.state.dateIn,
-      salary : this.state.salary,
-      status: Number(this.state.status),
-      skills: this.state.skills
+      name: this.state.name,
+      technology: this.state.technology,
+      description: this.state.description,
+      // phoneNumber: this.state.phoneNumber,
+      // address: this.state.address,
+      // email: this.state.email,
+      // skype: this.state.skype,
+      start: this.state.start,
+      end: this.state.end,
+      // salary: this.state.salary,
+      // status: Number(this.state.status),
+      // skills: this.state.skills
     }
-    AddEngineer(data).then((result) => {
-      if (!result.statusCode) {      
+    AddProject(data).then((result) => {
+      if (!result.statusCode) {
         this.props.openMSGSuccess()
       } else {
         if (result.statusCode !== 200) {
@@ -83,37 +60,38 @@ class AddForm extends Component {
       }
     })
   }
-  handleChangeBirthday = (date) => {
+  handleChangeStart = (date) => {
     this.setState({
-      birthday: date
+      start: date
     });
   }
-  handleChangeDateIn = (date) => {
+  handleChangeEnd = (date) => {
     this.setState({
-      dateIn: date
+      end: date
     });
   }
-  handleChange = (selectOptions) => {
-    this.setState({ selectOptions });
-    let temp = []
-    if (selectOptions != null) {
-      selectOptions.forEach(element => {
-        temp.push(element.value)
-      });
-      this.setState({ skills: temp });
-    }
-  }
+  // handleChange = (selectOptions) => {
+  //   this.setState({ selectOptions });
+  //   let temp = []
+  //   if (selectOptions != null) {
+  //     selectOptions.forEach(element => {
+  //       temp.push(element.value)
+  //     });
+  //     this.setState({ skills: temp });
+  //   }
+  // }
   onSubmit = (e) => {
     e.preventDefault();
     this.form.validateAll();
   }
   render() {
+    console.log(this.state.start)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
           <div className="caption caption-md">
             <i className="icon-globe theme-font hide" />
-            <span className="caption-subject font-blue-madison bold uppercase">Add Engineer </span>
+            <span className="caption-subject font-blue-madison bold uppercase">Add Project </span>
           </div>
         </div>
         <div className="portlet-body">
@@ -121,47 +99,44 @@ class AddForm extends Component {
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
               <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div> */}
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="control-label">English Name</label>
-                      <Input type="text" name="englishName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> 
+                      <label className="control-label">Project Name</label>
+                      <Input type="text" name="name" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
                     </div>
                     <div className="form-group">
-                      <label className="control-label">First Name</label>
-                      <Input type="text" name="firstName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> 
+                      <label className="control-label">Technology</label>
+                      <Input type="text" name="technology" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
                     </div>
                     <div className="form-group">
-                      <label className="control-label">Last Name</label>
-                      <Input type="text" name="lastName" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
+                      <label className="control-label">Description</label>
+                      <Input type="text" name="description" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <label className="control-label">Image</label>
-                        <Input type="file" name="avatar" className="form-control" /> 
+                      <Input type="file" name="avatar" className="form-control" />
                     </div>
                     <div className="form-group">
                       <label className="control-label">Address</label>
-                      <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> 
+                      <Input type="text" name="address" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
                     </div>
                     <div className="form-group">
                       <label className="control-label">Phone Number</label>
-                      <Input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} validations={[required, phone]} className="form-control" /> 
-                    </div>
-                    <div className="form-group">
+                      <Input type="text" name="phoneNumber" onChange={(event) => this.isChange(event)} validations={[required, phone]} className="form-control" />
+                    </div> */}
+                    {/* <div className="form-group">
                       <label className="control-label">Status</label>
                       <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
                         <option value={1} >Available</option>
                         <option value={0} >Unavailable</option>
                       </select>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-6">
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <label className="control-label">Email</label>
-                      <Input type="text" name="email" onChange={(event) => this.isChange(event)} validations={[required, email]} className="form-control" /> 
+                      <Input type="text" name="email" onChange={(event) => this.isChange(event)} validations={[required, email]} className="form-control" />
                     </div>
                     <div className="form-group">
                       <label className="control-label">Skype</label>
@@ -169,35 +144,30 @@ class AddForm extends Component {
                     </div>
                     <div className="form-group">
                       <label className="control-label">Salary</label>
-                      <Input type="number" name="salary" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" /> 
-                    </div>
+                      <Input type="number" name="salary" onChange={(event) => this.isChange(event)} validations={[required]} className="form-control" />
+                    </div> */}
                     <div className="form-group">
-                      <label className="control-label">Birthday</label><br />
-                      <DatePicker selected={this.state.birthday} onChange={this.handleChangeBirthday} className="form-control" /> 
+                      <label className="control-label">Start</label><br />
+                      <DatePicker selected={this.state.start} onChange={this.handleChangeStart} className="form-control" />
                     </div>
                     <div className="form-group">
                       <div className="form-check">
-                        <label className="control-label">Date in</label><br />
-                        <DatePicker selected={this.state.dateIn} onChange={this.handleChangeDateIn}  className="form-control"/> 
+                        <label className="control-label">End</label><br />
+                        <DatePicker selected={this.state.end} onChange={this.handleChangeEnd} className="form-control" />
                       </div>
                     </div>
-                   <div className="form-group">
-                    <div className="form-check">
-                      <label className="form-check-label"> Skills:  </label>
-                      <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChange} />
-                    </div>
-                   </div>
-                    
+
                   </div>
+                </div>
                 </div>
               </Form>
               <div className="row">
                 <div className="margin-top-20" style={{ textAlign: 'center' }}>
-                  <button type="submit" className="btn green" onClick={(event) =>this.submitAddForm(event)} > SAVE </button>
+                  <button type="submit" className="btn green" onClick={(event) => this.submitAddForm(event)} > SAVE </button>
                 </div>
               </div>
             </div>
-          </div>         
+          </div>
         </div>
       </div>
     );

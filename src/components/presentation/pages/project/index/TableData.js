@@ -39,11 +39,11 @@ class TableData extends Component {
     // this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) => {
       let color = null
-      if (value.status.toString()==="done") {
+        if (value.status==="done") {
         color = 'label-info'
-      }else if(value.status.toString()==="inProgress") {
+      }else if(value.status==="inProgress") {
         color = 'label-success'
-      }else if(value.status.toString()==='pending'){
+      }else if(value.status==='pending'){
         color = 'label-warning'
       }
       return (
