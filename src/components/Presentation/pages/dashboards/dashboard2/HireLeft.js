@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
+import { getDataByIdApi } from "../../../../../api/crud";
 
 class HireLeft extends Component {
     constructor(props) {
@@ -28,8 +29,9 @@ class HireLeft extends Component {
         }
     }
     async componentDidMount() {
-        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/workstatus/' + new Date().getFullYear());
-        const data = await res.json();
+
+        // const data = await res.json();
+        const data = await getDataByIdApi('dashboard/workstatus',new Date().getFullYear() )
         console.log(data)
         let cat = [], numHired = [], numLeft = []
         data.forEach(element => {
