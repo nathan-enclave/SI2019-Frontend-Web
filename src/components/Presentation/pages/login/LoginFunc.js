@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import PostData from '../../container/login/PostData'
+import PostData from '../../../container/login/PostData'
 import {  isEmpty } from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import LoginLoader from '../include/LoginLoader'
+import LoginLoader from '../../include/LoginLoader'
+import {Link} from  "react-router-dom";
 
 const required = (value) => {
   if (isEmpty(value)) {
@@ -142,8 +143,8 @@ export default class LoginFunc extends Component {
                                 {/* <label className="rememberme check mt-checkbox mt-checkbox-outline">
                                     <input type="checkbox" name="remember" defaultValue={1} />Remember
                                     <span />
-                                </label>
-                                <NavLink to="" id="forget-password" className="forget-password">Forgot Password?</NavLink> */}
+                                </label>*/}
+                                <Link to="/forgotPassword" id="forget-password" className="forget-password">Forgot Password?</Link> 
                             </div>
                           
                         </Form>
@@ -163,12 +164,7 @@ export default class LoginFunc extends Component {
                                     <a className="social-icon-color linkedin" data-original-title="Linkedin" href="abc" />
                                 </li>
                             </ul>
-                        </div> */}
-                        {/* <div className="create-account">
-                            <p>
-                                <a href="/signup" id="register-btn" className="uppercase">Create an account</a>
-                            </p>
-                        </div> */}
+                        </div> */}                        
                     </div>
                     {/* END LOGIN FORM */}
                 </div>

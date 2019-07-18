@@ -11,25 +11,21 @@ class TeamDetail extends Component {
         teamName :"",
         engineers: [],      
         createdAt : null  
-      },
-      leadId : 0
+      }     
     }
   }
   async componentDidMount() {
     const res = await getTeamDetail(this.props.id)
-    // console.log(res)
     this.setState({
-      data : res,
-      leadId : res.leader.id
+      data : res
     })
-
     let dataRender = res.engineers.map((value,key)=>(
       <MemberRow 
       key = {key} 
       id = {value.id}
       firstName = {value.firstName}
       lastName = {value.lastName}
-      leadId = {this.state.leadId}
+      role = {value.role}
       />
     ))
     this.setState({member: dataRender})
@@ -37,8 +33,7 @@ class TeamDetail extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-md-6">
+        <div className="row">          
             <div className="portlet light bordered">
               <div className="portlet-title tabbable-line">
                 <div className="caption caption-md">
@@ -47,28 +42,16 @@ class TeamDetail extends Component {
                 </div>
               </div>
               <div className="portlet-body">
-                <div className="tab-content">
-                  {/* PERSONAL INFO TAB */}
+                <div className="tab-content">                         
                   <div className="tab-pane active" id="tab_1_1">
-                    <form>
-                      <div className="form-group">
-                        <label className="control-label" style={{ fontWeight: 'bold' }}>Name</label>
-                        <input type="text" value={this.state.data.teamName} className="form-control" disabled /> </div>
-                        <div className="form-group">
-                        <label className="control-label" style={{ fontWeight: 'bold' }}>Project's name</label>
-                        <input type="text" value={this.state.data.projectName}  className="form-control" disabled /> </div>                     
-                        <div className="form-group">
-                        <label className="control-label" style={{ fontWeight: 'bold' }}>Create at</label>                       
-                        <input type="text" value={new Date(this.state.data.createdAt).toISOString().slice(0,10)} className="form-control" disabled /> </div>                     
-                      <div className="col-md-12">
-                        {/* BEGIN SAMPLE TABLE PORTLET*/}
-                        <div className="portlet">
-                          <div className="portlet-body">
-                            <div className="table-scrollable">
+                      <div className="row">                        
+                      <div className="col-md-6">
+                          <label className="control-label" style={{ fontWeight: 'bold' }}>Member</label>
+                            {/* <div className="table-scrollable"> */}
                               <table className="table table-striped table-bordered table-advance table-hover">
                                 <thead>
                                   <tr>
-                                    <th>Member</th>  
+                                    <th>Name</th>  
                                     <th>Role</th> 
                                   </tr>
                                 </thead>
@@ -76,21 +59,25 @@ class TeamDetail extends Component {
                                   {this.state.member}
                                 </tbody>
                               </table>
-                            </div>
-                          </div>
+                        {/* </div> */}
                         </div>
-                        {/* END SAMPLE TABLE PORTLET*/}
+                        <div className="col-md-6">
+                        <div className="form-group">
+                        <label className="control-label" style={{ fontWeight: 'bold' }}>Name</label>
+                        <input type="text" value={this.state.data.teamName} className="form-control" disabled /> </div>
+                        <div className="form-group">
+                        <label className="control-label" style={{ fontWeight: 'bold' }}>Project's name</label>
+                        <input type="text" value={this.state.data.projectName}  className="form-control" disabled /> </div>                     
+                        <div className="form-group">
+                        <label className="control-label" style={{ fontWeight: 'bold' }}>Create at</label>                       
+                        <input type="text" value={new Date(this.state.data.createdAt).toISOString().slice(0,10)} className="form-control" disabled /> </div>    
+                        </div>
                       </div>
-                    </form>
                   </div>
-                  {/* END PERSONAL INFO TAB */}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="col-md-6">
-        </div>
         <div className="clearfix" />
       </div>
     );

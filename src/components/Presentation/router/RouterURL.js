@@ -9,12 +9,15 @@ import ViewForm from '../pages/engineers/view/ViewForm';
 import AddTeam from '../pages/team/add/AddTeam';
 import EditTeam from '../pages/team/edit/EditTeam';
 import TeamDetail from '../pages/team/view/TeamDetail';
-import LoginFunc from '../login/LoginFunc'
+import LoginFunc from '../../presentation/pages/login/LoginFunc'
 import Overview from '../pages/project/editProject/Overview';
 import Managers from '../pages/managers/Managers';
 import ProjectIndex from '../pages/project/index/ProjectIndex';
 import Dashboard1 from '../pages/dashboards/dashboard1/Dashboard1';
 import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';
+import ForgetPW from '../pages/login/ForgetPW';
+import ResetPassword from '../pages/login/ResetPassword';
+import ResetSuccess from '../pages/login/ResetSuccess';
 
 class RouterURL extends Component {
   render() {
@@ -36,6 +39,9 @@ class RouterURL extends Component {
           <Route  path="/project" component={ProjectIndex} />          
           <Route  path="/projects/edit" component={Overview} />
           <Route  path="/user" component={Managers} />
+          <Route  path="/forgotPassword" component={ForgetPW} />
+          <Route  path="/resetPassword" component={ResetPassword} />
+          <Route  path="/resetSuccess" component={ResetSuccess} />
         </div>
     );
   }

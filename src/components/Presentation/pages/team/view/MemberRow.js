@@ -5,14 +5,14 @@ class MemberRow extends Component {
         super(props)
     }
     render() {
-        let label = (this.props.id ==this.props.leadId)?"leader":"member"
-        let typeLabel = (this.props.id ==this.props.leadId)?"danger":"success"
+       
+        let typeLabel = (this.props.role ==="leader")?"danger":"success"
         return (
             <tr>
                 <td>
                     <a href="abc"> {this.props.firstName} {this.props.lastName} </a>
                 </td>
-                <td><span className={"label label-sm label-"+ typeLabel +" label-mini"}> {label} </span></td>
+                <td><span className={"label label-sm label-"+ typeLabel +" label-mini"}> {this.props.role} </span></td>
             </tr>
         );
     }
