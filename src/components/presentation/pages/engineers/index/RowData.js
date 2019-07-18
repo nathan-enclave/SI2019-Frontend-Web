@@ -68,7 +68,7 @@ class RowData extends Component {
           <tr className="RowData">
             <td className="highlight">
               <a onClick={()=>this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-                {this.props.id} 
+                {this.props.englishName} 
               </a>
             </td>
             <td className = "highlight">

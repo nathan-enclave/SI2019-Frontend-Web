@@ -7,6 +7,7 @@ import AddForm from '../add/AddForm';
 // import { throwStatement } from '@babel/types';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
+import getData from '../../../../container/engineer/GetViewEng';
 
 class TableData extends Component {
   constructor(props){
@@ -31,10 +32,11 @@ class TableData extends Component {
     this.componentWillMount();
   }
   async componentWillMount(){
+    const res0 = await getData();
+    this.setState({totalItemsCount : res0.total})
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
-    console.log(offset)
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    this.setState({totalItemsCount : res.total})
+    // this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) =>(
     <RowData  
       key = {key}

@@ -61,26 +61,8 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Description</label>
                       <input type="text" name="lastName" value={this.state.description} className="form-control" disabled /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Start</label>
-                      <input type="text" name="address" value={this.state.address} className="form-control" disabled /> </div>
-                    <div className="form-group">
-                      <label className="control-label">End</label>
-                      <input type="text" name="exp" value={this.state.expYear + " exp year"} className="form-control" disabled /> </div>
-                      <div className="form-group">
-                      <label className="control-label">Salary (VND)</label>
-                      <input type="text" name="skype" value={this.state.earning} className="form-control" disabled /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Phone Number</label>
-                      <input type="text" name="phone" value={this.state.phoneNumber} className="form-control" disabled /> </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="control-label">Status</label>
-                      <input type="text" name="status"  value={this.state.status} className="form-control" disabled /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Status</label>
-                      <input type="text" name="skype"  value={this.state.skype} className="form-control" disabled /> </div>                   
                     <div className="form-group">
                       <label className="control-label">Start</label><br/>
                       <DatePicker className="form-control"  selected={this.state.start}  disabled />
@@ -88,17 +70,6 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">End</label><br/>
                       <DatePicker className="form-control"  selected={this.state.end}  disabled/>
-                    </div>
-                    <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Skills</label> <br />
-                        <TagsInput value={this.state.tags} onChange={(tags) => this.handleChange(tags)} disabled  className="form-control custom-padding-none"/>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="form-group">
-                        <label className="control-label">Status</label>
-                      </div>
                     </div>
                     <div className="form-group">
                       <label className="control-label">Last update at</label>

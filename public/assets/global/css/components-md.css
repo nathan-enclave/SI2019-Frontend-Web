@@ -6023,9 +6023,12 @@ Forms
 ***/
 .form-control {
   outline: none !important;
-  box-shadow: none !important; }
-  .form-control.height-auto {
-    height: auto; }
+  box-shadow: none !important;
+  width: "374.5px"
+ }
+
+.form-control.height-auto {
+  height: auto; }
 
 .input-group-addon > i {
   color: #c5cdda; }

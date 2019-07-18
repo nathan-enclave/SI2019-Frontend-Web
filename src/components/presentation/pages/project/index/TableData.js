@@ -6,6 +6,7 @@ import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
+import getData from '../../../../container/project/GetViewProject'
 
 class TableData extends Component {
   constructor(props){
@@ -31,9 +32,11 @@ class TableData extends Component {
     // this.setState({activePage: pageNumber});
   }
   async componentWillMount(){
+    const res0 = await getData();
+    this.setState({totalItemsCount : res0.total})
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    this.setState({totalItemsCount : res.total})
+    // this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) => {
       let color = null
       if (value.status.toString()==="done") {
