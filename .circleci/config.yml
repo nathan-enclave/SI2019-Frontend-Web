@@ -37,5 +37,5 @@ jobs:
       - run:
           name: "Running Unit Tests"
           command: |
-            yarn build
             yarn test
+            
