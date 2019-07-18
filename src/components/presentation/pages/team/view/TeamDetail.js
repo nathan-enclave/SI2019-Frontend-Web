@@ -7,8 +7,8 @@ class TeamDetail extends Component {
     super(props);
     this.state = {
       data:{
-        projectName: "",
-        teamName :"",
+        // projectName: "",
+        // teamName :"",
         engineers: [],        
       }
       ,

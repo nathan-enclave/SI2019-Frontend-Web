@@ -66,23 +66,24 @@ class RowData extends Component {
   render() {
     return (
       <tr className="RowData">
-        <td className="highlight">
+        <td className="highlight" style={{textAlign:"center"}}>
           <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
             {this.props.name}
           </a>
         </td>
-        <td className="highlight">
-          <span className={"label label-sm " + this.props.color}>{this.props.status} </span>
+        <td className="highlight" style={{textAlign:"center"}}>
+          {this.props.technology}
         </td>
-        <td className="highlight">
+        <td className="highlight" style={{textAlign:"center"}}>
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
-            minimumFractionDigits: 0, 
-            maximumFractionDigits: 0 
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
           }).format(this.props.earning)} </td>
-        <td>{this.props.start}</td>
-        <td >{this.props.end}</td>
+        <td className="highlight" style={{textAlign:"center"}}>
+          <span className={"label label-sm " + this.props.color}> {this.props.status} </span>
+        </td>
         <td>
           <div className="flex-center">
             <button onClick={() => this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >

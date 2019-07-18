@@ -74,23 +74,13 @@ class AddForm extends Component {
       skills: this.state.skills
     }
     AddEngineer(data).then((result) => {
-      // console.log(result);
-      // let rediect = false;
       if (!result.statusCode) {      
         this.props.openMSGSuccess()
-        // this.props.onClose()
-
       } else {
         if (result.statusCode !== 200) {
           this.setState({ msg: 'Some error occured, please try again later' });
         }
       }
-      // if (rediect) {
-      //   // return <Redirect to ='/engineer' />
-      //   this.setState({msg : "Add successful."})
-      //   this.toggleMSGSuccess(); 
-      // }
-
     })
   }
   handleChangeBirthday = (date) => {
@@ -117,11 +107,6 @@ class AddForm extends Component {
     e.preventDefault();
     this.form.validateAll();
   }
-//   async componentDidMount() {
-//     const res = await getTotal();
-//     // console.log(res)
-//     this.setState({ options: res });
-//   }
   render() {
     return (
       <div className="portlet light bordered">

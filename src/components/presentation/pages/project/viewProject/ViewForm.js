@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
-import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
+import ProjectStatus from './ProjectStatus';
 class EditForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props.id,
-      tags: []
+      // tags: []
+      category:[],
+      team: ""
     };
   }
-  handleChange = (tags) => {
-    this.setState({ tags })
-  }
+  // handleChange = (tags) => {
+  //   this.setState({ tags })
+  // }
   async componentDidMount() {
     const res = await getData(this.state.id);
       this.setState({
@@ -31,6 +33,8 @@ class EditForm extends Component {
       earningPerMonth : numeral(res.earningPerMonth).format('0,0'),
       status: res.status,
       updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
+      team: res.team ? res.team.name: "Do not have team",
+      category : res.category.name
     });
   }
 
@@ -40,7 +44,7 @@ class EditForm extends Component {
         <div className="portlet-title tabbable-line">
           <div className="caption caption-md">
             <i className="icon-globe theme-font hide" />
-            <span className="caption-subject font-blue-madison bold uppercase">{this.state.name} </span>
+            <span className="caption-subject font-blue-madison bold uppercase">{this.state.name}  <ProjectStatus status={this.state.status} /> </span>
           </div>
         </div>
         <div className="portlet-body">
@@ -61,6 +65,11 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Description</label>
                       <input type="text" name="lastName" value={this.state.description} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">In Team</label>
+                      <input type="text" name="lastName" value={this.state.team} className="form-control" disabled />
+                     
+                    </div> 
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
@@ -74,6 +83,9 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Last update at</label>
                       <input type="text" name="updatedAt" value={this.state.updatedAt} className="form-control" disabled /> </div>
+                    <div className="form-group">
+                      <label className="control-label">Category</label>
+                      <input type="text" name="category" value={this.state.category} className="form-control" disabled /> </div>
                   </div>
                 </div>
               </form>

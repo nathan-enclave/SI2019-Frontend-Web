@@ -85,12 +85,11 @@ reload = ()=>{
                 <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
                     <tr>
-                      <th style={{fontWeight: 'bold'}}>Name </th>
-                      <th style={{fontWeight: 'bold'}}>Technology </th>
-                      <th style={{fontWeight: 'bold'}}>Description </th>
-                      <th style={{fontWeight: 'bold'}}>Start </th>
-                      <th style={{fontWeight: 'bold'}}>End</th>
-                      <th style={{fontWeight: 'bold'}}>Action </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Name </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Technology </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Earning </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Status </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Action </th>
                     </tr>
                   </thead>
                   <tbody>
