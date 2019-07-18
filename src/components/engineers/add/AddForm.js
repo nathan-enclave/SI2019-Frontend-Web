@@ -88,12 +88,15 @@ class AddForm extends Component {
             data.avatar = avatar
         }
 
-        AddEngineer(data).then((result) => { // console.log(result); let
+        AddEngineer(data).then((result) => {
+            console.log(result);
             let redirect = false;
             if (!result.statusCode) {
                 this
                     .props
-                    .openMSGSuccess() // this.props.onClose()
+                    .openMSGSuccess()
+
+                // this.props.onClose()
             } else {
                 if (result.statusCode !== 200) {
                     this.setState({msg: 'Some error occured, please try again later '});

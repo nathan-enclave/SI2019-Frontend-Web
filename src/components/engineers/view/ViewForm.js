@@ -55,9 +55,6 @@ class EditForm extends Component {
     else return (<input type="text" name="status" value="Unavailable" className="form-control" disabled />);
   }
   render() {
-    console.log(this.state);
-    // console.log(new Date(this.state.birthday))
-    console.log(new Date("1999-03-01T00:00:00.000Z").toDateString())
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">

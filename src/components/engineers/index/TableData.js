@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import RowData from './RowData';
-import getData from '../../../services/GetViewEng';
 import Pagination from "react-js-pagination";
-import getDataPag from '../../../services/GetEngineerPagination';
+import getDataPagination from '../../../services/GetEngineerPagination';
 import Modal from '../../Modal';
 import AddForm from '../add/AddForm';
 // import { throwStatement } from '@babel/types';
 import MSGSuccess from './../add/MSGSuccess';
-
 import Preloader from '../../Preloader'
 
 class TableData extends Component {
@@ -21,8 +19,9 @@ class TableData extends Component {
             pageRangeDisplayed: 5,
             activePage: 0,
             isOpen: false,
-            offset:0
+            offset: 0
         }
+        this.handlePageChange.bind(this)
     }
     toggleMSGSuccess = () => {
         this.setState({
@@ -30,27 +29,32 @@ class TableData extends Component {
         })
         this.reloadData()
     }
-    handlePageChange = (pageNumber) => {
-        // console.log('active page is: ' + pageNumber);
+     handlePageChange = async (pageNumber) => {
+        // console.log(`active page is ${pageNumber}`);
+        console.log(pageNumber);
+        console.log("pagenum -1 :", pageNumber - 1);
+        
+        console.log("==============");
         this.setState({
             activePage: pageNumber - 1
-        }) 
-     
-        this.componentWillMount();
-        // this.setState({activePage: pageNumber});
+        })
+        console.log(this.state.activePage);
+        
+        await this.componentWillMount();
     }
+   
     async componentWillMount() {
-        const res0 = await getData();
-        this.setState({totalItemsCount: res0.total})
-        // console.log("active page: " + this.state.activePage)
-        let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
-       
+        this.setState({
+            offset: ((this.state.activePage) * (this.state.itemsCountPerPage))
+        })
+        // let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
+        console.log("offset :" +  this.state.offset);
         
-        
-        const res = await getDataPag(this.state.itemsCountPerPage, offset);
+        // const res0 = await getDataPagination(this.state.itemsCountPerPage, offset);
+        const res = await getDataPagination(this.state.itemsCountPerPage, this.state.offset);
         let dataRender = res
             .results
-            .map((value, key) => (<RowData
+            .map((value, key) =>  (<RowData
                 key={key}
                 id={value.id}
                 firstName={value.firstName}
@@ -68,8 +72,8 @@ class TableData extends Component {
                 update={value.updatedAt}
                 dayOffRemain={value.dayOffRemain}
                 reloadData=
-                {() =>{this.reload()}}/>))
-        this.setState({data: dataRender})
+                {() =>  {this.reload()}}/>))
+        this.setState({data: dataRender, totalItemsCount: res.total})
     }
     toggleModal = () => {
         this.setState({
@@ -132,11 +136,11 @@ class TableData extends Component {
                         textAlign: "center"
                     }}>
                         <Pagination
-                            activePage={this.state.activePage + 1}
+                            activePage={this.state.activePage+1}
                             itemsCountPerPage={this.state.itemsCountPerPage}
                             totalItemsCount={this.state.totalItemsCount}
                             pageRangeDisplayed={this.state.pageRangeDisplayed}
-                            onChange={this.handlePageChange}
+                            onChange={ async (pageNumber) => await this.handlePageChange(pageNumber)}
                             itemClass='page-item'/>
                     </div>
                 </div>

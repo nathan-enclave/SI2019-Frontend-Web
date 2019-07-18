@@ -6,6 +6,7 @@ import Index from '../index/Index';
 import AddForm from '../engineers/add/AddForm';
 import EditForm from '../engineers/edit/EditForm';
 import ViewForm from '../engineers/view/ViewForm';
+import Profile from '../engineers/view/profile/Profile';
 import AddTeam from '../team/add/AddTeam';
 import EditTeam from '../team/edit/EditTeam';
 import TeamDetail from '../team/view/TeamDetail';
@@ -25,18 +26,24 @@ class RouterURL extends Component {
           <Route exact path="/home" component={Index} />
           <Route exact path="/dashboard1" component={Dashboard1} />
           <Route exact path="/dashboard2" component={Dashboard2} />
-          <Route  path="/engineer" component={EngineerIndex} />
-          <Route  path="/engineers/add" component={AddForm} />
-          <Route  path="/engineers/edit" component={EditForm} />
-          <Route  path="/engineers/view" component={ViewForm} />
-          <Route  path="/team" component={TeamIndex} />
-          <Route  path="/teams/view" component={TeamDetail} />
-          <Route  path="/teams/add" component={AddTeam} />
-          <Route  path="/teams/edit" component={EditTeam} />
-          <Route  path="/project" component={ProjectIndex} />          
-          <Route  path="/projects/edit" component={Overview} />
-          <Route  path="/user" component={Managers} />
 
+          
+          <Route exact path="/engineer" component={EngineerIndex} />
+          <Route exact path="/engineers/add" component={AddForm} />
+          <Route exact path="/engineers/edit" component={EditForm} />
+          <Route exact path="/engineers/view" component={ViewForm} />
+          <Route exact path="/engineer/:id" component={Profile} />
+
+
+
+          <Route exact path="/team" component={TeamIndex} />
+          <Route exact path="/teams/view" component={TeamDetail} />
+          <Route exact path="/teams/add" component={AddTeam} />
+          <Route exact path="/teams/edit" component={EditTeam} />
+          <Route exact path="/project" component={ProjectIndex} />          
+          <Route exact path="/projects/edit" component={Overview} />
+          <Route exact path="/user" component={Managers} />
+          <Route/>
 
         </div>
     );

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import ViewForm from './../view/ViewForm';
 import Modal from './../../Modal';
 import EditForm from './../edit/EditForm';
@@ -50,6 +50,9 @@ class RowData extends Component {
             isOpenDelete: !this.state.isOpenDelete
         });
     }
+    
+
+
     removeItem = () => {
         DelEngineer(this.props.id).then((result) => {
             let rediect = false;
@@ -74,15 +77,20 @@ class RowData extends Component {
         return (
             <tr className="RowData">
                 <td className="highlight">
-                    <a
+                    <Link to={`/engineer/${this.props.id}`}>
+                        <span 
+                            className=" margin-bottom-5 margin-top-5 link-name-data">
+                            {this.props.englishName+ "      " + this.props.id} 
+                        </span>
+                    </Link>
+                    {/* <span 
                         onClick={() => this.toggleModalView()}
-                        className=" margin-bottom-5 margin-top-5">
+                        className=" margin-bottom-5 margin-top-5 link-name-data">
                         {this.props.englishName}
-                    </a>
+                    </span> */}
                 </td>
                 <td className="highlight">
-                    {this.props.firstName}
-                    {this.props.lastName}
+                    <span>{this.props.firstName} </span> {this.props.lastName}
                 </td>
                 <td className="highlight">
                     <a href={"mailto:" + this.props.email}>
