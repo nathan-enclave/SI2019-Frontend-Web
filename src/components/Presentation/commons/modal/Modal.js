@@ -22,6 +22,7 @@ class Modal extends React.Component {
     const modalStyle = {
       backgroundColor: '#fff',
       borderRadius: 5,
+
       width: this.props.deleteStyleModel ? '500px': '80%',
       maxWidth: 800,
       maxHeight: 650,
@@ -39,6 +40,7 @@ class Modal extends React.Component {
 
     return (
       <div className="backdrop" style={backdropStyle}>
+
         <div className={ this.props.deleteStyleModel ? "modal custom-modal-animation overflow-hidden-important" : "modal custom-modal-animation"} style={modalStyle}>
         <button onClick={this.props.onClose}  className="btn btn-outline btn-sm red" style={{float: 'right',margin:'10px'}} >
              X
