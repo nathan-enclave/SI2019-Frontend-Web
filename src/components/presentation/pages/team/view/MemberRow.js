@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+
 
 class MemberRow extends Component {
     constructor(props) {
@@ -10,7 +12,7 @@ class MemberRow extends Component {
         return (
             <tr>
                 <td>
-                    <a href="abc"> {this.props.firstName} {this.props.lastName} </a>
+                    <Link to={`/engineer/${this.props.id}`}> {this.props.firstName} {this.props.lastName} </Link>
                 </td>
                 <td><span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span></td>
             </tr>

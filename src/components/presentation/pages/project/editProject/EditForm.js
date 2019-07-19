@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import EditProject from '../../../../container/project/EditProject';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-// import getTotal from '../../../../container/skills/GetListSkills';
 import getData from '../../../../container/project/GetDetailProject';
 import DatePicker from "react-datepicker";
 
