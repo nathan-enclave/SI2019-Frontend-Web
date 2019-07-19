@@ -31,11 +31,6 @@ class TableData extends Component {
     this.componentWillMount();
   }
   async componentWillMount(){
-    // let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
-    // console.log(offset)
-    // const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    // this.setState({totalItemsCount : res.total})
-    const res0 = await getData();
     this.setState({totalItemsCount : res0.total})
     // console.log("active page: " + this.state.activePage)
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
