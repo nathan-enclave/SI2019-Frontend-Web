@@ -76,6 +76,7 @@ class EditForm extends Component {
     res.skills.map(e => {
       e.value = e.id;
       e.label = e.name;
+      e.exp = e.expYear
       delete e.id;
       delete e.name
   })   

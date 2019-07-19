@@ -14,7 +14,7 @@ export default class ResetSuccess extends Component {
                 <form className="forget-form">
                     <h3 className="font-green">Reset Password successful.</h3>
                     <div className="form-group">
-                        <input  type="text" value ="demo@gmail.com" autoComplete="off" disabled className="form-control placeholder-no-fix"/> </div>
+                        <input  type="text" value ={this.props.location.state.email} autoComplete="off" disabled className="form-control placeholder-no-fix"/> </div>
                     <p> Your password have been reset, now you can login with the new password. </p>                   
                     <div className="form-actions">
                     <Link to="/forgotPassword" id="back-btn" className="btn green btn-outline" hidden>Back</Link>
