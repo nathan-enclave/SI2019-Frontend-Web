@@ -17,7 +17,7 @@ export default class ResetSuccess extends Component {
                         <input  type="text" value ="demo@gmail.com" autoComplete="off" disabled className="form-control placeholder-no-fix"/> </div>
                     <p> Your password have been reset, now you can login with the new password. </p>                   
                     <div className="form-actions">
-                    <Link to="/forgotPassword" id="back-btn" className="btn green btn-outline">Back</Link>
+                    <Link to="/forgotPassword" id="back-btn" className="btn green btn-outline" hidden>Back</Link>
                     <Link to="/login" type="submit" className="btn btn-success uppercase pull-right">Login</Link>
                     </div>
                 </form>
