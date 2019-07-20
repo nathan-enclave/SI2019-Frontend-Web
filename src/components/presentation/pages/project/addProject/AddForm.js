@@ -12,7 +12,6 @@ const required = (value) => {
         return <small className="form-text text-danger">This field is required</small>;
     }
 }
-
 class AddForm extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +24,6 @@ class AddForm extends Component {
             categoryId: null,
         };
     }
-
     isChange = (event) => {
         const fieldName = event.target.name;
         const value = event.target.value;
@@ -44,8 +42,7 @@ class AddForm extends Component {
             // status: Number(this.state.status),
             categoryId: Number(this.state.categoryId)
         }
-        // console.log(data)
-
+        console.log(data)
         AddProject(data).then((result) => {
             console.log(result);
             if (!result.statusCode) {
@@ -69,13 +66,9 @@ class AddForm extends Component {
         this.setState({selectOptions});
         let temp = 0
         if (selectOptions != null) {
-            // selectOptions.forEach(element => {
-                temp = selectOptions.valu  
-            // });
+                temp = selectOptions.value 
             this.setState({categoryId: temp});
         }
-        // this.setState({ categoryId: selectOptions.value })
-
     }
     onSubmit = (e) => {
         e.preventDefault();
