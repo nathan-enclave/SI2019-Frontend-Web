@@ -1,15 +1,17 @@
 export default function checkManagerEmail(email) {
-    return new Promise((resolve, reject) =>{
-    fetch('https://si-enclave.herokuapp.com/api/v1/auth/forget', {
-        method: 'POST',
-        body: JSON.stringify(email)
-    })
-        .then((response) =>response.json() )
-        .then((responseJson) => {
-            resolve(responseJson)
+    let BaseUrl = 'http://si-enclave.herokuapp.com/api/v1/auth/forget'
+
+    return new Promise((resolve, reject) => {
+        fetch(BaseUrl + type, {
+            method: 'POST',
+            body: JSON.stringify(email)
         })
-        .catch((error) => {
-            reject(error)
-        });
+            .then((response) => response.json())
+            .then((responseJson) => {
+                resolve(responseJson)
+            })
+            .catch((error) => {
+                reject(error)
+            });
     });
 }   
