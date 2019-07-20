@@ -21,10 +21,10 @@ export default class ForgetPW extends Component {
     checkEmail = ()=>{
        checkManagerEmail(this.state.email).then((result)=>{
            console.log(result  )
-            if(result.id === 0  ){
+            if(result.statusCode === 404  ){
                 this.setState({msg : "This is not a director email.",redirect: false})
             }
-            else if (result.id > 0){                
+            else {                
                 sendCode(this.state.email).then((result2) =>{
                     // if(result === "sended"){
                         this.setState({director : result,redirect : true})
