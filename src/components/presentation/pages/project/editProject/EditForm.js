@@ -96,7 +96,7 @@ class EditForm extends Component {
     let temp = 0
     if (selectOptions != null) {
       // selectOptions.forEach(element => {
-        temp = element.value
+        temp = selectOptions.value
       // });
       this.setState({
         data :{
