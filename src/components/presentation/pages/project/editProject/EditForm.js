@@ -1,56 +1,59 @@
 import React, { Component } from 'react';
 import EditProject from '../../../../container/project/EditProject';
+import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getData from '../../../../container/project/GetDetailProject';
+import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
 
 class EditForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // options: [],
-      // selectOptions: [],
-      status: 1,
-      // skills: [],
+      options: [],
+      selectOptions: [],
+      category: [],
       // dateOut : null,
       end : null,
       start : null,
-      error: 0,
+      done : "",
+      inProgress : "",
+      pending : ""
       // selectedStatus : null,
-      data : {}
     };
   }
   async componentDidMount() {   
-    // let res0 = await getTotal();    
-    // this.setState({ options: res0 })
+    let res0 = await getTotal();    
+    this.setState({ options: res0 })
     const res = await getData(this.props.id);
+    console.log(res)
     this.setState({
       id: String(res.id),
       name: res.name,
       technology: res.technology,
       description: res.description,
-      // phoneNumber: String(res.phoneNumber),
       start: new Date(new Date(res.start).toDateString()),
       end: new Date(new Date(res.end).toDateString()),
       // avatar: res.avatar,
-      // salary : String(res.salary),
+      earning : String(res.earning),
       // address: res.address,
       // email: res.email,
       // skype: res.skype,
-      // expYear: String(res.expYear),
+      earningPerMonth: String(res.earningPerMonth),
       // dayOffRemain: res.dayOffRemain,
-      // status: String(res.status),
+      status: res.status,
   
-      // skills: res.skills.id
+      categoryId: Number(res.category.name)
     });
-  //   res.skills.forEach(e => {
-  //     e.value = e.id;
+  //   res.categories.map(e => {
+  //     // e.value = e.id;
   //     e.label = e.name;
-  //     delete e.id;
+  //     // delete e.id;
   //     delete e.name
   // })   
-  // this.setState({selectOptions :res.skills })
+  
+  this.setState({selectOptions :res.categoriesId })
   }
   isChange = (event) => {
     const fieldName = event.target.name;
@@ -88,20 +91,20 @@ class EditForm extends Component {
       }
     });
   }
-  // handleChangeSkill = (selectOptions) => {
-  //   this.setState({ selectOptions });
-  //   let temp = []
-  //   if (selectOptions != null) {
-  //     selectOptions.forEach(element => {
-  //       temp.push(element.value)
-  //     });
-  //     this.setState({
-  //       data :{
-  //         skills : temp
-  //       }
-  //     })     
-  //   }
-  // }  
+  handleChangeCategory = (selectOptions) => {
+    this.setState({ selectOptions });
+    let temp = 0
+    if (selectOptions != null) {
+      // selectOptions.forEach(element => {
+        temp = element.value
+      // });
+      this.setState({
+        data :{
+          categoryId : temp
+        }
+      })     
+    }
+  }  
   submitSaveForm = (event) => {
     event.preventDefault() // stop loading    
     console.log(this.state.data)    
@@ -121,7 +124,9 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   displayStatus = ()=>{
-    if(this.state.status === 0) this.setState({selectedStatus : "selected"})
+    // if(this.state.status === "done") this.setState({done : "selected "})
+    // if(this.state.status === "inProgress") this.setState({inProgress : "selected"})
+    // if(this.state.status === "pending") this.setState({pending : "selected"})
   }
   render() {
     return (
@@ -150,7 +155,13 @@ class EditForm extends Component {
                       <Input type="text" name="technology" value ={this.state.technology} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Description</label>
-                      <Input type="text" name="lastName" value ={this.state.description} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
+                      <Input type="text" name="description" value ={this.state.description} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label"> Earning</label>
+                      <Input type="text" name="earning" value ={this.state.earning} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
+                    <div className="form-group">
+                      <label className="control-label"> Income Per Month</label>
+                      <Input type="text" name="earningPerMonth" value ={this.state.earningPerMonth} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
                   </div>
                   <div className="col-md-6" style={{ height: "400px" }}>
                     <div className="form-group">
@@ -169,12 +180,23 @@ class EditForm extends Component {
                         <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut}  className="form-control" /> 
                       </div>
                     </div>
+                    <div className="form-group">
+                    <label className="control-label">Status</label>
+                    <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
+                      <option  value="done" >DONE</option>
+                      <option   value="inProgress" >IN PROGRESS</option>
+                      <option  value="pending" >PENDING</option>
+                    </select>
+                  </div>       
                     {/* <div className="form-group">
+                      <label className="control-label"> Status</label>
+                      <Input type="text" name="status" value ={this.state.status} onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
+                    <div className="form-group">
                       <div className="form-check">
-                        <label className="form-check-label"> Skills:  </label>
-                          <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChangeSkill} />
+                        <label className="form-check-label"> Categories:  </label>
+                          <Select value={this.state.selectOptions} options={this.state.options}  onChange={this.handleChangeCategory} />
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </Form>
