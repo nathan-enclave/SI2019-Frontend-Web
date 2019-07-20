@@ -45,7 +45,7 @@ export default class LoginFunc extends Component {
                 })
             }
             return (
-                <div class="alert alert-danger">
+                <div className="alert alert-danger">
                     <strong>Error!</strong> Username or Password is not correct.
                 </div>
             )
