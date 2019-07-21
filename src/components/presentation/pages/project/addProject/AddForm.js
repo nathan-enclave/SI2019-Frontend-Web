@@ -102,10 +102,7 @@ class AddForm extends Component {
                                 onSubmit={e => this.onSubmit(e)}
                                 ref={c => {
                                 this.form = c
-                            }}>
-                                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div> */}
+                            }}>                               
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -154,45 +151,8 @@ class AddForm extends Component {
                                                 validations={[required]}
                                                 className="form-control"/>
                                         </div>
-                                        {/* <div className="form-group">
-                                            <label className="control-label">Status</label>
-                                            <select
-                                                className="form-control"
-                                                onChange={(event) => this.isChange(event)}
-                                                name="status">
-                                                <option value={1}>Available</option>
-                                                <option value={0}>Unavailable</option>
-                                            </select>
-                                        </div> */}
                                     </div>
-                                    <div className="col-md-6">
-                                        {/* <div className="form-group">
-                                            <label className="control-label">Email</label>
-                                            <Input
-                                                type="text"
-                                                name="email"
-                                                onChange={(event) => this.isChange(event)}
-                                                validations={[required]}
-                                                className="form-control"/>
-                                        </div> */}
-                                        {/* <div className="form-group">
-                                            <label className="control-label">Skype</label>
-                                            <Input
-                                                type="text"
-                                                name="skype"
-                                                onChange={(event) => this.isChange(event)}
-                                                validations={[required]}
-                                                className="form-control"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="control-label">Salary</label>
-                                            <Input
-                                                type="number"
-                                                name="salary"
-                                                onChange={(event) => this.isChange(event)}
-                                                validations={[required]}
-                                                className="form-control"/>
-                                        </div> */}
+                                    <div className="col-md-6">                                     
                                         <div className="form-group">
                                             <label className="control-label">Start</label><br/>
                                             <DatePicker

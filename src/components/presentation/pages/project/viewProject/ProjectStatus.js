@@ -12,14 +12,11 @@ class ProjectStatus extends Component {
             color = 'label-success'
         } else if (this.props.status === 'pending') {
             color = 'label-warning'
-        }
-        console.log(this.props.status);
-        
+        }        
         return (
             <tr>
                 <td>
-                    {/* <a href="abc"> {this.props.name} {this.props.lastName} */}
-                        <span className={"label label-sm " + color}> {this.props.status} </span>
+                    <span className={"label label-sm " + color}> {this.props.status} </span>
                 </td>
             </tr>
         );

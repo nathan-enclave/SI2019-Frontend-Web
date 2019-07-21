@@ -7,6 +7,7 @@ import getData from '../../../../container/project/GetDetailProject';
 import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
 
+let data ={}
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -18,9 +19,11 @@ class EditForm extends Component {
       start: null,
       done: "",
       inProgress: "",
-      pending: ""
+      pending: "",
+      data : {}
     };
   }
+  
   async componentDidMount() {
     let res0 = await getTotal();
     this.setState({ options: res0 })
@@ -46,10 +49,8 @@ class EditForm extends Component {
     const fieldName = event.target.name;
     const value = event.target.value;
     this.setState({
-      [fieldName]: value
-    });
-    this.setState({
       data: {
+        ...this.state.data,
         [fieldName]: value
       }
     })
@@ -58,6 +59,7 @@ class EditForm extends Component {
     this.setState({
       start: date,
       data: {
+         ...this.state.data,
         start: date
       }
     });
@@ -66,6 +68,7 @@ class EditForm extends Component {
     this.setState({
       end: date,
       data: {
+         ...this.state.data,
         end: date
       }
     });
@@ -74,6 +77,7 @@ class EditForm extends Component {
     this.setState({
       dateOut: date,
       data: {
+         ...this.state.data,
         dateOut: date
       }
     });
@@ -85,6 +89,7 @@ class EditForm extends Component {
       temp = selectOptions.value
       this.setState({
         data: {
+          ...this.state.data,
           categoryId: temp
         }
       })
