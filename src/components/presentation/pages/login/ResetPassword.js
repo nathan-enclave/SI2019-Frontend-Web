@@ -11,12 +11,12 @@ let pass = ""
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return ( <div className="alert alert-danger">This field is required</div>);
     }    
   }
 const repassword = (value) =>{
     if(!equals(value,pass)){
-        return <small className="form-text text-danger">Passwords do not match.</small>;
+        return ( <div className="alert alert-danger">Password do not match.</div>);
     }
 }
 export default class ResetPassword extends Component {
@@ -91,14 +91,14 @@ export default class ResetPassword extends Component {
                         <input type="text" value={this.props.email} autoComplete="off" disabled className="form-control placeholder-no-fix" /> </div>
                     <Form  onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }} id="create-course-form">                  
                         <div className="form-group">
-                            <Input type="password"  validations={[required]} onChange={(e) => this.handleChangePass(e)} name="password" autoComplete="off" placeholder="New password" className="form-control placeholder-no-fix" /> </div>
+                            <Input type="password" id="create-course-form"  validations={[required]} onChange={(e) => this.handleChangePass(e)} name="password" autoComplete="off" placeholder="New password" className="form-control placeholder-no-fix" /> </div>
                         <div className="form-group">
                             <Input type="password"  validations={[required,repassword]} name="confirm password" autoComplete="off" placeholder="Confirm new password" className="form-control placeholder-no-fix" /> </div>
                             {/* {this.displayMsg()} */}
-                        <div className="form-group" style={{ width: "40%" }}>                            
+                        <div className="form-group" >                            
                             <Input type="text"  validations={[required]}  onChange={(e) => this.handleChange(e)} name="verify" autoComplete="off" placeholder="Verification code" className="form-control placeholder-no-fix" /> </div>
                         <div className="form-actions">
-                            <input type="button" onClick={this.cancelCourse} className="btn green btn-outline" value="RESET" />
+                            <Link  to="/login" className="btn green btn-outline" >back to login</Link>
                             <button type="submit" className="btn btn-success uppercase pull-right">Submit</button>
                             <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                         </div>

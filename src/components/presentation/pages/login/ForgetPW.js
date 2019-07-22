@@ -11,12 +11,12 @@ import CheckButton from 'react-validation/build/button';
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return( <div className="alert alert-danger">This field is required</div>)
     }
   }
 const email = (value) => {
     if (!isEmail(value)) {
-        return <small className="form-text text-danger">Invalid email format</small>;
+        return( <div className="alert alert-danger">Invalid email format</div>)
     }
   }
 

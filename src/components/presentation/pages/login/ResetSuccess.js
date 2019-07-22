@@ -10,7 +10,7 @@ export default class ResetSuccess extends Component {
     }   
     render() {       
         return (
-            <div style ={{width : "400px",backgroundColor :"white",padding:"20px",borderRadius: "10px",margin:"50px auto"}}>
+            <div style ={{width : "500px",backgroundColor :"white",padding:"20px",borderRadius: "10px",margin:"50px auto"}}>
                 <form className="forget-form">
                     <h3 className="font-green">Reset Password successful.</h3>
                     <div className="form-group">
