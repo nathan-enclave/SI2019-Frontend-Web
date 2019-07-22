@@ -41,7 +41,7 @@ export default class Profile extends Component {
                 <TeamInfo 
                     teamName={e.teamName}
                     projectName={e.projectName}
-                    role={e.role}
+                    // role={e.role}
                 />
             )
             this.setState({
