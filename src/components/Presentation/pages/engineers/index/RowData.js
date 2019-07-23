@@ -8,6 +8,8 @@ import DelEngineer from "./../../../../container/engineer/DelEngineer";
 import MSGDelete from '../../../commons/msg/MSGDelete';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
 // import { thisTypeAnnotation } from '@babel/types';
+import EngineerContainer from "../../../../container/engineer";
+
 
 class RowData extends Component {
   constructor(props) {
@@ -47,21 +49,21 @@ class RowData extends Component {
     });
   }    
   removeItem = ()=>{
-    DelEngineer(this.props.id).then((result) => {
-      let rediect = false;
-      console.log(result)
+    let redirect = false
+
+    EngineerContainer.delete(this.props.id).then((result) => {
       if (!result.statusCode) {
-        rediect = true;
+        redirect = true;
+        this.setState({isOpenDelete: !this.state.isOpenDelete}) 
         this.toggleModalMSGDelete();
         this.setState({msg: "Delete successful." })
+        if(redirect){
+          this.props.reloadData()  
+        }
       } else {
           this.setState({msg: "Something wrong." })
       }
-      if(rediect){
-      this.props.reloadData()  
-      }
     })
-    this.setState({isOpenDelete: !this.state.isOpenDelete}) 
   }
       render() {
         return (
@@ -111,11 +113,12 @@ class RowData extends Component {
             {/* Model for editing */}
 
             {/* Model for deleting */}
-            <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-              <MSGDelete message = {this.state.msg} />
-            </Modal>
+       
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
               <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName} object="engineer"/>  
+            </Modal>
+            <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
+              <MSGDelete message = {this.state.msg} />
             </Modal>
             {/* Model for deleting */}
 
