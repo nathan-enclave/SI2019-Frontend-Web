@@ -7,11 +7,10 @@ class MemberRow extends Component {
         super(props)
     }
     render() {
-
         let typeLabel = (this.props.role === "leader") ? "danger" : "success"
         return (
             <tr>
-                <td>
+                <td >
                     <Link to={`/engineer/${this.props.id}`}> {this.props.firstName} {this.props.lastName} </Link>
                 </td>
                 <td><span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span></td>

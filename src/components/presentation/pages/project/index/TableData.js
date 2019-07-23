@@ -78,6 +78,28 @@ reloadData = ()=>{
 reload = ()=>{
   this.componentWillMount()
 }
+getProject = (e)=>{
+  let id = ["done","all","inProgress","pending"]
+  id.forEach(element => {
+    if(element === e.target.id)  {
+      if(element === "done"){
+      document.getElementById(element).className = "label label-sm label-info" 
+      }
+      else if(element === "inProgress"){
+      document.getElementById(element).className = "label label-sm label-success" 
+      }
+      else if (element === "pending"){
+      document.getElementById(element).className = "label label-sm label-warning" 
+      }
+      else if (element === "all"){
+        document.getElementById(element).className = "label label-sm label-danger" 
+        }
+    }
+    else  {
+      document.getElementById(element).className = "label label-sm label-default" 
+    }
+  });
+}
   render() {
     const  loader = this.state.data.length > 0 ? 
             <div className="table-main-pagination">
@@ -111,7 +133,7 @@ reload = ()=>{
     return (
       <div className="TableArea"> 
         <div className="portlet-title">
-          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List ({this.state.totalItemsCount}) </div>    
+          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>    
           <div style={{paddingBottom: '20px'}}> 
             <div style={{ width: '200px', float: 'left' }}>
               <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
@@ -126,8 +148,14 @@ reload = ()=>{
                   </a>
                 </span>
               </div>
-            </div>
+            </div>           
           </div>
+          <div class="form-group">
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </a>
+            </div>
           <br />
           <div className="portlet-body">
             {loader}

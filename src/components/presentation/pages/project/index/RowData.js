@@ -6,6 +6,7 @@ import DeletePopUp from './../deleteProject/DeletePopUp';
 import DelEngineer from '../../../../container/project/DeleteProject';
 import MSGDelete from '../../../../presentation/commons/msg/MSGDelete';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
+import { Link } from "react-router-dom";
 
 class RowData extends Component {
   constructor(props) {
@@ -64,12 +65,19 @@ class RowData extends Component {
     this.setState({ isOpenDelete: !this.state.isOpenDelete })
   }
   render() {
+    
     return (
       <tr className="RowData">
         <td className="highlight" style={{textAlign:"center"}}>
-          <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.name}
-          </a>
+        <Link to={`/project/${this.props.id}`}>
+                        <span 
+                            className=" margin-bottom-5 margin-top-5 link-name-data">
+                            {this.props.name} 
+                        </span>
+                    </Link>
+          {/* <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+            {this.props.name} 
+         </a> */}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
           {this.props.technology}
