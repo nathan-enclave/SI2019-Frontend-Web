@@ -9,7 +9,7 @@ class TeamMember extends Component {
             <div className="mt-actions">
             <div className="mt-action">
               <div className="mt-action-img">
-                <img width= "50px" height="50px" src={this.props.avatar} /> </div>
+                <img width= "50px" alt="" height="50px" src={this.props.avatar} /> </div>
               <div className="mt-action-body">
                 <div className="mt-action-row">
                   <div className="mt-action-info ">

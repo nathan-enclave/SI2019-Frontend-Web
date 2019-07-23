@@ -132,12 +132,12 @@ getProject = (e)=>{
       <div className="TableArea"> 
         <div className="portlet-title">
           <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>              
-          <div class="form-group">
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </a>
-            </div>
+          {/* <div className="form-group">
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </button>
+            </div> */}
           <br />
           <div style={{marginBottom: '40px'}}>
             <div style={{ width: '200px', float: 'left' }}>

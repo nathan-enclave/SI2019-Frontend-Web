@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
 import resetPassword from '../../../container/login/ResetPass';
 import { Redirect } from 'react-router-dom'
 import Form from 'react-validation/build/form';

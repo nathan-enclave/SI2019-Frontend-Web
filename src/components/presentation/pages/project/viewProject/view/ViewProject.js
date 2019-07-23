@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import 'react-tagsinput/react-tagsinput.css';
 import Chart from "react-apexcharts";

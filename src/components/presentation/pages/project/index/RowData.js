@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ViewForm from './../../../pages/project/viewProject/ViewForm';
 import Modal from './../../../commons/modal/Modal';
 import EditForm from './../editProject/EditForm';
 import DeletePopUp from './../deleteProject/DeletePopUp';
@@ -102,18 +101,12 @@ class RowData extends Component {
             </button>
           </div>
         </td>
-        <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-          <ViewForm id={this.props.id} />
-        </Modal>
-
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMSGSuccess} />
         </Modal>
-
         <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
           <MSGSuccess id={this.props.id} name={this.props.name} />
         </Modal>
-
         <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
           <MSGDelete message={this.state.msg} />
         </Modal>
