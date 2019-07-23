@@ -46,10 +46,12 @@ class EditForm extends Component {
     const fieldName = event.target.name;
     const value = event.target.value;
     this.setState({
+      
       [fieldName]: value
     });
     this.setState({
       data: {
+        ...this.state.data,
         [fieldName]: value
       }
     })
@@ -58,6 +60,7 @@ class EditForm extends Component {
     this.setState({
       start: date,
       data: {
+        ...this.state.data,
         start: date
       }
     });
@@ -66,15 +69,8 @@ class EditForm extends Component {
     this.setState({
       end: date,
       data: {
+        ...this.state.data,
         end: date
-      }
-    });
-  }
-  handleChangeDateOut = (date) => {
-    this.setState({
-      dateOut: date,
-      data: {
-        dateOut: date
       }
     });
   }
@@ -85,6 +81,7 @@ class EditForm extends Component {
       temp = selectOptions.value
       this.setState({
         data: {
+          ...this.state.data,
           categoryId: temp
         }
       })
@@ -137,7 +134,7 @@ class EditForm extends Component {
                       <label className="control-label"> Earning</label>
                       <Input type="text" name="earning" value={this.state.earning} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
-                      <label className="control-label"> Income Per Month</label>
+                      <label className="control-label"> Earning Per Month</label>
                       <Input type="text" name="earningPerMonth" value={this.state.earningPerMonth} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   </div>
                   <div className="col-md-6" style={{ height: "400px" }}>
@@ -149,12 +146,6 @@ class EditForm extends Component {
                       <div className="form-check">
                         <label className="control-label">End in</label><br />
                         <DatePicker selected={this.state.end} onChange={this.handleChangeEnd} className="form-control" />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="form-check">
-                        <label className="control-label">Date out</label><br />
-                        <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut} className="form-control" />
                       </div>
                     </div>
                     <div className="form-group">

@@ -19,7 +19,6 @@ const email = (value) => {
         return <small className="form-text text-danger">Invalid email format</small>;
     }
   }
-
 export default class ForgetPW extends Component {
     constructor(props){
         super(props)
@@ -83,7 +82,7 @@ export default class ForgetPW extends Component {
                     <div className="form-actions">
                         <Link to="/login" id="back-btn" className="btn green btn-outline">Back</Link>
                         {/* <Link to={this.state.url} type="submit" onClick= {this.checkEmail} className="btn btn-success uppercase pull-right">Submit</Link> */}
-                        <button  className="btn btn-success uppercase pull-right" type="submit">Submit</button>
+                        <button  className="btn btn-success uppercase pull-right" type  ="submit">Submit</button>
                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                     </div>
                 </Form>

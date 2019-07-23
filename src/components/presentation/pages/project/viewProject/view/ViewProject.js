@@ -80,11 +80,7 @@ class EditForm extends Component {
       <div className="portlet red box">
         <div className="portlet-title">
           <div className="caption">
-            {this.state.name}    <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span></div>
-          <div className="actions">
-            <a href="javascript:;" className="btn btn-default btn-sm">
-              <i className="fa fa-pencil" /> Edit </a>
-          </div>
+            {this.state.name}   </div>        
         </div>
         <div className="portlet-body">
           <div className="row">
@@ -107,6 +103,14 @@ class EditForm extends Component {
                             </div>
                           </div>
                           <div className="item"> {this.state.name}    </div>
+                        </div>
+                        <div className="item">
+                          <div className="item-head">
+                            <div className="item-details">
+                              <span className="item-name">Status</span>
+                            </div>
+                          </div>
+                          <div className="item">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
                         </div>
                         <div className="item">
                           <div className="item-head">

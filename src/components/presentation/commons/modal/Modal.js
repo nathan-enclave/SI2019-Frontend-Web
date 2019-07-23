@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import './modal.css'
 class Modal extends React.Component {
   render() {
     // Render nothing if the "show" prop is false
@@ -20,6 +20,7 @@ class Modal extends React.Component {
     };
     // The modal "window"
     const modalStyle = {
+      overflow : "hidden",
       backgroundColor: '#fff',
       borderRadius: 5,
       width: this.props.deleteStyleModel ? '500px': '80%',

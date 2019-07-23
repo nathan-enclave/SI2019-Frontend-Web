@@ -53,9 +53,7 @@ class TableData extends Component {
           name={value.name} 
           technology= {value.technology}
           color = {color}
-          earning={value.earning}
-          start= {new Date(new Date(value.start)).toDateString()}
-          end= {new Date(new Date(value.end)).toDateString()}
+          earning={value.earning}          
           status = {value.status}
           reloadData = {() =>{this.reload()}}
           />
@@ -133,11 +131,17 @@ getProject = (e)=>{
     return (
       <div className="TableArea"> 
         <div className="portlet-title">
-          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>    
-          <div style={{paddingBottom: '20px'}}> 
+          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>              
+          <div class="form-group">
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </a>
+            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </a>
+            </div>
+          <br />
+          <div style={{marginBottom: '40px'}}>
             <div style={{ width: '200px', float: 'left' }}>
-              <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
-                <i className="fa fa-edit"></i> Add  </button>
+              <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
             </div>                     
             <div className="search-form" style={{float:'right',width: '200px',backgroundColor:'#B9ECF0'}} >
               <div className="input-group">
@@ -149,14 +153,7 @@ getProject = (e)=>{
                 </span>
               </div>
             </div>           
-          </div>
-          <div class="form-group">
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </a>
-            <a onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </a>
-            </div>
-          <br />
+          </div>          
           <div className="portlet-body">
             {loader}
           </div>         
@@ -167,7 +164,7 @@ getProject = (e)=>{
           </Modal>
           <Modal show={this.state.isOpenMSGSuccess}
           onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
-                <MSGSuccess message = {"Add successfully new engineer."} />
+                <MSGSuccess message = {"Add successfully new project."} />
             </Modal>
         </div>
       </div>
