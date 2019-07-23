@@ -39,7 +39,7 @@ class AddTeam extends Component {
     this.setState({ name: e.target.value })
   }
   async componentWillMount() {
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/engineers')
+    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/engineers?limit=1000&offset=0')
     let data = await res.json()
     let data2 = data.results
     let temp = []
@@ -48,7 +48,7 @@ class AddTeam extends Component {
     });
     this.setState({ leaderOptions: temp });
     this.setState({ memberOptions: temp });
-    const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/projects')
+    const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/projects?limit=1000&offset=0')
     let result = await res2.json()
     let result2 = result.results
     let projectOptions = []

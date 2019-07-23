@@ -1,56 +1,57 @@
 import React, { Component } from 'react';
-import EditProject from '../../../../container/project/EditProject';
+import Select from 'react-select';
+import EditEngineer from '../../../../container/team/EditTeam';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import getData from '../../../../container/project/GetDetailProject';
+import getTotal from './../../../../container/team/GetListEngineers';
 import DatePicker from "react-datepicker";
+import getData from '../../../../container/team/GetTeamDetail';
 
 class EditForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // options: [],
-      // selectOptions: [],
-      status: 1,
-      // skills: [],
-      // dateOut : null,
-      end : null,
-      start : null,
-      error: 0,
-      // selectedStatus : null,
-      data : {}
+      memberOptions: [],
+      memberSelectOptions: [],
+      member: [],
+      leaderOptions: [],
+      leaderSelected: [],
+      leader: null,
+      projectOptions: [],
+      projectSelected: null,
+      isOpenMSGSuccess: false,
+      createdAt : null
     };
   }
   async componentDidMount() {   
-    // let res0 = await getTotal();    
-    // this.setState({ options: res0 })
+    let res0 = await getTotal();    
+    this.setState({ memberOptions: res0 })
     const res = await getData(this.props.id);
     this.setState({
       id: String(res.id),
       name: res.name,
-      technology: res.technology,
-      description: res.description,
-      // phoneNumber: String(res.phoneNumber),
-      start: new Date(new Date(res.start).toDateString()),
-      end: new Date(new Date(res.end).toDateString()),
+      projectName: res.projectName,
+      createdAt: new Date(new Date(res.createdAt).toDateString()),
+      // dateIn: new Date(new Date(res.dateIn).toDateString()),
       // avatar: res.avatar,
       // salary : String(res.salary),
       // address: res.address,
       // email: res.email,
       // skype: res.skype,
       // expYear: String(res.expYear),
-      // dayOffRemain: res.dayOffRemain,
       // status: String(res.status),
-  
-      // skills: res.skills.id
+   
+      engineers: res.engineers.id
     });
-  //   res.skills.forEach(e => {
-  //     e.value = e.id;
-  //     e.label = e.name;
-  //     delete e.id;
-  //     delete e.name
-  // })   
-  // this.setState({selectOptions :res.skills })
+    res.engineers.forEach(e => {
+      e.value = e.id;
+      e.label = e.firstName + " "+ e.lastName;
+      e.exp = e.expYear
+      delete e.id;
+      delete e.firstName
+  }) 
+  console.log(res.engineers)  
+  this.setState({memberSelectOptions :res.engineers })
   }
   isChange = (event) => {
     const fieldName = event.target.name;
@@ -64,48 +65,40 @@ class EditForm extends Component {
       }
     })
   }
-  handleChangeStart = (date) => {
+
+  handleChangeMember = (memberSelectOptions) => {
+    this.setState({ memberSelectOptions });
+    let temp = []
+    if (memberSelectOptions != null) {
+      memberSelectOptions.forEach(element => {
+        temp.push({ id: element.value, role: "member" })
+      });
+      this.setState({ member: temp });
+    }
+  }
+  handleChangeProject = (projectSelected) => {
+    this.setState({ projectSelected })
+    this.setState({ projectId: projectSelected.value })
+  }
+  handleChangeLeader = (leaderSelected) => {
+    this.setState({ leaderSelected })
+    this.setState({ leader: leaderSelected.value })
+  }
+  handleChangeName = (e) => {
+    this.setState({ name: e.target.value })
+  }
+  handleChangeCreateAt = (date) => {
     this.setState({
-      start: date,
-      data :{
-        start : date
+      createdAt: date,
+      data: {
+        createdAt: date
       }
     });
   }
-  handleChangeEnd = (date) => {
-    this.setState({
-      end: date,
-      data : {
-        end : date
-      }
-    });
-  }
-  handleChangeDateOut = (date) => {
-    this.setState({
-      dateOut: date,
-      data : {
-        dateOut : date
-      }
-    });
-  }
-  // handleChangeSkill = (selectOptions) => {
-  //   this.setState({ selectOptions });
-  //   let temp = []
-  //   if (selectOptions != null) {
-  //     selectOptions.forEach(element => {
-  //       temp.push(element.value)
-  //     });
-  //     this.setState({
-  //       data :{
-  //         skills : temp
-  //       }
-  //     })     
-  //   }
-  // }  
   submitSaveForm = (event) => {
-    event.preventDefault() // stop loading    
-    console.log(this.state.data)    
-    EditProject(this.state.data,this.props.id).then((result) => {
+    event.preventDefault() // stop loading   
+         console.log(this.state.data)
+    EditEngineer(this.state.data,this.props.id).then((result) => {
       if (!result.statusCode) {
         this.props.onClose();
         this.props.onOpenMSG();
@@ -121,7 +114,7 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   displayStatus = ()=>{
-    if(this.state.status === 0) this.setState({selectedStatus : "selected"})
+    if(Number(this.state.status) === 0) this.setState({selectedStatus : "selected"})
   }
   render() {
     return (
@@ -129,7 +122,7 @@ class EditForm extends Component {
         <div className="portlet-title tabbable-line">
           <div className="caption caption-md">
             <i className="icon-globe theme-font hide" />
-            <span className="caption-subject font-blue-madison bold uppercase">EDIT {this.props.name}'S PROFILE </span>
+            <span className="caption-subject font-blue-madison bold uppercase">EDIT {this.state.name}'S TEAM </span>
           </div>
         </div>
         <div className="portlet-body">
@@ -137,45 +130,50 @@ class EditForm extends Component {
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
             <Form >
-                  {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                    <img height="130px" src={this.state.avatar} alt=""/><br /><br />
-                  </div> */}
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="control-label">Project Name</label>
+                      <label className="control-label">Team Name</label>
                       <Input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label">Technology</label>
-                      <Input type="text" name="technology" value ={this.state.technology} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
-                    <div className="form-group">
-                      <label className="control-label"> Description</label>
-                      <Input type="text" name="lastName" value ={this.state.description} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
-                  </div>
-                  <div className="col-md-6" style={{ height: "400px" }}>
-                    <div className="form-group">
-                      <label className="control-label">Start in</label><br/>
-                      <DatePicker selected={this.state.start} onChange={this.handleChangeStart}  className="form-control" /> 
-                    </div>
-                    <div className="form-group">
+                      <div className="form-group">
                       <div className="form-check">
-                        <label className="control-label">End in</label><br/>
-                        <DatePicker selected={this.state.end} onChange={this.handleChangeEnd} className="form-control" /> 
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="form-check">
-                        <label className="control-label">Date out</label><br/>
-                        <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut}  className="form-control" /> 
+                        <label className="form-check-label"> Engineers:  </label>
+                          <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
                       </div>
                     </div>
                     {/* <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Skills:  </label>
-                          <Select value={this.state.selectOptions} options={this.state.options} isMulti onChange={this.handleChangeSkill} />
-                      </div>
-                    </div> */}
+                      <label className="control-label">Project Name</label>
+                      <Input type="text" name="projectName" value ={this.state.projectName} onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
+                      {/* <div className="form-group">
+                      <label className="control-label">Image</label>
+                      <Input type="file" name="avatar" className="form-control" /> </div> */}
+                    {/* <div className="form-group">
+                      <label className="control-label">Address</label>
+                      <Input type="text" name="address" value ={this.state.address} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>                    */}
+                    {/* <div className="form-group">
+                      <label className="control-label">Experiences</label>
+                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
+                    {/* <div className="form-group">
+                      <label className="control-label">Phone Number</label>
+                      <Input type="text" name="phoneNumber" value ={this.state.phoneNumber} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
+                      <div className="form-group">
+                      <label className="control-label">Salary</label>
+                      <Input type="number" name="salary" value ={this.state.salary} onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
                   </div>
+                  {/* <div className="col-md-6" style={{ height: "444px" }}>
+                  <div className="form-group">
+                      <div className="form-check">
+                        <label className="control-label">Create At</label><br />
+                        <DatePicker selected={this.state.createdAt} onChange={this.handleChangeCreateAt} className="form-control" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="form-check">
+                        <label className="form-check-label"> engineers:  </label>
+                          <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
+                      </div>
+                    </div>
+                  </div> */}
                 </div>
               </Form>
               <div className="row">

@@ -63,7 +63,7 @@ class RowData extends Component {
       <tr>
         <td className="highlight">
           <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.teamName}
+            {this.props.name}
           </a>
         </td>
         <td className="hidden-xs">{this.props.totalMember} </td>
@@ -79,7 +79,7 @@ class RowData extends Component {
           </div>
         </td>
         <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-          <TeamDetail teamName={this.props.teamName} id={this.props.id} />
+          <TeamDetail name={this.props.name} id={this.props.id} />
         </Modal>
 
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
@@ -87,14 +87,14 @@ class RowData extends Component {
         </Modal>
 
         <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} englishName={this.props.teamName} />
+          <MSGSuccess id={this.props.id} englishName={this.props.name} />
         </Modal>
 
         <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-          <MSGDelete message={this.state.msg} name={this.props.teamName} />
+          <MSGDelete message={this.state.msg} name={this.props.name} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-          <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.teamName} object="team" />
+          <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.name} object="team" />
         </Modal>
       </tr>
     );
