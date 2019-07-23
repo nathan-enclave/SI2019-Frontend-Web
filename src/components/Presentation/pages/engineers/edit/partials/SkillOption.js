@@ -17,8 +17,8 @@ export default class SkillOption extends Component {
         super(props)
         this.state = {
             listSkills: [],
-            skillSelected: null,
-            expYearSelected: 1,
+            skillSelected: this.props.data? this.props.data.skill:null ,
+            expYearSelected: this.props.data ? this.props.data.expYear: {value: 1, label: '1 year'} ,
             error: "",
             checkValidate: false,
             expYear: yearsOfExp
@@ -27,26 +27,26 @@ export default class SkillOption extends Component {
 
     handleSkillChange = async (selectOption) => {
         this.setState({error: null})
-        await this.setState({skillSelected: selectOption.value})
+        await this.setState({skillSelected: selectOption})
         this
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected,
-                expYear: this.state.expYearSelected
+                id: this.state.skillSelected.value,
+                expYear: this.state.expYearSelected.value
             },
             index:this.props.keyIndex
         });
     }
     handleExpChange = async (selectOption) => {
         
-        await this.setState({expYearSelected: selectOption.value})
+        await this.setState({expYearSelected: selectOption})
         this
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected,
-                expYear: this.state.expYearSelected
+                id: this.state.skillSelected.value,
+                expYear: this.state.expYearSelected.value
             },
             index:this.props.keyIndex
         });
@@ -60,7 +60,7 @@ export default class SkillOption extends Component {
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected,
+                id: this.state.skillSelected ? this.state.skillSelected.value: null,
                 expYear: this.state.expYearSelected
             },
             index:this.props.keyIndex,
@@ -85,7 +85,7 @@ export default class SkillOption extends Component {
                                 </label>
                                 {this.state.error}
                                 <Select
-                                    // value={this.state.selectOption}
+                                    value={this.state.skillSelected}
                                     options={this.props.options}
                                     onChange={this.handleSkillChange}/>
                             </div>
@@ -98,8 +98,8 @@ export default class SkillOption extends Component {
                                     Years of experience:
                                 </label>
                                 <Select
-                                    defaultValue={yearsOfExp[1]}
-                                    // value={this.props.selectOption}
+                                    // defaultValue={yearsOfExp[1]}
+                                    value={this.state.expYearSelected}
                                     options={yearsOfExp}
                                     onChange={this.handleExpChange}/>
                             </div>

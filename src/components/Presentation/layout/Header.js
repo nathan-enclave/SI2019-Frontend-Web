@@ -48,10 +48,10 @@ class Header extends Component {
 										</a>
 										</li> */}
                                         <li>
-                                            <a onClick= {(event) =>this.logout(event)}>
+                                            <span onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>
                                                 Log Out
-                                            </a>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>

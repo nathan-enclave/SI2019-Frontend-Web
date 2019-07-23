@@ -8,7 +8,7 @@ class EngineerContainer {
     delete(id) {
         return delApi('engineers', id)
     }
-    edit(id, data){
+    update(id, data){
         return putApi('engineers', id, data)
     }
     getPagination(limit, offset) {

@@ -8,16 +8,15 @@ export default class Skills extends Component {
         super(props)
         this.state = {
             listSkills: [],
-            // skillSelected: null,
-            // expYearSelected: 1,
             error: "",
             numSkills:1,
             isExpanded: false,
-            // expYear: yearsOfExp
         }
     }
     async handleExpand(status) {
         const currentSkills = this.state.listSkills
+        console.log(currentSkills);
+        
         const index = currentSkills.findIndex(e=>e.index === status.index)
         
         if(index >=0) {
@@ -33,61 +32,13 @@ export default class Skills extends Component {
         await this.setState({
             listSkills:currentSkills
         })
-
-        // if(status.checkValidate) {
-        //     console.log(status.checkValidate);
-            
-        //     this.setState({
-        //         isExpanded: status.checkValidate,
-        //         numSkills: this.state.numSkills+1
-        //     })
-        // }
-
-
-
-
-        // if(status){
-        //     if(status.data) {
-        //         list.push({
-        //             id: status.data.skill.value,
-        //             expYear: status.data.expYear
-        //         })
-        //     }
-        //     if(status.validated) {
-        //         this.setState({
-        //             isExpanded: status.validated,
-        //             numSkills: this.state.numSkills+1
-        //         })
-        //     }
-        // }
         this.props.getData(this.state.listSkills)
-      
-        
     }
 
     handleAddMore =  (e) => {
         this.setState({
             numSkills: this.state.numSkills+1
         })
-        // if (this.state.skillSelected) {
-        //     await this.setState({error: "", checkValidate: true})
-        //     const childData = {
-        //         data: {
-        //             id: this.state.skillSelected,
-        //             expYear: this.state.expYearSelected
-        //         },
-        //         index: this.props.keyIndex,
-        //         // checkValidate: this.state.checkValidate
-        //     }
-        //     this
-        //         .props
-        //         .handleExpand(childData)
-
-        // } else {
-        //     this.setState({
-        //         error: <span>Please select skill</span>
-        //     })
-        // }
     }
 
    
