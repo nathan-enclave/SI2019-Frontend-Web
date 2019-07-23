@@ -1,4 +1,4 @@
-import { putApi, postApi, delApi } from "../../../api/crud";
+import { getAllApi, putApi, postApi, delApi } from "../../../api/crud";
 
 
 class EngineerContainer {
@@ -10,6 +10,9 @@ class EngineerContainer {
     }
     edit(id, data){
         return putApi('engineers', id, data)
+    }
+    getPagination(limit, offset) {
+        return getAllApi('engineers?orderBy=id&filter={"deletedAt":{"$exists":false}, "dateOut":{"$exists":false}}&limit='+limit+'&offset='+offset)
     }
 }
 export default new EngineerContainer()

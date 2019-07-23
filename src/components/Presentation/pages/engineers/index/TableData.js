@@ -7,6 +7,7 @@ import AddForm from '../../engineers/add/AddForm';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
 import getData from '../../../../container/engineer/GetViewEng';
+import EngineerContainer from "../../../../container/engineer";
 
 class TableData extends Component {
   constructor(props){
@@ -36,6 +37,9 @@ class TableData extends Component {
     // console.log("active page: " + this.state.activePage)
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
+    // const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage,offset)
+
+
     let dataRender = res.results.map((value,key) =>(
     <RowData  
       key = {key}
