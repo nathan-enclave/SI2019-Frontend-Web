@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Select from 'react-select';
 import AddEngineer from '../../../../container/engineer/AddEngineer';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import { isEmail, isEmpty, isNumeric } from 'validator';
+import {isEmail, isEmpty, isNumeric} from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import getTotalSkills from '../../../../container/skills/GetListSkills';
 import ImageUploader from "../../../commons/input/ImageUploader";
-import { handleUpload } from "../../../../../service/upload/fileUploader";
+import Skills from "./partials/Skills";
+import {handleUpload} from "../../../../../service/upload/fileUploader";
+import EngineerContainer from "../../../../container/engineer";
 const required = (value) => {
     if (isEmpty(value)) {
         return <small className="form-text text-danger">This field is required</small>;
@@ -43,9 +45,9 @@ class AddForm extends Component {
             birthday: "",
             dateIn: "",
             options: [],
-            selectOptions: [],
+            selectOption: null,
             status: 1,
-            skills: [],
+            skills: {},
             error: 0,
             avatar: null
         };
@@ -83,21 +85,20 @@ class AddForm extends Component {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
         }
+        EngineerContainer
+            .add(data)
+            .then(result => {
+                if (!result.statusCode) {
+                    this
+                        .props
+                        .openMSGSuccess()
 
-        AddEngineer(data).then((result) => {
-            console.log(result);
-            if (!result.statusCode) {
-                this
-                    .props
-                    .openMSGSuccess()
-
-                // this.props.onClose()
-            } else {
-                if (result.statusCode !== 200) {
-                    this.setState({msg: 'Some error occured, please try again later '});
+                } else {
+                    if (result.statusCode !== 200) {
+                        this.setState({msg: 'Some error occured, please try again later '});
+                    }
                 }
-            }
-        })
+            })
     }
     handleChangeBirthday = (date) => {
         this.setState({birthday: date});
@@ -105,16 +106,7 @@ class AddForm extends Component {
     handleChangeDateIn = (date) => {
         this.setState({dateIn: date});
     }
-    handleChange = (selectOptions) => {
-        this.setState({selectOptions});
-        let temp = []
-        if (selectOptions != null) {
-            selectOptions.forEach(element => {
-                temp.push(element.value)
-            });
-            this.setState({skills: temp});
-        }
-    }
+
     onSubmit = (e) => {
         e.preventDefault();
         this
@@ -122,8 +114,14 @@ class AddForm extends Component {
             .validateAll();
     }
     async componentDidMount() {
-      const res = await getTotalSkills();
-      this.setState({ options: res });
+        const res = await getTotalSkills();
+        this.setState({options: res});
+    }
+
+    getData = async(items) => {
+        await this.setState({
+            skills: items.map(e => e.data)
+        })
     }
     render() {
         return (
@@ -148,9 +146,6 @@ class AddForm extends Component {
                                 ref={c => {
                                 this.form = c
                             }}>
-                                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div> */}
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -261,19 +256,11 @@ class AddForm extends Component {
                                                     className="form-control"/>
                                             </div>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="form-check">
-                                                <label className="form-check-label">
-                                                    Skills:
-                                                </label>
-                                                <Select
-                                                    value={this.state.selectOptions}
-                                                    options={this.state.options}
-                                                    isMulti
-                                                    onChange={this.handleChange}/>
-                                            </div>
-                                        </div>
-
+                                        <Skills
+                                            options={this.state.options}
+                                            getData={this
+                                            .getData
+                                            .bind(this)}/> 
                                     </div>
                                 </div>
                             </Form>

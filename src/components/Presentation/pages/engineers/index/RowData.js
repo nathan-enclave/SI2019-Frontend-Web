@@ -72,6 +72,7 @@ class RowData extends Component {
                             className=" margin-bottom-5 margin-top-5 link-name-data">
                             {this.props.englishName} 
                         </span>
+                        <span>->>ID:{this.props.id}</span>
                     </Link>
                 </td>
                 <td className="highlight">

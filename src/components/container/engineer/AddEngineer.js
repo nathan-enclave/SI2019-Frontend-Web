@@ -4,7 +4,6 @@ export default function AddEngineer(data) {
             method: 'POST',
             body: JSON.stringify(data)
         }).then((response) => response.json()).then((responseJson) => {
-
             resolve(responseJson)
         }).catch((error) => {
             reject(error)
