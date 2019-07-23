@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import RowData from './RowData';
 import Pagination from "react-js-pagination";
-import getDataPag from '../../../../container/engineer/GetEngineerPagination';
 import Modal from '../../../commons/modal/Modal';
 import AddForm from '../../engineers/add/AddForm';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
-import getData from '../../../../container/engineer/GetViewEng';
 import EngineerContainer from "../../../../container/engineer";
 
 class TableData extends Component {
@@ -26,21 +24,15 @@ class TableData extends Component {
     this.setState({isOpenMSGSuccess: !this.state.isOpenMSGSuccess})
     this.reloadData()
   }
-  handlePageChange =(pageNumber)=> {
-    console.log('active page is: ' + pageNumber);
-    this.setState({activePage: pageNumber-1})
+  handlePageChange = async (pageNumber)=> {
+    await this.setState({activePage: pageNumber-1})
     this.componentWillMount();
   }
   async componentWillMount(){
-    const res0 = await getData();
-    this.setState({totalItemsCount : res0.total})
-    // console.log("active page: " + this.state.activePage)
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
-    const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    // const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage,offset)
-
-
-    let dataRender = res.results.map((value,key) =>(
+    const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage,offset)
+    await this.setState({totalItemsCount : dataPagination.total})
+    let dataRender = dataPagination.results.map((value,key) =>(
     <RowData  
       key = {key}
       id = {value.id}
@@ -60,6 +52,7 @@ class TableData extends Component {
       />
     )
   )
+
   this.setState({
     data : dataRender
   })
