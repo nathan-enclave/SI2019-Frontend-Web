@@ -105,7 +105,7 @@ class RowData extends Component {
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMSGSuccess} />
         </Modal>
         <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} name={this.props.name} />
+          <MSGSuccess id={this.props.id} name={this.props.name} message="Update the project successful."/>
         </Modal>
         <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
           <MSGDelete message={this.state.msg} />

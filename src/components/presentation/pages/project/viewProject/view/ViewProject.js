@@ -18,16 +18,9 @@ class EditForm extends Component {
       id: this.props.match.params.id,
       category: "",
       team: "",
-      name: "",
-      technology: "",
-      description:"",
-      start: "",
-      end : "",
-      earning: "",
-      earningPerMonth: "",
       status : "",
       updatedAt : "",
-      category : "",
+      data : null,
       options: {
         labels: ['Earning', 'Total earning'],
         styles: {
@@ -53,7 +46,8 @@ class EditForm extends Component {
       updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
       team: res.team ? res.team.name : "Do not have team",
       teamId : res.team?res.team.id:null,
-      category: res.category.name
+      category: res.category.name,
+      data : 0
     });
     if(res.team !== null){
     const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
@@ -109,7 +103,7 @@ class EditForm extends Component {
       </div>
     </div>
     )
-      let loadData = (this.state.name.length > 0)? (
+      let loadData = (this.state.data !== null)? (
         <div className="portlet-body">
           <div className="row">
             <div className="col-lg-6 col-xs-12 col-sm-12">
