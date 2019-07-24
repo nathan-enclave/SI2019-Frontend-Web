@@ -181,7 +181,9 @@ class AddForm extends Component {
                                                 name="avatar"
                                                 function={this
                                                 .getImageName
-                                                .bind(this)}/> {/* <Input type="file" name="avatar" className="form-control"/> */}
+                                                .bind(this)}
+                                                status={'add'}
+                                                />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Address</label>

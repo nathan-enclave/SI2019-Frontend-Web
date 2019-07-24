@@ -8,6 +8,8 @@ import DatePicker from "react-datepicker";
 import Skills from "./partials/Skills";
 import {ClipLoader} from 'react-spinners';
 import EngineerContainer from "../../../../container/engineer";
+import ImageUploader from "../../../commons/input/ImageUploader";
+
 class EditForm extends Component {
     constructor(props) {
         super(props);
@@ -181,12 +183,9 @@ class EditForm extends Component {
 
                                 <div className="tab-pane active" id="tab_1_1">
                                     <Form >
-                                        <div
-                                            className="form-group"
-                                            style={{
-                                            textAlign: 'center'
-                                        }}>
-                                            <img height="130px" src={this.state.avatar} alt=""/><br/><br/>
+                                        <div className="d-flex justify-center">
+                                            <ImageUploader data={this.state.avatar} status={'edit'}/>
+                                            {/* <img height="130px" src={this.state.avatar} alt=""/><br/><br/> */}
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
@@ -252,11 +251,7 @@ class EditForm extends Component {
                                                         className="form-control"/>
                                                 </div>
                                             </div>
-                                            <div
-                                                className="col-md-6"
-                                                style={{
-                                                height: "444px"
-                                            }}>
+                                            <div className="col-md-6">
                                                 <div className="form-group">
                                                     <label className="control-label">Email</label>
                                                     <Input
@@ -310,9 +305,10 @@ class EditForm extends Component {
                                                     .bind(this)}/>
                                             </div>
                                         </div>
+                                        
                                     </Form>
                                     <div className="row">
-                                        <div className="margin-top-20">
+                                        <div className="margin-top-20 text-center">
                                             <button
                                                 type="submit"
                                                 className="btn green"

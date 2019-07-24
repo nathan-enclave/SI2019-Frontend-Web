@@ -4,7 +4,8 @@ export default class ImageUploader extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            file: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'
+            file:this.props.data? this.props.data: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
+            status: this.props.status
         }
         this.handleChange = this
             .handleChange
@@ -20,6 +21,7 @@ export default class ImageUploader extends Component {
         const img = document.getElementsByClassName("avatar-preview")[0];
         img.src = 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'
     }
+   
     render() {
         return (
 
@@ -28,7 +30,7 @@ export default class ImageUploader extends Component {
                         <div className="border-close">
                             <div className="close" onClick={()=>this.handleCancel()}></div>
                         </div>
-                        <img src={this.state.file }  alt="file-upload" className="avatar-preview"/>
+                        <img src={this.state.file}  alt="file-upload" className="avatar-preview"/>
                     </div>
 
                     <div className="btn green relative">

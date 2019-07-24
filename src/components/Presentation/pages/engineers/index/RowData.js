@@ -15,57 +15,52 @@ export default class RowData extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      isOpenView: false,
-      isOpenEdit : false, 
-      isOpenDelete: false,
-      isOpenMSGDelete: false,
-      isOpenMSGSuccess : false      
+        isOpenView: false,
+        isOpenEdit : false, 
+        isOpenDelete: false,
+        isOpenMSGDelete: false,
+        isOpenMSGSuccess : false      
     };
   }
   toggleMSGSuccess = ()=>{
     this.setState({
-      isOpenMSGSuccess : !this.state.isOpenMSGSuccess
+        isOpenMSGSuccess : !this.state.isOpenMSGSuccess
     })
     this.props.reloadData();
   }
   toggleModalMSGDelete = ()=>{
     this.setState({
-      isOpenMSGDelete: !this.state.isOpenMSGDelete
+        isOpenMSGDelete: !this.state.isOpenMSGDelete
     })
   }
   toggleModalView = () => {
     this.setState({
-      isOpenView: !this.state.isOpenView
+        isOpenView: !this.state.isOpenView
     });
   } 
   toggleModalEdit = () => {
     this.setState({
-      isOpenEdit: !this.state.isOpenEdit
+         isOpenEdit: !this.state.isOpenEdit
     });
   }
   toggleModalDelete = () => {
     this.setState({
-      isOpenDelete: !this.state.isOpenDelete
+        isOpenDelete: !this.state.isOpenDelete
     });
   }    
   removeItem = ()=>{
-    let redirect = false
-
     EngineerContainer.delete(this.props.id).then((result) => {
-      if (!result.statusCode) {
-        redirect = true;
-        this.setState({isOpenDelete: !this.state.isOpenDelete}) 
-        this.toggleModalMSGDelete();
-        this.setState({msg: "Delete successful." })
-        if(redirect){
-          this.props.reloadData()  
+        if (!result.statusCode) {
+            this.props.reloadData()  
+            this.setState({isOpenDelete: !this.state.isOpenDelete}) 
+            this.toggleModalMSGDelete();
+            this.setState({msg: "Delete successful." })
+        } else {
+            this.setState({msg: "Something wrong." })
         }
-      } else {
-          this.setState({msg: "Something wrong." })
-      }
     })
   }
-      render() {
+    render() {
         return (
             <tr className="RowData">
                 <td className="highlight">
@@ -88,40 +83,47 @@ export default class RowData extends Component {
                 <td >{this.props.expYear}</td>
                 <td>
                     <div className="flex-center">
-                      <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >
+                        <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >
                         <i className="fa fa-edit" style={{fontSize:'15px'}} />
-                      </button>
-                      <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
+                        </button>
+                        <button onClick={()=>this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
                         <i className="fa fa-trash-o" style={{fontSize:'15px'}}/>
-                      </button>
+                        </button>
                     </div>
                 </td>
                 <td>
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-                      <ViewForm id = {this.props.id}/>
+                        <ViewForm id = {this.props.id}/>
                     </Modal>
 
                     {/* Model for editing */}
                     <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
-                      <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
+                        <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
                     </Modal>
                     <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-                      <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  message = {"Update successfully."} />
+                        <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  message = {"Update successfully."} />
                     </Modal> 
                     {/* Model for editing */}
 
                     {/* Model for deleting */}
-              
-                    <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-                      <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName} object="engineer"/>  
+                
+                    <Modal  show={this.state.isOpenDelete} 
+                            onClose={this.toggleModalDelete} 
+                            deleteStyleModel={true}  >
+                        <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} 
+                                    onClose = {this.toggleModalDelete} 
+                                    name ={this.props.englishName} 
+                                    object="engineer"/>  
                     </Modal>
-                    <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-                      <MSGDelete message = {this.state.msg} />
+                    <Modal  show={this.state.isOpenMSGDelete} 
+                            onClose={this.toggleModalMSGDelete} 
+                            deleteStyleModel={true} >
+                        <MSGDelete message = {this.state.msg} />
                     </Modal>
                     {/* Model for deleting */}
                 </td>
-               
             </tr>
-        );
+        
+      );
     }
 }
