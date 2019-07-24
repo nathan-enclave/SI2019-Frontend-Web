@@ -9,6 +9,7 @@ import getData from '../../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
+import Preloader from '../../../../include/Preloader'
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +18,16 @@ class EditForm extends Component {
       id: this.props.match.params.id,
       category: "",
       team: "",
+      name: "",
+      technology: "",
+      description:"",
+      start: "",
+      end : "",
+      earning: "",
+      earningPerMonth: "",
+      status : "",
+      updatedAt : "",
+      category : "",
       options: {
         labels: ['Earning', 'Total earning'],
         styles: {
@@ -29,7 +40,6 @@ class EditForm extends Component {
   }
   async componentDidMount() {
     const res = await getData(this.state.id);
-    console.log(res.category)
     this.setState({
       id: res.id,
       name: res.name,
@@ -48,7 +58,6 @@ class EditForm extends Component {
     if(res.team !== null){
     const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
     let teamInf = await res2.json();
-    console.log(teamInf)
     let teamTable = teamInf.engineers.map((value,key)=>{
       return (
         <TeamMember 
@@ -65,7 +74,6 @@ class EditForm extends Component {
     this.setState({teamData : teamTable})
   }
   }
-
   render() {
     let color = null
     if (this.state.status === "done") {
@@ -75,12 +83,33 @@ class EditForm extends Component {
     } else if (this.state.status === 'pending') {
       color = 'label-warning'
     }
-    return (<div className="portlet light bordered">
-      <div className="portlet red box">
-        <div className="portlet-title">
-          <div className="caption">
-            {this.state.name}   </div>        
+    let team = this.state.team ==="Do not have team"?(
+      <div className="portlet light bordered">
+      <div className="portlet-title tabbable-line">
+        <div className="caption">
+          <i className=" icon-social-twitter font-dark hide" />
+          <span className="caption-subject font-dark bold uppercase">TEAM <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </span></span>
         </div>
+      </div>
+    </div>
+    ):(
+      <div className="portlet light bordered">
+      <div className="portlet-title tabbable-line">
+        <div className="caption">
+          <i className=" icon-social-twitter font-dark hide" />
+          <span className="caption-subject font-dark bold uppercase">TEAM <Link to={"/teams/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link></span>
+        </div>
+      </div>
+      <div className="portlet-body4">
+        <div className="tab-content">
+          <div className="tab-pane active" id="tab_actions_pending">
+           {this.state.teamData}  
+          </div>
+        </div>
+      </div>
+    </div>
+    )
+      let loadData = (this.state.name.length > 0)? (
         <div className="portlet-body">
           <div className="row">
             <div className="col-lg-6 col-xs-12 col-sm-12">
@@ -220,25 +249,20 @@ class EditForm extends Component {
                     </div>
                   </div>
                 </div>
-              <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                  <div className="caption">
-                    <i className=" icon-social-twitter font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">TEAM <Link to={"/teams/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link></span>
-                  </div>
-                </div>
-                <div className="portlet-body4">
-                  <div className="tab-content">
-                    <div className="tab-pane active" id="tab_actions_pending">
-                     {this.state.teamData}  
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {team}
               </div>
             </div>
           </div>
         </div>
+      ):<Preloader styleCustom={"unset"}/>
+    return (
+    <div className="portlet light bordered">
+      <div className="portlet red box">
+        <div className="portlet-title">
+          <div className="caption">
+            {this.state.name}   </div>        
+        </div>
+        {loadData}
       </div>
     </div>)
   }

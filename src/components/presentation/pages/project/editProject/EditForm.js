@@ -6,7 +6,16 @@ import Input from 'react-validation/build/input';
 import getData from '../../../../container/project/GetDetailProject';
 import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
+import CheckButton from 'react-validation/build/button';
+import { isEmpty } from 'validator';
 
+const required = (value) => {
+  if (isEmpty(value)) {
+      return (<div className="alert alert-danger">
+          This field is required!
+  </div>);
+  }
+}
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -104,6 +113,8 @@ class EditForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.form.validateAll();
+    if (this.checkBtn.context._errors.length === 0) {
+  }
   }
   render() {
     return (
@@ -123,19 +134,19 @@ class EditForm extends Component {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="control-label">Project Name</label>
-                      <Input type="text" name="name" value={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="name"  value={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label">Technology</label>
-                      <Input type="text" name="technology" value={this.state.technology} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="technology"   value={this.state.technology} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Description</label>
-                      <Input type="text" name="description" value={this.state.description} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="description"  value={this.state.description} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Earning</label>
-                      <Input type="text" name="earning" value={this.state.earning} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="earning"   value={this.state.earning} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Earning Per Month</label>
-                      <Input type="text" name="earningPerMonth" value={this.state.earningPerMonth} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="earningPerMonth"  value={this.state.earningPerMonth} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   </div>
                   <div className="col-md-6" style={{ height: "400px" }}>
                     <div className="form-group">
@@ -164,12 +175,17 @@ class EditForm extends Component {
                     </div>
                   </div>
                 </div>
-              </Form>
-              <div className="row">
-                <div className="margin-top-20" style={{ textAlign: 'center' }}>
-                  <button type="submit" className="btn green" onClick={(event) => this.submitSaveForm(event)} > SAVE </button>
-                </div>
-              </div>
+                <div className="row">
+                                    <div
+                                        className="margin-top-20"
+                                        style={{
+                                            textAlign: 'center'
+                                        }}>
+                                        <button className="btn btn-success uppercase pull-right" type="submit">Submit</button>
+                                        <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                    </div>
+                                </div>
+              </Form>             
             </div>
           </div>
         </div>
