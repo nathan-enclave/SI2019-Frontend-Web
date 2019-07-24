@@ -25,7 +25,7 @@ export default class ImageUploader extends Component {
     render() {
         return (
 
-            <div className="Uploader">
+            <div className={this.state.status === "edit" ? " Uploader EditUploader": "Uploader"}>
                    <div className="image-preview-area">
                         <div className="border-close">
                             <div className="close" onClick={()=>this.handleCancel()}></div>
@@ -39,7 +39,7 @@ export default class ImageUploader extends Component {
                             onChange={this.handleChange}
                             name={this.props.name}
                             className="upload-image-preview-input"/>
-                            <div className="inline-block title-upload">Upload</div>
+                            <div className="inline-block title-upload">{this.props.status === "add" ? "Upload" : "Change"}</div>
                         
                     </div>
             </div>

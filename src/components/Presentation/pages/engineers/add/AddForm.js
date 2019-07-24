@@ -57,7 +57,6 @@ class AddForm extends Component {
 
     getImageName = (image) => {
         this.setState({avatar: image})
-
     }
     isChange = (event) => {
         const fieldName = event.target.name;
@@ -113,7 +112,7 @@ class AddForm extends Component {
             .form
             .validateAll();
     }
-    async componentDidMount() {
+    async componentWillMount() {
         const res = await getTotalSkills();
         this.setState({options: res});
     }

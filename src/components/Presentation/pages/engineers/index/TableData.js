@@ -133,7 +133,7 @@ class TableData extends Component {
                                     <ClipLoader
                                         sizeUnit={"px"}
                                         size={150}
-                                        color={'#123abc'}
+                                        color={'#7ed6df'}
                                         loading={this.state.loading}/>
                                 </div>
                             )

@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 // import { isEmail, isEmpty, isNumeric } from 'validator';
-import getTotal from './../../../../container/skills/GetListSkills';
+import getTotalSkills from './../../../../container/skills/GetListSkills';
 import getData from '../../../../container/engineer/GetDetailEng';
 import DatePicker from "react-datepicker";
 import Skills from "./partials/Skills";
 import {ClipLoader} from 'react-spinners';
+import {handleUpload} from "../../../../../service/upload/fileUploader";
 import EngineerContainer from "../../../../container/engineer";
 import ImageUploader from "../../../commons/input/ImageUploader";
-
+import './EditForm.css'
 class EditForm extends Component {
     constructor(props) {
         super(props);
@@ -23,31 +24,36 @@ class EditForm extends Component {
             error: "",
             selectedStatus: null,
             data: {},
-            loading: true
+            loading: true,
+            saveLoading: false,
         };
+    }
+    getImageName = (image) => {
+        this.setState({avatar: image})
     }
     async componentWillMount() {
 
-        let res0 = await getTotal();
+        let res0 = await getTotalSkills();
         await this.setState({options: res0})
-        const res = await getData(this.props.id);
+        const currentEngineer = await EngineerContainer.getById(this.props.id);
         setTimeout(() => {
             this.setState({
-                id: String(res.id),
-                firstName: res.firstName,
-                lastName: res.lastName,
-                englishName: res.englishName,
-                phoneNumber: String(res.phoneNumber),
-                birthday: new Date(new Date(res.birthday).toDateString()),
-                dateIn: new Date(new Date(res.dateIn).toDateString()),
-                avatar: res.avatar,
-                salary: String(res.salary),
-                address: res.address,
-                email: res.email,
-                skype: res.skype,
-                expYear: String(res.expYear),
-                status: String(res.status),
-                skills: res
+                id: String(currentEngineer.id),
+                firstName: currentEngineer.firstName,
+                lastName: currentEngineer.lastName,
+                englishName: currentEngineer.englishName,
+                phoneNumber: String(currentEngineer.phoneNumber),
+                birthday: new Date(new Date(currentEngineer.birthday).toDateString()),
+                dateIn: new Date(new Date(currentEngineer.dateIn).toDateString()),
+                avatar: currentEngineer.avatar,
+                oldAvatar:  currentEngineer.avatar,
+                salary: String(currentEngineer.salary),
+                address: currentEngineer.address,
+                email: currentEngineer.email,
+                skype: currentEngineer.skype,
+                expYear: String(currentEngineer.expYear),
+                status: String(currentEngineer.status),
+                skills: currentEngineer
                     .skills
                     .map(e => {
                         return {
@@ -109,16 +115,29 @@ class EditForm extends Component {
         });
     }
 
-    submitSaveForm = (event) => {
-        console.log(this.state.data);
+    submitSaveForm = async (event) => {
         event.preventDefault() // prevent put default
-        EngineerContainer
+        await this.setState({
+            saveLoading: true
+        })
+        console.log(this.state.avatar);
+        
+        if (this.state.avatar !== this.state.oldAvatar) {
+            const avatar = await handleUpload(this.state.avatar)
+            this.setState({
+                avatar,
+                data:{
+                    ...this.state.data,
+                    avatar,
+                }
+            })
+        }
+        setTimeout(()=>{
+            EngineerContainer
             .update(this.props.id, this.state.data)
             .then(result => {
-                console.log(result);
-                
                 if (!result.statusCode) {
-                    this.setState({error: ""})
+                    this.setState({error: "", saveLoading: false})
                     this
                         .props
                         .onClose();
@@ -126,14 +145,19 @@ class EditForm extends Component {
                         .props
                         .onOpenMSG();
                 } else {
-                    this.setState({error: (
+                    this.setState({
+                        error: (
                             <div class="alert alert-danger">
                                 <strong>Error!</strong>
                                 Something went wrong, please try again later.
                             </div>
-                        )})
-                }
+                        ),
+                        saveLoading: false
+                    })
+                }   
             })
+        }, 500)
+       
     }
     onSubmit = (e) => {
         e.preventDefault();
@@ -157,6 +181,8 @@ class EditForm extends Component {
         })
     }
     render() {
+        console.log(this.state.saveLoading);
+        
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -173,19 +199,22 @@ class EditForm extends Component {
                                 <ClipLoader
                                     sizeUnit={"px"}
                                     size={150}
-                                    color={'#123abc'}
+                                    color={'#7ed6df'}
                                     loading={this.state.loading}/>
                             </div>
                         )
                         : (
                             <div className="tab-content">
                                 {this.state.error}
-
                                 <div className="tab-pane active" id="tab_1_1">
                                     <Form >
                                         <div className="d-flex justify-center">
-                                            <ImageUploader data={this.state.avatar} status={'edit'}/>
-                                            {/* <img height="130px" src={this.state.avatar} alt=""/><br/><br/> */}
+                                            <ImageUploader 
+                                                data={this.state.avatar}   
+                                                name="avatar"
+                                                function={this
+                                                .getImageName
+                                                .bind(this)} status={'edit'}/>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
@@ -316,6 +345,18 @@ class EditForm extends Component {
                                                 SAVE
                                             </button>
                                         </div>
+                                        {
+                                            this.state.saveLoading
+                                            ? (
+                                                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                                                    <ClipLoader
+                                                        sizeUnit={"px"}
+                                                        size={20}
+                                                        color={'#123abc'}
+                                                        loading={this.state.saveLoading}/>
+                                                </div>
+                                            ):""
+                                        }
                                     </div>
                                 </div>
                             </div>

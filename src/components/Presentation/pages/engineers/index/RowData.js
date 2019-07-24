@@ -12,54 +12,57 @@ import EngineerContainer from "../../../../container/engineer";
 
 
 export default class RowData extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-        isOpenView: false,
-        isOpenEdit : false, 
-        isOpenDelete: false,
-        isOpenMSGDelete: false,
-        isOpenMSGSuccess : false      
-    };
-  }
-  toggleMSGSuccess = ()=>{
-    this.setState({
-        isOpenMSGSuccess : !this.state.isOpenMSGSuccess
-    })
-    this.props.reloadData();
-  }
-  toggleModalMSGDelete = ()=>{
-    this.setState({
-        isOpenMSGDelete: !this.state.isOpenMSGDelete
-    })
-  }
-  toggleModalView = () => {
-    this.setState({
-        isOpenView: !this.state.isOpenView
-    });
-  } 
-  toggleModalEdit = () => {
-    this.setState({
-         isOpenEdit: !this.state.isOpenEdit
-    });
-  }
-  toggleModalDelete = () => {
-    this.setState({
-        isOpenDelete: !this.state.isOpenDelete
-    });
-  }    
-  removeItem = ()=>{
-    EngineerContainer.delete(this.props.id).then((result) => {
-        if (!result.statusCode) {
-            this.props.reloadData()  
-            this.setState({isOpenDelete: !this.state.isOpenDelete}) 
-            this.toggleModalMSGDelete();
-            this.setState({msg: "Delete successful." })
-        } else {
-            this.setState({msg: "Something wrong." })
-        }
-    })
-  }
+    constructor(props) {
+        super(props);
+        this.state = { 
+            isOpenView: false,
+            isOpenEdit : false, 
+            isOpenDelete: false,
+            isOpenMSGDelete: false,
+            isOpenMSGSuccess : false      
+        };
+    }
+    toggleMSGSuccess = ()=>{
+        this.setState({
+            isOpenMSGSuccess : !this.state.isOpenMSGSuccess
+        })
+        this.props.reloadData();
+    }
+    toggleModalMSGDelete = ()=>{
+        this.setState({
+            isOpenMSGDelete: !this.state.isOpenMSGDelete
+        })
+    }
+    toggleModalView = () => {
+        this.setState({
+            isOpenView: !this.state.isOpenView
+        });
+    } 
+    toggleModalEdit = () => {
+        this.setState({
+            isOpenEdit: !this.state.isOpenEdit
+        });
+    }
+    toggleModalDelete = () => {
+        this.setState({
+            isOpenDelete: !this.state.isOpenDelete
+        });
+    }    
+    removeItem = ()=>{
+        EngineerContainer.delete(this.props.id).then((result) => {
+            if (!result.statusCode) {
+                this.props.reloadData()  
+                this.setState({isOpenDelete: !this.state.isOpenDelete}) 
+                this.setState({msg: "Delete successfully." })
+                this.toggleModalMSGDelete();
+                console.log(this.state.isOpenMSGDelete);
+                
+
+            } else {
+                this.setState({msg: "Something wrong, please try again later." })
+            }
+        })
+    }
     render() {
         return (
             <tr className="RowData">
@@ -110,7 +113,8 @@ export default class RowData extends Component {
                     <Modal  show={this.state.isOpenDelete} 
                             onClose={this.toggleModalDelete} 
                             deleteStyleModel={true}  >
-                        <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} 
+                            <DeletePopUp  
+                                    confirm = {()=>this.removeItem()} 
                                     onClose = {this.toggleModalDelete} 
                                     name ={this.props.englishName} 
                                     object="engineer"/>  
@@ -118,12 +122,12 @@ export default class RowData extends Component {
                     <Modal  show={this.state.isOpenMSGDelete} 
                             onClose={this.toggleModalMSGDelete} 
                             deleteStyleModel={true} >
-                        <MSGDelete message = {this.state.msg} />
+                            <MSGDelete message = {this.state.msg} />
                     </Modal>
                     {/* Model for deleting */}
                 </td>
             </tr>
         
-      );
+        );
     }
 }
