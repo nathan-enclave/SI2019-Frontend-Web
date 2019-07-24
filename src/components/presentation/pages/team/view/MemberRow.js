@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-
-class MemberRow extends Component {
-    constructor(props) {
-        super(props)
-    }
+class MemberRow extends Component {    
     render() {
         let typeLabel = (this.props.role === "leader") ? "danger" : "success"
         return (
