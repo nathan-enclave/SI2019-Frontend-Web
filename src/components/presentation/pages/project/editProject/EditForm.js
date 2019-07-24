@@ -45,7 +45,7 @@ class EditForm extends Component {
       earning: String(res.earning),
       earningPerMonth: String(res.earningPerMonth),
       status: res.status,
-      categoryId: Number(res.category.name)
+      // categoryId: Number(res.category.name)
     });
     this.setState({ selectOptions: [{ value: res.category.id, label: res.category.name }] })
   }

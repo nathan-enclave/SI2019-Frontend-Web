@@ -128,3 +128,12 @@
 .portlet.box.red {
     border: 1px solid #32c5d2;
 }
+.table-scrollable > .table-bordered > thead > tr:last-child > th{
+    background-color: #bee5eb;
+    padding : 10px
+}
+.table td, .table th{
+    font-size: 17px;
+    text-align: center;
+    padding: 10px
+}

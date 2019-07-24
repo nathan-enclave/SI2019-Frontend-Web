@@ -6,8 +6,6 @@ import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
-import getData from '../../../../container/project/GetViewProject'
-
 class TableData extends Component {
   constructor(props){
     super(props);
@@ -73,28 +71,28 @@ reloadData = ()=>{
 reload = ()=>{
   this.componentWillMount()
 }
-getProject = (e)=>{
-  let id = ["done","all","inProgress","pending"]
-  id.forEach(element => {
-    if(element === e.target.id)  {
-      if(element === "done"){
-      document.getElementById(element).className = "label label-sm label-info" 
-      }
-      else if(element === "inProgress"){
-      document.getElementById(element).className = "label label-sm label-success" 
-      }
-      else if (element === "pending"){
-      document.getElementById(element).className = "label label-sm label-warning" 
-      }
-      else if (element === "all"){
-        document.getElementById(element).className = "label label-sm label-danger" 
-        }
-    }
-    else  {
-      document.getElementById(element).className = "label label-sm label-default" 
-    }
-  });
-}
+// getProject = (e)=>{
+//   let id = ["done","all","inProgress","pending"]
+//   id.forEach(element => {
+//     if(element === e.target.id)  {
+//       if(element === "done"){
+//       document.getElementById(element).className = "label label-sm label-info" 
+//       }
+//       else if(element === "inProgress"){
+//       document.getElementById(element).className = "label label-sm label-success" 
+//       }
+//       else if (element === "pending"){
+//       document.getElementById(element).className = "label label-sm label-warning" 
+//       }
+//       else if (element === "all"){
+//         document.getElementById(element).className = "label label-sm label-danger" 
+//         }
+//     }
+//     else  {
+//       document.getElementById(element).className = "label label-sm label-default" 
+//     }
+//   });
+// }
   render() {
     const  loader = this.state.data.length > 0 ? 
             <div className="table-main-pagination">
@@ -102,7 +100,7 @@ getProject = (e)=>{
                 <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
                     <tr>
-                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Name </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center",fontSize:"20px"}}>Name </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Category </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Earning </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Status </th>

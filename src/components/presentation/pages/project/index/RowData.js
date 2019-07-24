@@ -6,7 +6,8 @@ import DelEngineer from '../../../../container/project/DeleteProject';
 import MSGDelete from '../../../../presentation/commons/msg/MSGDelete';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
 import { Link } from "react-router-dom";
-
+import numeral from 'numeral'
+import './index.css'
 class RowData extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,7 @@ class RowData extends Component {
     this.state = {
       isOpenView: false,
       isOpenEdit: false,
-      isOpenDelete: false,
+      // isOpenDelete: false,
       isOpenMSGDelete: false,
       isOpenMSGSuccess: false
 
@@ -47,23 +48,18 @@ class RowData extends Component {
     });
   }
   removeItem = () => {
-    let rediect = false;
     DelEngineer(this.props.id).then((result) => {
       if (!result.statusCode) {
-        rediect = true;
         this.setState({ isOpenDelete: !this.state.isOpenDelete })
         this.toggleModalMSGDelete();
         this.setState({ msg: "Delete successful." })
-        if (rediect) {
           this.props.reloadData()
-        }
       } else {
         this.setState({ msg: "Something wrong." })
       }      
     })
   }
-  render() {
-    
+  render() {    
     return (
       <tr className="RowData">
         <td className="highlight" style={{textAlign:"center"}}>
@@ -73,20 +69,12 @@ class RowData extends Component {
                             {this.props.name} 
                         </span>
                     </Link>
-          {/* <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.name} 
-         </a> */}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
           {this.props.category}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-          }).format(this.props.earning)} </td>
+          {numeral(this.props.earning).format('0,0')} </td>
         <td className="highlight" style={{textAlign:"center"}}>
           <span className={"label label-sm " + this.props.color}> {this.props.status} </span>
         </td>
