@@ -96,17 +96,21 @@ class RowData extends Component {
             <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
               <ViewForm id = {this.props.id}/>
             </Modal>
+
+
             <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
               <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
             </Modal>
             <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
               <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  />
             </Modal>        
+
+
             <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
               <MSGDelete message = {this.state.msg} />
             </Modal>
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName} object="engineer"/>  
+              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}}  name ={this.props.englishName} object="engineer"/>  
             </Modal>
           </tr>
         );

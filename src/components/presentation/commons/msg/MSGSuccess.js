@@ -7,7 +7,7 @@ export default class MSGSuccess extends Component {
         <div className="modal-header">
           <h4 className="modal-title">Message</h4>
         </div>
-        <div className="modal-body">Update profile successfully.</div>
+        <div className="modal-body">{this.props.message}</div>
 
       </div>
     )

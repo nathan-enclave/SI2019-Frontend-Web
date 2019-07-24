@@ -41,7 +41,7 @@ class TableData extends Component {
       <RowData
         key={key}
         id={value.id}
-        teamName={value.teamName}
+        teamName={value.name}
         totalMember={value.totalMember}
         projectName={value.projectName}
         reloadData={() => { this.reload() }}

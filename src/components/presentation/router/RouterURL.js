@@ -18,6 +18,7 @@ import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';
 import ForgetPW from '../pages/login/ForgetPW';
 import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
+import ViewProject from '../pages/project/viewProject/view/ViewProject'
 
 class RouterURL extends Component {
   render() {
@@ -37,7 +38,8 @@ class RouterURL extends Component {
           <Route exact path="/teams/view" component={TeamDetail} />
           <Route exact path="/teams/add" component={AddTeam} />
           <Route exact path="/teams/edit" component={EditTeam} />
-          <Route exact path="/project" component={ProjectIndex} />          
+          <Route exact path="/project" component={ProjectIndex} />    
+          <Route exact path="/project/:id" component={ViewProject} />          
           <Route exact path="/user" component={Managers} />          
           <Route  path="/forgotPassword" component={ForgetPW} />
           <Route  path="/resetPassword" component={ResetPassword} />
