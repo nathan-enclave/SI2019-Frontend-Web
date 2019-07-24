@@ -174,7 +174,7 @@ class EditForm extends Component {
                 </div>
                 <div className="row">
                   <div className="margin-top-20" style={{ textAlign: 'center' }}>
-                    <button className="btn btn-success uppercase pull-right" type="submit">SAVE</button>
+                    <button className="btn btn-success uppercase pull-center" type="submit">SAVE</button>
                     <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                   </div>
                 </div>

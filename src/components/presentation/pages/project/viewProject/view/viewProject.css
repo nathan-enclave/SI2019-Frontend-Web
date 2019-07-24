@@ -122,3 +122,9 @@
     transition: all 200ms ease-in;
     transform: scale(1.1);  
 }
+.portlet.box.red > .portlet-title{
+    background-color: #32c5d2
+}
+.portlet.box.red {
+    border: 1px solid #32c5d2;
+}

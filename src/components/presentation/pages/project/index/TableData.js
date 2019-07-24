@@ -25,18 +25,14 @@ class TableData extends Component {
     this.setState({isOpenMSGSuccess: !this.state.isOpenMSGSuccess})
     this.reloadData()
   }
-  handlePageChange =(pageNumber)=> {
-    console.log('active page is: ' + pageNumber);
-    this.setState({activePage: pageNumber-1})
+  handlePageChange = async (pageNumber)=> {
+    await this.setState({activePage: pageNumber-1})
     this.componentWillMount();
-    // this.setState({activePage: pageNumber});
   }
   async componentWillMount(){
-    const res0 = await getData();
-    this.setState({totalItemsCount : res0.total})
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    // this.setState({totalItemsCount : res.total})
+    await this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) => {
       let color = null
         if (value.status==="done") {
@@ -52,6 +48,7 @@ class TableData extends Component {
           id = {value.id}
           name={value.name} 
           technology= {value.technology}
+          category = {value.category.name}
           color = {color}
           earning={value.earning}          
           status = {value.status}
@@ -106,7 +103,7 @@ getProject = (e)=>{
                   <thead>
                     <tr>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Name </th>
-                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Technology </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Category </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Earning </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Status </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Action </th>
@@ -131,7 +128,7 @@ getProject = (e)=>{
     return (
       <div className="TableArea"> 
         <div className="portlet-title">
-          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>              
+          <div className="caption" style={{fontSize: '25px', paddingBottom:'13px ',color:"#2ab4c0",fontWeight:600}}>PROJECT LIST <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>              
           {/* <div className="form-group">
             <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </button>
             <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </button>

@@ -114,7 +114,7 @@ class EditForm extends Component {
                     <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION</span>
                   </div>
                 </div>
-                <div className="portlet-body1" >
+                <div className="portlet-body3" >
                   <div className="tab-content">
                     <div className="portlet-body">
                       <div className="general-item-list">
@@ -124,7 +124,7 @@ class EditForm extends Component {
                               <span className="item-name" >Project name</span>
                             </div>
                           </div>
-                          <div className="item"> {this.state.name}    </div>
+                          <div className="mt-comment-text"> {this.state.name}    </div>
                         </div>
                         <div className="item">
                           <div className="item-head">
@@ -132,7 +132,7 @@ class EditForm extends Component {
                               <span className="item-name">Status</span>
                             </div>
                           </div>
-                          <div className="item">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
+                          <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
                         </div>
                         <div className="item">
                           <div className="item-head">
@@ -140,7 +140,7 @@ class EditForm extends Component {
                               <span className="item-name">Category</span>
                             </div>
                           </div>
-                          <div className="item"> {this.state.category}    </div>
+                          <div className="mt-comment-text"> {this.state.category}    </div>
                         </div>
                         <div className="item">
                           <div className="item-head">
@@ -148,7 +148,7 @@ class EditForm extends Component {
                               <span className="item-name">Description</span>
                             </div>
                           </div>
-                          <div className="item"> {this.state.description}    </div>
+                          <div className="mt-comment-text"> {this.state.description}    </div>
                         </div>
                         <div className="item">
                           <div className="item-head">
@@ -156,7 +156,7 @@ class EditForm extends Component {
                               <span className="item-name">Technology</span>
                             </div>
                           </div>
-                          <div className="item"> {this.state.technology}    </div>
+                          <div className="mt-comment-text"> {this.state.technology}    </div>
                         </div>
                       </div>
                     </div>
@@ -200,7 +200,7 @@ class EditForm extends Component {
                     <span className="caption-subject font-dark bold uppercase">TIME</span>
                   </div>                  
                 </div>
-                <div className="portlet-body2" >
+                <div className="portlet-body3" >
                   <div className="tab-content">
                     <div className="portlet-body">
                       <div className="general-item-list">

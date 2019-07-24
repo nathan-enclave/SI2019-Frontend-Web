@@ -47,21 +47,20 @@ class RowData extends Component {
     });
   }
   removeItem = () => {
+    let rediect = false;
     DelEngineer(this.props.id).then((result) => {
-      let rediect = false;
-      console.log(result)
       if (!result.statusCode) {
         rediect = true;
+        this.setState({ isOpenDelete: !this.state.isOpenDelete })
         this.toggleModalMSGDelete();
         this.setState({ msg: "Delete successful." })
+        if (rediect) {
+          this.props.reloadData()
+        }
       } else {
         this.setState({ msg: "Something wrong." })
-      }
-      if (rediect) {
-        this.props.reloadData()
-      }
+      }      
     })
-    this.setState({ isOpenDelete: !this.state.isOpenDelete })
   }
   render() {
     
@@ -79,7 +78,7 @@ class RowData extends Component {
          </a> */}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
-          {this.props.technology}
+          {this.props.category}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
           {new Intl.NumberFormat('en-US', {

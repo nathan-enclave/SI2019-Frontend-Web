@@ -209,7 +209,7 @@ class AddForm extends Component {
                                         style={{
                                             textAlign: 'center'
                                         }}>
-                                        <button className="btn btn-success uppercase pull-right" type="submit">Submit</button>
+                                        <button className="btn btn-success uppercase pull-center" type="submit">Submit</button>
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </div>
                                 </div>
