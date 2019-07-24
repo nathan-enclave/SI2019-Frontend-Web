@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
 import resetPassword from '../../../container/login/ResetPass';
-import { Redirect } from 'react-router-dom'
+import { Redirect, NavLink } from 'react-router-dom'
 
 
 export default class ResetPassword extends Component {
@@ -70,7 +69,7 @@ export default class ResetPassword extends Component {
                             <input type="text" onChange={(e) => this.handleChange(e)} name="verify" autoComplete="off" placeholder="Verification code" className="form-control placeholder-no-fix" /> </div>
                         <div className="form-actions">
                             <input type="button" onClick={this.cancelCourse} className="btn green btn-outline" value="RESET" />
-                            <a type="submit" onClick={this.checkCode} className="btn btn-success uppercase pull-right">Submit</a>
+                            <NavLink type="submit" onClick={this.checkCode} className="btn btn-success uppercase pull-right">Submit</NavLink>
                         </div>
                     </form>
                 </div>

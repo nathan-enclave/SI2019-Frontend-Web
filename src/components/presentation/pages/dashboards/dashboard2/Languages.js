@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
+import { getAllApi } from "../../../../../api/crud";
 
 class Languages extends Component {
     constructor(props) {
@@ -73,9 +74,9 @@ class Languages extends Component {
         }
     }
     async componentDidMount() {
-        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/skills/statistic/ratio');
-        const data = await res.json();
-        console.log(data)
+      
+        const data = await getAllApi('skills/statistic/ratio')
+
         let categoriesData = []
         let seriesData = []
         data.forEach(element => {
@@ -98,7 +99,6 @@ class Languages extends Component {
         })
     }
     render() {
-        console.log(this.state.series)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title">

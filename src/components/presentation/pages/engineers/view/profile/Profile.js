@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import './Profile.css'
 import TeamInfo from './TeamInfo';
 import PreLoader from "../../../../include/Preloader";
+import { getDataByIdApi } from "../../../../../../api/crud";
 export default class Profile extends Component {
     constructor(props) {
         super(props)
@@ -13,8 +14,7 @@ export default class Profile extends Component {
     }
     async componentDidMount() {
         const {id} = this.props.match.params
-        let response = await fetch('https://si-enclave.herokuapp.com/api/v1/engineers/' + id);
-        response = await response.json()
+        let response = await getDataByIdApi('engineers', id)
         this.setState({
             ...response
         })
@@ -41,7 +41,6 @@ export default class Profile extends Component {
                 <TeamInfo 
                     teamName={e.teamName}
                     projectName={e.projectName}
-                    role={e.role}
                 />
             )
             this.setState({

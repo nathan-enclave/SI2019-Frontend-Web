@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 class MemberRow extends Component {
     constructor(props) {
         super(props)
+        this.setState={
+            
+        }
     }
     render() {
 

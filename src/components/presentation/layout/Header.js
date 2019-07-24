@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {NavLink} from 'react-router-dom';
 class Header extends Component {
     logout = (event) => {
@@ -48,10 +47,10 @@ class Header extends Component {
 										</a>
 										</li> */}
                                         <li>
-                                            <a onClick= {(event) =>this.logout(event)}>
+                                            <NavLink onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>
                                                 Log Out
-                                            </a>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>

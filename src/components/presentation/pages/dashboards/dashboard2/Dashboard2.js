@@ -18,7 +18,7 @@ class Dashboard2 extends Component {
           </div>
         </div>
         <div className="row">
-          <div class="col-lg-12 col-md-12">
+          <div className="col-lg-12 col-md-12">
             <HireLeft />
           </div>
         </div>

@@ -6,6 +6,7 @@ import DeletePopUp from '../../engineers/delete/DeletePopUp';
 import DelTeam from '../../../../container/team/DelTeam'
 import EditForm from '../../../pages/team/edit/EditTeam'
 import MSGSuccess from '../../../commons/msg/MSGSuccess'
+import {NavLink} from 'react-router-dom'
 
 class RowData extends Component {
   constructor(props) {
@@ -62,9 +63,12 @@ class RowData extends Component {
     return (
       <tr>
         <td className="highlight">
-          <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+          <NavLink to={`/team/${this.props.id}`} className=" margin-bottom-5 margin-top-5">
             {this.props.name}
-          </a>
+          </NavLink>
+          {/* <NavLink onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+            {this.props.name}
+          </NavLink> */}
         </td>
         <td className="hidden-xs">{this.props.totalMember} </td>
         <td className="hidden-xs">{this.props.projectName} </td>

@@ -86,8 +86,6 @@ export default class Language extends Component {
         }
     }
     render() {
-        console.log(this.props.data);
-        
         return (
             <div className="portlet light bordered">
                 

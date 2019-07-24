@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import Chart from 'react-google-charts';
 import Chart from "react-apexcharts";
+import { getAllApi } from "../../../../../api/crud";
+   
 
 class StatProject extends Component {
   constructor(props) {
@@ -13,10 +15,8 @@ class StatProject extends Component {
     }
   }
   async componentDidMount() {
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/projects?limit=10&offset=0');
-    const data = await res.json();
-    console.log(data)
-    let seriesData = []
+    const data = await getAllApi('dashboard/projects')
+    const seriesData = []
     seriesData.push(data.done)
     seriesData.push(data.inProgress)
     seriesData.push(data.pending)

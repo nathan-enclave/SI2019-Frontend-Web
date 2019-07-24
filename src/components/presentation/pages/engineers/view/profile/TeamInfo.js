@@ -12,7 +12,7 @@ export default class TeamInfo extends Component {
                 </td>
                 <td>
                     <span className="label label-danger label-sm">
-                        {this.props.role}
+                        leader
                     </span>
                 </td>
             </tr>

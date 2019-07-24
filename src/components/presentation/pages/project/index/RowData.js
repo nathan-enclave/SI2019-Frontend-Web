@@ -6,6 +6,7 @@ import DeletePopUp from './../deleteProject/DeletePopUp';
 import DelEngineer from '../../../../container/project/DeleteProject';
 import MSGDelete from '../../../../presentation/commons/msg/MSGDelete';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
+import {NavLink} from 'react-router-dom'
 
 class RowData extends Component {
   constructor(props) {
@@ -67,9 +68,9 @@ class RowData extends Component {
     return (
       <tr className="RowData">
         <td className="highlight" style={{textAlign:"center"}}>
-          <a onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+          <NavLink onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
             {this.props.name}
-          </a>
+          </NavLink>
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
           {this.props.technology}

@@ -18,7 +18,7 @@ import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';
 import ForgetPW from '../pages/login/ForgetPW';
 import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
-import TestView from '../pages/team/view/TestView';
+import ViewDetail from '../pages/team/view/Overview/ViewDetail';
 
 class RouterURL extends Component {
   render() {
@@ -43,7 +43,7 @@ class RouterURL extends Component {
           <Route  path="/forgotPassword" component={ForgetPW} />
           <Route  path="/resetPassword" component={ResetPassword} />
           <Route  path="/resetSuccess" component={ResetSuccess} />
-          <Route path="/test" component={TestView} />
+          <Route exact path="/team/:id" component={ViewDetail} />
           <Route/>
         </div>
     );

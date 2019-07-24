@@ -4,8 +4,8 @@ import EditEngineer from '../../../../container/team/EditTeam';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
-import DatePicker from "react-datepicker";
 import getData from '../../../../container/team/GetTeamDetail';
+import GetTotal from './API /GetDetailProject'
 
 class EditForm extends Component {
   constructor(props) {
@@ -20,18 +20,24 @@ class EditForm extends Component {
       projectOptions: [],
       projectSelected: null,
       isOpenMSGSuccess: false,
-      createdAt : null
+      createdAt : null,
+      options: [],
+      selectOptions: [],
+      projectId: [],
     };
   }
   async componentDidMount() {   
     let res0 = await getTotal();    
     this.setState({ memberOptions: res0 })
     const res = await getData(this.props.id);
+    let res1 = await GetTotal();
+    this.setState({ options: res1 })
     this.setState({
       id: String(res.id),
       name: res.name,
       projectName: res.projectName,
       createdAt: new Date(new Date(res.createdAt).toDateString()),
+        engineers: res.engineers.id,
       // dateIn: new Date(new Date(res.dateIn).toDateString()),
       // avatar: res.avatar,
       // salary : String(res.salary),
@@ -40,8 +46,8 @@ class EditForm extends Component {
       // skype: res.skype,
       // expYear: String(res.expYear),
       // status: String(res.status),
-   
-      engineers: res.engineers.id
+      projectId: Number(res.project.name)
+    
     });
     res.engineers.forEach(e => {
       e.value = e.id;
@@ -53,6 +59,7 @@ class EditForm extends Component {
   console.log(res.engineers)  
   this.setState({memberSelectOptions :res.engineers })
   }
+
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -94,6 +101,19 @@ class EditForm extends Component {
         createdAt: date
       }
     });
+  }
+
+  handleChangeProject= (selectOptions) => {
+    this.setState({ selectOptions });
+    let temp = 0
+    if (selectOptions != null) {
+      temp = selectOptions.value
+      this.setState({
+        data: {
+          projectId: temp
+        }
+      })
+    }
   }
   submitSaveForm = (event) => {
     event.preventDefault() // stop loading   
@@ -139,6 +159,12 @@ class EditForm extends Component {
                       <div className="form-check">
                         <label className="form-check-label"> Engineers:  </label>
                           <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="form-check">
+                        <label className="form-check-label"> Project:  </label>
+                        <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProject} />
                       </div>
                     </div>
                     {/* <div className="form-group">
