@@ -5,6 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import {isEmpty,equals } from 'validator';
 import CheckButton from 'react-validation/build/button';
+import {Link} from 'react-router-dom'
 
 let pass = ""
 
