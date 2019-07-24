@@ -21,11 +21,16 @@ class RowData extends Component {
 
     };
   }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.msg !== prevProps.msg) {
+      this.props.reloadData()
+    }
+  }
   toggleMSGSuccess = () => {
     this.setState({
       isOpenMSGSuccess: !this.state.isOpenMSGSuccess
     })
-    this.props.reloadData();
   }
   toggleModalMSGDelete = () => {
     this.setState({
@@ -53,7 +58,6 @@ class RowData extends Component {
         this.setState({ isOpenDelete: !this.state.isOpenDelete })
         this.toggleModalMSGDelete();
         this.setState({ msg: "Delete successful." })
-          this.props.reloadData()
       } else {
         this.setState({ msg: "Something wrong." })
       }      
