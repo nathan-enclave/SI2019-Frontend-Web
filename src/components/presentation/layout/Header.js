@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import './layout.css'
 class Header extends Component {
     logout = (event) => {
         localStorage.removeItem('userData');
@@ -22,13 +23,13 @@ class Header extends Component {
                                 {/* <i className="fa fa-home" style={{fontSize:"50px",marginTop:'7px'}}/>  */}
                             </NavLink>
                             <div className="topbar-actions">
-                                <span
+                                {/* <span
                                     style={{
                                     color: '#6c7984',
                                     padding: '10px',
                                     fontWeight: 'bold',
                                     fontSize: "20px"
-                                }}>Welcome</span>
+                                }}>Welcome</span> */}
                                 <div className="btn-group-img btn-group">
                                     <button
                                         type="button"
@@ -37,15 +38,10 @@ class Header extends Component {
                                         data-hover="dropdown"
                                         data-close-others="true">
                                         <img
-                                            src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt=""/>
+                                            src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="avatar"/>
                                     </button>
                                     <ul className="dropdown-menu-v2 dropdown-custom-background" role="menu">
-                                        {/* <li>
-										<a href="abc">
-											<i className="icon-user" /> My Profile
-											<span className="badge badge-danger">1</span>
-										</a>
-										</li> */}
+                                      
                                         <li>
                                             <a href= "/login" onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>

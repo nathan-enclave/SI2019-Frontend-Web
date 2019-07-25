@@ -7,7 +7,7 @@ export default class Preloader extends Component {
       // <div className="Preloader" style={{position: this.props.styleCustom? this.props.styleCustom: 'relative'}}>
           <div className="wrap">
             <div className="loading">
-            <Spinner size={50} spinnerColor={"#2980b9"} spinnerWidth={5} visible={true} />
+            <Spinner size={50} spinnerColor={"#2980b9"} spinnerWidth={3} visible={true} />
             </div>
          </div>
       // </div>

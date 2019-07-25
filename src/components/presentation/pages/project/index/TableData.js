@@ -10,18 +10,27 @@ class TableData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenMSGSuccess: false,
+      isOpen: false,
       data: [],
-      itemsCountPerPage: 10,
+      itemsCountPerPage: 1,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
-      activePage: 0,
-      isOpen: false
+      activePage: 0
     }
   }
-  toggleMSGSuccess = () => {
-    this.setState({ isOpenMSGSuccess: !this.state.isOpenMSGSuccess })
+  toggleMessage = () => {
+    this.setState({ isOpenMessage: !this.state.isOpenMessage })
     this.reloadData()
+  }
+  toggleModal = () => {
+    this.setState({isOpen: !this.state.isOpen})
+  }
+  reloadData = () => {
+    this.setState({ isOpen: false })
+    this.componentWillMount()
+  }
+  reload = () => {
+    this.componentWillMount()
   }
   handlePageChange = async (pageNumber) => {
     await this.setState({ activePage: pageNumber - 1 })
@@ -30,18 +39,16 @@ class TableData extends Component {
   async componentWillMount() {
     let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage, offset);
+    if(this.state.activePage > 0 && res.results.length === 0) {
+      this.setState({activePage : this.state.activePage-1})
+      this.componentWillMount()
+    }
+    else{
     await this.setState({ totalItemsCount: res.total })
-    let dataRender = res.results.map((value, key) => {
-      let color = null
-      if (value.status === "done") {
-        color = 'label-info'
-      } else if (value.status === "inProgress") {
-        color = 'label-success'
-      } else if (value.status === 'pending') {
-        color = 'label-danger'
-      }
+    let dataRender = res.results.map((value, key) => {   
+      let color = (value.status === "done")?'label-info':(value.status === "inProgress")?'label-success':'label-danger'     
       return (
-        <RowData
+        <RowData         
           key={key}
           id={value.id}
           name={value.name}
@@ -59,19 +66,8 @@ class TableData extends Component {
       data: dataRender
     })
   }
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    })
   }
-  reloadData = () => {
-    this.setState({ isOpen: false })
-    this.componentWillMount()
-  }
-  reload = () => {
-    this.componentWillMount()
-  }
-  render() {
+  render() {    
     const loader = this.state.data.length > 0 ?
       <div className="portlet-title">
         <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>
@@ -97,7 +93,7 @@ class TableData extends Component {
               <table className="table table-striped table-bordered table-advance table-hover">
                 <thead>
                   <tr>
-                    <th style={{ fontWeight: 'bold', textAlign: "center", fontSize: "20px" }}>Name </th>
+                    <th style={{ fontWeight: 'bold', textAlign: "center" }}>Name </th>
                     <th style={{ fontWeight: 'bold', textAlign: "center" }}>Category </th>
                     <th style={{ fontWeight: 'bold', textAlign: "center" }}>Earning (VND)</th>
                     <th style={{ fontWeight: 'bold', textAlign: "center" }}>Status </th>
@@ -124,13 +120,13 @@ class TableData extends Component {
         <Modal show={this.state.isOpen}
           onClose={this.toggleModal}>
           <AddForm reloadData={this.props.reload} onClose={this.toggleModal} onReload={this.reloadData}
-            openMSGSuccess={this.toggleMSGSuccess} />
+            openMessage={this.toggleMessage} />
         </Modal>
-        <Modal show={this.state.isOpenMSGSuccess}
-          onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
+        <Modal show={this.state.isOpenMessage}
+          onClose={this.toggleMessage} deleteStyleModel={true} >
           <Message message={"Add successfully new project."} />
         </Modal>
-      </div> : (
+      </div> : (this.totalItemsCount === 0)?(<div>Empty</div>):(
         <Preloader />
       )
     return (

@@ -5,13 +5,13 @@ export default function DelProject(id){
         body: JSON.stringify(id)
     })
         .then((response) => {
-            console.log(response);
-            if(response.status !==200) {
-                return response.status
-            }
-            else{
+            // console.log(response);
+            // if(response.status !==200) {
+            //     return response.status
+            // }
+            // else{
                 return response.json()
-            }
+            // }
         })
         .then((responseJson) => {
             resolve(responseJson)

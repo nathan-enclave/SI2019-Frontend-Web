@@ -10,11 +10,11 @@ import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
 import Preloader from '../../../../include/Preloader'
-class EditForm extends Component {
+class ViewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      teamData: "",
+      teamData: null,
       id: this.props.match.params.id,
       category: "",
       team: "",
@@ -53,13 +53,22 @@ class EditForm extends Component {
             colors: ['#fff']
         },
         xaxis: {
-            categories: ["Earning","Average Earning"],
-            fontSize : "20px" ,
-            color :"red" 
+          categories : ["Earning","Average Earning"],           
+          labels :{
+            style: {            
+              fontSize: '12px',
+            }
+           }
         },
         yaxis: {
             labels: {
-                show: true
+                show: true,
+                style : {
+                  fontSize: "15px",
+                  fontFamily : "serif",
+                  fontWeight: "20px",
+                  color : "#0c5460"         
+                }
             }
         },
         title: {
@@ -118,7 +127,7 @@ class EditForm extends Component {
       totalEarning += element.earning
     });
     let averageEarning = Math.round(totalEarning/listProject.results.length) 
-    let color = res.status === "done"?"#B5CEFD":res.status ==="inProgress"?"#B8E7F5":"#FFB9B9"
+    let color = res.status === "done"?"#B5CEFD":res.status ==="inProgress"?"#B8E7F5":"#fab1a0"
     this.setState({
       options: {
         ...this.state.options,
@@ -136,18 +145,18 @@ class EditForm extends Component {
   render() {
     let root = document.documentElement;
     if (this.state.status === "done") {
-      root.style.setProperty('--bg', "#B5CEFD")
-      root.style.setProperty('--border', "#AEBBDD")
-      root.style.setProperty('--boxColor', "#659be0")
+      root.style.setProperty('--bg', "#b5cefd7d")
+      root.style.setProperty('--border', "#659be0")
+      root.style.setProperty('--boxColor', "#659be0")  
     }
     if (this.state.status === "pending") {
-      root.style.setProperty('--bg', "#FFB9B9")
-      root.style.setProperty('--border', "#ed6b75")
-      root.style.setProperty('--boxColor', "#ed6b75")
+      root.style.setProperty('--bg', "#fab1a047")
+      root.style.setProperty('--border', "#e17055")
+      root.style.setProperty('--boxColor', "#e17055")
     }
     if (this.state.status === "inProgress") {
-      root.style.setProperty('--bg', "#B8E7F5")
-      root.style.setProperty('--border', "#8CFFFF")
+      root.style.setProperty('--bg', "#b8e7f596")
+      root.style.setProperty('--border', "#36c6d3")
       root.style.setProperty('--boxColor', "#36c6d3")
     }
 
@@ -169,7 +178,7 @@ class EditForm extends Component {
         </div>
       </div>
     ) : (
-        <div className="portlet light bordered">
+        <div className="portlet light bordered ">
           <div className="portlet-title tabbable-line">
             <div className="caption">
               <i className=" icon-social-twitter font-dark hide" />
@@ -316,7 +325,7 @@ class EditForm extends Component {
                 <div className="portlet-title tabbable-line">
                   <div className="caption">
                     <i className=" icon-social-twitter font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">ratio</span>
+                    <span className="caption-subject font-dark bold uppercase">CHART</span>
                   </div>
                 </div>
                 <div className="portlet-bodyx">
@@ -340,10 +349,10 @@ class EditForm extends Component {
       </div>
     ) : <Preloader styleCustom={"unset"} />
     return (
-      <div className="portlet light bordered">
+      <div className="portlet light bordered ViewProject">
         {loadData}
       </div>
     )
   }
 }
-export default EditForm;
+export default ViewProject;

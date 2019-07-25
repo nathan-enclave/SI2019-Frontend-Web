@@ -7,25 +7,23 @@ import { Link } from "react-router-dom";
 import numeral from 'numeral'
 import './index.css'
 import Message from '../../../commons/msg/Message';
-class RowData extends Component {
+export default class RowData extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpenView: false,
       isOpenEdit: false,
-      isOpenMessage : false
+      isOpenDelete: false,
+      isOpenMessage: false,
+      msg: ''
     };
-  }
-  componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    if (this.state.msg !== prevProps.msg) {
-      this.props.reloadData()
-    }
   }
   toggleMessage = () => {
     this.setState({
-      isOpenMessage: !this.state.isOpenMessage
+      isOpenMessage: !this.state.isOpenMessage      
     })
+    
+    this.props.reloadData()
   }
   toggleModalView = () => {
     this.setState({
@@ -42,13 +40,15 @@ class RowData extends Component {
       isOpenDelete: !this.state.isOpenDelete
     });
   }
-  removeItem = () => {
-    DelEngineer(this.props.id).then((result) => {
+  async removeItem () {
+    await DelEngineer(this.props.id).then((result) => {
+      console.log(result)
       if (!result.statusCode) {
-        this.setState({ isOpenDelete: !this.state.isOpenDelete })
-        this.toggleMessage();
+        
+        this.setState({ isOpenDelete: false})
         this.setState({ msg: "Delete successful." })
-          // this.props.reloadData()
+        this.setState({isOpenMessage: true}); 
+          
       } else {
         this.setState({ msg: "Something wrong." })
       }      
@@ -90,11 +90,11 @@ class RowData extends Component {
           <Message message={this.state.msg} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-          <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.name} />
+          <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} message ="You will completely delete this project." name={this.props.name} />
         </Modal>
       </tr>
     );
   }
 }
 
-export default RowData;
+ 
