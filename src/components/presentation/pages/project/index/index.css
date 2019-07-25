@@ -1,0 +1,13 @@
+.margin-bottom-5{
+    font-size: 15px;
+    font-weight: 500
+}
+.table-scrollable > .table-bordered > thead > tr:last-child > th{
+    font-size: 17px;
+    text-align: center;
+    font-weight: 600
+}
+.RowData{
+    font-size: 15px;
+    font-weight: 500
+}
