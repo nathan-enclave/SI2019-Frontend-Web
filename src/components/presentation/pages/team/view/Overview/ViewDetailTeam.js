@@ -8,14 +8,15 @@ import getData from '../../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from '../../../project/viewProject/view/TeamMember';
-import Preloader from '../../../../include/Preloader'
 import Chart from "react-apexcharts";
+import { ClipLoader } from 'react-spinners';
 
 
 class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             teamData: "",
             id: this.props.match.params.id,
             category: "",
@@ -30,7 +31,7 @@ class EditForm extends Component {
                 xaxis: {
                     categories: []
                 },
-                colors: ['#ff2205']
+                colors: ['#1491ff']
             },
             series: [
                 {
@@ -71,6 +72,7 @@ class EditForm extends Component {
             let teamTable = teamInf.engineers.map((value, key) => {
                 this.setState({
                     options: {
+                        ...this.state.options,
                         xaxis: {
                             categories: catData
                         }
@@ -136,102 +138,106 @@ class EditForm extends Component {
                     </div>
                 </div>
             )
-        let loadData = (this.state.data !== null) ? (
-            <div className="portlet-body">
-                <div className="row">
-                    <div className="col-lg-12 col-xs-12 col-sm-12">
-                        <div className="portlet light bordered">
-                            {team}
+        setTimeout(() => {
+            this.setState({
+                loadData: (<div className="portlet-body">
+                    <div className="row">
+                        <div className="col-lg-12 col-xs-12 col-sm-12">
+                            <div className="portlet light bordered">
+                                {team}
+                            </div>
                         </div>
                     </div>
-                </div>
-            <div className="row">
-                <div className="col-lg-6 col-xs-12 col-sm-12">
-                    <div className="portlet light bordered">
-                        <div className="portlet-title tabbable-line">
-                            <NavLink to={`/project/${this.state.id}`} className="caption">
-                                <i className="icon-bubbles font-dark hide" />
-                                <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
+                    <div className="row">
+                        <div className="col-lg-6 col-xs-12 col-sm-12">
+                            <div className="portlet light bordered">
+                                <div className="portlet-title tabbable-line">
+                                    <NavLink to={`/project/${this.state.id}`} className="caption">
+                                        <i className="icon-bubbles font-dark hide" />
+                                        <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
 
-                            </NavLink>
-                        </div>
-                        <div className="portlet-body3" >
-                            <div className="tab-content">
-                                <div className="portlet-body">
-                                    <div className="general-item-list">
-                                        <div className="item">
-                                            <div className="item-head">
-                                                <div className="item-details">
-                                                    <span className="item-name" >Project name</span>
+                                    </NavLink>
+                                </div>
+                                <div className="portlet-body3" >
+                                    <div className="tab-content">
+                                        <div className="portlet-body">
+                                            <div className="general-item-list">
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name" >Project name</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.name}    </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Status</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Category</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.category}    </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Description</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.description}    </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Technology</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.technology}    </div>
                                                 </div>
                                             </div>
-                                            <div className="mt-comment-text"> {this.state.name}    </div>
-                                        </div>
-                                        <div className="item">
-                                            <div className="item-head">
-                                                <div className="item-details">
-                                                    <span className="item-name">Status</span>
-                                                </div>
-                                            </div>
-                                            <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
-                                        </div>
-                                        <div className="item">
-                                            <div className="item-head">
-                                                <div className="item-details">
-                                                    <span className="item-name">Category</span>
-                                                </div>
-                                            </div>
-                                            <div className="mt-comment-text"> {this.state.category}    </div>
-                                        </div>
-                                        <div className="item">
-                                            <div className="item-head">
-                                                <div className="item-details">
-                                                    <span className="item-name">Description</span>
-                                                </div>
-                                            </div>
-                                            <div className="mt-comment-text"> {this.state.description}    </div>
-                                        </div>
-                                        <div className="item">
-                                            <div className="item-head">
-                                                <div className="item-details">
-                                                    <span className="item-name">Technology</span>
-                                                </div>
-                                            </div>
-                                            <div className="mt-comment-text"> {this.state.technology}    </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-lg-6 col-md-6">
+                            <div className="portlet light bordered">
+
+                                <div className="portlet-title tabbable-line">
+                                    <div className="caption">
+                                        <i className="icon-bar-chart font-dark hide" />
+                                        <span className="caption-subject font-dark bold uppercase">Salary</span>
+                                    </div>
+                                </div>
+                                {/* chart here */}
+
+                                <div className="portlet-body">
+                                    <div className="SalaryChart" >
+                                        <Chart
+                                            options={this.state.options}
+                                            series={this.state.series}
+                                            type="bar"
+                                            width="100%"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div className="col-lg-6 col-md-6">
-                    <div className="portlet light bordered">
-
-                        <div className="portlet-title tabbable-line">
-                            <div className="caption">
-                                <i className="icon-bar-chart font-dark hide" />
-                                <span className="caption-subject font-dark bold uppercase">Salary</span>
-                            </div>
-                        </div>
-                        {/* chart here */}
-
-                        <div className="portlet-body">
-                            <div className="SalaryChart" >
-                                <Chart
-                                    options={this.state.options}
-                                    series={this.state.series}
-                                    type="bar"
-                                    width="100%"
-                                />
-                            </div>
-                        </div>
-                   </div>
-                </div>
-            </div>
-        </div >
-        ) : <Preloader styleCustom={"unset"} />
+                </div >
+                ),
+                loading : false
+            })
+        }, 1000);
         return (
             <div className="portlet light bordered">
                 <div className="portlet red box">
@@ -239,7 +245,15 @@ class EditForm extends Component {
                         <div className="caption">
                             {this.state.name}   </div>
                     </div>
-                    {loadData}
+                    {this.state.loading ?
+                        (<div className='sweet-loading'>
+                            <ClipLoader
+                                sizeUnit={"px"}
+                                size={50}
+                                color={'#ffc414'}
+                                loading={this.state.loading}
+                            />
+                        </div>) : this.state.loadData}
 
                 </div>
 
