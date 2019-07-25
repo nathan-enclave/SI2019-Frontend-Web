@@ -22,13 +22,56 @@ class EditForm extends Component {
       updatedAt: "",
       data: null,
       options: {
-        labels: ['Earning', 'Total earning'],
-        styles: {
-          fontSize: '50px'
+        chart: {
+            height: 380,
+            type: 'bar'
         },
-        colors: ['#ee5253', '#ff9f43']
-      },
-      series: [20000000, 10513000000 - 20000000],
+        plotOptions: {
+            bar: {
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                    position: 'bottom'
+                },
+            }
+        },
+        colors: ['#33b2df', '#546E7A'],
+        dataLabels: {
+            enabled: true,
+            textAnchor: 'start',
+            style: {
+                colors: ['#fff']
+            },
+            offsetX: 0,
+            dropShadow: {
+                enabled: true
+            }
+        },
+        stroke: {
+            width: 1,
+            colors: ['#fff']
+        },
+        xaxis: {
+            categories: ["Earning","Average Earning"],
+            fontSize : "20px" ,
+            color :"red" 
+        },
+        yaxis: {
+            labels: {
+                show: true
+            }
+        },
+        title: {
+            text: 'Earning Ratio',
+            align: 'center',
+            floating: true
+        },       
+    },
+    series: [{
+      name: "number",
+      data: []
+  }]
     };
   }
   async componentDidMount() {
@@ -62,11 +105,33 @@ class EditForm extends Component {
             firstName={value.firstName}
             lastName={value.lastName}
             role={value.role}
+            expYear = {value.expYear}
           />
         )
       })
       this.setState({ teamData: teamTable })
     }
+    let listProject = await fetch('https://si-enclave.herokuapp.com/api/v1/projects?limit=100000000&offset=0')
+    listProject = await listProject.json()
+    let totalEarning = 0
+    listProject.results.forEach(element => {
+      totalEarning += element.earning
+    });
+    let averageEarning = Math.round(totalEarning/listProject.results.length) 
+    let color = res.status === "done"?"#B5CEFD":res.status ==="inProgress"?"#B8E7F5":"#FFB9B9"
+    this.setState({
+      options: {
+        ...this.state.options,
+        chart: {
+            id: "basic-bar"
+        },
+        colors: [color, '#546E7A'],
+    },
+    series: [{
+        name: "number",
+        data: [res.earning,averageEarning]
+    }]
+    })  
   }
   render() {
     let root = document.documentElement;
@@ -76,9 +141,9 @@ class EditForm extends Component {
       root.style.setProperty('--boxColor', "#659be0")
     }
     if (this.state.status === "pending") {
-      root.style.setProperty('--bg', "#FFFFA8")
-      root.style.setProperty('--border', "#FFFF00")
-      root.style.setProperty('--boxColor', "#F1C40F")
+      root.style.setProperty('--bg', "#FFB9B9")
+      root.style.setProperty('--border', "#ed6b75")
+      root.style.setProperty('--boxColor', "#ed6b75")
     }
     if (this.state.status === "inProgress") {
       root.style.setProperty('--bg', "#B8E7F5")
@@ -92,14 +157,14 @@ class EditForm extends Component {
     } else if (this.state.status === "inProgress") {
       color = 'label-success'
     } else if (this.state.status === 'pending') {
-      color = 'label-warning'
+      color = 'label-danger'
     }
     let team = this.state.team === "Do not have team" ? (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
           <div className="caption">
             <i className=" icon-social-twitter font-dark hide" />
-            <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </span>
+            <span className={"label label-sm "+color} style={{ fontSize: "15px" }}> {this.state.team} </span>
           </div>
         </div>
       </div>
@@ -108,7 +173,7 @@ class EditForm extends Component {
           <div className="portlet-title tabbable-line">
             <div className="caption">
               <i className=" icon-social-twitter font-dark hide" />
-              <Link to={"/teams/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link>
+              <Link to={"/teams/" + this.state.teamId} className={"label label-sm "+color} style={{ fontSize: "15px" }}> {this.state.team} </Link>
             </div>
           </div>
           <div className="portlet-body-custom-color">
@@ -257,7 +322,13 @@ class EditForm extends Component {
                 <div className="portlet-bodyx">
                   <div className="tab-content">
                     <div>
-                      <Chart options={this.state.options} series={this.state.series} type="pie" width="70%" />
+                    <Chart
+                        options={this.state.options}
+                        series={this.state.series}
+                        type="bar"
+                        width="100%"
+                        height="200px"
+                    />
                     </div>
                   </div>
                 </div>
