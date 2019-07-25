@@ -81,17 +81,17 @@ export default class Profile extends Component {
             <div className="Profile">
                 <div className="tabbable-line tabbable-full-width">
 
-                    <div className="tab-content">
-                        <div className="tab-pane active">
+                    <div className="tab-content portlet bordered">
+                        <div className="tab-pane active container">
                             <div className="row">
                                 {this.state.loading
                                     ? (
 
-                                        <div className='sweet-loading d-flex justify-center'>
+                                        <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                             <ClipLoader
                                                 sizeUnit={"px"}
                                                 size={150}
-                                                color={'#123abc'}
+                                                color={'##7ed6df'}
                                                 loading={this.state.loading}/>
                                         </div>
                                     )
@@ -100,7 +100,7 @@ export default class Profile extends Component {
                                             <div className="row">
                                                 <div className="col-md-4 col-lg-3">
                                                     <ul className="list-unstyled profile-nav responsive-row-992">
-                                                        <li className="margin-top-md margin-bottom-md margin-left-xl margin-right-xl">
+                                                        <li className="margin-top-lg margin-bottom-md margin-left-xl margin-right-xl">
                                                             <div className="avatar-max-width-300">
                                                                 <img src={this.state.avatar} className="img-responsive pic-bordered" alt=""/>
                                                             </div>
@@ -113,7 +113,7 @@ export default class Profile extends Component {
                                                 <div className="col-md-8 col-lg-9">
                                                     <div className="row margin-bottom-20">
                                                         <div className="col-md-12 profile-info profile-info-custom-responsive">
-                                                            <h2 className="sbold uppercase">{`${this.state.firstName} ${this.state.lastName} (${this.state.englishName})`}</h2>
+                                                            <h3 className="sbold uppercase">{`${this.state.firstName} ${this.state.lastName} (${this.state.englishName})`}</h3>
                                                             <div className="row">
                                                                 <p className="col-xs-4">
                                                                     <span className="position-social">
@@ -169,7 +169,7 @@ export default class Profile extends Component {
                                                                         }}/>
                                                                     </span>
                                                                     <span  className="margin-left-xs">
-                                                                        VND {numeral(this.state.salary).format("0,0")}</span>
+                                                                        <b>VND</b> {numeral(this.state.salary).format("0,0")}</span>
                                                                 </p>
                                                                 <p className="col-xs-4">
                                                                     <span className="position-social">

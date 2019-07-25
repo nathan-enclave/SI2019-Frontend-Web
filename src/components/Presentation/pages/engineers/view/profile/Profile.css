@@ -15,6 +15,10 @@
     padding: 6px 12px
 }
 
+.Profile .tabbable-line .portlet.bordered {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.18);
+    height: 100vh;
+}
 @media(max-width: 992px) {
     .responsive-row-992 {
         display: flex;

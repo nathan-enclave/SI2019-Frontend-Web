@@ -129,7 +129,7 @@ class TableData extends Component {
                     <div className="portlet-body">
                         {this.state.loading
                             ? (
-                                <div className='sweet-loading d-flex justify-center'>
+                                <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                     <ClipLoader
                                         sizeUnit={"px"}
                                         size={150}
