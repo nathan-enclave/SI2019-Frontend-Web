@@ -6,8 +6,6 @@ import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
 import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
-import getData from '../../../../container/project/GetViewProject'
-
 class TableData extends Component {
   constructor(props){
     super(props);
@@ -25,18 +23,14 @@ class TableData extends Component {
     this.setState({isOpenMSGSuccess: !this.state.isOpenMSGSuccess})
     this.reloadData()
   }
-  handlePageChange =(pageNumber)=> {
-    console.log('active page is: ' + pageNumber);
-    this.setState({activePage: pageNumber-1})
+  handlePageChange = async (pageNumber)=> {
+    await this.setState({activePage: pageNumber-1})
     this.componentWillMount();
-    // this.setState({activePage: pageNumber});
   }
   async componentWillMount(){
-    const res0 = await getData();
-    this.setState({totalItemsCount : res0.total})
     let offset = ((this.state.activePage)*(this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage,offset);
-    // this.setState({totalItemsCount : res.total})
+    await this.setState({totalItemsCount : res.total})
     let dataRender = res.results.map((value,key) => {
       let color = null
         if (value.status==="done") {
@@ -52,10 +46,9 @@ class TableData extends Component {
           id = {value.id}
           name={value.name} 
           technology= {value.technology}
+          category = {value.category.name}
           color = {color}
-          earning={value.earning}
-          start= {new Date(new Date(value.start)).toDateString()}
-          end= {new Date(new Date(value.end)).toDateString()}
+          earning={value.earning}          
           status = {value.status}
           reloadData = {() =>{this.reload()}}
           />
@@ -78,6 +71,28 @@ reloadData = ()=>{
 reload = ()=>{
   this.componentWillMount()
 }
+// getProject = (e)=>{
+//   let id = ["done","all","inProgress","pending"]
+//   id.forEach(element => {
+//     if(element === e.target.id)  {
+//       if(element === "done"){
+//       document.getElementById(element).className = "label label-sm label-info" 
+//       }
+//       else if(element === "inProgress"){
+//       document.getElementById(element).className = "label label-sm label-success" 
+//       }
+//       else if (element === "pending"){
+//       document.getElementById(element).className = "label label-sm label-warning" 
+//       }
+//       else if (element === "all"){
+//         document.getElementById(element).className = "label label-sm label-danger" 
+//         }
+//     }
+//     else  {
+//       document.getElementById(element).className = "label label-sm label-default" 
+//     }
+//   });
+// }
   render() {
     const  loader = this.state.data.length > 0 ? 
             <div className="table-main-pagination">
@@ -85,8 +100,8 @@ reload = ()=>{
                 <table className="table table-striped table-bordered table-advance table-hover">
                   <thead>
                     <tr>
-                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Name </th>
-                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Technology </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center",fontSize:"20px"}}>Name </th>
+                      <th style={{fontWeight: 'bold',textAlign:"center"}}>Category </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Earning </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Status </th>
                       <th style={{fontWeight: 'bold',textAlign:"center"}}>Action </th>
@@ -111,11 +126,17 @@ reload = ()=>{
     return (
       <div className="TableArea"> 
         <div className="portlet-title">
-          <div className="caption" style={{color: 'black', fontSize: '25px', paddingBottom:'13px '}}>Projects List ({this.state.totalItemsCount}) </div>    
-          <div style={{paddingBottom: '20px'}}> 
+          <div className="caption" style={{fontSize: '25px', paddingBottom:'13px ',color:"#2ab4c0",fontWeight:600}}>PROJECT LIST <span style={{fontSize: '20px',float: "right"}} className="label label-sm label-danger" > Total: {this.state.totalItemsCount}  </span></div>              
+          {/* <div className="form-group">
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </button>
+            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </button>
+            </div> */}
+          <br />
+          <div style={{marginBottom: '40px'}}>
             <div style={{ width: '200px', float: 'left' }}>
-              <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
-                <i className="fa fa-edit"></i> Add  </button>
+              <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
             </div>                     
             <div className="search-form" style={{float:'right',width: '200px',backgroundColor:'#B9ECF0'}} >
               <div className="input-group">
@@ -126,9 +147,8 @@ reload = ()=>{
                   </a>
                 </span>
               </div>
-            </div>
-          </div>
-          <br />
+            </div>           
+          </div>          
           <div className="portlet-body">
             {loader}
           </div>         
@@ -139,7 +159,7 @@ reload = ()=>{
           </Modal>
           <Modal show={this.state.isOpenMSGSuccess}
           onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
-                <MSGSuccess message = {"Add successfully new engineer."} />
+                <MSGSuccess message = {"Add successfully new project."} />
             </Modal>
         </div>
       </div>

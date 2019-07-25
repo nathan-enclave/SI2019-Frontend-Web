@@ -29,9 +29,6 @@ export default class Profile extends Component {
             default:
                 this.setState({status: "In team"})
         }
-
-
-
         if (this.state.teams.length === 0) {
             this.setState({
                 teamData : "This engineer hasn't joined any team"

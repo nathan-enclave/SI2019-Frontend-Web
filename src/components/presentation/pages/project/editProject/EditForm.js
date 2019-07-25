@@ -6,7 +6,18 @@ import Input from 'react-validation/build/input';
 import getData from '../../../../container/project/GetDetailProject';
 // import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
+import CheckButton from 'react-validation/build/button';
+import { isEmpty } from 'validator';
 
+const required = (value) => {
+  if(typeof(value) === "string"){
+  if (isEmpty(value)) {
+    return (<div className="alert alert-danger">
+      This field is required!
+  </div>);
+  }
+}
+}
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +27,8 @@ class EditForm extends Component {
       category: [],
       end: null,
       start: null,
-      done: "",
-      inProgress: "",
-      pending: ""
+      data : {},
+      status:""
     };
   }
   async componentDidMount() {
@@ -34,11 +44,9 @@ class EditForm extends Component {
       earning: String(res.earning),
       earningPerMonth: String(res.earningPerMonth),
       status: res.status,
+      // categoryId: Number(res.category.name)
     });
-    if (this.state.status === "inProgress") this.setState({ inProgress: "selected " })
-    if (this.state.status === "done") this.setState({ done: "selected " })
-    if (this.state.status === "pending") this.setState({ pending: "selected " })
-    this.setState({ selectOptions: [{value : res.category.id,label : res.category.name}] })
+    this.setState({ selectOptions: [{ value: res.category.id, label: res.category.name }] })
   }
   isChange = (event) => {
     const fieldName = event.target.name;
@@ -48,6 +56,7 @@ class EditForm extends Component {
     });
     this.setState({
       data: {
+        ...this.state.data,
         [fieldName]: value
       }
     })
@@ -56,6 +65,7 @@ class EditForm extends Component {
     this.setState({
       start: date,
       data: {
+        ...this.state.data,
         start: date
       }
     });
@@ -64,15 +74,8 @@ class EditForm extends Component {
     this.setState({
       end: date,
       data: {
+        ...this.state.data,
         end: date
-      }
-    });
-  }
-  handleChangeDateOut = (date) => {
-    this.setState({
-      dateOut: date,
-      data: {
-        dateOut: date
       }
     });
   }
@@ -83,13 +86,13 @@ class EditForm extends Component {
       temp = selectOptions.value
       this.setState({
         data: {
+          ...this.state.data,
           categoryId: temp
         }
       })
     }
   }
-  submitSaveForm = (event) => {
-    event.preventDefault() // stop loading    
+  submitSaveForm = () => {
     console.log(this.state.data)
     EditProject(this.state.data, this.props.id).then((result) => {
       if (!result.statusCode) {
@@ -105,6 +108,9 @@ class EditForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.form.validateAll();
+    if (this.checkBtn.context._errors.length === 0) {
+      this.submitSaveForm()
+    }
   }
   render() {
     console.log(this.state.options)
@@ -120,24 +126,24 @@ class EditForm extends Component {
           <div className="tab-content">
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
-              <Form >
+            <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="control-label">Project Name</label>
-                      <Input type="text" name="name" value={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="name" value={this.state.name}  validations={[required]} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label">Technology</label>
-                      <Input type="text" name="technology" value={this.state.technology} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="technology" value={this.state.technology}  validations={[required]} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Description</label>
-                      <Input type="text" name="description" value={this.state.description} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="description" value={this.state.description} validations={[required]} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <label className="control-label"> Earning</label>
-                      <Input type="text" name="earning" value={this.state.earning} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <Input type="text" name="earning" value={this.state.earning}  validations={[required]} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
-                      <label className="control-label"> Income Per Month</label>
-                      <Input type="text" name="earningPerMonth" value={this.state.earningPerMonth} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <label className="control-label"> Earning Per Month</label>
+                      <Input type="text" name="earningPerMonth" value={this.state.earningPerMonth} validations={[required]} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                   </div>
                   <div className="col-md-6" style={{ height: "400px" }}>
                     <div className="form-group">
@@ -151,17 +157,11 @@ class EditForm extends Component {
                       </div>
                     </div>
                     <div className="form-group">
-                      <div className="form-check">
-                        <label className="control-label">Date out</label><br />
-                        <DatePicker selected={this.state.dateOut} onChange={this.handleChangeDateOut} className="form-control" />
-                      </div>
-                    </div>
-                    <div className="form-group">
                       <label className="control-label">Status</label>
-                      <select className="form-control" onChange={(event) => this.isChange(event)} name="status" >
-                        <option value="done" selected={this.state.done}>DONE</option>
-                        <option value="inProgress" selected={this.state.inProgress} >IN PROGRESS</option>
-                        <option value="pending" selected={this.state.pending} >PENDING</option>
+                      <select className="form-control" value={this.state.status} onChange={(event) => this.isChange(event)} name="status" >
+                        <option value="done" >DONE</option>
+                        <option value="inProgress"  >IN PROGRESS</option>
+                        <option value="pending"  >PENDING</option>
                       </select>
                     </div>
                     <div className="form-group">
@@ -172,12 +172,13 @@ class EditForm extends Component {
                     </div>
                   </div>
                 </div>
-              </Form>
-              <div className="row">
-                <div className="margin-top-20" style={{ textAlign: 'center' }}>
-                  <button type="submit" className="btn green" onClick={(event) => this.submitSaveForm(event)} > SAVE </button>
+                <div className="row">
+                  <div className="margin-top-20" style={{ textAlign: 'center' }}>
+                    <button className="btn btn-success uppercase pull-center" type="submit">SAVE</button>
+                    <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                  </div>
                 </div>
-              </div>
+              </Form>
             </div>
           </div>
         </div>

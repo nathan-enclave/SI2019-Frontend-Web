@@ -107,9 +107,7 @@ class AddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this
-            .form
-            .validateAll();
+        this.form.validateAll();
     }
     async componentDidMount() {
         const res = await getTotalSkills();

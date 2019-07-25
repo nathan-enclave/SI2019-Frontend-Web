@@ -47,10 +47,10 @@ class Header extends Component {
 										</a>
 										</li> */}
                                         <li>
-                                            <NavLink onClick= {(event) =>this.logout(event)}>
+                                            <a href= "/login" onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>
                                                 Log Out
-                                            </NavLink>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

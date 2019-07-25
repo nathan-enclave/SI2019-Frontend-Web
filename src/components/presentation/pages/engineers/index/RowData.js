@@ -102,19 +102,19 @@ class RowData extends Component {
               <ViewForm id = {this.props.id}/>
             </Modal>
 
-            {/* Model for editing */}
             <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
               <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
             </Modal>
             <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-              <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  message = {"Update successfully."} />
-            </Modal> 
-            {/* Model for editing */}
+              <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  />
+            </Modal>        
 
-            {/* Model for deleting */}
-       
+
+            <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
+              <MSGDelete message = {this.state.msg} />
+            </Modal>
             <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.englishName} object="engineer"/>  
+              <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}}  name ={this.props.englishName} object="engineer"/>  
             </Modal>
             <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
               <MSGDelete message = {this.state.msg} />

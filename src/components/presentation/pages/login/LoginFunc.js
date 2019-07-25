@@ -11,14 +11,12 @@ const required = (value) => {
       return <small className="form-text text-danger">This field is required</small>;
   }
 }
-
 const minLength = (value) => {
   if (value.trim().length < 5 ) {
       return <small className="form-text text-danger">Password must be at least 6 characters long</small>;
   }
 }
 export default class LoginFunc extends Component {
-
     constructor(props) {
         super(props);
         this.state={
@@ -31,12 +29,10 @@ export default class LoginFunc extends Component {
         this.login = this.login.bind(this)
         this.onChange = this.onChange.bind(this)
     }
-
     onSubmit(e){
         e.preventDefault();
         this.form.validateAll();
     }
-
     checkError(){
         if(this.state.error) {
             if(this.state.loginLoader) {
@@ -51,7 +47,6 @@ export default class LoginFunc extends Component {
             )
         }
     }
-
     login() {
         const {username, password} = this.state
         this.setState({
@@ -62,8 +57,7 @@ export default class LoginFunc extends Component {
                 if(!result.token) {
                     this.setState({
                         error: true
-                    })
-                   
+                    })                   
                 }else {
                     localStorage.setItem('userData', JSON.stringify({
                         name: result.username,
@@ -77,15 +71,12 @@ export default class LoginFunc extends Component {
             })
         }
     }
-
     onChange(e){
         this.setState({[e.target.name]: e.target.value});
-    }
-    
+    }    
     redirect() {
         window.location="/home";
-    }
-    
+    }    
     render() {
         if(this.state.redirect){
             return(<div>{this.redirect()} </div>  )
@@ -93,12 +84,10 @@ export default class LoginFunc extends Component {
         if(localStorage.getItem('userData')){
             return(<div>{this.redirect()} </div>  )
         }
-        const loader = this.state.loginLoader ? <LoginLoader/> : null
-       
+        const loader = this.state.loginLoader ? <LoginLoader/> : null       
         return (
             <div className="login" >
                 <div className="content">
-                    {/* BEGIN LOGIN FORM */}
                     <div className="logo">
                     <a href="/login">
                         <img src="https://cdn.itviec.com/employers/enclave/logo/w170/Jh9Wg4u5AojsvtWicfNPjVge/enclave-logo.png" alt="" /> </a>
@@ -111,9 +100,7 @@ export default class LoginFunc extends Component {
                         </div>
                         <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
                             {this.checkError()}
-
                             <div className="form-group" >
-                                {/*ie8, ie9 does not support html5 placeholder, so we just show field title for that*/}
                                 <label className="control-label visible-ie8 visible-ie9" >Username</label>
                                 <Input className="form-control form-control-solid placeholder-no-fix" 
                                     type="text" 
@@ -123,7 +110,6 @@ export default class LoginFunc extends Component {
                                     onChange={this.onChange}                                     
                                     validations={[required]} /> 
                             </div>
-
                             <div className="form-group">
                                 <label className="control-label visible-ie8 visible-ie9" >Password</label>
                                 <Input className="form-control form-control-solid placeholder-no-fix" 
@@ -139,34 +125,10 @@ export default class LoginFunc extends Component {
                                 <div className="padding-tb-15">
                                     {loader}
                                 </div>
-                               
-                                {/* <label className="rememberme check mt-checkbox mt-checkbox-outline">
-                                    <input type="checkbox" name="remember" defaultValue={1} />Remember
-                                    <span />
-                                </label>*/}
                                 <Link to="/forgotPassword" id="forget-password" className="forget-password">Forgot Password?</Link> 
-                            </div>
-                          
-                        </Form>
-                        {/* <div className="login-options">
-                            <h4>Or login with</h4>
-                            <ul className="social-icons">
-                                <li>
-                                    <a className="social-icon-color facebook" data-original-title="facebook" href="abc" />
-                                </li>
-                                <li>
-                                    <a className="social-icon-color twitter" data-original-title="Twitter" href="abc" />
-                                </li>
-                                <li>
-                                    <a className="social-icon-color googleplus" data-original-title="Goole Plus" href="abc" />
-                                </li>
-                                <li>
-                                    <a className="social-icon-color linkedin" data-original-title="Linkedin" href="abc" />
-                                </li>
-                            </ul>
-                        </div> */}                        
+                            </div>                          
+                        </Form>                      
                     </div>
-                    {/* END LOGIN FORM */}
                 </div>
             </div>
         )

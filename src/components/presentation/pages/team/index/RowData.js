@@ -6,7 +6,7 @@ import DeletePopUp from '../../engineers/delete/DeletePopUp';
 import DelTeam from '../../../../container/team/DelTeam'
 import EditForm from '../../../pages/team/edit/EditTeam'
 import MSGSuccess from '../../../commons/msg/MSGSuccess'
-import {NavLink} from 'react-router-dom'
+import {NavLink } from 'react-router-dom'
 
 class RowData extends Component {
   constructor(props) {

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import ViewForm from './../../../pages/project/viewProject/ViewForm';
 import Modal from './../../../commons/modal/Modal';
 import EditForm from './../editProject/EditForm';
 import DeletePopUp from './../deleteProject/DeletePopUp';
 import DelEngineer from '../../../../container/project/DeleteProject';
 import MSGDelete from '../../../../presentation/commons/msg/MSGDelete';
 import MSGSuccess from '../../../commons/msg/MSGSuccess';
-import {NavLink} from 'react-router-dom'
-
+import { Link } from "react-router-dom";
+import numeral from 'numeral'
+import './index.css'
 class RowData extends Component {
   constructor(props) {
     super(props);
@@ -15,17 +15,22 @@ class RowData extends Component {
     this.state = {
       isOpenView: false,
       isOpenEdit: false,
-      isOpenDelete: false,
+      // isOpenDelete: false,
       isOpenMSGDelete: false,
       isOpenMSGSuccess: false
 
     };
   }
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.msg !== prevProps.msg) {
+      this.props.reloadData()
+    }
+  }
   toggleMSGSuccess = () => {
     this.setState({
       isOpenMSGSuccess: !this.state.isOpenMSGSuccess
     })
-    this.props.reloadData();
   }
   toggleModalMSGDelete = () => {
     this.setState({
@@ -49,39 +54,31 @@ class RowData extends Component {
   }
   removeItem = () => {
     DelEngineer(this.props.id).then((result) => {
-      let rediect = false;
-      console.log(result)
       if (!result.statusCode) {
-        rediect = true;
+        this.setState({ isOpenDelete: !this.state.isOpenDelete })
         this.toggleModalMSGDelete();
         this.setState({ msg: "Delete successful." })
       } else {
         this.setState({ msg: "Something wrong." })
-      }
-      if (rediect) {
-        this.props.reloadData()
-      }
+      }      
     })
-    this.setState({ isOpenDelete: !this.state.isOpenDelete })
   }
-  render() {
+  render() {    
     return (
       <tr className="RowData">
         <td className="highlight" style={{textAlign:"center"}}>
-          <NavLink onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.name}
-          </NavLink>
+        <Link to={`/project/${this.props.id}`}>
+                        <span 
+                            className=" margin-bottom-5 margin-top-5 link-name-data">
+                            {this.props.name} 
+                        </span>
+                    </Link>
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
-          {this.props.technology}
+          {this.props.category}
         </td>
         <td className="highlight" style={{textAlign:"center"}}>
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-          }).format(this.props.earning)} </td>
+          {numeral(this.props.earning).format('0,0')} </td>
         <td className="highlight" style={{textAlign:"center"}}>
           <span className={"label label-sm " + this.props.color}> {this.props.status} </span>
         </td>
@@ -95,18 +92,12 @@ class RowData extends Component {
             </button>
           </div>
         </td>
-        <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-          <ViewForm id={this.props.id} />
-        </Modal>
-
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMSGSuccess} />
         </Modal>
-
         <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} name={this.props.name} />
+          <MSGSuccess id={this.props.id} name={this.props.name} message="Update the project successful."/>
         </Modal>
-
         <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
           <MSGDelete message={this.state.msg} />
         </Modal>
