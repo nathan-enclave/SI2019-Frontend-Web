@@ -7,7 +7,13 @@ export const initializeFirebase = () => {
     }
 
 }
+export const firebaseStore = firebase.firestore();
 
+firebaseStore.settings({
+    timestampsInSnapshots: true
+  });
+
+  
 export const askForPermissioToReceiveNotifications = async() => {
     try {
 
