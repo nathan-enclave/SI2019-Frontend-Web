@@ -3,7 +3,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 // import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotalSkills from './../../../../container/skills/GetListSkills';
-import getData from '../../../../container/engineer/GetDetailEng';
+// import getData from '../../../../container/engineer/GetDetailEng';
 import DatePicker from "react-datepicker";
 import Skills from "./partials/Skills";
 import {ClipLoader} from 'react-spinners';

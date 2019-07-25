@@ -4,7 +4,7 @@ import moment from 'moment';
 import numeral from 'numeral'
 import './Profile.css'
 import TeamInfo from './TeamInfo';
-import PreLoader from "../../../../include/Preloader";
+// import PreLoader from "../../../../include/Preloader";
 import {ClipLoader} from 'react-spinners';
 
 import {getDataByIdApi} from "../../../../../../api/crud";
