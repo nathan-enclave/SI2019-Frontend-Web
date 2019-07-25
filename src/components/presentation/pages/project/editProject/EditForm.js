@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getData from '../../../../container/project/GetDetailProject';
-import getTotal from './../../../../container/categories/GetListCategories';
+// import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
 
 class EditForm extends Component {
@@ -22,8 +22,7 @@ class EditForm extends Component {
     };
   }
   async componentDidMount() {
-    let res0 = await getTotal();
-    this.setState({ options: res0 })
+    // let res0 = await getTotal();
     const res = await getData(this.props.id);
     this.setState({
       id: String(res.id),
@@ -35,7 +34,6 @@ class EditForm extends Component {
       earning: String(res.earning),
       earningPerMonth: String(res.earningPerMonth),
       status: res.status,
-      categoryId: Number(res.category.name)
     });
     if (this.state.status === "inProgress") this.setState({ inProgress: "selected " })
     if (this.state.status === "done") this.setState({ done: "selected " })
@@ -109,6 +107,7 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   render() {
+    console.log(this.state.options)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">

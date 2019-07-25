@@ -23,7 +23,6 @@ class EditForm extends Component {
   async componentDidMount() {
     const res = await getData(this.state.id);
 
-    console.log(res.category)
       this.setState({
       id: res.id,
       name: res.name,

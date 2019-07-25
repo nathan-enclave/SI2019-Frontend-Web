@@ -19,6 +19,7 @@ import ForgetPW from '../pages/login/ForgetPW';
 import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
 import ViewDetail from '../pages/team/view/Overview/ViewDetail';
+import DataChart from '../pages/team/view/Overview/DataChart'
 
 class RouterURL extends Component {
   render() {
@@ -44,6 +45,7 @@ class RouterURL extends Component {
           <Route  path="/resetPassword" component={ResetPassword} />
           <Route  path="/resetSuccess" component={ResetSuccess} />
           <Route exact path="/team/:id" component={ViewDetail} />
+          <Route exact path="/test" component={DataChart} />
           <Route/>
         </div>
     );

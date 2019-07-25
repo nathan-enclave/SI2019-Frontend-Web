@@ -17,49 +17,43 @@ class EditForm extends Component {
       leaderOptions: [],
       leaderSelected: [],
       leader: null,
-      projectOptions: [],
-      projectSelected: null,
       isOpenMSGSuccess: false,
-      createdAt : null,
       options: [],
       selectOptions: [],
-      projectId: [],
+      project:[],
+      data:[]
     };
   }
   async componentDidMount() {   
-    let res0 = await getTotal();    
+    let res0 = await getTotal();      
     this.setState({ memberOptions: res0 })
     const res = await getData(this.props.id);
     let res1 = await GetTotal();
-    this.setState({ options: res1 })
+    console.log(res1)
+    let listProject = res1.results
+    console.log(listProject)
+    listProject.forEach(e => {
+      e.value = e.id;
+      e.label = e.name;
+      delete e.id;
+      delete e.name
+  })
+    this.setState({ options: listProject })
     this.setState({
       id: String(res.id),
       name: res.name,
       projectName: res.projectName,
-      createdAt: new Date(new Date(res.createdAt).toDateString()),
-        engineers: res.engineers.id,
-      // dateIn: new Date(new Date(res.dateIn).toDateString()),
-      // avatar: res.avatar,
-      // salary : String(res.salary),
-      // address: res.address,
-      // email: res.email,
-      // skype: res.skype,
-      // expYear: String(res.expYear),
-      // status: String(res.status),
-      projectId: Number(res.project.name)
-    
+      engineers: res.engineers.id    
     });
     res.engineers.forEach(e => {
       e.value = e.id;
       e.label = e.firstName + " "+ e.lastName;
-      e.exp = e.expYear
       delete e.id;
       delete e.firstName
   }) 
-  console.log(res.engineers)  
   this.setState({memberSelectOptions :res.engineers })
+  this.setState({ selectOptions: [{value : res.projects.id,label : res.projects.name}] })
   }
-
   isChange = (event) => {
     const fieldName = event.target.name;
     const value = event.target.value;
@@ -76,48 +70,47 @@ class EditForm extends Component {
   handleChangeMember = (memberSelectOptions) => {
     this.setState({ memberSelectOptions });
     let temp = []
-    if (memberSelectOptions != null) {
+    if (memberSelectOptions !== null) {
       memberSelectOptions.forEach(element => {
         temp.push({ id: element.value, role: "member" })
       });
-      this.setState({ member: temp });
+      this.setState({
+        data:{
+          ...this.state.data,
+          engineers : temp
+      }
+      })
     }
   }
-  handleChangeProject = (projectSelected) => {
-    this.setState({ projectSelected })
-    this.setState({ projectId: projectSelected.value })
-  }
+ 
   handleChangeLeader = (leaderSelected) => {
-    this.setState({ leaderSelected })
-    this.setState({ leader: leaderSelected.value })
+    this.setState({ leaderSelected });
+    let temp = []
+    if (leaderSelected !== null) {
+      leaderSelected.forEach(element => {
+        temp.push({ id: element.value, role: "leader" })
+      });
+      this.setState({
+        data:{
+          ...this.state.data,
+          engineers : temp
   }
-  handleChangeName = (e) => {
-    this.setState({ name: e.target.value })
+})
+    }
   }
-  handleChangeCreateAt = (date) => {
-    this.setState({
-      createdAt: date,
-      data: {
-        createdAt: date
-      }
-    });
-  }
-
-  handleChangeProject= (selectOptions) => {
+  handleChangeProjects= (selectOptions) => {
     this.setState({ selectOptions });
-    let temp = 0
     if (selectOptions != null) {
-      temp = selectOptions.value
       this.setState({
         data: {
-          projectId: temp
+          ...this.state.data,
+          projectId: selectOptions.value
         }
       })
     }
   }
-  submitSaveForm = (event) => {
-    event.preventDefault() // stop loading   
-         console.log(this.state.data)
+  submitSaveForm = () => { 
+    console.log(this.state.data)
     EditEngineer(this.state.data,this.props.id).then((result) => {
       if (!result.statusCode) {
         this.props.onClose();
@@ -132,9 +125,6 @@ class EditForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.form.validateAll();
-  }
-  displayStatus = ()=>{
-    if(Number(this.state.status) === 0) this.setState({selectedStatus : "selected"})
   }
   render() {
     return (
@@ -164,47 +154,21 @@ class EditForm extends Component {
                     <div className="form-group">
                       <div className="form-check">
                         <label className="form-check-label"> Project:  </label>
-                        <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProject} />
+                        <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProjects} />
                       </div>
-                    </div>
-                    {/* <div className="form-group">
-                      <label className="control-label">Project Name</label>
-                      <Input type="text" name="projectName" value ={this.state.projectName} onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
-                      {/* <div className="form-group">
-                      <label className="control-label">Image</label>
-                      <Input type="file" name="avatar" className="form-control" /> </div> */}
-                    {/* <div className="form-group">
-                      <label className="control-label">Address</label>
-                      <Input type="text" name="address" value ={this.state.address} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>                    */}
-                    {/* <div className="form-group">
-                      <label className="control-label">Experiences</label>
-                      <Input type="number" name="expYear" onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
-                    {/* <div className="form-group">
-                      <label className="control-label">Phone Number</label>
-                      <Input type="text" name="phoneNumber" value ={this.state.phoneNumber} onChange={(event) => this.isChange(event)}  className="form-control" /> </div>
-                      <div className="form-group">
-                      <label className="control-label">Salary</label>
-                      <Input type="number" name="salary" value ={this.state.salary} onChange={(event) => this.isChange(event)}  className="form-control" /> </div> */}
-                  </div>
-                  {/* <div className="col-md-6" style={{ height: "444px" }}>
-                  <div className="form-group">
-                      <div className="form-check">
-                        <label className="control-label">Create At</label><br />
-                        <DatePicker selected={this.state.createdAt} onChange={this.handleChangeCreateAt} className="form-control" />
-                      </div>
-                    </div>
+                    </div>  
                     <div className="form-group">
                       <div className="form-check">
-                        <label className="form-check-label"> engineers:  </label>
-                          <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
+                        <label className="form-check-label"> Leader:  </label>
+                        <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeLeader} />
                       </div>
-                    </div>
-                  </div> */}
+                    </div>  
+                  </div>
                 </div>
               </Form>
               <div className="row">
                 <div className="margin-top-20" style={{ textAlign: 'center' }}>
-                  <button type="submit" className="btn green" onClick={(event) =>this.submitSaveForm(event)} > SAVE </button>
+                  <button type="submit" className="btn green" onClick={()=>this.submitSaveForm()} > SAVE </button>
                 </div>
               </div>
             </div>

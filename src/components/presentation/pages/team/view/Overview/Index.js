@@ -10,8 +10,12 @@ export default class TeamInfo extends Component {
                 <td>
                   <NavLink to={`/engineer/${this.props.id}`}> {this.props.firstName} { this.props.lastName} </NavLink>
                 </td>
+                <td className="font-blue-madison">
+                  {this.props.exp}
+                </td>
                 <td>
-                    {this.props.email}
+                   <NavLink to={"mailto:" + this.props.email}>
+                        {this.props.email} </NavLink>
                 </td>
                 <td>
                     <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span>

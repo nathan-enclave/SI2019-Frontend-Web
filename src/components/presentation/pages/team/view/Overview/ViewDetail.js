@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Index from './Index'
 import { ClipLoader } from 'react-spinners';
 import moment from 'moment';
-
+import DataChart from './DataChart'
 
 export default class TestView extends Component {
   constructor(props) {
@@ -12,33 +12,33 @@ export default class TestView extends Component {
     this.state = {
       loading: true,
        data: {
-        projectName: "",
+        projects: "",
         name: "",
         engineers: [],
         createdAt: null
       }
     }
   }
+
   async componentWillMount() {
     const { id } = this.props.match.params
-    console.log(id);
-    
     let response = await getDataByIdApi('teams', id)
     console.log(response)
     this.setState({
-      ...response
+      ...response,
+      data : response
     })
-
   
-
     const rowData = this.state.engineers.map(e =>
       <Index
         id = {e.id}
         firstName={e.firstName + " " + e.lastName}
         email={e.email}
         role = {e.role}
+        exp = {e.expYear}
       />
     )
+    
     setTimeout(()=>{
       this.setState({
         teamData: (<table className="table table-striped table-bordered table-advance table-hover">
@@ -48,6 +48,11 @@ export default class TestView extends Component {
                 <i className="fa fa-users font-blue-madison" />
                 <span>
                   Team Members</span>
+              </th>
+              <th>
+                <i className="fa fa-question" />
+                <span>
+                  Experience</span>
               </th>
               <th className="hidden-xs">
                 {/* <i className="fa fa-question"/> */}
@@ -60,6 +65,7 @@ export default class TestView extends Component {
                 <span>
                   Role</span>
               </th>
+             
             </tr>
           </thead>
           <tbody>
@@ -76,8 +82,8 @@ export default class TestView extends Component {
     // if(Object.keys(this.state).length ===  0) {
     //   return <PreLoader/>}
     //   else{
-  console.log(this.state.data.name)
     return (
+      <DataChart />
       <div className="tabbable-line tabbable-full-width">
         <div className="tab-content">
           <div className="tab-pane active" id="tab_1_1">
@@ -95,7 +101,7 @@ export default class TestView extends Component {
                       <li>
                         <i className="fa fa-calendar" />  Create At <h4 className="font-red sbold uppercase">{moment(this.state.createdAt).format("DD/MM/YYYY")} </h4> </li>
                       <li>
-                        <i className="fa fa-briefcase" /> Project Name <h4 className="font-red   sbold uppercase">{this.state.projectName} </h4> </li>
+                        <i className="fa fa-briefcase" /> Project Name <h4 className="font-red   sbold uppercase">{this.state.data.projects.name} </h4> </li>
                     </ul>
                   </div>
                   {/*end col-md-8*/}
