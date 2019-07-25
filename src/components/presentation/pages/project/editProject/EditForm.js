@@ -97,6 +97,7 @@ class EditForm extends Component {
     console.log(this.state.data)
     EditProject(this.state.data, this.props.id).then((result) => {
       if (!result.statusCode) {
+        this.props.changeMSG("Edit successful.")
         this.props.onClose();
         this.props.onOpenMSG();
       } else {

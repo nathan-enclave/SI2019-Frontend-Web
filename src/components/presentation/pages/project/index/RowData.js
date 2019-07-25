@@ -3,33 +3,28 @@ import Modal from './../../../commons/modal/Modal';
 import EditForm from './../editProject/EditForm';
 import DeletePopUp from './../deleteProject/DeletePopUp';
 import DelEngineer from '../../../../container/project/DeleteProject';
-import MSGDelete from '../../../../presentation/commons/msg/MSGDelete';
-import MSGSuccess from '../../../commons/msg/MSGSuccess';
 import { Link } from "react-router-dom";
 import numeral from 'numeral'
 import './index.css'
+import Message from '../../../commons/msg/Message';
 class RowData extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isOpenView: false,
       isOpenEdit: false,
-      // isOpenDelete: false,
-      isOpenMSGDelete: false,
-      isOpenMSGSuccess: false
-
+      isOpenMessage : false
     };
   }
-  toggleMSGSuccess = () => {
-    this.setState({
-      isOpenMSGSuccess: !this.state.isOpenMSGSuccess
-    })
-    this.props.reloadData();
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.msg !== prevProps.msg) {
+      this.props.reloadData()
+    }
   }
-  toggleModalMSGDelete = () => {
+  toggleMessage = () => {
     this.setState({
-      isOpenMSGDelete: !this.state.isOpenMSGDelete
+      isOpenMessage: !this.state.isOpenMessage
     })
   }
   toggleModalView = () => {
@@ -51,9 +46,9 @@ class RowData extends Component {
     DelEngineer(this.props.id).then((result) => {
       if (!result.statusCode) {
         this.setState({ isOpenDelete: !this.state.isOpenDelete })
-        this.toggleModalMSGDelete();
+        this.toggleMessage();
         this.setState({ msg: "Delete successful." })
-          this.props.reloadData()
+          // this.props.reloadData()
       } else {
         this.setState({ msg: "Something wrong." })
       }      
@@ -89,13 +84,10 @@ class RowData extends Component {
           </div>
         </td>
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
-          <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMSGSuccess} />
+          <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMessage} changeMSG = {(msg)=>{this.setState({msg : msg})}}/>
         </Modal>
-        <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} name={this.props.name} message="Update the project successful."/>
-        </Modal>
-        <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-          <MSGDelete message={this.state.msg} />
+        <Modal show={this.state.isOpenMessage} onClose={this.toggleMessage} deleteStyleModel={true} >
+          <Message message={this.state.msg} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
           <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.name} />

@@ -4,8 +4,8 @@ import Pagination from "react-js-pagination";
 import getDataPag from '../../../../container/project/GetProjectPagination';
 import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
-import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import Preloader from '../../../include/Preloader'
+import Message from '../../../commons/msg/Message';
 class TableData extends Component {
   constructor(props) {
     super(props);
@@ -71,38 +71,10 @@ class TableData extends Component {
   reload = () => {
     this.componentWillMount()
   }
-  // getProject = (e)=>{
-  //   let id = ["done","all","inProgress","pending"]
-  //   id.forEach(element => {
-  //     if(element === e.target.id)  {
-  //       if(element === "done"){
-  //       document.getElementById(element).className = "label label-sm label-info" 
-  //       }
-  //       else if(element === "inProgress"){
-  //       document.getElementById(element).className = "label label-sm label-success" 
-  //       }
-  //       else if (element === "pending"){
-  //       document.getElementById(element).className = "label label-sm label-warning" 
-  //       }
-  //       else if (element === "all"){
-  //         document.getElementById(element).className = "label label-sm label-danger" 
-  //         }
-  //     }
-  //     else  {
-  //       document.getElementById(element).className = "label label-sm label-default" 
-  //     }
-  //   });
-  // }
   render() {
     const loader = this.state.data.length > 0 ?
       <div className="portlet-title">
         <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>
-        {/* <div className="form-group">
-            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-danger" id="all"> All  </button>
-            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="pending"> Pending  </button>
-            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="inProgress"> In Progress  </button>
-            <button onClick={(e) =>this.getProject(e)} style={{fontSize: '10px',margin : "10px"}} className="label label-sm label-default" id="done" > Done  </button>
-            </div> */}
         <br />
         <div style={{ marginBottom: '40px' }}>
           <div style={{ width: '200px', float: 'left' }}>
@@ -156,7 +128,7 @@ class TableData extends Component {
         </Modal>
         <Modal show={this.state.isOpenMSGSuccess}
           onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
-          <MSGSuccess message={"Add successfully new project."} />
+          <Message message={"Add successfully new project."} />
         </Modal>
       </div> : (
         <Preloader />
