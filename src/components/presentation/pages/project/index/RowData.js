@@ -17,13 +17,16 @@ class RowData extends Component {
       isOpenEdit: false,
       // isOpenDelete: false,
       isOpenMSGDelete: false,
-      isOpenMSGSuccess: false
-
+      isOpenMSGSuccess: false,
+      msg: ''
     };
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     // Typical usage (don't forget to compare props):
-    if (this.state.msg !== prevProps.msg) {
+    console.log(prevProps)
+    console.log(prevState)
+
+    if (this.state.msg !== prevState.msg) {
       this.props.reloadData()
     }
   }
@@ -56,8 +59,8 @@ class RowData extends Component {
     DelEngineer(this.props.id).then((result) => {
       if (!result.statusCode) {
         this.setState({ isOpenDelete: !this.state.isOpenDelete })
-        this.toggleModalMSGDelete();
         this.setState({ msg: "Delete successful." })
+        this.toggleModalMSGDelete();
       } else {
         this.setState({ msg: "Something wrong." })
       }      
