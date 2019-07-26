@@ -12,7 +12,7 @@ class TableData extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      itemsCountPerPage: 1,
+      itemsCountPerPage: 10,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
       activePage: 1

@@ -34,7 +34,7 @@ export default class LoginFunc extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.login()
         }
-    }   
+    }
     login() {
         this.setState({
             loginLoader: true
@@ -73,12 +73,10 @@ export default class LoginFunc extends Component {
         if (localStorage.getItem('userData')) {
             return (<div>{this.redirect()} </div>)
         }
-        const loader = this.state.loginLoader ? <LoginLoader /> : null
-        let error = (this.state.error)?( <div className="alert alert-danger">
-        <strong>Error!</strong> Username or Password is not correct.
-    </div>):null
+        let error = (this.state.error) ? (<div className="alert alert-danger">
+            <strong>Error!</strong> Username or Password is not correct.</div>) : null
         return (
-            
+
             <div className="login" >
                 <div className="content">
                     <div className="logo">
@@ -92,7 +90,7 @@ export default class LoginFunc extends Component {
                             <span> Enter any username and password. </span>
                         </div>
                         <Form onSubmit={e => this.onSubmit(e)} ref={c => { this.form = c }}>
-                        {error}
+                            {error}
                             <div className="form-group" >
                                 <label className="control-label visible-ie8 visible-ie9" >Username</label>
                                 <Input className="form-control form-control-solid placeholder-no-fix"

@@ -12,7 +12,7 @@ class TableData extends Component {
         this.state = {
             isOpenMessage: false,
             data: [],
-            itemsCountPerPage: 1,
+            itemsCountPerPage: 10,
             totalItemsCount: 0,
             pageRangeDisplayed: 1000,
             activePage: 1,
@@ -33,9 +33,12 @@ class TableData extends Component {
         })
         this.componentWillMount();
     }
-    async componentWillMount() {
+    async componentWillMount() {       
         let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
         const dataPagination =  await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+        this.setState({totalItemsCount: dataPagination.total})
+        // let totalPage = dataPagination.total/this.state.itemsCountPerPage
+        // console.log(totalPage)
         console.log("length " +dataPagination.results.length + "page " + this.state.activePage)
         if(this.state.activePage > 0 && dataPagination.results.length === 0) {
            await this.setState({activePage : this.state.activePage-1})
