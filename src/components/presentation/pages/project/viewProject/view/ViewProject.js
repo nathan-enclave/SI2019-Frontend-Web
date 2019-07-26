@@ -23,64 +23,81 @@ class ViewProject extends Component {
       data: null,
       options: {
         chart: {
-            height: 380,
-            type: 'bar'
+          height: 380,
+          type: 'bar'
         },
         plotOptions: {
-            bar: {
-                barHeight: '100%',
-                distributed: true,
-                horizontal: true,
-                dataLabels: {
-                    position: 'bottom'
-                },
-            }
+          bar: {
+            barHeight: '100%',
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+              position: 'bottom'              
+            }           
+          },
+          labels:{
+            formatter: function (val) {
+              return  numeral(val).format('0,0')
+          }
+          }
         },
         colors: ['#33b2df', '#546E7A'],
         dataLabels: {
-            enabled: true,
-            textAnchor: 'start',
-            style: {
-                colors: ['#fff']
-            },
-            offsetX: 0,
-            dropShadow: {
-                enabled: true
-            }
+          formatter: function (val) {
+            return  numeral(val).format('0,0') + " VND"
+        },
+          enabled: true,
+          textAnchor: 'start',
+          style: {
+            colors: ['#fff']
+          },
+          offsetX: 0,
+          dropShadow: {
+            enabled: true
+          }
         },
         stroke: {
-            width: 1,
-            colors: ['#fff']
+          width: 1,
+          colors: ['#fff']
         },
         xaxis: {
-          categories : ["Earning","Average Earning"],           
-          labels :{
-            style: {            
+          categories: ["Earning", "Average "],
+          labels: {
+            style: {
               fontSize: '12px',
+            },
+            formatter: function (val) {
+              return numeral(val).format('0,0')
             }
-           }
+          }
         },
         yaxis: {
-            labels: {
-                show: true,
-                style : {
-                  fontSize: "15px",
-                  fontFamily : "serif",
-                  fontWeight: "20px",
-                  color : "#0c5460"         
-                }
+          labels: {
+            show: true,
+            style: {
+              fontSize: "15px",
+              // fontFamily: "Chalkduster, fantasy",
+              // fontWeight: "20px",
+              color: "#0c5460"
             }
+          }
         },
         title: {
-            text: 'Earning Ratio',
-            align: 'center',
-            floating: true
-        },       
-    },
-    series: [{
-      name: "number",
-      data: []
-  }]
+          text: 'Earning Compare to the Average Earning',
+          align: 'center',
+          floating: true,
+          style:{
+            fontSize: "20px",
+              // fontFamily: "Chalkduster, fantasy",
+              // fontWeight: "20px",
+              color: "#0c5460"
+          }
+        },
+      },
+      series: [{
+        name: "number",
+        data: []     
+      }]
     };
   }
   async componentDidMount() {
@@ -114,7 +131,7 @@ class ViewProject extends Component {
             firstName={value.firstName}
             lastName={value.lastName}
             role={value.role}
-            expYear = {value.expYear}
+            expYear={value.expYear}
           />
         )
       })
@@ -126,37 +143,37 @@ class ViewProject extends Component {
     listProject.results.forEach(element => {
       totalEarning += element.earning
     });
-    let averageEarning = Math.round(totalEarning/listProject.results.length) 
-    let color = res.status === "done"?"#B5CEFD":res.status ==="inProgress"?"#B8E7F5":"#fab1a0"
+    let averageEarning = Math.round(totalEarning / listProject.results.length)
+    let color = res.status === "done" ? "#B5CEFD" : res.status === "inProgress" ? "#B8E7F5" : "#fab1a0"
     this.setState({
       options: {
         ...this.state.options,
         chart: {
-            id: "basic-bar"
+          id: "basic-bar"
         },
         colors: [color, '#546E7A'],
-    },
-    series: [{
+      },
+      series: [{
         name: "number",
-        data: [res.earning,averageEarning]
-    }]
-    })  
+        data: [res.earning, averageEarning]
+      }]
+    })
   }
   render() {
     let root = document.documentElement;
     if (this.state.status === "done") {
       root.style.setProperty('--bg', "#b5cefd7d")
-      root.style.setProperty('--border', "#659be0")
-      root.style.setProperty('--boxColor', "#659be0")  
+      root.style.setProperty('--border', "#ff")
+      root.style.setProperty('--boxColor', "#659be0")
     }
     if (this.state.status === "pending") {
       root.style.setProperty('--bg', "#fab1a047")
-      root.style.setProperty('--border', "#e17055")
-      root.style.setProperty('--boxColor', "#e17055")
+      root.style.setProperty('--border', "#ff")
+      root.style.setProperty('--boxColor', "#ed6b75")
     }
     if (this.state.status === "inProgress") {
       root.style.setProperty('--bg', "#b8e7f596")
-      root.style.setProperty('--border', "#36c6d3")
+      root.style.setProperty('--border', "#ff")
       root.style.setProperty('--boxColor', "#36c6d3")
     }
 
@@ -173,7 +190,7 @@ class ViewProject extends Component {
         <div className="portlet-title tabbable-line">
           <div className="caption">
             <i className=" icon-social-twitter font-dark hide" />
-            <span className={"label label-sm "+color} style={{ fontSize: "15px" }}> {this.state.team} </span>
+            <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.team} </span>
           </div>
         </div>
       </div>
@@ -182,7 +199,7 @@ class ViewProject extends Component {
           <div className="portlet-title tabbable-line">
             <div className="caption">
               <i className=" icon-social-twitter font-dark hide" />
-              <Link to={"/teams/" + this.state.teamId} className={"label label-sm "+color} style={{ fontSize: "15px" }}> {this.state.team} </Link>
+              <Link to={"/teams/" + this.state.teamId} className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.team} </Link>
             </div>
           </div>
           <div className="portlet-body-custom-color">
@@ -324,20 +341,20 @@ class ViewProject extends Component {
               <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
                   <div className="caption">
-                    <i className=" icon-social-twitter font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">CHART</span>
+                    {/* <i className=" icon-social-twitter font-dark hide" /> */}
+                    {/* <span className="caption-subject font-dark bold uppercase">CHART</span> */}
                   </div>
                 </div>
                 <div className="portlet-bodyx">
                   <div className="tab-content">
                     <div>
-                    <Chart
+                      <Chart
                         options={this.state.options}
                         series={this.state.series}
                         type="bar"
                         width="100%"
                         height="200px"
-                    />
+                      />
                     </div>
                   </div>
                 </div>

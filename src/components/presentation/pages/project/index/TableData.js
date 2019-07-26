@@ -12,7 +12,7 @@ class TableData extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      itemsCountPerPage: 1,
+      itemsCountPerPage: 10,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
       activePage: 0
@@ -75,17 +75,7 @@ class TableData extends Component {
         <div style={{ marginBottom: '40px' }}>
           <div style={{ width: '200px', float: 'left' }}>
             <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
-          </div>
-          <div className="search-form" style={{ float: 'right', width: '200px', backgroundColor: '#B9ECF0' }} >
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Search here" name="query" />
-              <span className="input-group-btn">
-                <a href="abc" className="btn md-skip submit">
-                  <i className="fa fa-search" />
-                </a>
-              </span>
-            </div>
-          </div>
+          </div>        
         </div>
         <div className="portlet-body">
           <div className="table-main-pagination">

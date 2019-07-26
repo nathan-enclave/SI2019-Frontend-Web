@@ -5,7 +5,7 @@ import './viewProject.css'
 class TeamMember extends Component {
     render() {
         let typeLabel = (this.props.role === "leader") ? "danger" : "success"
-        let level = (this.props.expYear <=3)?1:(this.props.expYear<=5)?2:(this.props.expYear<=7)?3:4
+        let level = (this.props.expYear<=3)?1:(this.props.expYear<=5)?2:(this.props.expYear<=7)?3:4
         return (          
             <div className="mt-actions">
             <div className="mt-action">

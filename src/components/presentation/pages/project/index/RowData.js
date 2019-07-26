@@ -43,12 +43,10 @@ export default class RowData extends Component {
   async removeItem () {
     await DelEngineer(this.props.id).then((result) => {
       console.log(result)
-      if (!result.statusCode) {
-        
+      if (!result.statusCode) {        
         this.setState({ isOpenDelete: false})
         this.setState({ msg: "Delete successful." })
-        this.setState({isOpenMessage: true}); 
-          
+        this.setState({isOpenMessage: true});           
       } else {
         this.setState({ msg: "Something wrong." })
       }      
