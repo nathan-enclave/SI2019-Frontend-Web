@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="shortcut icon" href="assets/pages/img/logos/enclave-logo.png" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/assets/pages/img/logos/enclave-logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <!-- <link rel="manifest" href="" /> -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
   <!-- END LAYOUT FIRST STYLES -->
   <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -41,8 +41,97 @@
   
  
   <style>
-    /* custom style */
+    
 
+
+    /* upload image style */
+    .image-preview-area{
+      width: 200px;
+      padding: 10px
+    }
+    .image-preview-area .border-close{
+      float: right;
+      position: relative;
+      margin: 0;
+      top: -7px;
+      width: 15px;
+      height: 15px;
+      background: gainsboro;
+      border-radius: 10px;
+    }
+    
+    .image-preview-area .close{
+      opacity: 1;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+    }
+    .Uploader .btn{
+      width: 100px;
+      height: 35px;
+      background: #70a1ff!important;
+      border-color: #70a1ff!important
+    }
+    .Uploader .title-upload {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+
+    .Uploader .upload-image-preview-input {
+      opacity: 0;
+      z-index: 10000;
+      width: 100px;
+      margin-left: -15px;
+      margin-top: -10px;
+      height: 30px;
+      cursor: pointer;
+
+    }
+    .Uploader input[type="file"] {
+      z-index: 10000;
+      width: 100px!important;
+      margin-left: -15px;
+      margin-top: -10px;
+      height: 30px !important;
+      cursor: pointer;
+    }
+    .Uploader .image-preview-area img{
+      width: 100%;
+    }
+
+    @media(max-width: 992px){
+      .Uploader {
+        display: flex;
+      }
+    }
+    /* upload image style */
+
+    /* Skill select option style */
+    .SkillOption .row .border-close {
+      position: absolute;
+      margin: 0;
+      top: -7px;
+      right: 10px;
+      width: 15px;
+      height: 15px;
+      border-radius: 10px;
+    }
+    .SkillOption .row .border-close .close {
+      z-index: 10000;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+    }
+    /* Skill select option style */
+
+    
+    .link-name-data {
+      text-decoration: underline;
+      cursor: pointer;
+    }
     .custom-padding-none {
       padding: 0!important;
       padding-left: 3px!important

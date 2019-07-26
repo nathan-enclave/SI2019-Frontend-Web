@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
+import { getAllApi } from "../../../../../api/crud";
 
 class Status extends Component {
   constructor(props) {
@@ -16,10 +17,8 @@ class Status extends Component {
     }
   }
   async componentDidMount() {
-    const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/statistic/engineers/status');
-    const data = await res.json();
-    console.log(data)
-    let seriesData = []
+    const data = await getAllApi('dashboard/statistic/engineers/status')
+    const seriesData = []
     seriesData.push(data.available)
     seriesData.push(data.inTeam)
     this.setState({

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Preloader from '../../../include/Preloader'
 import numeral from 'numeral'
+import { getAllApi } from "../../../../../api/crud";
+
 class CashStats extends Component {
     constructor(props){
         super(props)
@@ -8,8 +10,7 @@ class CashStats extends Component {
         }
     }
     async componentDidMount(){
-        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
-        const data = await res.json();
+        const data = await getAllApi('dashboard/cashflow/' + new Date().getFullYear())
         let cashInData = 0, cashOutData = 0,projectData = 0;
         data.forEach(element => {
             cashInData += element.cashIn

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import {NavLink} from 'react-router-dom';
 import './layout.css'
 class Header extends Component {
@@ -43,10 +44,10 @@ class Header extends Component {
                                     <ul className="dropdown-menu-v2 dropdown-custom-background" role="menu">
                                       
                                         <li>
-                                            <a href= "/login" onClick= {(event) =>this.logout(event)}>
+                                            <span onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>
                                                 Log Out
-                                            </a>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>

@@ -1,0 +1,23 @@
+
+/* image uploader style */
+
+.EditUploader {
+    margin-bottom: 20px
+}
+.EditUploader .image-preview-area {
+    max-width: 150px;
+    width: 150px;
+}
+
+.EditUploader  .btn {
+    width: 100px;
+    height: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #70a1ff!important;
+    border-color: #70a1ff!important
+}
+
+.EditUploader .btn .title-upload {
+    top: 6.5px
+}

@@ -21,9 +21,7 @@ export default class RowData extends Component {
   toggleMessage = () => {
     this.setState({
       isOpenMessage: !this.state.isOpenMessage      
-    })
-    
-    this.props.reloadData()
+    })       
   }
   toggleModalView = () => {
     this.setState({
@@ -40,9 +38,8 @@ export default class RowData extends Component {
       isOpenDelete: !this.state.isOpenDelete
     });
   }
-  async removeItem () {
-    await DelEngineer(this.props.id).then((result) => {
-      console.log(result)
+   removeItem () {
+     DelEngineer(this.props.id).then((result) => {
       if (!result.statusCode) {        
         this.setState({ isOpenDelete: false})
         this.setState({ msg: "Delete successful." })
@@ -51,6 +48,10 @@ export default class RowData extends Component {
         this.setState({ msg: "Something wrong." })
       }      
     })
+  }
+  handleReload =()=> {
+    this.toggleMessage()
+    this.props.reloadData()
   }
   render() {    
     return (
@@ -84,7 +85,7 @@ export default class RowData extends Component {
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMessage} changeMSG = {(msg)=>{this.setState({msg : msg})}}/>
         </Modal>
-        <Modal show={this.state.isOpenMessage} onClose={this.toggleMessage} deleteStyleModel={true} >
+        <Modal show={this.state.isOpenMessage} onClose={()=>this.handleReload()} deleteStyleModel={true} >
           <Message message={this.state.msg} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >

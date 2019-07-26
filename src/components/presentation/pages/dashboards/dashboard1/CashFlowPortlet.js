@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
+import { getAllApi } from "../../../../../api/crud";
 
 class CashFlowPortlet extends Component {
     constructor(props) {
@@ -41,15 +42,12 @@ class CashFlowPortlet extends Component {
         }
     }
     async componentDidMount(){
-        const res = await fetch('https://si-enclave.herokuapp.com/api/v1/dashboard/cashflow/' + new Date().getFullYear());
-        const data = await res.json();
-        // console.log(data)
+        const data = await getAllApi('dashboard/cashflow/' + new Date().getFullYear())
         let catData = [], seriesData1 =[], seriesData2 = [],seriesData3 = [];
         data.forEach(element => {
             catData.push(element.month)
             seriesData1.push((element.cashIn)/1000000)
             seriesData2.push(element.cashOut/1000000)
-            // seriesData3.push(element.numOfProject)
             seriesData3.push(element.cashIn/1000000 -element.cashOut/1000000 )
         });
         this.setState({   

@@ -1,5 +1,10 @@
-import {storage} from "../firebase";
+import {initializeFirebase} from "../firebase";
+import firebase from 'firebase/app'
+import 'firebase/storage'
 import {getTimeForSlug} from "../../utils/commonHelper";
+
+initializeFirebase()
+const storage = firebase.storage()
 
 export async function handleUpload(image) {
     const imageName = `${getTimeForSlug()}-${image.name}`

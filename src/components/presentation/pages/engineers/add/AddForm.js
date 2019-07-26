@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
-import AddEngineer from '../../../../container/engineer/AddEngineer';
+import React, {Component} from 'react';
+// import Select from 'react-select';
+// import AddEngineer from '../../../../container/engineer/AddEngineer';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import { isEmail, isEmpty, isNumeric } from 'validator';
+import {isEmail, isEmpty, isNumeric} from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import getTotalSkills from '../../../../container/skills/GetListSkills';
 import ImageUploader from "../../../commons/input/ImageUploader";
-import { handleUpload } from "../../../../../service/upload/fileUploader";
+import Skills from "./partials/Skills";
+import {handleUpload} from "../../../../../service/upload/fileUploader";
+import EngineerContainer from "../../../../container/engineer";
+import CheckButton from 'react-validation/build/button';
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
+        return <div className="alert alert-danger">This field is required</div>;
     }
 }
 const phone = (value) => {
@@ -20,34 +23,34 @@ const phone = (value) => {
             no_symbols: false
         }
     ])) {
-        return <small className="form-text text-danger">The phone number contains only numbers.</small>;
-    } else if (value.trim().length < 10) {
-        return <small className="form-text text-danger">The phone number can't less than 10 letters.</small>;
-    } else if (value.trim().length > 15) {
-        return <small className="form-text text-danger">The phone number can't more than 15 letters.</small>;
+        return <div className="alert alert-danger">The phone number contains only numbers.</div>;
     }
-    if (value.trim().length < 10) {
-        return <small className="form-text text-danger">The phone number can't less than 10 letters.</small>;
+    else if (value.trim().length < 10) {
+        return <div className="alert alert-danger">The phone number can't less than 10 letters.</div>;
+    } 
+    else if (value.trim().length > 15) {
+        return <div className="alert alert-danger">The phone number can't more than 15 letters.</div>;
     }
 }
 const email = (value) => {
     if (!isEmail(value)) {
-        return <small className="form-text text-danger">Invalid email format</small>;
+        return <div className="alert alert-danger">Invalid email format.</div>;
     }
 }
 class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenMSGSuccess: false,
             birthday: "",
             dateIn: "",
             options: [],
-            selectOptions: [],
+            selectOption: null,
             status: 1,
-            skills: [],
+            skills: {},
             error: 0,
-            avatar: null
+            avatar: null,
+            msgBirthday: null,
+            msgDateIn: null
         };
 
         // this.handleChange = this.handleChange.bind(this);
@@ -55,15 +58,13 @@ class AddForm extends Component {
 
     getImageName = (image) => {
         this.setState({avatar: image})
-
     }
     isChange = (event) => {
         const fieldName = event.target.name;
         const value = event.target.value;
         this.setState({[fieldName]: value});
     }
-    submitAddForm = async(e) => {
-        e.preventDefault(); // stop loading
+    submitAddForm = async() => {       
         let data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
@@ -76,54 +77,61 @@ class AddForm extends Component {
             dateIn: this.state.dateIn,
             salary: this.state.salary,
             status: Number(this.state.status),
-            skills: this.state.skills
+            skills: this.state.skills,
+            expYear : Number(this.state.expYear)
         }
 
         if (this.state.avatar) {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
         }
+        EngineerContainer
+            .add(data)
+            .then(result => {
+                if (!result.statusCode) {
+                    this
+                        .props
+                        .openMessage()
 
-        AddEngineer(data).then((result) => {
-            console.log(result);
-            if (!result.statusCode) {
-                this
-                    .props
-                    .openMSGSuccess()
-
-                // this.props.onClose()
-            } else {
-                if (result.statusCode !== 200) {
-                    this.setState({msg: 'Some error occured, please try again later '});
+                } else {
+                    if (result.statusCode !== 200) {
+                        this.setState({msg: 'Some error occured, please try again later '});
+                    }
                 }
-            }
-        })
+            })
     }
     handleChangeBirthday = (date) => {
-        this.setState({birthday: date});
+        this.setState({birthday: date,msgBirthday:null});
     }
     handleChangeDateIn = (date) => {
-        this.setState({dateIn: date});
+        this.setState({dateIn: date,msgDateIn:null});
     }
-    handleChange = (selectOptions) => {
-        this.setState({selectOptions});
-        let temp = []
-        if (selectOptions != null) {
-            selectOptions.forEach(element => {
-                temp.push(element.value)
-            });
-            this.setState({skills: temp});
-        }
-    }
+
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
+        if (this.checkBtn.context._errors.length === 0 && this.state.birthday !== "" && this.state.dateIn !== "" ) {
+            this.submitAddForm()
+        }
+        else {
+            if (this.state.birthday === "") this.setState({ msgBirthday: "This field is required!" })
+            if (this.state.dateIn === "") this.setState({ msgDateIn: "This field is required!" })
+            
+        }
     }
-    async componentDidMount() {
-      const res = await getTotalSkills();
-      this.setState({ options: res });
+    async componentWillMount() {
+        const res = await getTotalSkills();
+        this.setState({options: res});
+    }
+
+    getData = async(items) => {
+        await this.setState({
+            skills: items.map(e => e.data)
+        })
     }
     render() {
+        let msgBirthday = this.state.msgBirthday === null ? null : (<div className="alert alert-danger">This field is required!</div>)
+        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="alert alert-danger">This field is required!</div>)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -146,9 +154,6 @@ class AddForm extends Component {
                                 ref={c => {
                                 this.form = c
                             }}>
-                                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src="../assets/layouts/layout6/img/none-avatar.png" /><br /><br />
-                </div> */}
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -184,7 +189,9 @@ class AddForm extends Component {
                                                 name="avatar"
                                                 function={this
                                                 .getImageName
-                                                .bind(this)}/> {/* <Input type="file" name="avatar" className="form-control"/> */}
+                                                .bind(this)}
+                                                status={'add'}
+                                                />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Address</label>
@@ -235,6 +242,15 @@ class AddForm extends Component {
                                                 className="form-control"/>
                                         </div>
                                         <div className="form-group">
+                                            <label className="control-label">Experience year</label>
+                                            <Input
+                                                type="number"
+                                                name="expYear"
+                                                onChange={(event) => this.isChange(event)}
+                                                validations={[required]}
+                                                className="form-control"/>
+                                        </div>
+                                        <div className="form-group">
                                             <label className="control-label">Salary</label>
                                             <Input
                                                 type="number"
@@ -249,6 +265,7 @@ class AddForm extends Component {
                                                 selected={this.state.birthday}
                                                 onChange={this.handleChangeBirthday}
                                                 className="form-control"/>
+                                                {msgBirthday}
                                         </div>
                                         <div className="form-group">
                                             <div className="form-check">
@@ -257,25 +274,15 @@ class AddForm extends Component {
                                                     selected={this.state.dateIn}
                                                     onChange={this.handleChangeDateIn}
                                                     className="form-control"/>
+                                                    {msgDateIn}
                                             </div>
                                         </div>
-                                        <div className="form-group">
-                                            <div className="form-check">
-                                                <label className="form-check-label">
-                                                    Skills:
-                                                </label>
-                                                <Select
-                                                    value={this.state.selectOptions}
-                                                    options={this.state.options}
-                                                    isMulti
-                                                    onChange={this.handleChange}/>
-                                            </div>
-                                        </div>
-
+                                        <Skills
+                                            options={this.state.options}
+                                            getData={this.getData.bind(this)}/> 
                                     </div>
                                 </div>
-                            </Form>
-                            <div className="row">
+                                <div className="row">
                                 <div
                                     className="margin-top-20"
                                     style={{
@@ -284,11 +291,14 @@ class AddForm extends Component {
                                     <button
                                         type="submit"
                                         className="btn green"
-                                        onClick={(event) => this.submitAddForm(event)}>
-                                        SAVE
+                                       >
+                                        ADD
                                     </button>
+                                    <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                 </div>
                             </div>
+                            </Form>
+                            
                         </div>
                     </div>
                 </div>

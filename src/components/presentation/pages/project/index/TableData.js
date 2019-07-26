@@ -12,10 +12,10 @@ class TableData extends Component {
     this.state = {
       isOpen: false,
       data: [],
-      itemsCountPerPage: 10,
+      itemsCountPerPage: 1,
       totalItemsCount: 0,
       pageRangeDisplayed: 5,
-      activePage: 0
+      activePage: 1
     }
   }
   toggleMessage = () => {
@@ -33,11 +33,11 @@ class TableData extends Component {
     this.componentWillMount()
   }
   handlePageChange = async (pageNumber) => {
-    await this.setState({ activePage: pageNumber - 1 })
+    await this.setState({ activePage: pageNumber  })
     this.componentWillMount();
   }
   async componentWillMount() {
-    let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
+    let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
     const res = await getDataPag(this.state.itemsCountPerPage, offset);
     if(this.state.activePage > 0 && res.results.length === 0) {
       this.setState({activePage : this.state.activePage-1})
@@ -97,7 +97,7 @@ class TableData extends Component {
             </div>
             <div className="PaginationArea" style={{ textAlign: "center" }}>
               <Pagination
-                activePage={this.state.activePage + 1}
+                activePage={this.state.activePage}
                 itemsCountPerPage={this.state.itemsCountPerPage}
                 totalItemsCount={this.state.totalItemsCount}
                 pageRangeDisplayed={this.state.pageRangeDisplayed}
