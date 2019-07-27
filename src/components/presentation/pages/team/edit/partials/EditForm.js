@@ -6,11 +6,13 @@ import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
 import getData from '../../../../container/team/GetTeamDetail';
 import GetTotal from './API /GetDetailProject'
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 import Skills from "./partials/Member";
 import {ClipLoader} from 'react-spinners';
 import {handleUpload} from "../../../../../service/upload/fileUploader";
 import ImageUploader from "../../../commons/input/ImageUploader";
-import Members from './partials/Member';
+import Members from './Member';
 
 class EditForm extends Component {
   constructor(props) {
@@ -183,7 +185,7 @@ class EditForm extends Component {
                         <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProjects} />
                       </div>
                     </div>  
-                    {/* <div className="form-group">
+                    <div className="form-group">
                       <div className="form-check">
                         <label className="form-check-label"> Role:  </label>
                         <select className="form-control" value={this.state.status} onChange={(event) => this.isChange(event)} name="status" >
@@ -191,10 +193,10 @@ class EditForm extends Component {
                         <option value="member">MEMBER</option>
                       </select>
                       </div>
-                    </div>  */}
+                    </div> 
                     <Members
                         memberSelected={this.state.engineers}
-                        options={this.state.memberOptions}
+                        options={this.state.options}
                         getData={this
                         .getData
                         .bind(this)}/> 

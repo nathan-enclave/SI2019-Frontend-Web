@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="shortcut icon" href="assets/pages/img/logos/enclave-logo.png" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/assets/pages/img/logos/enclave-logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <!-- <link rel="manifest" href="" /> -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link href="http://fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
   <!-- END LAYOUT FIRST STYLES -->
   <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -41,10 +41,8 @@
   
  
   <style>
-    /* custom style */
-    .relative {
-      position: relative;
-    }
+    
+
 
     /* upload image style */
     .image-preview-area{
@@ -71,6 +69,8 @@
     .Uploader .btn{
       width: 100px;
       height: 35px;
+      background: #70a1ff!important;
+      border-color: #70a1ff!important
     }
     .Uploader .title-upload {
       position: absolute;

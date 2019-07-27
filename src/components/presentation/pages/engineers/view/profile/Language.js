@@ -87,7 +87,7 @@ export default class Language extends Component {
     }
     render() {
         return (
-            <div className="portlet light bordered">
+            <div className="portlet">
                 
                 {/* chart here */}
                 <div>
@@ -98,7 +98,7 @@ export default class Language extends Component {
                         width="100%"
                         />
                 </div>
-                <div className="portlet-title text-center" >
+                <div className="portlet text-center" >
                     {/* <div className="caption"> */}
                         <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Programming languages</span>
                     {/* </div> */}

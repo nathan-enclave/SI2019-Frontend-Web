@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+// import Select from 'react-select';
+// import AddEngineer from '../../../../container/engineer/AddEngineer';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import {isEmail, isEmpty, isNumeric} from 'validator';
@@ -55,7 +57,6 @@ class AddForm extends Component {
 
     getImageName = (image) => {
         this.setState({avatar: image})
-
     }
     isChange = (event) => {
         const fieldName = event.target.name;
@@ -107,9 +108,11 @@ class AddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.form.validateAll();
+        this
+            .form
+            .validateAll();
     }
-    async componentDidMount() {
+    async componentWillMount() {
         const res = await getTotalSkills();
         this.setState({options: res});
     }
@@ -177,7 +180,9 @@ class AddForm extends Component {
                                                 name="avatar"
                                                 function={this
                                                 .getImageName
-                                                .bind(this)}/> {/* <Input type="file" name="avatar" className="form-control"/> */}
+                                                .bind(this)}
+                                                status={'add'}
+                                                />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Address</label>

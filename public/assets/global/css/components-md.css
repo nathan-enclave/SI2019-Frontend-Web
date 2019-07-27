@@ -5596,10 +5596,26 @@ Dropdown Checkboxes
     white-space: nowrap;
     line-height: 1.42857143;
     text-transform: uppercase; }
+  .dropdown-menu-v2 > li > span {
+    clear: both;
+    color: #606e7a;
+    display: block;
+    font-weight: 600;
+    padding: 8px 20px;
+    position: relative;
+    white-space: nowrap;
+    line-height: 1.42857143;
+    text-transform: uppercase; }
     .dropdown-menu-v2 > li > a:hover, .dropdown-menu-v2 > li > a:focus {
       background: #21282e;
       text-decoration: none;
       color: #009dc7; }
+    .dropdown-menu-v2 > li > span:hover{
+      background:  rgb(185, 236, 240);
+      cursor: pointer;
+      text-decoration: none;
+      color: #009dc7; 
+    }
   .dropdown-menu-v2 .active > a,
   .dropdown-menu-v2 .active > a:hover,
   .dropdown-menu-v2 .active > a:focus,

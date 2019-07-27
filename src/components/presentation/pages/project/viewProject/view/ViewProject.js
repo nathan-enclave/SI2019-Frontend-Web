@@ -10,7 +10,7 @@ import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
 import Preloader from '../../../../include/Preloader'
-class EditForm extends Component {
+class ViewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -247,7 +247,7 @@ class EditForm extends Component {
         </div>
         ) : <Preloader styleCustom={"unset"} />
         return (
-      <div className="portlet light bordered">
+      <div className="portlet light bordered ViewProject">
           <div className="portlet red box">
             <div className="portlet-title">
               <div className="caption">
@@ -258,4 +258,4 @@ class EditForm extends Component {
         </div>)
     }
   }
-export default EditForm;
+export default ViewProject;

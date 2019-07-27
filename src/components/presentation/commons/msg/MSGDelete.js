@@ -6,10 +6,10 @@ export default class MSGDelete extends Component {
     
     return (
       <div className="DeletePopUp">
-          <div class="modal-header">
-              <h4 class="modal-title">Message</h4>
+          <div className="modal-header">
+              <h4 className="modal-title">Message</h4>
           </div>
-          <div class="modal-body">{this.props.message}</div>
+          <div className="modal-body">{this.props.message}</div>
       </div>
     )
   }

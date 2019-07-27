@@ -132,7 +132,7 @@
     background-color: #bee5eb;
     padding : 10px
 }
-.table td, .table th{
+.ViewProject .table td, .table th{
     font-size: 17px;
     text-align: center;
     padding: 10px
