@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Modal from '../../../commons/modal/Modal';
 import TeamDetail from '../view/TeamDetail';
-import MSGDelete from '../../../commons/msg/MSGDelete';
 import DeletePopUp from '../../engineers/delete/DeletePopUp';
 import DelTeam from '../../../../container/team/DelTeam'
 import EditForm from '../../../pages/team/edit/EditTeam'
-import MSGSuccess from '../../../commons/msg/MSGSuccess'
 import {NavLink } from 'react-router-dom'
 
 class RowData extends Component {
@@ -85,17 +83,8 @@ class RowData extends Component {
         <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
           <TeamDetail name={this.props.name} id={this.props.id} />
         </Modal>
-
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMSGSuccess} />
-        </Modal>
-
-        <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} englishName={this.props.name} />
-        </Modal>
-
-        <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-          <MSGDelete message={this.state.msg} name={this.props.name} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
           <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.name} object="team" />

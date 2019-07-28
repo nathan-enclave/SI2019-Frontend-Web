@@ -6,7 +6,6 @@ import getTeamPag from '../../../../container/team/GetTeamPagination';
 import AddTeam from '../add/AddTeam';
 import Modal from '../../../commons/modal/Modal';
 import getTeam from '../../../../container/team/GetTeam';
-import MSGSuccess from '../../../commons/msg/MSGSuccess'
 
 class TableData extends Component {
   constructor(props) {
@@ -124,10 +123,10 @@ class TableData extends Component {
           <AddTeam reloadData={this.props.reload} onClose={this.toggleModal} onReload={this.reloadData}
             openMSGSuccess={this.toggleMSGSuccess} />
         </Modal>
-        <Modal show={this.state.isOpenMSGSuccess}
+        {/* <Modal show={this.state.isOpenMSGSuccess}
           onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
           <MSGSuccess message={"Add successfully new team."} />
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
