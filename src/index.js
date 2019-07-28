@@ -8,7 +8,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 initializeFirebase()
 serviceWorker.register();
 
-if(!localStorage.getItem('notification-token')){
-    askForPermissioToReceiveNotifications()
-}
+askForPermissioToReceiveNotifications()
 handleRealTimeMessage()

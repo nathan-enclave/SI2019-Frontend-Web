@@ -7,38 +7,9 @@ import Footer from './Footer';
 import {Redirect } from 'react-router'
 import Notification from "../include/Notification";
 import { SnackbarProvider } from 'notistack';
-// import firebase from 'firebase'
-// import { initializeFirebase} from "../../../service/firebase";
-// initializeFirebase();
-
-// const db = firebase.firestore();
-
 export default class App extends Component {
-    constructor(props){
-        super(props);
-        this.state= {
-            data: null
-        }
-    }
-    
-    componentDidUpdate(prevProps, prevState) {
-        console.log(prevState);
-        
-    }
-    // componentDidMount() {
-    //     const noti = this;
-    //     db.collection("activities").orderBy('time')
-    //         .onSnapshot((querySnapshot) => {
-    //             const lastActivity = querySnapshot.docs[querySnapshot.docs.length - 1].data()
-    //             noti.setState({
-    //                 data: lastActivity
-    //             })
-    //         });
-    // }
     render() {
-        console.log(this.state.data);
-        
-        if (!localStorage.getItem('userData')) {        
+        if (!localStorage.getItem('sessionToken')) {        
             return (
                 <div >
                     <Router>
@@ -55,7 +26,7 @@ export default class App extends Component {
                         <Router>
                             {/* <Header /> */}
                             <div className="container-fluid">
-                                <div className="page-content page-content-popup" style={{position: 'relative',boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'}}>      
+                                <div className="page-content page-content-popup">      
                                     <Header />
                                     <div className="page-content-fixed-header">
                                         <ul className="page-breadcrumb">

@@ -63,11 +63,18 @@ export default class LoginFunc extends Component {
                         error: true
                     })
                 } else {
-                    localStorage.setItem('userData', JSON.stringify({
-                        name: result.username,
-                        id: result.engineerId,
+                    localStorage.setItem('sessionToken', JSON.stringify({
                         token: result.token
                     }))
+                    localStorage.setItem('userData', JSON.stringify({
+                        username: result.username,
+                        id: result.engineerId,
+                        firstName: result.firstName,
+                        lastName: result.lastName,
+                        englishName: result.englishName,
+                        role: result.scope
+                    }))
+
                     this.setState({
                         redirect: true
                     })
@@ -88,7 +95,7 @@ export default class LoginFunc extends Component {
         if (this.state.redirect) {
             return (<div>{this.redirect()} </div>)
         }
-        if (localStorage.getItem('userData')) {
+        if (localStorage.getItem('sessionToken')) {
             return (<div>{this.redirect()} </div>)
         }
         const loader = this.state.loginLoader ? <LoginLoader /> : null
