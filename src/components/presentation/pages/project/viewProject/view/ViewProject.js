@@ -10,6 +10,7 @@ import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
 import Preloader from '../../../../include/Preloader'
+import Timeline from './Timeline';
 class ViewProject extends Component {
   constructor(props) {
     super(props);
@@ -76,8 +77,6 @@ class ViewProject extends Component {
             show: true,
             style: {
               fontSize: "15px",
-              // fontFamily: "Chalkduster, fantasy",
-              // fontWeight: "20px",
               color: "#0c5460"
             }
           }
@@ -88,8 +87,6 @@ class ViewProject extends Component {
           floating: true,
           style:{
             fontSize: "20px",
-              // fontFamily: "Chalkduster, fantasy",
-              // fontWeight: "20px",
               color: "#0c5460"
           }
         },
@@ -116,7 +113,9 @@ class ViewProject extends Component {
       team: res.team ? res.team.name : "Do not have team",
       teamId: res.team ? res.team.id : null,
       category: res.category.name,
-      data: 0
+      data: 0,
+      timelineStart :moment(res.start).format('MM/DD/YYYY'),
+      timelineEnd : moment(res.end).format('MM/DD/YYYY'),
     });
     if (res.team !== null) {
       const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
@@ -160,6 +159,11 @@ class ViewProject extends Component {
     })
   }
   render() {
+    let timeline = (this.state.status === "inProgress")?( <div className="row">
+    <div className="col-lg-12 col-xs-12 col-sm-12">
+<Timeline  start = {this.state.timelineStart} end = {this.state.timelineEnd} startFor = {this.state.start} endFor ={this.state.end}/>
+</div>
+</div>) : null
     let root = document.documentElement;
     if (this.state.status === "done") {
       root.style.setProperty('--bg', "#b5cefd7d")
@@ -217,6 +221,7 @@ class ViewProject extends Component {
           <div className="caption">
             {this.state.name}   </div>
         </div>
+       {timeline}
         <div className="portlet-body">
           <div className="row">
             <div className="col-lg-6 col-xs-12 col-sm-12">
@@ -329,6 +334,7 @@ class ViewProject extends Component {
                                 </tr>
                               </tbody>
                             </table>
+                          
                           </div>
                         </div>
                       </div>

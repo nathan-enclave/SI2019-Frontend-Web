@@ -14,7 +14,7 @@ class TableData extends Component {
             data: [],
             itemsCountPerPage: 10,
             totalItemsCount: 0,
-            pageRangeDisplayed: 1000,
+            pageRangeDisplayed: 5,
             activePage: 1,
             isOpen: false,
             loading: true
@@ -112,7 +112,7 @@ class TableData extends Component {
                                 <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                     <ClipLoader
                                         sizeUnit={"px"}
-                                        size={150}
+                                        size={70}
                                         color={'#7ed6df'}
                                         loading={this.state.loading}/>
                                 </div>
