@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 class ProjectStatus extends Component {
     constructor(props) {
         super(props)
+        this.state={
+            
+        }
     }
     render() {
         let color = null

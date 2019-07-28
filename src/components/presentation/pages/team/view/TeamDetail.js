@@ -8,7 +8,7 @@ class TeamDetail extends Component {
     this.state = {
       data: {
         projectName: "",
-        teamName: "",
+        name: "",
         engineers: [],
         createdAt: null
       }
@@ -38,7 +38,7 @@ class TeamDetail extends Component {
             <div className="portlet-title tabbable-line">
               <div className="caption caption-md">
                 <i className="icon-globe theme-font hide" />
-                <span className="caption-subject font-blue-madison bold uppercase">{this.state.data.teamName}</span>
+                <span className="caption-subject font-blue-madison bold uppercase">{this.state.data.name}</span>
               </div>
             </div>
             <div className="portlet-body">
@@ -64,7 +64,7 @@ class TeamDetail extends Component {
                     <div className="col-md-6">
                       <div className="form-group">
                         <label className="control-label" style={{ fontWeight: 'bold' }}>Name</label>
-                        <input type="text" value={this.state.data.teamName} className="form-control" disabled /> </div>
+                        <input type="text" value={this.state.data.name} className="form-control" disabled /> </div>
                       <div className="form-group">
                         <label className="control-label" style={{ fontWeight: 'bold' }}>Project's name</label>
                         <input type="text" value={this.state.data.projectName} className="form-control" disabled /> </div>

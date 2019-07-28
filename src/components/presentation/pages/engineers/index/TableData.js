@@ -3,41 +3,50 @@ import RowData from './RowData';
 import Pagination from "react-js-pagination";
 import Modal from '../../../commons/modal/Modal';
 import AddForm from '../../engineers/add/AddForm';
-import MSGSuccess from './../../../commons/msg/MSGSuccess';
 import {ClipLoader} from 'react-spinners';
 import EngineerContainer from "../../../../container/engineer";
+import Message from '../../../commons/msg/Message';
+import './style.css'
 class TableData extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpenMSGSuccess: false,
+            isOpenMessage: false,
             data: [],
             itemsCountPerPage: 10,
             totalItemsCount: 0,
             pageRangeDisplayed: 5,
-            activePage: 0,
+            activePage: 1,
             isOpen: false,
             loading: true
         }
     }
-    toggleMSGSuccess = () => {
+    toggleMessage = () => {
         this.setState({
-            isOpenMSGSuccess: !this.state.isOpenMSGSuccess
+            isOpenMessage: !this.state.isOpenMessage
         })
         this.reloadData()
     }
     handlePageChange = async(pageNumber) => {
         await this.setState({
-            activePage: pageNumber - 1,
+            activePage: pageNumber,
             loading: true
         })
         this.componentWillMount();
     }
-    async componentWillMount() {
-        let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
-        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+    async componentWillMount() {       
+        let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
+        const dataPagination =  await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+        this.setState({totalItemsCount: dataPagination.total})
+        // let totalPage = dataPagination.total/this.state.itemsCountPerPage
+        // console.log(totalPage)
+        console.log("length " +dataPagination.results.length + "page " + this.state.activePage)
+        if(this.state.activePage > 0 && dataPagination.results.length === 0) {
+           await this.setState({activePage : this.state.activePage-1})
+            this.componentWillMount()
+        }
+        else{
         await this.setState({totalItemsCount: dataPagination.total})
-
         let dataRender = dataPagination
             .results
             .map((value, key) => (<RowData
@@ -56,11 +65,12 @@ class TableData extends Component {
                 update={value.updatedAt}
                 dayOffRemain={value.dayOffRemain}
                 reloadData=
-                {() =>{this.reload()}}/>))
-
+                {() =>{this.reload()}}/>)
+                )
         setTimeout(() => {
             this.setState({data: dataRender, loading: false})
         }, 250)
+    }
 
     }
     toggleModal = () => {
@@ -91,24 +101,9 @@ class TableData extends Component {
                         <div>
                             <button
                                 onClick={this.toggleModal}
-                                className="btn btn-outline btn-circle green btn-sm green ">
-                                <i className="fa fa-edit"></i>
+                                className="btn btn-outline green btn-sm green ">
                                 Add
                             </button>
-                        </div>
-                        <div className="search-form">
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search here"
-                                    name="query"/>
-                                <span className="input-group-btn">
-                                    <a href="/" className="btn md-skip submit green">
-                                        <i className="fa fa-search"/>
-                                    </a>
-                                </span>
-                            </div>
                         </div>
                     </div>
                     <br/>
@@ -118,7 +113,7 @@ class TableData extends Component {
                                 <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                     <ClipLoader
                                         sizeUnit={"px"}
-                                        size={150}
+                                        size={70}
                                         color={'#7ed6df'}
                                         loading={this.state.loading}/>
                                 </div>
@@ -171,7 +166,7 @@ class TableData extends Component {
                                         textAlign: "center"
                                     }}>
                                         <Pagination
-                                            activePage={this.state.activePage + 1}
+                                            activePage={this.state.activePage}
                                             itemsCountPerPage={this.state.itemsCountPerPage}
                                             totalItemsCount={this.state.totalItemsCount}
                                             pageRangeDisplayed={this.state.pageRangeDisplayed}
@@ -187,13 +182,13 @@ class TableData extends Component {
                             reloadData={this.props.reload}
                             onClose={this.toggleModal}
                             onReload={this.reloadData}
-                            openMSGSuccess={this.toggleMSGSuccess}/>
+                            openMessage={this.toggleMessage}/>
                     </Modal>
                     <Modal
-                        show={this.state.isOpenMSGSuccess}
-                        onClose={this.toggleMSGSuccess}
+                        show={this.state.isOpenMessage}
+                        onClose={this.toggleMessage}
                         deleteStyleModel={true}>
-                        <MSGSuccess message={"Add successfully new engineer."}/>
+                        <Message message={"Add successfully new engineer."}/>
                     </Modal>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getData from '../../../../container/project/GetDetailProject';
-import getTotal from './../../../../container/categories/GetListCategories';
+// import getTotal from './../../../../container/categories/GetListCategories';
 import DatePicker from "react-datepicker";
 import CheckButton from 'react-validation/build/button';
 import { isEmpty } from 'validator';
@@ -32,8 +32,7 @@ class EditForm extends Component {
     };
   }
   async componentDidMount() {
-    let res0 = await getTotal();
-    this.setState({ options: res0 })
+    // let res0 = await getTotal();
     const res = await getData(this.props.id);
     this.setState({
       id: String(res.id),
@@ -97,6 +96,7 @@ class EditForm extends Component {
     console.log(this.state.data)
     EditProject(this.state.data, this.props.id).then((result) => {
       if (!result.statusCode) {
+        this.props.changeMSG("Edit successful.")
         this.props.onClose();
         this.props.onOpenMSG();
       } else {
@@ -114,6 +114,7 @@ class EditForm extends Component {
     }
   }
   render() {
+    console.log(this.state.options)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">

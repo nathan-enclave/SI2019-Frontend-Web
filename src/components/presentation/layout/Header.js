@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {NavLink} from 'react-router-dom';
+import './layout.css'
 class Header extends Component {
     logout = (event) => {
         localStorage.clear();

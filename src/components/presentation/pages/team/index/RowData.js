@@ -6,7 +6,7 @@ import DeletePopUp from '../../engineers/delete/DeletePopUp';
 import DelTeam from '../../../../container/team/DelTeam'
 import EditForm from '../../../pages/team/edit/EditTeam'
 import MSGSuccess from '../../../commons/msg/MSGSuccess'
-import { Link } from "react-router-dom";
+import {NavLink } from 'react-router-dom'
 
 class RowData extends Component {
   constructor(props) {
@@ -63,9 +63,12 @@ class RowData extends Component {
     return (
       <tr>
         <td className="highlight">
-          <Link onClick={ () => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.teamName}
-          </Link>
+          <NavLink to={`/team/${this.props.id}`} className=" margin-bottom-5 margin-top-5">
+            {this.props.name}
+          </NavLink>
+          {/* <NavLink onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
+            {this.props.name}
+          </NavLink> */}
         </td>
         <td className="hidden-xs">{this.props.totalMember} </td>
         <td className="hidden-xs">{this.props.projectName} </td>
@@ -80,7 +83,7 @@ class RowData extends Component {
           </div>
         </td>
         <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-          <TeamDetail teamName={this.props.teamName} id={this.props.id} />
+          <TeamDetail name={this.props.name} id={this.props.id} />
         </Modal>
 
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
@@ -88,14 +91,14 @@ class RowData extends Component {
         </Modal>
 
         <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-          <MSGSuccess id={this.props.id} englishName={this.props.teamName} />
+          <MSGSuccess id={this.props.id} englishName={this.props.name} />
         </Modal>
 
         <Modal show={this.state.isOpenMSGDelete} onClose={this.toggleModalMSGDelete} deleteStyleModel={true} >
-          <MSGDelete message={this.state.msg} name={this.props.teamName} />
+          <MSGDelete message={this.state.msg} name={this.props.name} />
         </Modal>
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
-          <DeletePopUp  confirm = {(redirect) =>{this.removeItem(redirect)}} onClose = {this.toggleModalDelete} name ={this.props.teamName} object = "team"/>  
+          <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} name={this.props.name} object="team" />
         </Modal>
       </tr>
     );

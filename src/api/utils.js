@@ -68,6 +68,7 @@ function requestWrapper(method) {
     const request = async(url, data = null, params = {}) => {
         
         let convertUrl = process.env.REACT_APP_SERVER_URL + url;
+        
         let convertParams = params;
         let convertData = data;
         if (method === 'GET') {

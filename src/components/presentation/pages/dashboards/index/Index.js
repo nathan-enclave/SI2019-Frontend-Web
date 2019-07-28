@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Stats from './Stats';
 import getTotal from '../../../../container/dashboard/GetTotal';
-import Action from './Action';
+import Action from './Action/ActionList';
 import {ClipLoader} from 'react-spinners';
 
 class Index extends Component {

@@ -8,11 +8,8 @@ for (let index = 0; index <= 30; index++) {
     } else {
         yearsOfExp.push({value: index, label: `${index} years`})
     }
-
 }
-
 export default class SkillOption extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -24,7 +21,6 @@ export default class SkillOption extends Component {
             expYear: yearsOfExp
         }
     }
-
     handleSkillChange = async (selectOption) => {
         this.setState({error: null})
         await this.setState({skillSelected: selectOption.value})
@@ -49,11 +45,8 @@ export default class SkillOption extends Component {
                 expYear: this.state.expYearSelected
             },
             index:this.props.keyIndex
-        });
-    
-    }
-   
-
+        });    
+    }   
     handleRemoveItem = (e) => {
         e.target.parentNode.parentNode.parentNode.remove()
         this
@@ -76,7 +69,6 @@ export default class SkillOption extends Component {
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-
                     <div className="col-md-6">
                         <div className="form-group">
                             <div className="form-check">

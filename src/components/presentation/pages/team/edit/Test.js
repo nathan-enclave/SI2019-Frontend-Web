@@ -120,6 +120,8 @@ class EditForm extends Component {
         await this.setState({
             saveLoading: true
         })
+        console.log(this.state.avatar);
+        
         if (this.state.avatar !== this.state.oldAvatar) {
             const avatar = await handleUpload(this.state.avatar)
             this.setState({
@@ -135,7 +137,6 @@ class EditForm extends Component {
             .update(this.props.id, this.state.data)
             .then(result => {
                 if (!result.statusCode) {
-                    this.props.changeMSG("Edit successful.")
                     this.setState({error: "", saveLoading: false})
                     this
                         .props
@@ -180,6 +181,8 @@ class EditForm extends Component {
         })
     }
     render() {
+        console.log(this.state.saveLoading);
+        
         return (
             <div className="portlet light bordered EditForm">
                 <div className="portlet-title tabbable-line">
@@ -195,7 +198,7 @@ class EditForm extends Component {
                             <div className='sweet-loading d-flex justify-center'>
                                 <ClipLoader
                                     sizeUnit={"px"}
-                                    size={70}
+                                    size={150}
                                     color={'#7ed6df'}
                                     loading={this.state.loading}/>
                             </div>
@@ -348,7 +351,7 @@ class EditForm extends Component {
                                                 <div className='sweet-loading d-flex justify-center margin-top-md'>
                                                     <ClipLoader
                                                         sizeUnit={"px"}
-                                                        size={30}
+                                                        size={20}
                                                         color={'#123abc'}
                                                         loading={this.state.saveLoading}/>
                                                 </div>

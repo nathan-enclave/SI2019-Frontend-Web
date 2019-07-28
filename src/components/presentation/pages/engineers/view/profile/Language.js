@@ -9,7 +9,7 @@ export default class Language extends Component {
             options: {
                 plotOptions: {
                     bar: {
-                        // barHeight: '36px',
+                        // barHeight: '200px',
                         distributed: true,
                         horizontal: true,
                         dataLabels: {
@@ -21,8 +21,7 @@ export default class Language extends Component {
                     toolbar: {
                         show: false
                     }
-                },
-                
+                },                
                 colors: [
                     '#33b2df',
                     '#546E7A',
@@ -61,8 +60,7 @@ export default class Language extends Component {
                     labels: {
                         show: false
                     }
-                },
-               
+                },               
                 tooltip: {
                     theme: 'dark',
                     x: {
@@ -85,23 +83,22 @@ export default class Language extends Component {
             ]
         }
     }
+    
     render() {
+        let heightValue = (this.props.data.length*50 + 100) + "px"
         return (
-            <div className="portlet">
-                
-                {/* chart here */}
+            <div className="portlet">                
                 <div>
                     <Chart
                         options={this.state.options}
                         series={this.state.series}
                         type="bar"
                         width="100%"
+                        height = {heightValue}
                         />
                 </div>
                 <div className="portlet text-center" >
-                    {/* <div className="caption"> */}
                         <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Programming languages</span>
-                    {/* </div> */}
                 </div>
             </div>
         );

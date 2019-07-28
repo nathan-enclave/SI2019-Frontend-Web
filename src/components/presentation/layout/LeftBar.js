@@ -89,19 +89,6 @@ class LeftBar extends Component {
 
                             </NavLink>
                         </li>
-                        <li className="nav-item start">
-                            <NavLink
-                                to="/user"
-                                activeStyle={{
-                                backgroundColor: '#B9ECF0'
-                            }}>
-                                <i className="icon-list"/>
-                                <span className="title bold">
-                                    User
-                                </span>
-                                <span className="selected"/>
-                            </NavLink>
-                        </li>
                     </ul>
                 </div>
             </div>

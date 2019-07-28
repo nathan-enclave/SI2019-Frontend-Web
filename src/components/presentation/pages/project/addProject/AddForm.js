@@ -46,10 +46,9 @@ class AddForm extends Component {
             end: this.state.end,
             categoryId: Number(this.state.categoryId)
         }
-        console.log(data)
         AddProject(data).then((result) => {
             if (!result.statusCode) {
-                this.props.openMSGSuccess()
+                this.props.openMessage()
             } else {
                 if (result.statusCode !== 200) {
                     this.setState({ msg: 'Some error occured, please try again later ' });

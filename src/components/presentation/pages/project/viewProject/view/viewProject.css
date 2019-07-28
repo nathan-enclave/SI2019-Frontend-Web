@@ -1,70 +1,20 @@
-.portlet-body1 .item-name {
-    color: #721c24;
-    font-size : 20px;
-    font-family: Arial
-}
-.portlet-body1 .item{
-    font-size: 17px;
-    color: #3d3d3d;
-    font-weight: 600
-}
-.portlet-body1{
-    background-color: #f8d7da;
+/* :root{
+    --bg : #abd1f7
+} */
+.portlet-body-custom-color{
+    background-color:var(--bg);
     border-radius: 5px;
-    border : 1px solid  #f5c6cb;
+    border : 1px solid var(--border);
     padding: 17px
 }
-.portlet-body2{
-    background-color: #D4EDDA;
-    border-radius: 5px;
-    border : 1px solid  #c3e6cb;
-    padding: 17px
-}
-.portlet-body2 .item-name{
-    margin-bottom: 5px;
-    margin-top: 5px;
-    color: #155724;
-    font-size : 20px;
-    font-family: Arial;
-    font-weight: 600
-}
-.portlet-body2 .item-last{
-    margin-bottom: 5px;
-    color: #155724;
-    font-size : 20px;
-    font-family: Arial;
-    border-bottom: 0;
-    font-weight: 600
-}
-.portlet-body2 .item-block{
-    color: #155724;
-    font-size : 20px;
-    font-family: Arial;
-    border-bottom: 1px solid #FFFFFF;
-    font-weight: 600
-}
-.portlet-body2 .mt-comment-text{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #3d3d3d;
-    font-size: 17px;
-    font-weight: 600
-}
-
-.portlet-body3{
-    background-color: #d1ecf1;
-    border-radius: 5px;
-    border : 1px solid  #bee5eb;
-    padding: 17px
-}
-.portlet-body3 .item-name{
+ .item-name{
     margin-bottom: 5px;
     color: #0c5460;
     font-size : 20px;
     font-family: Arial;
     font-weight: 600
 }
-.portlet-body3 .item-last{
+.item-last{
     margin-bottom: 5px;
     color: #155724;
     font-size : 20px;
@@ -72,27 +22,20 @@
     font-weight: 600;
     border-bottom: 0
 }
-.portlet-body3 .item-block{
+.item-block{
     color: #155724;
     font-size : 20px;
     font-family: Arial;
     border-bottom: 1px solid #FFFFFF;
     font-weight: 600
 }
-.portlet-body3 .mt-comment-text{
+.mt-comment-text{
     margin-top: 5px;
     margin-bottom: 5px;
     color: #3d3d3d;
     font-weight: 600;
     font-size: 17px;
     font-weight: 600
-}
-.portlet-body4 {
-    background-color: #fff3cd;
-    border-radius: 5px;
-    border : 1px solid #ffeeba;
-    padding: 5px;
-    padding-left: 10px
 }
 .mt-actions .mt-action{
     border-bottom: 1px solid white !important;
@@ -122,18 +65,26 @@
     transition: all 200ms ease-in;
     transform: scale(1.1);  
 }
-.portlet.box.red > .portlet-title{
-    background-color: #32c5d2
+.portlet.box.custom.color > .portlet-title{
+    background-color: var(--boxColor);
 }
-.portlet.box.red {
-    border: 1px solid #32c5d2;
+.portlet.box.custom.color {
+    border: 1px solid var(--boxColor);
+}
+.table-scrollable-custom{
+    border-radius: 5px;
+    /* border: 1px solid var(--border) */
+}
+.table-scrollable-custom> .table-bordered > thead > tr:last-child > th{
+    background-color: var(--bg);
+    padding : 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color : #0c5460
 }
 .table-scrollable > .table-bordered > thead > tr:last-child > th{
-    background-color: #bee5eb;
-    padding : 10px
-}
-.ViewProject .table td, .table th{
     font-size: 17px;
+    font-weight: 600;
     text-align: center;
     padding: 10px
 }
