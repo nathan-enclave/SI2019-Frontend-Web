@@ -184,6 +184,17 @@
 .space-between {
     justify-content: space-between;
 }
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.align-self-center {
+    align-self: center;
+}
 /* custom style */
 
 .middle-loading-custom {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ActionRow from "./ActionRow";
-import './styleActionRow.css'
+import './ActionRow.css'
 import firebase from 'firebase'
 import {initializeFirebase} from "../../../../../../service/firebase"
 import { ClipLoader } from "react-spinners";
