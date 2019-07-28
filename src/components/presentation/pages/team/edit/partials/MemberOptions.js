@@ -9,7 +9,7 @@ export default class MemberOption extends Component {
         super(props)
         this.state = {
             listMembers: [],
-            memberSelected: this.props.data? this.props.data.member:null ,
+            memberSelected: this.props.data? this.props.data.engineers:null ,
             roleSelected: this.props.data ? this.props.data.role: {value: "member", label: 'MEMBER'} ,
             error: "",
             checkValidate: false,
@@ -98,8 +98,12 @@ export default class MemberOption extends Component {
                                             label : "MEMBER",
                                         },
                                         {
+                                            value:"QA",
+                                            label : "QA"
+                                        },
+                                        {
                                             value:"leader",
-                                            label : "LEADER"
+                                            label : "LEADER",
                                         }
                                     ]}
                                     onChange={this.handleRoleChange}/>

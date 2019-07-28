@@ -6,39 +6,35 @@ import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
 import getData from '../../../../container/team/GetTeamDetail';
 import GetTotal from './API/GetDetailProject'
-import Skills from "./partials/Member";
-import {ClipLoader} from 'react-spinners';
-import {handleUpload} from "../../../../../service/upload/fileUploader";
-import ImageUploader from "../../../commons/input/ImageUploader";
-import Members from './partials/Member';
-
+// import Skills from "./partials/Member";
+// import {ClipLoader} from 'react-spinners';
+import Member from './partials/Member';
 class EditForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      memberOptions: [],
+      // memberOptions: [],
       memberSelectOptions: [],
-      member: [],
-      leaderOptions: [],
-      leaderSelected: [],
-      leader: null,
-      isOpenMSGSuccess: false,
+      // member: [],
+      // leaderOptions: [],
+      // leaderSelected: [],
+      // leader: null,
+      // isOpenMSGSuccess: false,
       options: [],
       selectOptions: [],
       project:[],
       data:[],
-      engineers : [],
+      // engineers : [],
+      listEng : [],
       error: "",
       loading: true,
-      saveLoading: false,
+      saveLoading: false
     };
   }
   async componentWillMount() {   
     let res0 = await getTotal();      
     this.setState({ memberOptions: res0 })
-    const res = await getData(this.props.id);
-    let res1 = await GetTotal();
-    console.log(res1)
+    let res1 = await GetTotal();   
     let listProject = res1.results
     console.log(listProject)
     listProject.forEach(e => {
@@ -47,41 +43,31 @@ class EditForm extends Component {
       delete e.id;
       delete e.name
   })
-
+  this.setState({ options: listProject })
+  const res = await getData(this.props.id);  
+  console.log(res)   
   setTimeout(() => {
       this.setState({
-        engineers: res
+        id: String(res.id),
+        name: res.name,
+        projectName: res.projectName,
+        listEng: res
         .engineers
         .map(e => {
             return {
                 member: {
-                    value: e.id,
-                    label: e.firstName + " " + e.lastName
+                    value: e.value,
+                    label: e.label
                 },
                 role: {
                     value: e.role,
-                    label: e.role = "member"
-                    
+                    label: e.role                    
                 }
             }
         }),
     loading: false
       })
-  }, 1000);
-    this.setState({ options: listProject })
-    this.setState({
-      id: String(res.id),
-      name: res.name,
-      projectName: res.projectName,
-      engineers: res.engineers.id    
-    });
-    res.engineers.forEach(e => {
-      e.value = e.id;
-      e.label = e.firstName + " "+ e.lastName;
-      delete e.id;
-      delete e.firstName
-  }) 
-  this.setState({memberSelectOptions :res.engineers })
+  }, 1000);      
   this.setState({ selectOptions: [{value : res.projects.id,label : res.projects.name}] })
   }
   isChange = (event) => {
@@ -107,19 +93,18 @@ class EditForm extends Component {
       this.setState({
         data:{
           ...this.state.data,
-          engineers : temp
+          listEng : temp
       }
       })
     }
   }
 
   getData = async(items) => {
-
     await this.setState({
-        engineers: items.map(e => e.data),
+      listEng: items.map(e => e.data),
         data: {
             ...this.state.data,
-            engineers: items.map(e => e.data)
+            listEng: items.map(e => e.data)
         }
     })
 }
@@ -153,6 +138,7 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   render() {
+    console.log(this.state.listEng)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
@@ -171,33 +157,17 @@ class EditForm extends Component {
                     <div className="form-group">
                       <label className="control-label">Team Name</label>
                       <Input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
-                      <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Engineers:  </label>
-                          <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
-                      </div>
-                    </div>
                     <div className="form-group">
                       <div className="form-check">
                         <label className="form-check-label"> Project:  </label>
                         <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProjects} />
                       </div>
                     </div>  
-                    {/* <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Role:  </label>
-                        <select className="form-control" value={this.state.status} onChange={(event) => this.isChange(event)} name="status" >
-                        <option value="leader">LEADER</option>
-                        <option value="member">MEMBER</option>
-                      </select>
-                      </div>
-                    </div>  */}
-                    <Members
-                        memberSelected={this.state.engineers}
+                    <Member
+                        memberSelected ={this.state.listEng}
                         options={this.state.memberOptions}
-                        getData={this
-                        .getData
-                        .bind(this)}/> 
+                        getData={this.getData.bind(this)}                        
+                        /> 
                   </div>
                 </div>
               </Form>

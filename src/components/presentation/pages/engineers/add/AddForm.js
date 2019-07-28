@@ -123,7 +123,6 @@ class AddForm extends Component {
         const res = await getTotalSkills();
         this.setState({options: res});
     }
-
     getData = async(items) => {
         await this.setState({
             skills: items.map(e => e.data)

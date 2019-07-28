@@ -172,7 +172,6 @@ class EditForm extends Component {
     }
 
     getData = async(items) => {
-
         await this.setState({
             skills: items.map(e => e.data),
             data: {
@@ -182,7 +181,7 @@ class EditForm extends Component {
         })
     }
     render() {
-        console.log(this.state.saveLoading);
+        console.log(this.state.skills);
         
         return (
             <div className="portlet light bordered EditForm">

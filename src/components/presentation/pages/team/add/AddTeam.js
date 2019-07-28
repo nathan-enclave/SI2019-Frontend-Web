@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import addTeam from '../../../../container/team/AddTeamMethod';
+import Member from './partials/Member'
 
 class AddTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
       memberOptions: [],
-      memberSelectOptions: [],
-      member: [],
+      // memberSelectOptions: [],
+      // member: [],
       leaderOptions: [],
       leaderSelected: [],
       leader: null,
       projectOptions: [],
       projectSelected: null,
-      isOpenMSGSuccess: false
+      isOpenMSGSuccess: false,
+      engineers : {}
     }
   }
   handleChangeMember = (memberSelectOptions) => {
@@ -59,15 +61,10 @@ class AddTeam extends Component {
   }
 
   addTeam = () => {
-    let temp = this.state.member
-    if (this.state.leader !== null) {
-      temp.push({ id: this.state.leader, role: "leader" })
-    }
-    console.log(temp)
     const data = {
       name: this.state.name,
       projectId: this.state.projectId,
-      engineers: temp
+      engineers: this.state.engineers
     }
     console.log(data)
     addTeam(data).then((result) => {
@@ -80,6 +77,11 @@ class AddTeam extends Component {
       }
     })
   }
+  getData = async(items) => {
+    await this.setState({
+        engineers: items.map(e => e.data)
+    })
+}
 
   render() {
     return (
@@ -104,14 +106,18 @@ class AddTeam extends Component {
                         <label className="form-check-label"> Project:  </label>
                         <Select value={this.state.projectSelected} options={this.state.projectOptions} onChange={this.handleChangeProject} />
                       </div>
-                      <div className="form-group">
+                      {/* <div className="form-group">
                         <label className="form-check-label"> Leader:  </label>
                         <Select value={this.state.leaderSelected} options={this.state.leaderOptions} onChange={this.handleChangeLeader} />
                       </div>
                       <div className="form-group">
                         <label className="form-check-label"> Member:  </label>
                         <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
-                      </div>
+                      </div> */}
+                      <Member
+                       options = {this.state.memberOptions}
+                       getData={this.getData.bind(this)}
+                       />
                       <div className="margiv-top-10">
                         <button onClick={this.addTeam} className="btn green"> SUBMIT </button>
                       </div>

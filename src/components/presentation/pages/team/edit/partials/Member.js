@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import MemberOption from "./MemberOptions";
 import { ClipLoader } from 'react-spinners';
 
-export default class Members extends Component {
+export default class Member extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -44,6 +44,7 @@ export default class Members extends Component {
     }
 
     async componentWillMount() {
+       
         await this.setState({listMembers: this.props.memberSelected.map((e, idx)=>{
             return {
                 data: {
@@ -56,6 +57,9 @@ export default class Members extends Component {
         }), numMembers: this.props.memberSelected.length})
     }
     render() {
+        console.log("selected" + this.props.memberSelected )
+
+        console.log(this.props.memberSelected.length)
         const dataRender = []
         for (let i = 0; i < this.state.numMembers; i += 1) {
             dataRender.push(<MemberOption
@@ -68,8 +72,7 @@ export default class Members extends Component {
                 .bind(this)}/>)
         };
         
-        return (
-        
+        return (        
             <div className="Skills">
                 {this.state.loading ? 
                 (<div className='sweet-loading d-flex justify-center'>
@@ -90,7 +93,7 @@ export default class Members extends Component {
                             textAlign: 'center'
                         }}>
                             <button className="btn yellow" onClick={(event) => this.handleAddMore(event)}>
-                                Add more skills
+                                Add more member
                             </button>
                         </div>
                     </div>

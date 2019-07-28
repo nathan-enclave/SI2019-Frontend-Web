@@ -67,6 +67,7 @@ export default class Skills extends Component {
                 .handleExpand
                 .bind(this)}/>)
         };
+      
         
         return (
         
