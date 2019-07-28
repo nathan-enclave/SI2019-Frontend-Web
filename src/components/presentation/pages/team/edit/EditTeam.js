@@ -5,7 +5,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
 import getData from '../../../../container/team/GetTeamDetail';
-import GetTotal from './API/GetTeamDetail'
+import GetTotal from './API/GetDetailProject'
 import Skills from "./partials/Member";
 import {ClipLoader} from 'react-spinners';
 import {handleUpload} from "../../../../../service/upload/fileUploader";
