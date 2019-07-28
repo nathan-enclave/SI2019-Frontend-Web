@@ -137,6 +137,7 @@ class EditForm extends Component {
             .update(this.props.id, this.state.data)
             .then(result => {
                 if (!result.statusCode) {
+                    this.props.changeMSG("Edit successful.")
                     this.setState({error: "", saveLoading: false})
                     this
                         .props
@@ -198,7 +199,7 @@ class EditForm extends Component {
                             <div className='sweet-loading d-flex justify-center'>
                                 <ClipLoader
                                     sizeUnit={"px"}
-                                    size={150}
+                                    size={70}
                                     color={'#7ed6df'}
                                     loading={this.state.loading}/>
                             </div>
@@ -351,7 +352,7 @@ class EditForm extends Component {
                                                 <div className='sweet-loading d-flex justify-center margin-top-md'>
                                                     <ClipLoader
                                                         sizeUnit={"px"}
-                                                        size={20}
+                                                        size={30}
                                                         color={'#123abc'}
                                                         loading={this.state.saveLoading}/>
                                                 </div>

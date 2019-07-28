@@ -5,10 +5,11 @@ import Modal from './../../../../presentation/commons/modal/Modal';
 import EditForm from './../../engineers/edit/EditForm';
 import DeletePopUp from './../../engineers/delete/DeletePopUp';
 // import DelEngineer from "./../../../../container/engineer/DelEngineer";
-import MSGDelete from '../../../commons/msg/MSGDelete';
-import MSGSuccess from '../../../commons/msg/MSGSuccess';
+// import MSGDelete from '../../../commons/msg/MSGDelete';
+// import MSGSuccess from '../../../commons/msg/MSGSuccess';
 // import { thisTypeAnnotation } from '@babel/types';
 import EngineerContainer from "../../../../container/engineer";
+import Message from '../../../commons/msg/Message';
 
 export default class RowData extends Component {
     constructor(props) {
@@ -16,21 +17,15 @@ export default class RowData extends Component {
         this.state = { 
             isOpenView: false,
             isOpenEdit : false, 
-            isOpenDelete: false,
-            isOpenMSGDelete: false,
-            isOpenMSGSuccess : false      
+            isOpenDelete: false,           
+            isOpenMessage : false      
         };
     }
-    toggleMSGSuccess = ()=>{
+    toggleMessage = ()=>{
         this.setState({
-            isOpenMSGSuccess : !this.state.isOpenMSGSuccess
+            isOpenMessage : !this.state.isOpenMessage
         })
         this.props.reloadData();
-    }
-    toggleModalMSGDelete = ()=>{
-        this.setState({
-            isOpenMSGDelete: !this.state.isOpenMSGDelete
-        })
     }
     toggleModalView = () => {
         this.setState({
@@ -49,19 +44,19 @@ export default class RowData extends Component {
     }    
     removeItem = ()=>{
         EngineerContainer.delete(this.props.id).then((result) => {
-            if (!result.statusCode) {
-                this.props.reloadData()  
+            if (!result.statusCode) { 
                 this.setState({isOpenDelete: !this.state.isOpenDelete}) 
                 this.setState({msg: "Delete successfully." })
-                this.toggleModalMSGDelete();
-                console.log(this.state.isOpenMSGDelete);
-                
-
+                this.setState({isOpenMessage: true});  
             } else {
                 this.setState({msg: "Something wrong, please try again later." })
             }
         })
     }
+    handleReload =()=> {
+        this.toggleMessage()
+        this.props.reloadData()
+      }
     render() {
         return (
             <tr className="RowData">
@@ -96,18 +91,9 @@ export default class RowData extends Component {
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
                         <ViewForm id = {this.props.id}/>
                     </Modal>
-
-                    {/* Model for editing */}
                     <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
-                        <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMSGSuccess}/>
-                    </Modal>
-                    <Modal show={this.state.isOpenMSGSuccess} onClose={this.toggleMSGSuccess} deleteStyleModel={true}>
-                        <MSGSuccess  id = {this.props.id} englishName={this.props.englishName}  message = {"Update successfully."} />
-                    </Modal> 
-                    {/* Model for editing */}
-
-                    {/* Model for deleting */}
-                
+                        <EditForm  id = {this.props.id} englishName={this.props.englishName} onClose={this.toggleModalEdit} onOpenMSG = {this.toggleMessage} changeMSG = {(msg)=>{this.setState({msg : msg})}}/>
+                    </Modal>                
                     <Modal  show={this.state.isOpenDelete} 
                             onClose={this.toggleModalDelete} 
                             deleteStyleModel={true}  >
@@ -117,12 +103,9 @@ export default class RowData extends Component {
                                     name ={this.props.englishName} 
                                     object="engineer"/>  
                     </Modal>
-                    <Modal  show={this.state.isOpenMSGDelete} 
-                            onClose={this.toggleModalMSGDelete} 
-                            deleteStyleModel={true} >
-                            <MSGDelete message = {this.state.msg} />
-                    </Modal>
-                    {/* Model for deleting */}
+                    <Modal show={this.state.isOpenMessage} onClose={()=>this.handleReload()} deleteStyleModel={true} >
+                    <Message message={this.state.msg} />
+            </Modal>
                 </td>
             </tr>
         

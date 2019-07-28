@@ -15,16 +15,13 @@ export default class Skills extends Component {
     }
     async handleExpand(status) {
         const currentSkills = this.state.listSkills
-        console.log(currentSkills);
-        
-        const index = currentSkills.findIndex(e=>e.index === status.index)
-        
+        console.log(currentSkills);        
+        const index = currentSkills.findIndex(e=>e.index === status.index)        
         if(index >=0) {
             currentSkills[index] = status
         } else {
             currentSkills.push(status)
-        }
-        
+        }        
         if(status.isDeleted) {
             const indexDel = currentSkills.findIndex(e=>e.index === status.index)
             currentSkills.splice(indexDel, 1)
@@ -34,14 +31,11 @@ export default class Skills extends Component {
         })
         this.props.getData(this.state.listSkills)
     }
-
     handleAddMore =  (e) => {
         this.setState({
             numSkills: this.state.numSkills+1
         })
-    }
-
-   
+    }   
     render() {
         const dataRender = []
         for (let i = 0; i < this.state.numSkills; i += 1) {
@@ -49,10 +43,8 @@ export default class Skills extends Component {
                 options={this.props.options}
                 handleExpand={this.handleExpand.bind(this)}
             />)
-          };
-       
-        return (
-            
+          };       
+        return (            
             <div className="Skills">
                 {dataRender}
                 <div className="row">
@@ -67,8 +59,7 @@ export default class Skills extends Component {
                             </button>
                         </div>
                     </div>
-                </div>
-                
+                </div>                
             </div>
         )
     }

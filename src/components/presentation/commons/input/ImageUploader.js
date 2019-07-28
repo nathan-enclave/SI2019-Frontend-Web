@@ -39,8 +39,7 @@ export default class ImageUploader extends Component {
                             onChange={this.handleChange}
                             name={this.props.name}
                             className="upload-image-preview-input"/>
-                            <div className="inline-block title-upload">{this.props.status === "add" ? "Upload" : "Change"}</div>
-                        
+                            <div className="inline-block title-upload">{this.props.status === "add" ? "Upload" : "Change"}</div>                        
                     </div>
             </div>
         );

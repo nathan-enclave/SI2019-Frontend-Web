@@ -44,7 +44,7 @@ export default class Profile extends Component {
                 const rowData = this
                     .state
                     .teams
-                    .map(e => <TeamInfo teamName={e.teamName} projectName={e.projectName}/>)
+                    .map((e,key) => <TeamInfo teamName={e.teamName} projectName={e.projectName}/>)
                 this.setState({
                     teamData: <table className="table table-striped table-bordered table-advance table-hover">
                             <thead>
