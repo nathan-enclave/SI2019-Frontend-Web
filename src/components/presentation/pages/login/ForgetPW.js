@@ -68,7 +68,6 @@ export default class ForgetPW extends Component {
     render() {
         console.log(this.state.director)
         if(this.state.redirect){
-            // return(<div><Redirect to  = "/resetPassword"/> </div>  )
             return (<ResetPassword email ={this.state.director.email} id = {this.state.director.id}/>)
         }       
         return (
