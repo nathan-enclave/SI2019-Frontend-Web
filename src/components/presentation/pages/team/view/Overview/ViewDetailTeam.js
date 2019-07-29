@@ -41,69 +41,73 @@ class EditForm extends Component {
             ]
         };
     }
-    async componentDidMount() {
-        const res = await getData(this.state.id);
+    async componentWillMount() {
+        const teamInfo = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
+        
         this.setState({
-            id: res.id,
-            name: res.name,
-            technology: res.technology,
-            description: res.description,
-            start: moment(res.start).format('DD/MM/YYYY'),
-            end: moment(res.end).format('DD/MM/YYYY'),
-            earning: numeral(res.earning).format('0,0'),
-            earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
-            status: res.status,
-            updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
-            team: res.team ? res.team.name : "Do not have team",
-            teamId: res.team ? res.team.id : null,
-            category: res.category.name,
-            data: 0
+            name: teamInfo.name,
+            createdAt: teamInfo.createdAt,
+            projectsId: teamInfo.projects.id,
+            engineers: teamInfo.engineers
+        })
+        let res = await getData(this.state.projectsId)
+        this.setState({
+            project: {
+                id: res.id,
+                name: res.name,
+                technology: res.technology,
+                description: res.description,
+                start: moment(res.start).format('DD/MM/YYYY'),
+                end: moment(res.end).format('DD/MM/YYYY'),
+                earning: numeral(res.earning).format('0,0'),
+                earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
+                status: res.status,
+                updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
+                team: res.team ? res.team.name : "Do not have team",
+                teamId: res.team ? res.team.id : null,
+                category: res.category.name,
+            }
         });
 
-
-        if (res.team !== null) {
-            const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
-            let teamInf = await res2.json();
-            let catData = [], seriesData1 = [];
-            teamInf.engineers.forEach((element) => {
-                catData.push(element.firstName)
-                seriesData1.push(parseInt(element.salary / 1000000));
-            });
-            let teamTable = teamInf.engineers.map((value, key) => {
-                this.setState({
-                    options: {
-                        ...this.state.options,
-                        xaxis: {
-                            categories: catData
-                        }
-                    },
-                    series: [
-                        {
-                            name: "Milions",
-                            data: seriesData1
-                        }
-                    ]
-                })
-
-
-                return (
-                    <TeamMember
-                        key={key}
-                        id={value.id}
-                        avatar={value.avatar}
-                        email={value.email}
-                        firstName={value.firstName}
-                        lastName={value.lastName}
-                        role={value.role}
-                    />
-                )
+        let catData = [], seriesData1 = [];
+        teamInfo.engineers.forEach((element) => {
+            catData.push(element.firstName)
+            seriesData1.push(parseInt(element.salary / 1000000));
+        });
+        let teamTable = teamInfo.engineers.map((value, key) => {
+            this.setState({
+                options: {
+                    ...this.state.options,
+                    xaxis: {
+                        categories: catData
+                    }
+                },
+                series: [
+                    {
+                        name: "Milions",
+                        data: seriesData1
+                    }
+                ],
             })
-            this.setState({ teamData: teamTable })
-        }
 
-
+            return (
+                <TeamMember
+                    key={key}
+                    id={value.id}
+                    avatar={value.avatar}
+                    email={value.email}
+                    firstName={value.firstName}
+                    lastName={value.lastName}
+                    role={value.role}
+                />
+            )
+        })
+        this.setState({
+            teamData: teamTable,
+        })
     }
     render() {
+        console.log()
         let color = null
         if (this.state.status === "done") {
             color = 'label-info'
@@ -117,7 +121,7 @@ class EditForm extends Component {
                 <div className="portlet-title tabbable-line">
                     <div className="caption">
                         <i className=" icon-social-twitter font-dark hide" />
-                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </span>
+                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
                     </div>
                 </div>
             </div>
@@ -126,7 +130,7 @@ class EditForm extends Component {
                     <div className="portlet-title tabbable-line">
                         <div className="caption">
                             <i className=" icon-social-twitter font-dark hide" />
-                            <Link to={"/team/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link>
+                            <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
                         </div>
                     </div>
                     <div className="portlet-body4">
@@ -155,7 +159,6 @@ class EditForm extends Component {
                                     <NavLink to={`/project/${this.state.id}`} className="caption">
                                         <i className="icon-bubbles font-dark hide" />
                                         <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
-
                                     </NavLink>
                                 </div>
                                 <div className="portlet-body3" >
@@ -168,7 +171,7 @@ class EditForm extends Component {
                                                             <span className="item-name" >Project name</span>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-comment-text"> {this.state.name}    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.name} </div>
                                                 </div>
                                                 <div className="item">
                                                     <div className="item-head">
@@ -176,7 +179,11 @@ class EditForm extends Component {
                                                             <span className="item-name">Status</span>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
+                                                    <div className="mt-comment-text">
+                                                        <span className={"label label-sm " + color} style={{ fontSize: "15px" }}>
+                                                            {this.state.project.status}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div className="item">
                                                     <div className="item-head">
@@ -184,7 +191,7 @@ class EditForm extends Component {
                                                             <span className="item-name">Category</span>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-comment-text"> {this.state.category}    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.category}    </div>
                                                 </div>
                                                 <div className="item">
                                                     <div className="item-head">
@@ -192,7 +199,7 @@ class EditForm extends Component {
                                                             <span className="item-name">Description</span>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-comment-text"> {this.state.description}    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.description}    </div>
                                                 </div>
                                                 <div className="item">
                                                     <div className="item-head">
@@ -200,7 +207,7 @@ class EditForm extends Component {
                                                             <span className="item-name">Technology</span>
                                                         </div>
                                                     </div>
-                                                    <div className="mt-comment-text"> {this.state.technology}    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.technology}    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,7 +242,7 @@ class EditForm extends Component {
                     </div>
                 </div >
                 ),
-                loading : false
+                loading: false
             })
         }, 1000);
         return (
@@ -243,7 +250,8 @@ class EditForm extends Component {
                 <div className="portlet red box">
                     <div className="portlet-title">
                         <div className="caption">
-                            {this.state.name}   </div>
+                            {this.state.name}
+                        </div>
                     </div>
                     {this.state.loading ?
                         (<div className='sweet-loading'>
