@@ -55,9 +55,9 @@ export default class Member extends Component {
             }
            
         }), numMembers: this.props.memberSelected.length})
-    }
+    }    
     render() {
-        console.log("selected" + this.props.memberSelected )
+        console.log(this.state.numMembers )
 
         console.log(this.props.memberSelected.length)
         const dataRender = []

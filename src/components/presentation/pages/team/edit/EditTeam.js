@@ -32,19 +32,18 @@ class EditForm extends Component {
     };
   }
   async componentWillMount() {   
-    let res0 = await getTotal();      
+    let res0 = await getTotal();  //get total engineer list     
     this.setState({ memberOptions: res0 })
-    let res1 = await GetTotal();   
+    let res1 = await GetTotal();    //get total project list 
     let listProject = res1.results
-    console.log(listProject)
-    listProject.forEach(e => {
+    listProject.forEach(e => {   //select project 
       e.value = e.id;
       e.label = e.name;
       delete e.id;
       delete e.name
   })
   this.setState({ options: listProject })
-  const res = await getData(this.props.id);  
+  const res = await getData(this.props.id);  //get detail team by id
   console.log(res)   
   setTimeout(() => {
       this.setState({
