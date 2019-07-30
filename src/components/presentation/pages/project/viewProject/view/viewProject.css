@@ -54,7 +54,11 @@
     text-decoration: none;
     color: #856404 !important
 }
-.style_prevu_kit:hover
+.mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author:hover{
+    text-decoration: none;
+    color: #c7b682 !important
+}
+/* .style_prevu_kit:hover
 {
     -webkit-transition: all 200ms ease-in;
     -webkit-transform: scale(1.1);
@@ -64,7 +68,8 @@
     -moz-transform: scale(1.1);
     transition: all 200ms ease-in;
     transform: scale(1.1);  
-}
+} */
+
 .portlet.box.custom.color > .portlet-title{
     background-color: var(--boxColor);
 }

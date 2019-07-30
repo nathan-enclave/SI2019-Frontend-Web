@@ -15,9 +15,7 @@ class TeamMember extends Component {
                 <div className="mt-action-row">
                   <div className="mt-action-info ">
                     <div className="mt-action-details ">
-                    <div className ="style_prevu_kit" >
-                      <Link to={`/engineer/${this.props.id}`} className="mt-action-author">{this.props.firstName} {this.props.lastName} </Link> <span className={"label label-sm label-default label-mini"}>SW {level}</span> <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span>
-                    </div>
+                      <Link to={`/engineer/${this.props.id}`} className="mt-action-author">{this.props.firstName} {this.props.lastName} </Link> <span className={"label label-sm label-default label-mini"}>SW {level}</span> <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span>          
                     </div>
                   </div>
                   <div className="mt-action-buttons">

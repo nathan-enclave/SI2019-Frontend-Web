@@ -13358,10 +13358,11 @@ Custom tabs
         margin-top: 0px; }
 
 .tabbable-line > .tab-content {
-  margin-top: 0;
+  /* margin-top: 10px; */
+  margin-top: 10px;
   border: 0;
   border-top: 1px solid #eef1f5;
-  padding: 30px;
+  padding: 0px;
   }
   .page-container-bg-solid .tabbable-line > .tab-content {
     border-top: 1px solid #dae2ea; }

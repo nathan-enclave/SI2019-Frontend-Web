@@ -82,7 +82,7 @@ class ViewProject extends Component {
           }
         },
         title: {
-          text: 'Earning Compare to the Average Earning',
+          text: 'Earning and the Average Earning',
           align: 'center',
           floating: true,
           style:{
@@ -334,8 +334,7 @@ class ViewProject extends Component {
                                   <th >{this.state.end} </th>
                                 </tr>
                               </tbody>
-                            </table>
-                          
+                            </table>                          
                           </div>
                         </div>
                       </div>
@@ -348,8 +347,8 @@ class ViewProject extends Component {
               <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
                   <div className="caption">
-                    {/* <i className=" icon-social-twitter font-dark hide" /> */}
-                    {/* <span className="caption-subject font-dark bold uppercase">CHART</span> */}
+                  <i className=" icon-social-twitter font-dark hide" /> 
+                    <span className="caption-subject font-dark bold uppercase">CHART</span>
                   </div>
                 </div>
                 <div className="portlet-bodyx">

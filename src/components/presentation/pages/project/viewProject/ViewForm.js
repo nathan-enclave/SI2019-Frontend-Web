@@ -52,9 +52,6 @@ class EditForm extends Component {
           <div className="tab-content">
             <div className="tab-pane active" id="tab_1_1">
               <form>
-                {/* <div className="form-group" style={{ textAlign: 'center' }}>
-                  <img height="130px" src={this.state.avatar} alt="" /><br /><br />
-                </div> */}
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -68,8 +65,7 @@ class EditForm extends Component {
                       <input type="text" name="lastName" value={this.state.description} className="form-control" disabled /> </div>
                     <div className="form-group">
                       <label className="control-label">In Team</label>
-                      <input type="text" name="lastName" value={this.state.team} className="form-control" disabled />
-                     
+                      <input type="text" name="lastName" value={this.state.team} className="form-control" disabled />                     
                     </div> 
                   </div>
                   <div className="col-md-6">

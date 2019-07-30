@@ -4,9 +4,7 @@ import moment from 'moment';
 import numeral from 'numeral'
 import './Profile.css'
 import TeamInfo from './TeamInfo';
-// import PreLoader from "../../../../include/Preloader";
 import { ClipLoader } from 'react-spinners';
-
 import { getDataByIdApi } from "../../../../../../api/crud";
 import Modal from '../../../../commons/modal/Modal';
 import EditForm from '../../edit/EditForm';
@@ -62,22 +60,28 @@ handleReload =()=> {
         const rowData = this
           .state
           .teams
-          .map((e, key) => <TeamInfo teamName={e.teamName} key={key} projectName={e.projectName} />)
+          .map((e, key) => <TeamInfo 
+          teamName={e.teamName}
+           key={key}
+            projectName={e.projectName}
+            role = {e.role}
+            //  teamId = {e.teamId}
+             />)
         this.setState({
           teamData: <table className="table table-striped table-bordered table-advance table-hover">
             <thead>
               <tr>
-                <th>
+                <th style={{textAlign : "left"}}>
                   <i className="fa fa-users font-blue-madison" />
                   <span className="margin-left-xs">
                     Team</span>
                 </th>
-                <th className="hidden-xs">
+                <th className="hidden-xs" style={{textAlign : "left"}}>
                   <i className="fa fa-briefcase font-blue-madison" />
                   <span className="margin-left-xs">
                     Projects</span>
                 </th>
-                <th>
+                <th style={{textAlign : "left"}}>
                   <i className="fa fa-bookmark font-red-flamingo" />
                   <span className="margin-left-xs">
                     Role</span>
@@ -121,51 +125,26 @@ handleReload =()=> {
                     </li>
                     <ul className="col-xs-24 ul-item-engineer">
                       <div className="li-item-engineer">
-                      <div className="row" style={{marginBottom : '7px'}} >
-                      <div className="col-md-6">
+                      <li className="li-item-engineer" >
                       <i className="fa fa-thumb-tack ss" aria-hidden="true"></i>
-                      Status:
-                      </div>
-                      <div className="col-md-6">
-                      <span className={"label label-sm label-info label-mini resize-status"}>{this.state.status}</span>
-                      </div>
-                      </div>
-                      <div className="row" style={{marginBottom : '7px'}}  >
-                      <div className="col-md-6">
+                      Status: <span className={"label label-sm label-info label-mini resize-status"}> {this.state.status}</span>
+                      </li>
+                      <li className="li-item-engineer" >
                       <i className="fa fa-calendar ss" aria-hidden="true" ></i>
-                        Date in:
-                      </div>
-                      <div className="col-md-6">
-                      {moment(this.state.dateIn).format("DD/MM/YYYY")} 
-                      </div>
-                      </div>
-                      <div className="row" style={{marginBottom : '7px'}} >
-                      <div className="col-md-6">
+                        Date in: {moment(this.state.dateIn).format("DD/MM/YYYY")} 
+                      </li>
+                      <li className="li-item-engineer" >
                       <i className="fa fa-briefcase ss" aria-hidden="true"></i>
-                      Experience:
-                      </div>
-                      <div className="col-md-6">
-                      {(this.state.expYear)} year
-                      </div>
-                      </div>
-                      <div className="row" style={{marginBottom : '7px'}} >
-                      <div className="col-md-6">
+                      Experience years: {(this.state.expYear)} 
+                      </li>
+                      <li className="li-item-engineer" >
                       <i className="fa fa-money ss" aria-hidden="true"></i>
-                        Salary:
-                      </div>
-                      <div className="col-md-6">
-                      {numeral(this.state.salary).format("0,0")}
-                      </div>
-                      </div>
-                      <div className="row" style={{marginBottom : '7px'}} >
-                      <div className="col-md-6">
+                        Salary: {numeral(this.state.salary).format("0,0")} VND
+                      </li>
+                      <li className="li-item-engineer" >
                       <i className="fa fa-birthday-cake ss" aria-hidden="true"></i>
-                        Birthday: 
-                      </div>
-                      <div className="col-md-6">
-                      {moment(this.state.birthday).format("DD/MM/YYYY")} 
-                      </div>
-                      </div>
+                        Birthday: {moment(this.state.birthday).format("DD/MM/YYYY")} 
+                      </li>
                       </div>                    
                     </ul>
                   </ul>
@@ -213,7 +192,7 @@ handleReload =()=> {
                         <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Activities</span>
                       </li>
                     </ul>
-                    <div className="tab-content">
+                    <div className="tab-content resize-table">
                       <div className="tab-pane active" id="tab_1_11">
                         <div className="portlet-body">
                           {this.state.teamData}
