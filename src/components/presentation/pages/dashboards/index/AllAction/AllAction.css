@@ -1,0 +1,13 @@
+.CloseDialogForHistoryActivity {
+    cursor: pointer;
+    padding: 20px 25px;
+    opacity: 0.4;
+}
+
+.AllActivityList .ActionRow .list-datetime {
+    display: block
+}
+
+.AllActivityList .ActionRow .list-item-content {
+    padding-left: 20px!important
+}

@@ -2,40 +2,34 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import addTeam from '../../../../container/team/AddTeamMethod';
 import Member from './partials/Member'
-
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import { isEmpty } from 'validator';
+const required = (value) => {
+  if (isEmpty(value)) {
+      return (<div className="alert alert-danger">
+          This field is required!
+  </div>);
+  }
+}
 class AddTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
       memberOptions: [],
-      // memberSelectOptions: [],
-      // member: [],
-      leaderOptions: [],
-      leaderSelected: [],
-      leader: null,
       projectOptions: [],
       projectSelected: null,
-      isOpenMSGSuccess: false,
-      engineers : {}
-    }
-  }
-  handleChangeMember = (memberSelectOptions) => {
-    this.setState({ memberSelectOptions });
-    let temp = []
-    if (memberSelectOptions != null) {
-      memberSelectOptions.forEach(element => {
-        temp.push({ id: element.value, role: "member" })
-      });
-      this.setState({ member: temp });
+      engineers : {},
+      msgProject : null,
+      msgMember : null,
+      projectId : null,
+      submit : false
     }
   }
   handleChangeProject = (projectSelected) => {
     this.setState({ projectSelected })
-    this.setState({ projectId: projectSelected.value })
-  }
-  handleChangeLeader = (leaderSelected) => {
-    this.setState({ leaderSelected })
-    this.setState({ leader: leaderSelected.value })
+    this.setState({ projectId: projectSelected.value, msgProject : null })
   }
   handleChangeName = (e) => {
     this.setState({ name: e.target.value })
@@ -69,7 +63,7 @@ class AddTeam extends Component {
     console.log(data)
     addTeam(data).then((result) => {
       if (!result.statusCode) {
-        this.props.openMSGSuccess()
+        this.props.openMessage()
       } else {
         if (result.statusCode !== 200) {
           this.setState({ msg: 'Some error occured, please try again later' });
@@ -77,13 +71,32 @@ class AddTeam extends Component {
       }
     })
   }
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.form.validateAll();
+    if (this.checkBtn.context._errors.length === 0 && this.state.projectId !== null && this.state.engineers !== {}) {
+        if(this.state.submit){
+          this.addTeam()
+        }
+    }   
+    else {
+      this.setState({submit: false})
+      if (this.state.projectId === null) this.setState({ msgProject: "This field is required!" })
+      if (typeof(this.state.engineers.length) === "undefined") this.setState({ msgMember: "This field is required!" }) 
+  
+    } 
+}
   getData = async(items) => {
     await this.setState({
-        engineers: items.map(e => e.data)
+        engineers: items.map(e => e.data),
+        msgMember : null
     })
 }
-
+ 
   render() {
+    let msgMember = this.state.msgMember === null ? null : (<div className="alert alert-danger">This field is required!</div>)
+    let msgProject = this.state.msgProject === null ? null : (<div className="alert alert-danger">Member field is required!</div>)
+    console.log(msgMember)
     return (
       <div>
         <div className="row">
@@ -98,30 +111,29 @@ class AddTeam extends Component {
               <div className="portlet-body">
                 <div className="tab-content">
                   <div className="tab-pane active" id="tab_1_1">
-                    <div>
+                  <Form
+                                onSubmit={e => this.onSubmit(e)}
+                                ref={c => {
+                                    this.form = c
+                                }}>
                       <div className="form-group">
                         <label className="control-label">Name</label>
-                        <input type="text" name="name" onChange={(e) => this.handleChangeName(e)} className="form-control" /> </div>
+                        <Input type="text" name="name" onChange={(e) => this.handleChangeName(e)} className="form-control" validations={[required]}/> </div>
                       <div className="form-group">
                         <label className="form-check-label"> Project:  </label>
                         <Select value={this.state.projectSelected} options={this.state.projectOptions} onChange={this.handleChangeProject} />
+                        {msgProject}
                       </div>
-                      {/* <div className="form-group">
-                        <label className="form-check-label"> Leader:  </label>
-                        <Select value={this.state.leaderSelected} options={this.state.leaderOptions} onChange={this.handleChangeLeader} />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-check-label"> Member:  </label>
-                        <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
-                      </div> */}
                       <Member
                        options = {this.state.memberOptions}
                        getData={this.getData.bind(this)}
                        />
+                       {msgMember}
                       <div className="margiv-top-10">
-                        <button onClick={this.addTeam} className="btn green"> SUBMIT </button>
+                        <button className="btn green" onClick = {()=>{this.setState({submit : true})}}> SUBMIT </button>
+                        <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                       </div>
-                    </div>
+                    </Form>
                   </div>
                 </div>
               </div>

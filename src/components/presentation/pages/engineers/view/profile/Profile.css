@@ -49,3 +49,66 @@
         text-align: center
     }
 }
+.li-item-avatar{
+    padding-left: 14px;
+    padding-bottom: 10px;
+}
+.ul-item-engineer{
+    list-style-type: none;
+    padding: 0px !important
+}
+.li-item-engineer{
+    padding: 10px;
+    font-size: 15px
+}
+.li-item-engineer img{
+    margin-right: 10px;
+    width: 22px !important;
+    position: 'relative';
+    bottom: '2px'
+}
+.li-item-btn{
+    padding: 10px;
+}
+.li-edit-button{
+    text-align: center;
+}
+.edit-engineer-button{
+    margin: 10px;
+}
+.resize-label{
+    font-size: 20px !important
+}
+.bordered-viewEngineer{
+    border: 1px solid #36c6d3 !important;
+    border-radius: 10px;
+    padding: 15px;
+}
+.portlet.box.custom.color-engineer > .portlet-title{
+    background-color: #36c6d3
+}
+.tab-content-chart{
+    margin-right: 10px;
+    padding: 15px;
+    /* border: 1px solid #ddd; */
+    border-radius: 7px;
+    /* box-shadow: 1px 2px #ddd; */
+}
+.resize{
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px
+}
+.ss{
+    margin-right: 5px 
+}
+.col-md-6 .profile-info{
+    padding: 30px !important
+}
+.resize-status{
+    font-size: 15px !important
+}
+.resize-table{
+    /* margin-left: 5px  */
+}

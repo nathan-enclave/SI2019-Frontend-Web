@@ -12,7 +12,8 @@ body {
   padding: 0px !important;
   margin: 0px !important;
   direction: "ltr";
-  font-size: 14px; }
+  font-size: 17px;
+  }
 
 /*
  Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't 
@@ -12994,9 +12995,10 @@ Custom tables
 
 .table-advance thead tr th {
   background-color: #f1f4f7;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 400;
-  color: #3f444a; }
+  color: #3f444a;
+  }
 
 .table-advance div.success,
 .table-advance div.info,
@@ -13356,10 +13358,12 @@ Custom tabs
         margin-top: 0px; }
 
 .tabbable-line > .tab-content {
-  margin-top: 0;
+  /* margin-top: 10px; */
+  margin-top: 10px;
   border: 0;
   border-top: 1px solid #eef1f5;
-  padding: 30px 0; }
+  padding: 0px;
+  }
   .page-container-bg-solid .tabbable-line > .tab-content {
     border-top: 1px solid #dae2ea; }
   .portlet .tabbable-line > .tab-content {

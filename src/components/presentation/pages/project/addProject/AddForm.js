@@ -8,9 +8,10 @@ import { isEmpty } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import getTotalCategories from '../../../../container/categories/GetListCategories';
+import "./validate.css"
 const required = (value) => {
     if (isEmpty(value)) {
-        return (<div className="alert alert-danger">
+        return (<div className="small-validate">
             This field is required!
     </div>);
     }
@@ -96,9 +97,9 @@ class AddForm extends Component {
         this.setState({ options: res });
     }
     render() {
-        let msgStart = this.state.msgStart === null ? null : (<div className="alert alert-danger">This field is required!</div>)
-        let msgEnd = this.state.msgEnd === null ? null : (<div className="alert alert-danger">This field is required!</div>)
-        let msgCat = this.state.msgCat === null ? null : (<div className="alert alert-danger">This field is required!</div>)
+        let msgStart = this.state.msgStart === null ? null : (<div className="small-validate">This field is required!</div>)
+        let msgEnd = this.state.msgEnd === null ? null : (<div className="small-validate">This field is required!</div>)
+        let msgCat = this.state.msgCat === null ? null : (<div className="small-validate">This field is required!</div>)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">

@@ -47,7 +47,7 @@ export default class MemberOption extends Component {
 
 
     handleRemoveItem = (e) => {
-        e.target.parentNode.parentNode.parentNode.remove()
+        e.target.parentNode.parentNode.parentNode.remove()  
         this
             .props
             .handleExpand({
@@ -87,10 +87,10 @@ export default class MemberOption extends Component {
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                    Years of experience:
+                                   Role: 
                                 </label>
                                 <Select
-                                    // defaultValue={roleOfMember[1]}
+                                    defaultValue={roleOfMember[1]}
                                     value={this.state.roleSelected}
                                     options={[
                                         {

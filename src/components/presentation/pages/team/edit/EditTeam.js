@@ -48,14 +48,14 @@ class EditForm extends Component {
           .engineers
           .map(e => {
             return {
-              member: {
-                value: e.id,
-                label: e.firstName
-              },
-              role: {
-                value: e.role,
-                label: e.role
-              }
+                member: {
+                    value: e.id,
+                    label: e.firstName + " " + e.lastName
+                },
+                role: {
+                    value: e.role,
+                    label: e.role                    
+                }
             }
           }),
         loading: false
@@ -70,8 +70,9 @@ class EditForm extends Component {
       [fieldName]: value
     });
     this.setState({
-      data: {
-        [fieldName]: value
+      data : {
+        ...this.state.data,
+        [fieldName] : value
       }
     })
   }

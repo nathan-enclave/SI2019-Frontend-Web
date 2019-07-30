@@ -34,7 +34,7 @@ class LeftBar extends Component {
                                     }}>
                                         <i className="icon-graph"></i>
                                         <span className="title">
-                                            Cash flow dashboard
+                                            Cash flow 
                                         </span>
                                     </NavLink>
                                 </li>
@@ -46,7 +46,7 @@ class LeftBar extends Component {
                                     }}>
                                         <i className="icon-user-female"></i>
                                         <span className="title">
-                                            Human dashboard
+                                            Human 
                                         </span>
                                     </NavLink>
                                 </li>

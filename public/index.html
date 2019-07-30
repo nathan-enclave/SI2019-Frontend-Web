@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="shortcut icon" href="%PUBLIC_URL%/assets/pages/img/logos/enclave-logo.png" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/enclave-logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
@@ -37,8 +37,6 @@
 
   <link href="../assets/layouts/layout6/css/layout.css" rel="stylesheet" type="text/css" />
   <link href="../assets/layouts/layout6/css/custom.css" rel="stylesheet" type="text/css" />
-
-  
  
   <style>
     
@@ -139,6 +137,11 @@
     .custom-menu-left-bar {
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.18);
       height: 100vh;
+    }
+    @media(max-width: 992px) {
+      .custom-menu-left-bar{
+        height: fit-content;
+      }
     }
     .custom-background-white{
       background: white!important;

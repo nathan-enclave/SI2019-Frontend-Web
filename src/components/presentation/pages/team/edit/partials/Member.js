@@ -9,7 +9,7 @@ export default class Member extends Component {
         this.state = {
             listMembers: [],
             error: "",
-            numMembers: 0,
+            numMembers:0,
             isExpanded: false,
             loading: false
         }
@@ -20,7 +20,6 @@ export default class Member extends Component {
         const currentMembers = this.state.listMembers
 
         const index = currentMembers.findIndex(e => e.index === status.index)
-
         if (index >= 0) {
             currentMembers[index] = status
         } else {

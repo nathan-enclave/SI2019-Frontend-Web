@@ -30,12 +30,12 @@ export default class Member extends Component {
         })
         this.props.getData(this.state.listEngineers)
     }
-    handleAddMore =  (e) => {
+    handleAddMore =  () => {
         this.setState({
             numEngineers: this.state.numEngineers+1
         })
     }   
-    render() {
+    render() {       
         const dataRender = []
         for (let i = 0; i < this.state.numEngineers; i += 1) {
             dataRender.push(<MemberOptions keyIndex={i} key={i}
@@ -53,7 +53,7 @@ export default class Member extends Component {
                             style={{
                             textAlign: 'center'
                         }}>
-                            <button className="btn yellow" onClick={(event) => this.handleAddMore(event)}>
+                            <button className="btn yellow" onClick={() => this.handleAddMore()}>
                                 Add more member
                             </button>
                         </div>

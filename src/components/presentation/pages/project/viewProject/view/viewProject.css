@@ -54,16 +54,9 @@
     text-decoration: none;
     color: #856404 !important
 }
-.style_prevu_kit:hover
-{
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(1.1);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.1);   
-    -moz-transition: all 200ms ease-in;
-    -moz-transform: scale(1.1);
-    transition: all 200ms ease-in;
-    transform: scale(1.1);  
+.mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author:hover{
+    text-decoration: none;
+    color: #c7b682 !important
 }
 .portlet.box.custom.color > .portlet-title{
     background-color: var(--boxColor);
@@ -87,4 +80,29 @@
     font-weight: 600;
     text-align: center;
     padding: 10px
+}
+.head-name{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 5px;
+}
+.scroll-member{
+    /* border : 1px solid #ddd; */
+    /* border: 1px solid #ddd; */
+    width: 100%;
+    /* height:159px; */
+    padding: 5px 10px 0px 15px;
+    overflow: hidden; 
+    position: relative;
+}
+.mess {
+    height: 700px;
+    width: 100%;
+    overflow: auto;
+    position: absolute;
+}
+.team-btn{    
+    float : right;
+    font-size: 13px
 }
