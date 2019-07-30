@@ -53,8 +53,6 @@ class AddForm extends Component {
             msgBirthday: null,
             msgDateIn: null
         };
-
-        // this.handleChange = this.handleChange.bind(this);
     }
 
     getImageName = (image) => {
@@ -65,7 +63,7 @@ class AddForm extends Component {
         const value = event.target.value;
         this.setState({[fieldName]: value});
     }
-    submitAddForm = async() => {       
+    submitAddForm = async() => {    
         let data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
@@ -81,7 +79,7 @@ class AddForm extends Component {
             skills: this.state.skills,
             expYear : Number(this.state.expYear)
         }
-
+        console.log(data)
         if (this.state.avatar) {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
@@ -131,8 +129,7 @@ class AddForm extends Component {
     }
     render() {
         let msgBirthday = this.state.msgBirthday === null ? null : (<div className="small-validate">This field is required!</div>)
-        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)
-       
+        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)       
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -219,7 +216,9 @@ class AddForm extends Component {
                                                 onChange={(event) => this.isChange(event)}
                                                 name="status">
                                                 <option value={1}>Available</option>
-                                                <option value={0}>Unavailable</option>
+                                                <option value={0}>In team</option>
+                                                <option value={2}>On vacation</option>
+                                                <option value={3}>Absence</option>
                                             </select>
                                         </div>
                                     </div>

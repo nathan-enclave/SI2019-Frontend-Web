@@ -41,7 +41,7 @@ class Timeline extends Component {
                                         </li>
                                         <li data-radium="true" className="timeline-item-2">                                           
                                             <span className="current-time">{moment(new Date()).format('DD/MM/YYYY')}</span>
-                                            <img src="/assets/pages/img/placeholder.png" width="20px" height="20px" alt="imag"/>
+                                            <img src="../assets/pages/img/placeholder.png" width="20px" height="20px" alt=""/>
                                             <span data-radium="true" className="timeline-dot-2" />
                                         </li>
                                         <li className="timeline-item-3" data-radium="true" >

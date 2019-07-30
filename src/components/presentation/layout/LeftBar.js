@@ -28,7 +28,7 @@ class LeftBar extends Component {
                             <ul className="sub-menu">
                                 <li className="nav-item start">
                                     <NavLink
-                                        to="/dashboard1"
+                                        to="/cash"
                                         activeStyle={{
                                         backgroundColor: '#B9ECF0'
                                     }}>
@@ -40,7 +40,7 @@ class LeftBar extends Component {
                                 </li>
                                 <li className="nav-item start ">
                                     <NavLink
-                                        to="/dashboard2"
+                                        to="/human"
                                         activeStyle={{
                                         backgroundColor: '#B9ECF0'
                                     }}>

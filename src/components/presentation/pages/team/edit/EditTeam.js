@@ -48,14 +48,14 @@ class EditForm extends Component {
           .engineers
           .map(e => {
             return {
-                member: {
-                    value: e.id,
-                    label: e.firstName + " " + e.lastName
-                },
-                role: {
-                    value: e.role,
-                    label: e.role                    
-                }
+              member: {
+                value: e.id,
+                label: e.firstName
+              },
+              role: {
+                value: e.role,
+                label: e.role
+              }
             }
           }),
         loading: false
@@ -196,7 +196,7 @@ class EditForm extends Component {
                 <div className="tab-pane active" id="tab_1_1">
                   <Form >
                     <div className="row">
-                      <div className="col-md-6">
+                      <div className="col-md-12 col-lg-12">
                         <div className="form-group">
                           <label className="control-label">Team Name</label>
                           <Input type="text" name="name" value={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>

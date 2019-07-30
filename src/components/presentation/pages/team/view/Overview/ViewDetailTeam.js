@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
 // import numeral from 'numeral'
 import './viewProject.css'
-import TeamMember from '../../../project/viewProject/view/TeamMember';
+import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
 import numeral from 'numeral'
