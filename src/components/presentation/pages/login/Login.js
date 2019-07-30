@@ -2,18 +2,14 @@ import React, {Component} from 'react'
 import {isEmpty} from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import LoginLoader from '../include/LoginLoader'
+import LoginLoader from '../../include/LoginLoader'
 import {Link} from "react-router-dom";
-import AuthContainer from "../../container/auth";
+import AuthContainer from "../../../container/auth";
 import CheckButton from 'react-validation/build/button';
+import './login.css'
 const required = (value) => {
     if (isEmpty(value)) {
-        return <div className="alert alert-danger">This field is required</div>;
-    }
-}
-const minLength = (value) => {
-    if (value.trim().length < 5) {
-        return <div className="alert alert-danger">assword must be at least 6 characters long</div>;
+        return <div className="small-validate">This field is required</div>;
     }
 }
 export default class Login extends Component {
@@ -42,22 +38,6 @@ export default class Login extends Component {
             this.login()
         }
     }
-
-    // checkError() {
-    //     if (this.state.error) {
-    //         if (this.state.loginLoader) {
-    //             this.setState({loginLoader: false})
-    //         }
-    //         return (
-    //             <div class="alert alert-danger">
-    //                 <strong>Error!</strong>
-    //                 <span>
-    //                     Username or Password is not correct.
-    //                 </span>
-    //             </div>
-    //         )
-    //     }
-    // }
     login() {
         const {username, password} = this.state
         this.setState({loginLoader: true})
@@ -111,8 +91,8 @@ export default class Login extends Component {
                 </div>
             )
         }
-        let error = (this.state.error) ? (<div className="alert alert-danger">
-        <strong>Error!</strong> Username or Password is not correct.</div>) : null        
+        let error = (this.state.error) ? (<div className="alert alert-danger resize-text">
+        <strong>Error!</strong> Username or Password is incorrect.</div>) : null        
         return (
             <div className="login">
                 <div className="content">
@@ -158,7 +138,7 @@ export default class Login extends Component {
                                     placeholder="Password"
                                     name="password"
                                     onChange={this.onChange}
-                                    validations={[required, minLength]}/>
+                                    validations={[required]}/>
                             </div>
                             <div
                                 className="form-actions"

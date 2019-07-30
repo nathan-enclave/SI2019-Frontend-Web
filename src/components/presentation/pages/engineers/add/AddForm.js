@@ -12,9 +12,10 @@ import Skills from "./partials/Skills";
 import {handleUpload} from "../../../../../service/upload/fileUploader";
 import EngineerContainer from "../../../../container/engineer";
 import CheckButton from 'react-validation/build/button';
+import "./validate.css"
 const required = (value) => {
     if (isEmpty(value)) {
-        return <div className="alert alert-danger">This field is required</div>;
+        return <div className="small-validate">This field is required</div>;
     }
 }
 const phone = (value) => {
@@ -23,18 +24,18 @@ const phone = (value) => {
             no_symbols: false
         }
     ])) {
-        return <div className="alert alert-danger">The phone number contains only numbers.</div>;
+        return <div className="small-validate">The phone number contains only numbers.</div>;
     }
     else if (value.trim().length < 10) {
-        return <div className="alert alert-danger">The phone number can't less than 10 letters.</div>;
+        return <div className="small-validate">The phone number can't less than 10 letters.</div>;
     } 
     else if (value.trim().length > 15) {
-        return <div className="alert alert-danger">The phone number can't more than 15 letters.</div>;
+        return <div className="small-validate">The phone number can't more than 15 letters.</div>;
     }
 }
 const email = (value) => {
     if (!isEmail(value)) {
-        return <div className="alert alert-danger">Invalid email format.</div>;
+        return <div className="small-validate">Invalid email format.</div>;
     }
 }
 class AddForm extends Component {
@@ -129,8 +130,8 @@ class AddForm extends Component {
         })
     }
     render() {
-        let msgBirthday = this.state.msgBirthday === null ? null : (<div className="alert alert-danger">This field is required!</div>)
-        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="alert alert-danger">This field is required!</div>)
+        let msgBirthday = this.state.msgBirthday === null ? null : (<div className="small-validate">This field is required!</div>)
+        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)
        
         return (
             <div className="portlet light bordered">

@@ -141,7 +141,7 @@ class TableData extends Component {
                                                     <th
                                                         style={{
                                                         fontWeight: 'bold'
-                                                    }}>Years of experience</th>
+                                                    }}>Experience years</th>
                                                     <th
                                                         style={{
                                                         fontWeight: 'bold'

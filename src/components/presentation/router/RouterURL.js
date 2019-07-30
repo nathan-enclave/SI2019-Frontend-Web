@@ -10,7 +10,7 @@ import Profile from '../pages/engineers/view/profile/Profile';
 import AddTeam from '../pages/team/add/AddTeam';
 import EditTeam from '../pages/team/edit/EditTeam';
 import TeamDetail from '../pages/team/view/TeamDetail';
-import Login from '../login/Login'
+import Login from '../pages/login/Login'
 import ProjectIndex from '../pages/project/index/ProjectIndex';
 import Dashboard1 from '../pages/dashboards/dashboard1/Dashboard1';
 import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';

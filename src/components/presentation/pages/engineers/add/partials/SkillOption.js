@@ -88,7 +88,7 @@ export default class SkillOption extends Component {
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                    Years of experience:
+                                Experience years:
                                 </label>
                                 <Select
                                     defaultValue={yearsOfExp[1]}

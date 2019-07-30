@@ -8,11 +8,12 @@ import getData from '../../../../container/project/GetDetailProject';
 import DatePicker from "react-datepicker";
 import CheckButton from 'react-validation/build/button';
 import { isEmpty } from 'validator';
-
+import getTotalCategories from '../../../../container/categories/GetListCategories';
+import './validate.css'
 const required = (value) => {
   if(typeof(value) === "string"){
   if (isEmpty(value)) {
-    return (<div className="alert alert-danger">
+    return (<div className="small-validate">
       This field is required!
   </div>);
   }
@@ -33,6 +34,8 @@ class EditForm extends Component {
   }
   async componentDidMount() {
     // let res0 = await getTotal();
+    const res0 = await getTotalCategories();
+    this.setState({ options: res0 });
     const res = await getData(this.props.id);
     this.setState({
       id: String(res.id),
@@ -114,7 +117,7 @@ class EditForm extends Component {
     }
   }
   render() {
-    console.log(this.state.options)
+    console.log(this.state.selectOptions)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
