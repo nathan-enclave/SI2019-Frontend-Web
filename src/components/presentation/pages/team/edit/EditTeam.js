@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import EditEngineer from '../../../../container/team/EditTeam';
+// import EditEngineer from '../../../../container/team/EditTeam';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
-import getData from '../../../../container/team/GetTeamDetail';
+// import getData from '../../../../container/team/GetTeamDetail';
 import GetTotal from './API/GetDetailProject'
 import { ClipLoader } from 'react-spinners';
 import Member from './partials/Member';
+import TeamContainer from "../../../../container/team";
+
 class EditForm extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ class EditForm extends Component {
       delete e.name
     })
     this.setState({ options: listProject })
-    const res = await getData(this.props.id);  //get detail team by id
+    const res = await TeamContainer.getById(this.props.id);  //get detail team by id
     console.log(res)
     setTimeout(() => {
       this.setState({
@@ -112,60 +114,60 @@ class EditForm extends Component {
     }
   }
 
-  submitSaveForm = async (event) => {
-   // event.preventDefault() // prevent put default
-    await this.setState({
-      saveLoading: true
-    })
-    setTimeout(() => {
-      EditEngineer(this.state.data, this.props.id).then((result) =>  {
-          if (!result.statusCode) {
-            this.props.changeMSG("Edit successful.")
-            this.setState({ error: "", saveLoading: false })
-            this
-              .props
-              .onClose();
-            this
-              .props
-              .onOpenMSG();
-          } else {
-            this.setState({
-              error: (
-                <div class="alert alert-danger">
-                  <strong>Error!</strong>
-                  Something went wrong, please try again later.
-                        </div>
-              ),
-              saveLoading: false
-            })
-          }
-        })
-    }, 500)
-
-  }
-  onSubmit = (e) => {
-    e.preventDefault();
-    this
-      .form
-      .validateAll();
-  }
-  // submitSaveForm = () => {
-  //   console.log(this.state.data)
-  //   EditEngineer(this.state.data, this.props.id).then((result) => {
-  //     if (!result.statusCode) {
-  //       this.props.onClose();
-  //       this.props.onOpenMSG();
-  //     } else {
-  //       if (result.statusCode !== 500) {
-  //         this.setState({ msg: "Error." })
-  //       }
-  //     }
+  // submitSaveForm = async (event) => {
+  //  // event.preventDefault() // prevent put default
+  //   await this.setState({
+  //     saveLoading: true
   //   })
+  //   setTimeout(() => {
+  //     EditEngineer(this.state.data, this.props.id).then((result) =>  {
+  //         if (!result.statusCode) {
+  //           this.props.changeMSG("Edit successful.")
+  //           this.setState({ error: "", saveLoading: false })
+  //           this
+  //             .props
+  //             .onClose();
+  //           this
+  //             .props
+  //             .onOpenMSG();
+  //         } else {
+  //           this.setState({
+  //             error: (
+  //               <div class="alert alert-danger">
+  //                 <strong>Error!</strong>
+  //                 Something went wrong, please try again later.
+  //                       </div>
+  //             ),
+  //             saveLoading: false
+  //           })
+  //         }
+  //       })
+  //   }, 500)
+
   // }
   // onSubmit = (e) => {
   //   e.preventDefault();
-  //   this.form.validateAll();
+  //   this
+  //     .form
+  //     .validateAll();
   // }
+  submitSaveForm = () => {
+    console.log(this.state.data)
+    TeamContainer(this.state.data, this.props.id).then((result) => {
+      if (!result.statusCode) {
+        this.props.onClose();
+        this.props.onOpenMSG();
+      } else {
+        if (result.statusCode !== 500) {
+          this.setState({ msg: "Error." })
+        }
+      }
+    })
+  }
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.form.validateAll();
+  }
   render() {
     console.log(this.state.engineers)
     return (
