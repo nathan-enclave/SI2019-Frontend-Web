@@ -219,7 +219,7 @@ class ViewProject extends Component {
     let loadData = (this.state.data !== null) ? (
       <div className="portlet box custom color">
         <div className="portlet-title">
-          <div className="caption">
+          <div className="head-name">
             {this.state.name}   </div>
         </div>
        {timeline}
@@ -301,8 +301,8 @@ class ViewProject extends Component {
                             </thead>
                             <tbody>
                               <tr>
-                                <th width="50%">{this.state.earningPerMonth} VND</th>
-                                <th >{this.state.earning} VND</th>
+                                <th width="50%">{this.state.earning} VND</th>
+                                <th >{this.state.earningPerMonth} VND</th>
                               </tr>
                             </tbody>
                           </table>

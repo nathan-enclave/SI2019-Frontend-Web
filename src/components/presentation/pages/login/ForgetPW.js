@@ -8,15 +8,16 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import { isEmail, isEmpty } from 'validator';
 import CheckButton from 'react-validation/build/button';
+import './login.css'
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return( <div className="alert alert-danger">This field is required</div>)
+        return( <div className="small-validate">This field is required</div>)
     }
   }
 const email = (value) => {
     if (!isEmail(value)) {
-        return( <div className="alert alert-danger">Invalid email format</div>)
+        return( <div className="small-validate">Invalid email format</div>)
     }
   }
 export default class ForgetPW extends Component {
@@ -52,7 +53,7 @@ export default class ForgetPW extends Component {
     }
     displayError = ()=>{
         if(this.state.msg !== ""){
-            return (<div className="alert alert-danger">
+            return (<div className="alert alert-danger resize-text">
             <span >{this.state.msg}</span>
         </div>)
         }

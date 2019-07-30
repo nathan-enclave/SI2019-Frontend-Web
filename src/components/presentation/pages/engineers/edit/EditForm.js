@@ -170,7 +170,6 @@ class EditForm extends Component {
     }
 
     getData = async(items) => {
-
         await this.setState({
             skills: items.map(e => e.data),
             data: {
@@ -326,9 +325,7 @@ class EditForm extends Component {
                                                 <Skills
                                                     skillSelected={this.state.skills}
                                                     options={this.state.options}
-                                                    getData={this
-                                                    .getData
-                                                    .bind(this)}/>
+                                                    getData={this.getData.bind(this)}/>
                                             </div>
                                         </div>
                                         

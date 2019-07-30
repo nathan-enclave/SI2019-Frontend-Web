@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Modal from './../../../commons/modal/Modal';
 import EditForm from './../editProject/EditForm';
 import DeletePopUp from './../deleteProject/DeletePopUp';
-import DelEngineer from '../../../../container/project/DeleteProject';
 import { Link } from "react-router-dom";
 import numeral from 'numeral'
 import './index.css'
 import Message from '../../../commons/msg/Message';
+import ProjectContainer from "../../../../container/project";
+
 export default class RowData extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,7 @@ export default class RowData extends Component {
     });
   }
    removeItem () {
-     DelEngineer(this.props.id).then((result) => {
+     ProjectContainer.delete(this.props.id).then((result) => {
       if (!result.statusCode) {        
         this.setState({ isOpenDelete: false})
         this.setState({ msg: "Delete successful." })
@@ -82,6 +83,7 @@ export default class RowData extends Component {
             </button>
           </div>
         </td>
+        <td>
         <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
           <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMessage} changeMSG = {(msg)=>{this.setState({msg : msg})}}/>
         </Modal>
@@ -91,6 +93,7 @@ export default class RowData extends Component {
         <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
           <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} message ="You will completely delete this project." name={this.props.name} />
         </Modal>
+        </td>
       </tr>
     );
   }

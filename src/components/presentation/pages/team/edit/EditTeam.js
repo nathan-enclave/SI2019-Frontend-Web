@@ -1,56 +1,58 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import EditEngineer from '../../../../container/team/EditTeam';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
+// import Form from 'react-validation/build/form';
+// import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
 import getData from '../../../../container/team/GetTeamDetail';
-import GetTotal from './API /GetDetailProject'
-import Skills from "./partials/Member";
-import {ClipLoader} from 'react-spinners';
-import {handleUpload} from "../../../../../service/upload/fileUploader";
-import ImageUploader from "../../../commons/input/ImageUploader";
-import Members from './partials/Member';
-
-class EditForm extends Component {
+import GetTotal from './API/GetDetailProject'
+// import Skills from "./partials/Member";
+// import {ClipLoader} from 'react-spinners';
+import Member from './partials/Member';
+class EditTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      memberOptions: [],
+      // memberOptions: [],
       memberSelectOptions: [],
-      member: [],
-      leaderOptions: [],
-      leaderSelected: [],
-      leader: null,
-      isOpenMSGSuccess: false,
+      // member: [],
+      // leaderOptions: [],
+      // leaderSelected: [],
+      // leader: null,
+      // isOpenMSGSuccess: false,
       options: [],
       selectOptions: [],
       project:[],
       data:[],
-      engineers : [],
+      name : "",
+      // engineers : [],
+      listEng : [],
       error: "",
       loading: true,
-      saveLoading: false,
+      saveLoading: false
     };
   }
   async componentWillMount() {   
     let res0 = await getTotal();      
     this.setState({ memberOptions: res0 })
-    const res = await getData(this.props.id);
-    let res1 = await GetTotal();
-    console.log(res1)
+    let res1 = await GetTotal();   
     let listProject = res1.results
-    console.log(listProject)
+    // console.log(listProject)
     listProject.forEach(e => {
       e.value = e.id;
       e.label = e.name;
       delete e.id;
       delete e.name
   })
-
+  this.setState({ options: listProject })
+  const res = await getData(this.props.id);  
+  console.log(res)   
   setTimeout(() => {
       this.setState({
-        engineers: res
+        id: String(res.id),
+        name: res.name,
+        projectName: res.projectName,
+        listEng: res
         .engineers
         .map(e => {
             return {
@@ -60,28 +62,13 @@ class EditForm extends Component {
                 },
                 role: {
                     value: e.role,
-                    label: e.role = "member"
-                    
+                    label: e.role                    
                 }
             }
         }),
     loading: false
       })
-  }, 1000);
-    this.setState({ options: listProject })
-    this.setState({
-      id: String(res.id),
-      name: res.name,
-      projectName: res.projectName,
-      engineers: res.engineers.id    
-    });
-    res.engineers.forEach(e => {
-      e.value = e.id;
-      e.label = e.firstName + " "+ e.lastName;
-      delete e.id;
-      delete e.firstName
-  }) 
-  this.setState({memberSelectOptions :res.engineers })
+  }, 1000);      
   this.setState({ selectOptions: [{value : res.projects.id,label : res.projects.name}] })
   }
   isChange = (event) => {
@@ -92,6 +79,7 @@ class EditForm extends Component {
     });
     this.setState({
       data : {
+        ...this.state.data,
         [fieldName] : value
       }
     })
@@ -107,19 +95,24 @@ class EditForm extends Component {
       this.setState({
         data:{
           ...this.state.data,
-          engineers : temp
+          listEng : temp
       }
       })
     }
   }
 
   getData = async(items) => {
-
+    console.log("item: " + items[0])
     await this.setState({
-        engineers: items.map(e => e.data),
+      listEng: items.map(e => e.data),
         data: {
             ...this.state.data,
-            engineers: items.map(e => e.data)
+            engineers: items.map(e => {
+              return {
+                id : e.data.id.value,
+                role : e.data.role.value
+              }
+            })
         }
     })
 }
@@ -153,6 +146,7 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   render() {
+    // console.log(this.state.listEng)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
@@ -165,42 +159,26 @@ class EditForm extends Component {
           <div className="tab-content">
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
-            <Form >
+            <div >
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="control-label">Team Name</label>
-                      <Input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
-                      <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Engineers:  </label>
-                          <Select value={this.state.memberSelectOptions} options={this.state.memberOptions} isMulti onChange={this.handleChangeMember} />
-                      </div>
-                    </div>
+                      <input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <div className="form-check">
                         <label className="form-check-label"> Project:  </label>
                         <Select value={this.state.selectOptions} options={this.state.options} onChange={this.handleChangeProjects} />
                       </div>
                     </div>  
-                    {/* <div className="form-group">
-                      <div className="form-check">
-                        <label className="form-check-label"> Role:  </label>
-                        <select className="form-control" value={this.state.status} onChange={(event) => this.isChange(event)} name="status" >
-                        <option value="leader">LEADER</option>
-                        <option value="member">MEMBER</option>
-                      </select>
-                      </div>
-                    </div>  */}
-                    <Members
-                        memberSelected={this.state.engineers}
+                    <Member
+                        memberSelected ={this.state.listEng}
                         options={this.state.memberOptions}
-                        getData={this
-                        .getData
-                        .bind(this)}/> 
+                        getData={this.getData.bind(this)}                        
+                        /> 
                   </div>
                 </div>
-              </Form>
+              </div>
               <div className="row">
                 <div className="margin-top-20" style={{ textAlign: 'center' }}>
                   <button type="submit" className="btn green" onClick={()=>this.submitSaveForm()} > SAVE </button>
@@ -213,4 +191,4 @@ class EditForm extends Component {
     );
   }
 }
-export default EditForm;
+export default EditTeam;

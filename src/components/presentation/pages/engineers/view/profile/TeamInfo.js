@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 export default class TeamInfo extends Component {
+    
     render() {
         return (
             <tr className="TeamInfo">

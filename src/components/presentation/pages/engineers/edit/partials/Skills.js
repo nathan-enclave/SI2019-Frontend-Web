@@ -44,6 +44,7 @@ export default class Skills extends Component {
     }
 
     async componentWillMount() {
+        console.log("skill:")
         await this.setState({listSkills: this.props.skillSelected.map((e, idx)=>{
             return {
                 data: {
@@ -56,6 +57,7 @@ export default class Skills extends Component {
         }), numSkills: this.props.skillSelected.length})
     }
     render() {
+        console.log(this.state.numSkills)
         const dataRender = []
         for (let i = 0; i < this.state.numSkills; i += 1) {
             dataRender.push(<SkillOption
@@ -67,6 +69,7 @@ export default class Skills extends Component {
                 .handleExpand
                 .bind(this)}/>)
         };
+      
         
         return (
         

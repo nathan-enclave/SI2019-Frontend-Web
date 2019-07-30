@@ -1,67 +1,66 @@
 import React, {Component} from 'react'
 import Select from 'react-select';
 
-const yearsOfExp = []
-for (let index = 0; index <= 30; index++) {
-    if (index <= 1) {
-        yearsOfExp.push({value: index, label: `${index} year`})
-    } else {
-        yearsOfExp.push({value: index, label: `${index} years`})
+const role = [
+    {
+        value : "member",
+        label : "MEMBER"
+    },
+    {
+        value : "QA",
+        label : "QA"
+    },
+    {
+        value : "leader",
+        label : "LEADER"
     }
-
-}
-
-export default class SkillOption extends Component {
-
+]
+export default class MemberOptions extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listSkills: [],
-            skillSelected: this.props.data? this.props.data.skill:null ,
-            expYearSelected: this.props.data ? this.props.data.expYear: {value: 1, label: '1 year'} ,
+            listEngineers: [],
+            engineerSelected: null,
+            roleSelected: "member",
             error: "",
             checkValidate: false,
-            expYear: yearsOfExp
+            role: role
         }
     }
-
     handleSkillChange = async (selectOption) => {
         this.setState({error: null})
-        await this.setState({skillSelected: selectOption})
+        await this.setState({engineerSelected: selectOption.value})
         this
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected.value,
-                expYear: this.state.expYearSelected.value
+                id: this.state.engineerSelected,
+                role: this.state.roleSelected
             },
             index:this.props.keyIndex
         });
     }
     handleExpChange = async (selectOption) => {
         
-        await this.setState({expYearSelected: selectOption})
+        await this.setState({roleSelected: selectOption.value})
         this
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected.value,
-                expYear: this.state.expYearSelected.value
+                id: this.state.engineerSelected,
+                role: this.state.roleSelected
             },
             index:this.props.keyIndex
-        });
-    
-    }
-   
-
+        });    
+    }   
     handleRemoveItem = (e) => {
         e.target.parentNode.parentNode.parentNode.remove()
         this
         .props
         .handleExpand({
             data: {
-                id: this.state.skillSelected ? this.state.skillSelected.value: null,
-                expYear: this.state.expYearSelected
+                id: this.state.engineerSelected,
+                role: this.state.roleSelected
             },
             index:this.props.keyIndex,
             isDeleted: true
@@ -76,31 +75,29 @@ export default class SkillOption extends Component {
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-
-                    <div className="col-xs-6">
+                    <div className="col-md-6">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                    Skill:
+                                    Engineer:
                                 </label>
                                 {this.state.error}
                                 <Select
-                                    value={this.state.skillSelected}
                                     options={this.props.options}
                                     onChange={this.handleSkillChange}/>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-md-6">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                Experience years:
+                                   Roles:
                                 </label>
                                 <Select
-                                    // defaultValue={yearsOfExp[1]}
-                                    value={this.state.expYearSelected}
-                                    options={yearsOfExp}
+                                    defaultValue={role[0]}
+                                    // value={this.props.selectOption}
+                                    options={role}
                                     onChange={this.handleExpChange}/>
                             </div>
                         </div>

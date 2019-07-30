@@ -2,18 +2,14 @@ import React, {Component} from 'react'
 import {isEmpty} from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import LoginLoader from '../include/LoginLoader'
+import LoginLoader from '../../include/LoginLoader'
 import {Link} from "react-router-dom";
-import AuthContainer from "../../container/auth";
+import AuthContainer from "../../../container/auth";
+import CheckButton from 'react-validation/build/button';
+import './login.css'
 const required = (value) => {
     if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
-    }
-}
-
-const minLength = (value) => {
-    if (value.trim().length < 5) {
-        return <small className="form-text text-danger">Password must be at least 6 characters long</small>;
+        return <div className="small-validate">This field is required</div>;
     }
 }
 export default class Login extends Component {
@@ -37,36 +33,20 @@ export default class Login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this
-            .form
-            .validateAll();
-    }
-
-    checkError() {
-        if (this.state.error) {
-            if (this.state.loginLoader) {
-                this.setState({loginLoader: false})
-            }
-            return (
-                <div class="alert alert-danger">
-                    <strong>Error!</strong>
-                    <span>
-                        Username or Password is not correct.
-                    </span>
-                </div>
-            )
+        this.form.validateAll();
+        if (this.checkBtn.context._errors.length === 0) {
+            this.login()
         }
     }
     login() {
         const {username, password} = this.state
         this.setState({loginLoader: true})
-        if (this.state.username && this.state.password) {
-
             AuthContainer
                 .login({username, password})
                 .then((result) => {
+                    console.log(result)
                     if (!result.token) {
-                        this.setState({error: true})
+                        this.setState({error: true, loginLoader: false})
                     } else {
                         localStorage.setItem('sessionToken', JSON.stringify({token: result.token}))
                         localStorage.setItem('userData', JSON.stringify({
@@ -80,10 +60,9 @@ export default class Login extends Component {
 
                         this.setState({redirect: true})
                     }
-                }).catch(err=>{
-                    this.setState({error: true})
+                }).catch(err =>{
+                    this.setState({error: true, loginLoader: false})
                 })
-        }
     }
 
     onChange(e) {
@@ -94,6 +73,9 @@ export default class Login extends Component {
 
     redirect() {
         window.location = "/home";
+    }
+    display() {
+        return this.state.loginLoader ? <LoginLoader /> : (<button type="submit" className="btn green uppercase" >Login</button>)
     }
 
     render() {
@@ -111,9 +93,8 @@ export default class Login extends Component {
                 </div>
             )
         }
-        const loader = this.state.loginLoader
-            ? <LoginLoader/>
-            : null
+        let error = (this.state.error) ? (<div className="alert alert-danger resize-text">
+        <strong>Error!</strong> Username or Password is incorrect.</div>) : null        
         return (
             <div className="login">
                 <div className="content">
@@ -137,8 +118,8 @@ export default class Login extends Component {
                             onSubmit={e => this.onSubmit(e)}
                             ref={c => {
                             this.form = c
-                        }}>
-                            {this.checkError()}
+                        }}>            
+                         {error}               
                             <div className="form-group">
                                 <label className="control-label visible-ie8 visible-ie9">Username</label>
                                 <Input
@@ -159,7 +140,7 @@ export default class Login extends Component {
                                     placeholder="Password"
                                     name="password"
                                     onChange={this.onChange}
-                                    validations={[required, minLength]}/>
+                                    validations={[required]}/>
                             </div>
                             <div
                                 className="form-actions"
@@ -167,14 +148,11 @@ export default class Login extends Component {
                                 textAlign: "center",
                                 border: "none"
                             }}>
-                                <button
-                                    type="submit"
-                                    className="btn green uppercase"
-                                    onClick={() => this.login()}>Login</button>
                                 <div className="padding-tb-15">
-                                    {loader}
+                                {this.display()}
                                 </div>
                                 <Link to="/forgotPassword" id="forget-password" className="forget-password">Forgot Password?</Link>
+                                <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                             </div>
                         </Form>
                     </div>

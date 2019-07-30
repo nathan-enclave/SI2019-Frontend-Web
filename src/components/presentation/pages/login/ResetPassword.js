@@ -6,17 +6,18 @@ import Input from 'react-validation/build/input';
 import {isEmpty,equals } from 'validator';
 import CheckButton from 'react-validation/build/button';
 import {Link} from 'react-router-dom'
+import './login.css'
 
 let pass = ""
 
 const required = (value) => {
     if (isEmpty(value)) {
-        return ( <div className="alert alert-danger">This field is required</div>);
+        return ( <div className="small-validate">This field is required</div>);
     }    
   }
 const repassword = (value) =>{
     if(!equals(value,pass)){
-        return ( <div className="alert alert-danger">Password do not match.</div>);
+        return ( <div className="small-validate">Password do not match.</div>);
     }
 }
 export default class ResetPassword extends Component {
