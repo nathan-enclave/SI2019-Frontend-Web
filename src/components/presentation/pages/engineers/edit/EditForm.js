@@ -120,8 +120,6 @@ class EditForm extends Component {
         await this.setState({
             saveLoading: true
         })
-        console.log(this.state.avatar);
-        
         if (this.state.avatar !== this.state.oldAvatar) {
             const avatar = await handleUpload(this.state.avatar)
             this.setState({
@@ -181,8 +179,6 @@ class EditForm extends Component {
         })
     }
     render() {
-        console.log(this.state.skills);
-        
         return (
             <div className="portlet light bordered EditForm">
                 <div className="portlet-title tabbable-line">
