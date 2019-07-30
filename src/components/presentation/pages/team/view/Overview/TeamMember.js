@@ -36,7 +36,7 @@ class TeamMember extends Component {
               <div className="mt-action-buttons ">
                 <i className=" icon-social-twitter font-dark hide" />
                 <div>
-                  <span className="caption-subject font-dark bold uppercase">Salary</span>
+                  <span className="portlet-body4"> Salary</span>
                 </div>
                 <br></br>
                 <span >  {this.props.salary}    </span>
