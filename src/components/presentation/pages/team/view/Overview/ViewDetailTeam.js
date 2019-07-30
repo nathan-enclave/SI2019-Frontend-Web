@@ -159,7 +159,7 @@ class EditForm extends Component {
                                 {team}
                             </div>
                         </div>
-                        <div className="col-lg-3 col-xs-3 col-sm-3">
+                        <div className="col-lg-4 col-xs-4 col-sm-4">
                             <div className="portlet light bordered">
                                 <div className="portlet-title tabbable-line">
                                     <div className="caption">
@@ -210,26 +210,6 @@ class EditForm extends Component {
                                                             </div>
                                                         </div>
                                                         <div className="mt-comment-text"> {this.state.project.name} </div>
-                                                    </div>
-                                                    <div className="item">
-                                                        <div className="item-head">
-                                                            <div className="item-details">
-                                                                <span className="item-name">Status</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-comment-text">
-                                                            <span className={"label label-sm " + color} style={{ fontSize: "15px" }}>
-                                                                {this.state.project.status}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="item">
-                                                        <div className="item-head">
-                                                            <div className="item-details">
-                                                                <span className="item-name">Category</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-comment-text"> {this.state.project.category}    </div>
                                                     </div>
                                                     <div className="item">
                                                         <div className="item-head">
@@ -296,7 +276,7 @@ class EditForm extends Component {
                                     <ClipLoader
                                         sizeUnit={"px"}
                                         size={50}
-                                        color={'#ffc414'}
+                                        color={'#7ed6df'}
                                         loading={this.state.loading}
                                     />
                                 </div>) : this.state.loadData}

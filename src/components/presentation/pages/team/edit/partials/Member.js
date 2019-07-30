@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import MemberOption from "./MemberOptions";
 import { ClipLoader } from 'react-spinners';
@@ -11,14 +11,14 @@ export default class Member extends Component {
             error: "",
             numMembers: 0,
             isExpanded: false,
-            loading:false
+            loading: false
         }
     }
     async handleExpand(status) {
-        console.log(status.index);
-        
+        // console.log(status.index);
+
         const currentMembers = this.state.listMembers
-        
+
         const index = currentMembers.findIndex(e => e.index === status.index)
 
         if (index >= 0) {
@@ -30,7 +30,7 @@ export default class Member extends Component {
             const indexDel = currentMembers.findIndex(e => e.index === status.index)
             currentMembers.splice(indexDel, 1)
         }
-        await this.setState({listMembers: currentMembers})
+        await this.setState({ listMembers: currentMembers })
         this
             .props
             .getData(this.state.listMembers)
@@ -44,22 +44,25 @@ export default class Member extends Component {
     }
 
     async componentWillMount() {
-       
-        await this.setState({listMembers: this.props.memberSelected.map((e, idx)=>{
-            return {
-                data: {
-                    id: e.member.value,
-                    role: e.role.value
-                },
-                index: idx
-            }
-           
-        }), numMembers: this.props.memberSelected.length})
-    }    
-    render() {
-        console.log(this.state.numMembers )
 
-        console.log(this.props.memberSelected.length)
+        await this.setState({
+            listMembers: this.props.memberSelected.map((e, idx) => {
+                return {
+                    data: {
+                        id: e.member.value,
+                        role: e.role.value
+                    },
+                    index: idx
+                }
+
+            }), numMembers: this.props.memberSelected.length
+        })
+
+    }
+    render() {
+        // console.log(this.state.numMembers )
+
+        // console.log(this.props.memberSelected.length)
         const dataRender = []
         for (let i = 0; i < this.state.numMembers; i += 1) {
             dataRender.push(<MemberOption
@@ -68,30 +71,32 @@ export default class Member extends Component {
                 data={this.props.memberSelected[i]}
                 options={this.props.options}
                 handleExpand={this
-                .handleExpand
-                .bind(this)}/>)
+                    .handleExpand
+                    .bind(this)} />)
         };
-        
-        return (        
+        // console.log("render");
+
+
+        return (
             <div className="Skills">
-                {this.state.loading ? 
-                (<div className='sweet-loading d-flex justify-center'>
-                <ClipLoader 
-                  sizeUnit={"px"}
-                  size={25}
-                  color={'#123abc'}
-                  loading={this.state.loading}
-                />
-                </div>): dataRender
+                {this.state.loading ?
+                    (<div className='sweet-loading d-flex justify-center'>
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={25}
+                            color={'#123abc'}
+                            loading={this.state.loading}
+                        />
+                    </div>) : dataRender
                 }
-               
+
                 <div className="row">
                     <div className="col-12">
                         <div
                             className="margin-top-10"
                             style={{
-                            textAlign: 'center'
-                        }}>
+                                textAlign: 'center'
+                            }}>
                             <button className="btn yellow" onClick={(event) => this.handleAddMore(event)}>
                                 Add more member
                             </button>

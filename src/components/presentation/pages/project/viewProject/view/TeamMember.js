@@ -18,7 +18,7 @@ class TeamMember extends Component {
                   <div className="style_prevu_kit" >
                     <Link to={`/engineer/${this.props.id}`} className="mt-action-author">{this.props.firstName} {this.props.lastName}
                     </Link>
-                    <span className={"label label-sm label-default label-mini"}>SW {level}</span>
+                    <span className={"label label-sm label-default label-mini"}> SW {level}</span>
                     <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span>
                   </div>
                 </div>
