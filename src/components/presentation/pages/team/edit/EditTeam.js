@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import EditEngineer from '../../../../container/team/EditTeam';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
+// import Form from 'react-validation/build/form';
+// import Input from 'react-validation/build/input';
 import getTotal from './../../../../container/team/GetListEngineers';
 import getData from '../../../../container/team/GetTeamDetail';
 import GetTotal from './API/GetDetailProject'
 // import Skills from "./partials/Member";
 // import {ClipLoader} from 'react-spinners';
 import Member from './partials/Member';
-class EditForm extends Component {
+class EditTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +24,7 @@ class EditForm extends Component {
       selectOptions: [],
       project:[],
       data:[],
+      name : "",
       // engineers : [],
       listEng : [],
       error: "",
@@ -36,7 +37,7 @@ class EditForm extends Component {
     this.setState({ memberOptions: res0 })
     let res1 = await GetTotal();   
     let listProject = res1.results
-    console.log(listProject)
+    // console.log(listProject)
     listProject.forEach(e => {
       e.value = e.id;
       e.label = e.name;
@@ -56,8 +57,8 @@ class EditForm extends Component {
         .map(e => {
             return {
                 member: {
-                    value: e.value,
-                    label: e.label
+                    value: e.id,
+                    label: e.firstName + " " + e.lastName
                 },
                 role: {
                     value: e.role,
@@ -78,6 +79,7 @@ class EditForm extends Component {
     });
     this.setState({
       data : {
+        ...this.state.data,
         [fieldName] : value
       }
     })
@@ -100,11 +102,17 @@ class EditForm extends Component {
   }
 
   getData = async(items) => {
+    console.log("item: " + items[0])
     await this.setState({
       listEng: items.map(e => e.data),
         data: {
             ...this.state.data,
-            listEng: items.map(e => e.data)
+            engineers: items.map(e => {
+              return {
+                id : e.data.id.value,
+                role : e.data.role.value
+              }
+            })
         }
     })
 }
@@ -138,7 +146,7 @@ class EditForm extends Component {
     this.form.validateAll();
   }
   render() {
-    console.log(this.state.listEng)
+    // console.log(this.state.listEng)
     return (
       <div className="portlet light bordered">
         <div className="portlet-title tabbable-line">
@@ -151,12 +159,12 @@ class EditForm extends Component {
           <div className="tab-content">
             <span style={{ color: "red" }}> {this.state.msg}</span>
             <div className="tab-pane active" id="tab_1_1">
-            <Form >
+            <div >
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="control-label">Team Name</label>
-                      <Input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
+                      <input type="text" name="name" value ={this.state.name} onChange={(event) => this.isChange(event)} className="form-control" /> </div>
                     <div className="form-group">
                       <div className="form-check">
                         <label className="form-check-label"> Project:  </label>
@@ -170,7 +178,7 @@ class EditForm extends Component {
                         /> 
                   </div>
                 </div>
-              </Form>
+              </div>
               <div className="row">
                 <div className="margin-top-20" style={{ textAlign: 'center' }}>
                   <button type="submit" className="btn green" onClick={()=>this.submitSaveForm()} > SAVE </button>
@@ -183,4 +191,4 @@ class EditForm extends Component {
     );
   }
 }
-export default EditForm;
+export default EditTeam;

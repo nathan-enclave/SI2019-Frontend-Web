@@ -329,9 +329,7 @@ class EditForm extends Component {
                                                 <Skills
                                                     skillSelected={this.state.skills}
                                                     options={this.state.options}
-                                                    getData={this
-                                                    .getData
-                                                    .bind(this)}/>
+                                                    getData={this.getData.bind(this)}/>
                                             </div>
                                         </div>
                                         

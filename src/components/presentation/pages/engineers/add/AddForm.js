@@ -131,6 +131,7 @@ class AddForm extends Component {
     render() {
         let msgBirthday = this.state.msgBirthday === null ? null : (<div className="alert alert-danger">This field is required!</div>)
         let msgDateIn = this.state.msgDateIn === null ? null : (<div className="alert alert-danger">This field is required!</div>)
+       
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">

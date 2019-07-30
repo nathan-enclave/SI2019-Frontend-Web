@@ -6,12 +6,13 @@ import getTeamPag from '../../../../container/team/GetTeamPagination';
 import AddTeam from '../add/AddTeam';
 import Modal from '../../../commons/modal/Modal';
 import getTeam from '../../../../container/team/GetTeam';
+import Message from '../../../commons/msg/Message'
 
 class TableData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenMSGSuccess: false,
+      isOpenMessage: false,
       data: [],
       itemsCountPerPage: 10,
       totalItemsCount: 0,
@@ -20,14 +21,14 @@ class TableData extends Component {
       isOpen: false
     }
   }
-  toggleMSGSuccess = () => {
-    this.setState({ isOpenMSGSuccess: !this.state.isOpenMSGSuccess })
+  toggleMessage = () => {
+    this.setState({ isOpenMessage: !this.state.isOpenMessage })
     this.reloadData()
   }
   handlePageChange = (pageNumber) => {
-    console.log('active page is: ' + pageNumber);
+    // console.log('active page is: ' + pageNumber);
     this.setState({ activePage: pageNumber - 1 })
-    console.log(this.state.activePage)
+    // console.log(this.state.activePage)
     this.componentWillMount();
   }
   async componentWillMount() {
@@ -99,8 +100,7 @@ class TableData extends Component {
           <div className="caption" style={{ color: 'black', fontSize: '25px', paddingBottom: '13px ' }}>Team List ({this.state.totalItemsCount}) </div>
           <div style={{ paddingBottom: '20px' }}>
             <div style={{ width: '200px', float: 'left' }}>
-              <button onClick={this.toggleModal} className="btn btn-outline btn-circle green btn-sm green ">
-                <i className="fa fa-edit"></i> Add  </button>
+              <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green "> Add  </button>
             </div>
             <div className="search-form" style={{ float: 'right', width: '200px', backgroundColor: '#B9ECF0' }} >
               <div className="input-group">
@@ -121,12 +121,12 @@ class TableData extends Component {
         <Modal show={this.state.isOpen}
           onClose={this.toggleModal}>
           <AddTeam reloadData={this.props.reload} onClose={this.toggleModal} onReload={this.reloadData}
-            openMSGSuccess={this.toggleMSGSuccess} />
+            openMessage={this.toggleMessage} />
         </Modal>
-        {/* <Modal show={this.state.isOpenMSGSuccess}
-          onClose={this.toggleMSGSuccess} deleteStyleModel={true} >
-          <MSGSuccess message={"Add successfully new team."} />
-        </Modal> */}
+        <Modal show={this.state.isOpenMessage}
+          onClose={this.toggleMessage} deleteStyleModel={true} >
+          <Message message={"Add successfully new team."} />
+        </Modal>
       </div>
     );
   }

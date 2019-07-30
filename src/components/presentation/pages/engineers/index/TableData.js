@@ -6,6 +6,7 @@ import AddForm from '../../engineers/add/AddForm';
 import {ClipLoader} from 'react-spinners';
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
+import './index.css'
 class TableData extends Component {
     constructor(props) {
         super(props);
@@ -88,14 +89,7 @@ class TableData extends Component {
         return (
             <div className="TableArea">
                 <div className="portlet-title">
-                    <div
-                        className="caption"
-                        style={{
-                        color: 'black',
-                        fontSize: '25px',
-                        paddingBottom: '13px '
-                    }}>Engineer List ({this.state.totalItemsCount})
-                    </div>
+                <div className="caption" >ENGINEER LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>                 
                     <div className="padding-bottom-lg d-flex space-between">
                         <div>
                             <button

@@ -8,9 +8,9 @@ export default class MemberOption extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listMembers: [],
-            memberSelected: this.props.data? this.props.data.engineers:null ,
-            roleSelected: this.props.data ? this.props.data.role: {value: "member", label: 'MEMBER'} ,
+            // listMembers: [],
+            memberSelected: this.props.data? this.props.data.member:null ,
+            roleSelected: this.props.data ? this.props.data.role: {value: "member", label: 'member'} ,
             error: "",
             checkValidate: false,
             role: roleOfMember
@@ -30,24 +30,19 @@ export default class MemberOption extends Component {
             index:this.props.keyIndex
         });
     }
-    handleRoleChange = async (selectOption) => {
-        
+    handleRoleChange = async (selectOption) => {    
+        console.log(this.state)    
         await this.setState({roleSelected: selectOption})
-        this
-        .props
-        .handleExpand({
+        this.props.handleExpand({
             data: {
                 id: this.state.memberSelected.value,
                 role: this.state.roleSelected.value
             },
             index:this.props.keyIndex
-        });
-    
-    }
-   
-
+        });    
+    }  
     handleRemoveItem = (e) => {
-        e.target.parentNode.parentNode.parentNode.remove()
+        e.target.parentNode.parentNode.parentNode.remove()  
         this
         .props
         .handleExpand({
@@ -87,15 +82,15 @@ export default class MemberOption extends Component {
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                    Years of experience:
+                                   Role: 
                                 </label>
                                 <Select
-                                    // defaultValue={roleOfMember[1]}
+                                    defaultValue={roleOfMember[1]}
                                     value={this.state.roleSelected}
                                     options={[
                                         {
                                             value:"member",
-                                            label : "MEMBER",
+                                            label : "member",
                                         },
                                         {
                                             value:"QA",
@@ -103,7 +98,7 @@ export default class MemberOption extends Component {
                                         },
                                         {
                                             value:"leader",
-                                            label : "LEADER",
+                                            label : "leader",
                                         }
                                     ]}
                                     onChange={this.handleRoleChange}/>

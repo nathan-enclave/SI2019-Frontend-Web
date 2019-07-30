@@ -10,6 +10,7 @@ import DeletePopUp from './../../engineers/delete/DeletePopUp';
 // import { thisTypeAnnotation } from '@babel/types';
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
+import './index.css'
 
 export default class RowData extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ export default class RowData extends Component {
                         {this.props.email}</a>
                 </td>
                 <td>{this.props.phoneNumber}</td>
-                <td >{this.props.expYear}</td>
+                <td className="number-style">{this.props.expYear}</td>
                 <td>
                     <div className="flex-center">
                         <button onClick={()=>this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >

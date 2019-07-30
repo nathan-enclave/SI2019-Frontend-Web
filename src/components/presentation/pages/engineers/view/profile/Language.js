@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Chart from "react-apexcharts";
+import './Profile.css'
 
 export default class Language extends Component {
     constructor(props) {
@@ -60,12 +61,17 @@ export default class Language extends Component {
                     labels: {
                         show: false
                     }
-                },               
+                },   
+                 title: {
+                    text: 'Skills',
+                    align: 'center',
+                    floating: true
+                },                       
                 tooltip: {
                     theme: 'dark',
                     x: {
                         show: false,
-                        // title: 'years'
+                        title: 'years'
                     },
                     y: {
                         title: {
@@ -85,11 +91,33 @@ export default class Language extends Component {
     }
     
     render() {
-        let heightValue = (this.props.data.length*50 + 100) + "px"
+        let heightValue = (this.props.data.length*30 + 100) + "px"
         return (
-            <div className="portlet">                
-                <div>
-                    <Chart
+            // <div className="portlet">       
+            //  <div className="portlet text-center" >
+            //             <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Skills</span>
+            //     </div>         
+            //     <div>
+            //         <Chart
+            //             options={this.state.options}
+            //             series={this.state.series}
+            //             type="bar"
+            //             width="500px"
+            //             height = {heightValue}
+            //             />
+            //     </div>
+               
+            // </div>
+            <div className="tabbable-line tabbable-custom-profile">
+            <ul className="nav nav-tabs">
+              <li className="active">
+              <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Skills</span>
+              </li>
+            </ul>
+            <div className="tab-content">
+              <div className="tab-pane active" id="tab_1_11">
+                <div className="tab-content-chart">
+                <Chart
                         options={this.state.options}
                         series={this.state.series}
                         type="bar"
@@ -97,10 +125,9 @@ export default class Language extends Component {
                         height = {heightValue}
                         />
                 </div>
-                <div className="portlet text-center" >
-                        <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Programming languages</span>
-                </div>
+              </div>
             </div>
+          </div>
         );
     }
 }

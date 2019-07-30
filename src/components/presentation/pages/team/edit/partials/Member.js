@@ -9,18 +9,16 @@ export default class Member extends Component {
         this.state = {
             listMembers: [],
             error: "",
-            numMembers: 0,
+            numMembers:0,
             isExpanded: false,
-            loading:false
+            loading:false,
+            memberSelected : this.props.memberSelected
         }
     }
     async handleExpand(status) {
-        console.log(status.index);
-        
-        const currentMembers = this.state.listMembers
-        
+        console.log(status.index);        
+        const currentMembers = this.state.listMembers        
         const index = currentMembers.findIndex(e => e.index === status.index)
-
         if (index >= 0) {
             currentMembers[index] = status
         } else {
@@ -31,9 +29,7 @@ export default class Member extends Component {
             currentMembers.splice(indexDel, 1)
         }
         await this.setState({listMembers: currentMembers})
-        this
-            .props
-            .getData(this.state.listMembers)
+        this.props.getData(this.state.listMembers)
     }
 
     handleAddMore = (e) => {
@@ -42,24 +38,33 @@ export default class Member extends Component {
             numMembers: this.state.numMembers + 1
         })
     }
-
-    async componentWillMount() {
-       
-        await this.setState({listMembers: this.props.memberSelected.map((e, idx)=>{
-            return {
-                data: {
-                    id: e.member.value,
-                    role: e.role.value
-                },
-                index: idx
-            }
-           
-        }), numMembers: this.props.memberSelected.length})
+    // async componentWillMount() {       
+    //     await this.setState({listMembers: this.props.memberSelected.map((e, idx)=>{
+    //         return {
+    //             data: {
+    //                 id: e.member.value,
+    //                 role: e.role.value
+    //             },
+    //             index: idx
+    //         }           
+    //     }), numMembers: this.props.memberSelected.length})
+    // }
+    async componentWillReceiveProps(nextProps){
+        if(this.props !== nextProps){
+             await this.setState({listMembers: nextProps.memberSelected.map((e, idx)=>{
+                 console.log(e)
+                return {
+                    data: {
+                        id: e.member,
+                        role: e.role
+                    },
+                    index: idx
+                }           
+            }), numMembers: nextProps.memberSelected.length})
+        }
     }
-    render() {
-        console.log("selected" + this.props.memberSelected )
-
-        console.log(this.props.memberSelected.length)
+    render() {       
+        console.log(this.state.listMembers)
         const dataRender = []
         for (let i = 0; i < this.state.numMembers; i += 1) {
             dataRender.push(<MemberOption
