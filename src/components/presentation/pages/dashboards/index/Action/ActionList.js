@@ -44,12 +44,12 @@ class Action extends Component {
                                     time={e.time}
                                     type={e.status}
                                 />
-                            )): <div className='sweet-loading d-flex justify-center'>
+                            )): <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                 <ClipLoader
                                         sizeUnit={"px"}
                                         size={70}
                                         color={'#7ed6df'}
-                                        loading={this.state.loading}/>
+                                        loading={true}/>
                                 </div>}
                         </div>
                     </div>

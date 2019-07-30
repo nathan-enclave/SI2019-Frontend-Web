@@ -1,7 +1,17 @@
 .ActionRow .ActionIconCreate {
-    color: #2980b9!important
+    color: #2980b9!important;
 }
 
 .ActionRow .ActionIconDelete {
-    color: #fdcb6e!important
+    color: #f1c40f!important;
+}
+.ActionRow .ActionIconUpdate {
+    color: #5EC960!important;
+}
+
+.ActionRow .mt-actions .mt-action-desc {
+    color: #636e72!important;
+}
+.ActionRow .mt-actions .mt-action-date {
+    color: #636e72;
 }

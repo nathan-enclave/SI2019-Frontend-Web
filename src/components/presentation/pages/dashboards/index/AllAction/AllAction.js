@@ -64,7 +64,7 @@ export default class AllAction extends Component {
                                         sizeUnit={"px"}
                                         size={70}
                                         color={'#7ed6df'}
-                                        loading={this.state.loading}/>
+                                        loading={true}/>
                                 </div>
                             )
                             : (
