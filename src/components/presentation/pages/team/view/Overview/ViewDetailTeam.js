@@ -5,13 +5,12 @@ import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
-import numeral from 'numeral'
+// import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from '../../../project/viewProject/view/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
-
-
+import numeral from 'numeral'
 
 class EditForm extends Component {
     constructor(props) {
@@ -67,12 +66,6 @@ class EditForm extends Component {
                 name: res.name,
                 technology: res.technology,
                 description: res.description,
-                start: moment(res.start).format('DD/MM/YYYY'),
-                end: moment(res.end).format('DD/MM/YYYY'),
-                earning: numeral(res.earning).format('0,0'),
-                earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
-                status: res.status,
-                updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
                 team: res.team ? res.team.name : "Do not have team",
                 teamId: res.team ? res.team.id : null,
                 category: res.category.name,
@@ -108,6 +101,9 @@ class EditForm extends Component {
                     firstName={value.firstName}
                     lastName={value.lastName}
                     role={value.role}
+                    expYear={value.expYear}
+                    birthday= {moment(value.birthday).format('DD/MM/YYYY')}
+                    salary={numeral(value.salary).format('0,0') + " VND"}
                 />
             )
         })
@@ -116,14 +112,6 @@ class EditForm extends Component {
         })
     }
     render() {
-        let color = null
-        if (this.state.status === "done") {
-            color = 'label-info'
-        } else if (this.state.status === "inProgress") {
-            color = 'label-success'
-        } else if (this.state.status === 'pending') {
-            color = 'label-warning'
-        }
         let team = this.state.team === "Do not have team" ? (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -179,7 +167,7 @@ class EditForm extends Component {
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <th width="50%">{new Intl.NumberFormat('de-VIE', { style: 'currency', currency: 'VND' }).format(this.state.cashOut)} </th>
+                                                            <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
