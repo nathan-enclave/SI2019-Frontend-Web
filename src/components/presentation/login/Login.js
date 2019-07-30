@@ -80,6 +80,8 @@ export default class Login extends Component {
 
                         this.setState({redirect: true})
                     }
+                }).catch(err=>{
+                    this.setState({error: true})
                 })
         }
     }
@@ -95,6 +97,8 @@ export default class Login extends Component {
     }
 
     render() {
+        console.log(this.state.error);
+        
         if (this.state.redirect) {
             return (
                 <div>{this.redirect()}
