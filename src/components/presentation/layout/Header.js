@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 import './layout.css'
 class Header extends Component {
     logout = (event) => {
-        localStorage.removeItem('userData');
+        localStorage.clear();
         window.location = '/login';
     }
     render() {
@@ -16,21 +16,10 @@ class Header extends Component {
                             <NavLink to="/home" className="navbar-brand custom-background-white">
                                 <div className="logo-enclave">
                                     <img src="/assets/pages/img/logos/enclave-logo.png" alt=""/>
-                                    <span>
-                                        &nbsp; ENCLAVE IT
-                                    </span>
-
+                                    <span className="margin-left-sm">ENCLAVE IT</span>
                                 </div>
-                                {/* <i className="fa fa-home" style={{fontSize:"50px",marginTop:'7px'}}/>  */}
                             </NavLink>
                             <div className="topbar-actions">
-                                {/* <span
-                                    style={{
-                                    color: '#6c7984',
-                                    padding: '10px',
-                                    fontWeight: 'bold',
-                                    fontSize: "20px"
-                                }}>Welcome</span> */}
                                 <div className="btn-group-img btn-group">
                                     <button
                                         type="button"
@@ -38,11 +27,9 @@ class Header extends Component {
                                         data-toggle="dropdown"
                                         data-hover="dropdown"
                                         data-close-others="true">
-                                        <img
-                                            src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="avatar"/>
+                                        <img src="/assets/img-icon/manager.png" alt="Admin avatar"/>
                                     </button>
                                     <ul className="dropdown-menu-v2 dropdown-custom-background" role="menu">
-                                      
                                         <li>
                                             <span onClick= {(event) =>this.logout(event)}>
                                                 <i className="icon-key"/>

@@ -60,7 +60,7 @@ export default class RowData extends Component {
       }
     render() {
         return (
-            <tr className="RowData">
+            <tr className="RowData RowDataEngineer">
                 <td className="highlight">
                     <Link to={`/engineer/${this.props.id}`}>
                         <span 
@@ -88,7 +88,7 @@ export default class RowData extends Component {
                         </button>
                     </div>
                 </td>
-                <td>
+                <td className="ActionArea">
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
                         <ViewForm id = {this.props.id}/>
                     </Modal>

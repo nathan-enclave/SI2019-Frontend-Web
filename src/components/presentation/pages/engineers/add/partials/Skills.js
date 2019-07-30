@@ -32,6 +32,7 @@ export default class Skills extends Component {
         this.props.getData(this.state.listSkills)
     }
     handleAddMore =  (e) => {
+        e.preventDefault()
         this.setState({
             numSkills: this.state.numSkills+1
         })

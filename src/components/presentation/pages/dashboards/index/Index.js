@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import Stats from './Stats';
 import getTotal from '../../../../container/dashboard/GetTotal';
-import Action from './Action';
+import Action from './Action/ActionList';
 import {ClipLoader} from 'react-spinners';
+import AllAction from './AllAction/AllAction';
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: null,
-            loading: true
+            loading: true,
+            isToggle: false
         }
+        this.toggleModal = this.toggleModal.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
     async componentWillMount() {
         const res = await getTotal();
@@ -26,6 +30,16 @@ class Index extends Component {
             });
         }, 1000)
 
+    }
+    toggleModal(){
+        this.setState({
+            isToggle: true
+        })
+    }
+    handleClose(){
+        this.setState({
+            isToggle: false
+        })
     }
     render() {
         return (
@@ -49,10 +63,20 @@ class Index extends Component {
                 }
 
                 <div className="portlet light bordered">
-                    <div className="portlet-title">
-                        <div className="caption">
-                            <i className="icon-bar-chart font-dark hide"/>
-                            <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+                    <div className="padding-bottom-lg d-flex">
+                        <div className="portlet-title d-flex justify-center flex-col"  >
+                            <div className="caption">
+                                <i className="icon-bar-chart font-dark hide"/>
+                                <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+                            </div>
+                        </div>
+                        <div className="margin-left-md">
+                            <button
+                                onClick={this.toggleModal}
+                                className="btn btn-sm blue-madison">
+                                History
+                            </button>
+                            <AllAction open={this.state.isToggle} onClose={this.handleClose}/>
                         </div>
                     </div>
                     <div >

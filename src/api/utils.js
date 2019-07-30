@@ -72,7 +72,7 @@ function requestWrapper(method) {
         let convertParams = params;
         let convertData = data;
         if (method === 'GET') {
-            // is it a GET? GET doesn't have data
+            // it is GET method? so it doesn't have data!
             convertParams = convertData;
             if (convertParams !== null) {
                 convertUrl = `${convertUrl}?${getQueryString(convertParams)}`;
@@ -90,9 +90,10 @@ function requestWrapper(method) {
             }
         };
         // check that req url is relative and request was sent to our domain
-        const token = localStorage.getItem('sessionToken');
+        let token = localStorage.getItem('sessionToken');
         if (token) {
-            defaults.headers.authorization = `Bearer ${token}`;
+            token = JSON.parse(token).token
+            defaults.headers.Authorization = `Bearer ${token}`;
         }
 
         if (method === 'POST' || method === 'PUT') {
@@ -111,6 +112,8 @@ function requestWrapper(method) {
                 ...defaults.headers
             }
         };
+        console.log(paramsObj);
+        
         return customFetch(convertUrl, paramsObj);
     };
     return request;

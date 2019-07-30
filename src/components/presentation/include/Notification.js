@@ -1,11 +1,8 @@
 import { withSnackbar } from 'notistack';
 import React, { Component } from 'react'
-// import { Fragment, Button } from "@material-ui/core";
-
 import firebase from 'firebase'
 import { initializeFirebase} from "../../../service/firebase";
 initializeFirebase();
-
 const db = firebase.firestore();
 
 class Notification extends Component {
@@ -17,20 +14,29 @@ class Notification extends Component {
         }
     }
     componentDidUpdate(prevProps, prevState) {
+        const userData = JSON.parse(localStorage.getItem('userData')) 
+        
         if(prevState.data) {
-            
-            const key = this.props.enqueueSnackbar(this.state.data.action, { 
-                variant: this.state.data.status,
-                autoHideDuration: 10500,
-                action: (<div className="border-close border-close-notification">
-                <div className="close" onClick={()=>this.props.closeSnackbar(key)}></div>
-            </div>)
-            //     action: ( <Button onClick={() => { this.props.closeSnackbar(key) }}>
-            //     Close
-            // </Button>)
-            });
+            if (this.state.data.userId === userData.id) {
+                const key = this.props.enqueueSnackbar(`You have ${this.state.data.action}`, { 
+                    variant: this.state.data.status,
+                    autoHideDuration: 1500,
+                    action: (<div className="border-close border-close-notification">
+                    <div className="close" onClick={()=>this.props.closeSnackbar(key)}></div>
+                </div>)
+                });
+            } else {
+                const key = this.props.enqueueSnackbar(`${this.state.data.name} has ${this.state.data.action}`, { 
+                    variant: this.state.data.status,
+                    autoHideDuration: 1500,
+                    action: (<div className="border-close border-close-notification">
+                    <div className="close" onClick={()=>this.props.closeSnackbar(key)}></div>
+                </div>)
+                });
+            }
+          
         } else {
-            this.props.enqueueSnackbar("Welcome back, my love !", { 
+            this.props.enqueueSnackbar(`Welcome back, ${userData.englishName} !`, { 
                 variant: 'success',
                 autoHideDuration: 1000,
             }) 
@@ -39,12 +45,12 @@ class Notification extends Component {
     }
     componentDidMount() {
         const noti = this;
-        db.collection("activities").orderBy('time')
+        db.collection("activities").orderBy('time', 'desc')
             .onSnapshot((querySnapshot) => {
-                if(querySnapshot.docs.length === 0){
+                if(0 === querySnapshot.docs.length){
                     return;
                 } 
-                const lastActivity = querySnapshot.docs[querySnapshot.docs.length - 1].data()
+                const lastActivity = querySnapshot.docs[0].data()
                 noti.setState({
                     data: lastActivity
                 })

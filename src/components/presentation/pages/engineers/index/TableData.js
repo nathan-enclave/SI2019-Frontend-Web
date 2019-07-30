@@ -7,6 +7,7 @@ import {ClipLoader} from 'react-spinners';
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
 import './index.css'
+import './style.css'
 class TableData extends Component {
     constructor(props) {
         super(props);
