@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import RowData from './RowData';
 import Pagination from "react-js-pagination";
-import getDataPag from '../../../../container/project/GetProjectPagination';
 import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
 import Preloader from '../../../include/Preloader'
 import Message from '../../../commons/msg/Message';
+import ProjectContainer from "../../../../container/project";
 class TableData extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +38,9 @@ class TableData extends Component {
   }
   async componentWillMount() {
     let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
-    const res = await getDataPag(this.state.itemsCountPerPage, offset);
+
+    
+    const res = await ProjectContainer.getPagination(this.state.itemsCountPerPage, offset);
     if(this.state.activePage > 0 && res.results.length === 0) {
       this.setState({activePage : this.state.activePage-1})
       this.componentWillMount()

@@ -73,7 +73,7 @@ class Index extends Component {
                         <div className="margin-left-md">
                             <button
                                 onClick={this.toggleModal}
-                                className="btn btn-sm blue-madison">
+                                className="btn btn-sm grey-mint">
                                 History
                             </button>
                             <AllAction open={this.state.isToggle} onClose={this.handleClose}/>

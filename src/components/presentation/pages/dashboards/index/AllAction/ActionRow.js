@@ -43,15 +43,17 @@ export default class ActionRow extends Component {
     }
     render() {
         return (
-            <li className="mt-list-item ActionRow d-flex">
-                <div className="list-icon-container done align-self-center">
-                    {this.formatType(this.props.type)}
-                </div>
-                
-                <div className="list-item-content">
-                    <h4>
-                        <span><b>[{this.formatRole(this.props.role)}]</b> {this.props.user}: {this.formatAction(this.props.action)}</span>
-                    </h4>
+            <li className="mt-list-item ActionRow d-flex space-between">
+                <div className="head-activities d-flex">
+                    <div className="list-icon-container done align-self-center">
+                        {this.formatType(this.props.type)}
+                    </div>
+                    
+                    <div className="list-item-content">
+                        <h4>
+                            <span><b>[{this.formatRole(this.props.role)}]</b> {this.props.user}: {this.formatAction(this.props.action)}</span>
+                        </h4>
+                    </div>
                 </div>
                 <div className="list-datetime align-self-center" style={{width: "150px"}}>
                 {moment(this.props.time).format("MMM Do, YYYY")}

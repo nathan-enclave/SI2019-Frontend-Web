@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Modal from './../../../commons/modal/Modal';
 import EditForm from './../editProject/EditForm';
 import DeletePopUp from './../deleteProject/DeletePopUp';
-import DelEngineer from '../../../../container/project/DeleteProject';
 import { Link } from "react-router-dom";
 import numeral from 'numeral'
 import './index.css'
 import Message from '../../../commons/msg/Message';
+import ProjectContainer from "../../../../container/project";
+
 export default class RowData extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,7 @@ export default class RowData extends Component {
     });
   }
    removeItem () {
-     DelEngineer(this.props.id).then((result) => {
+     ProjectContainer.delete(this.props.id).then((result) => {
       if (!result.statusCode) {        
         this.setState({ isOpenDelete: false})
         this.setState({ msg: "Delete successful." })

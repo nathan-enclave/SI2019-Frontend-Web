@@ -68,7 +68,6 @@ function requestWrapper(method) {
     const request = async(url, data = null, params = {}) => {
         
         let convertUrl = process.env.REACT_APP_SERVER_URL + url;
-        console.log(convertUrl)
         let convertParams = params;
         let convertData = data;
         if (method === 'GET') {
@@ -112,7 +111,6 @@ function requestWrapper(method) {
                 ...defaults.headers
             }
         };
-        console.log(paramsObj);
         
         return customFetch(convertUrl, paramsObj);
     };

@@ -79,6 +79,8 @@ export default class Login extends Component {
     }
 
     render() {
+        console.log(this.state.error);
+        
         if (this.state.redirect) {
             return (
                 <div>{this.redirect()}
