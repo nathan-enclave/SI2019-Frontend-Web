@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
-import { getAllApi } from "../../../../../api/crud";
+import DashboardContainer from '../../../../container/dashboard';
 
 class CashFlowPortlet extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class CashFlowPortlet extends Component {
         }
     }
     async componentDidMount(){
-        const data = await getAllApi('dashboard/cashflow/' + new Date().getFullYear())
+        const data = await DashboardContainer.getStatistic('dashboard/cashflow/' + new Date().getFullYear())
         let catData = [], seriesData1 =[], seriesData2 = [],seriesData3 = [];
         data.forEach(element => {
             catData.push(element.month)

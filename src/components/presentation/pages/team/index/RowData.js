@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Modal from '../../../commons/modal/Modal';
 import TeamDetail from '../view/TeamDetail';
 import DeletePopUp from '../../engineers/delete/DeletePopUp';
-import DelTeam from '../../../../container/team/DelTeam'
 import EditTeam from '../../../pages/team/edit/EditTeam'
 import {NavLink } from 'react-router-dom'
 import TeamContainer from "../../../../container/team";
