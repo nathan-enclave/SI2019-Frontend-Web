@@ -116,7 +116,7 @@ handleReload =()=> {
               <div className="bordered-viewEngineer">
                  <div className="portlet box custom color-engineer">                 
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 fix-col">
                   <div className="resize">
                   <ul className="list-unstyled profile-nav">
                     <li className="li-edit-button">
