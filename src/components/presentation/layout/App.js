@@ -28,7 +28,7 @@ export default class App extends Component {
                             <div className="container-fluid">
                                 <div className="page-content page-content-popup">      
                                     <Header />
-                                    {/* <div className="page-content-fixed-header">
+                                    <div className="page-content-fixed-header">
                                         <ul className="page-breadcrumb">
                                             <li>
                                                 <a href="/">Dashboard</a>
@@ -42,8 +42,7 @@ export default class App extends Component {
                                                 </span>
                                             </button>
                                         </div>
-                                    </div> */}
-        
+                                    </div>
                                     <LeftBar />
                                     <div className="page-fixed-main-content">
                                         <RouterURL />

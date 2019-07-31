@@ -61,7 +61,6 @@ export default class SkillOption extends Component {
         });
     }
     render() {
-        console.log(this.props.options)
         return (
             <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
                 <div className="row relative">

@@ -15,8 +15,6 @@ export default class Member extends Component {
         }
     }
     async handleExpand(status) {
-        // console.log(status.index);
-
         const currentMembers = this.state.listMembers
 
         const index = currentMembers.findIndex(e => e.index === status.index)

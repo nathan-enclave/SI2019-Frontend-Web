@@ -15,7 +15,6 @@ export default class Skills extends Component {
     }
     async handleExpand(status) {
         const currentSkills = this.state.listSkills
-        console.log(currentSkills);        
         const index = currentSkills.findIndex(e=>e.index === status.index)        
         if(index >=0) {
             currentSkills[index] = status
