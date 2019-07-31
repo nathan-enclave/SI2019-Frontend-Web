@@ -84,20 +84,20 @@ class AddForm extends Component {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
         }
-        // EngineerContainer
-        //     .add(data)
-        //     .then(result => {
-        //         if (!result.statusCode) {
-        //             this
-        //                 .props
-        //                 .openMessage()
+        EngineerContainer
+            .add(data)
+            .then(result => {
+                if (!result.statusCode) {
+                    this
+                        .props
+                        .openMessage()
 
-        //         } else {
-        //             if (result.statusCode !== 200) {
-        //                 this.setState({msg: 'Some error occured, please try again later '});
-        //             }
-        //         }
-        //     })
+                } else {
+                    if (result.statusCode !== 200) {
+                        this.setState({msg: 'Some error occured, please try again later '});
+                    }
+                }
+            })
     }
     handleChangeBirthday = (date) => {
         this.setState({birthday: date,msgBirthday:null});
