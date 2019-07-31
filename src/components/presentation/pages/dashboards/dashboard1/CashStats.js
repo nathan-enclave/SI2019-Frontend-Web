@@ -65,7 +65,7 @@ class CashStats extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase" style={{fontSize:"18px"}}>Overall statistic</span>
+                        <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overall statistic</span>
                     </div>
                     <br />
                 </div>

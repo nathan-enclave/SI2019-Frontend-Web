@@ -28,12 +28,12 @@ export default class App extends Component {
                             <div className="container-fluid">
                                 <div className="page-content page-content-popup">      
                                     <Header />
-                                    {/* <div className="page-content-fixed-header">
+                                    <div className="page-content-fixed-header">
                                         <ul className="page-breadcrumb">
-                                            <li>
+                                            {/* <li>
                                                 <a href="/">Dashboard</a>
-                                            </li>
-                                            <li>Admin Dashboard</li>
+                                            </li> */}
+                                            <li><a href="/">Admin Dashboard</a></li>
                                         </ul>
                                         <div className="content-header-menu">
                                             <button type="button" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,7 +42,7 @@ export default class App extends Component {
                                                 </span>
                                             </button>
                                         </div>
-                                    </div> */}
+                                    </div>
         
                                     <LeftBar />
                                     <div className="page-fixed-main-content">
@@ -57,9 +57,6 @@ export default class App extends Component {
                             <div className="quick-nav-overlay"></div>
                         </Router>
                     </div>
-                
-            
-
                 </SnackbarProvider>
              
             );
