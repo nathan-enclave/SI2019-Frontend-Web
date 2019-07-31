@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 import { getAllApi } from "../../../../../api/crud";
+import { ClipLoader } from 'react-spinners';
 
 class HireLeft extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            load: true,
             workingStatus: {
                 options: {
                     colors: ['#00CECE', '#FFFF33'],
@@ -37,6 +39,7 @@ class HireLeft extends Component {
             numLeft.push(element.numLeft)
         });
         this.setState({
+            load: false,
             workingStatus: {
                 options: {
                     xaxis: {
@@ -75,16 +78,23 @@ class HireLeft extends Component {
                         <span className="caption-subject font-dark bold uppercase">Hire/Left per month</span>
                     </div>
                 </div>
-                {/* chart here */}
-                <div>
-                    <Chart
-                        options={this.state.workingStatus.options}
-                        series={this.state.workingStatus.series}
-                        type="bar"
-                        width="100%"
-                        height="300px"
-                    />
-                </div>
+                {this.state.load === true ? (
+                    <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={70}
+                            color={'#7ed6df'}
+                            loading={this.state.loading} />
+                    </div>
+                ) : (
+                        <Chart
+                            options={this.state.workingStatus.options}
+                            series={this.state.workingStatus.series}
+                            type="bar"
+                            width="100%"
+                            height="300px"
+                        />
+                    )}
             </div>
         );
     }

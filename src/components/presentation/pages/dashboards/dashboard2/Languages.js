@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 import { getAllApi } from "../../../../../api/crud";
+import { ClipLoader } from 'react-spinners';
 
 class Languages extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            load: true,
             options: {
                 chart: {
                     height: 380,
@@ -74,7 +76,7 @@ class Languages extends Component {
         }
     }
     async componentDidMount() {
-      
+
         const data = await getAllApi('skills/statistic/ratio')
 
         let categoriesData = []
@@ -84,7 +86,9 @@ class Languages extends Component {
             seriesData.push(element.count)
         });
         this.setState({
+            load: false,
             options: {
+                ...this.state.options,
                 chart: {
                     id: "basic-bar"
                 },
@@ -100,6 +104,7 @@ class Languages extends Component {
     }
     render() {
         return (
+
             <div className="portlet light bordered">
                 <div className="portlet-title">
                     <div className="caption">
@@ -108,16 +113,23 @@ class Languages extends Component {
                         <span className="caption-helper"></span>
                     </div>
                 </div>
-                {/* chart here */}
-                <div>
-                    <Chart
-                        options={this.state.options}
-                        series={this.state.series}
-                        type="bar"
-                        width="100%"
-                        height="500px"
-                    />
-                </div>
+                {this.state.load === true ? (
+                    <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={70}
+                            color={'#7ed6df'}
+                            loading={this.state.loading} />
+                    </div>
+                ) : (
+                        <Chart
+                            options={this.state.options}
+                            series={this.state.series}
+                            type="bar"
+                            width="100%"
+                            height="500px"
+                        />
+                    )}
             </div>
         );
     }

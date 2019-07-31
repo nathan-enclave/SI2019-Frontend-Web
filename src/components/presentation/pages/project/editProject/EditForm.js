@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import CheckButton from 'react-validation/build/button';
 import {isEmpty} from 'validator';
 import './validate.css'
+import { ClipLoader } from 'react-spinners';
 const required = (value) => {
     if (typeof(value) === "string") {
         if (isEmpty(value)) {
@@ -137,7 +138,7 @@ class EditForm extends Component {
         }
     }
     render() {
-        console.log(this.state.selectOptions)
+        console.log(this.state.selectOptions.length)        
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -148,6 +149,15 @@ class EditForm extends Component {
                     </div>
                 </div>
                 <div className="portlet-body">
+                    {this.state.selectOptions.length === 0?(
+                           <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+                           <ClipLoader
+                               sizeUnit={"px"}
+                               size={70}
+                               color={'#7ed6df'}
+                               loading={this.state.loading}/>
+                       </div>
+                    ):(
                     <div className="tab-content">
                         <span
                             style={{
@@ -281,6 +291,7 @@ class EditForm extends Component {
                             </Form>
                         </div>
                     </div>
+                    )}
                 </div>
             </div>
         );
