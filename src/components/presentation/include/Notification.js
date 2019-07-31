@@ -38,7 +38,7 @@ class Notification extends Component {
         } else {
             this.props.enqueueSnackbar(`Welcome back, ${userData.englishName} !`, { 
                 variant: 'success',
-                autoHideDuration: 1000,
+                autoHideDuration: 3000,
             }) 
         }
        

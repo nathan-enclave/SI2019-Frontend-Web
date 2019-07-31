@@ -33,20 +33,20 @@ class ViewProject extends Component {
             distributed: true,
             horizontal: true,
             dataLabels: {
-              position: 'bottom'              
-            }           
+              position: 'bottom'
+            }
           },
-          labels:{
+          labels: {
             formatter: function (val) {
-              return  numeral(val).format('0,0')
-          }
+              return numeral(val).format('0,0')
+            }
           }
         },
         colors: ['#33b2df', '#546E7A'],
         dataLabels: {
           formatter: function (val) {
-            return  numeral(val).format('0,0') + " VND"
-        },
+            return numeral(val).format('0,0') + " VND"
+          },
           enabled: true,
           textAnchor: 'start',
           style: {
@@ -81,19 +81,19 @@ class ViewProject extends Component {
             }
           }
         },
-        title: {
-          text: 'Earning and the Average Earning',
-          align: 'center',
-          floating: true,
-          style:{
-            fontSize: "20px",
-              color: "#0c5460"
-          }
-        },
+        // title: {
+        //   text: 'Earning and the Average Earning',
+        //   align: 'center',
+        //   floating: true,
+        //   style: {
+        //     fontSize: "20px",
+        //     color: "#0c5460"
+        //   }
+        // },
       },
       series: [{
         name: "number",
-        data: []     
+        data: []
       }]
     };
   }
@@ -110,12 +110,12 @@ class ViewProject extends Component {
       earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
       status: res.status,
       updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
-      team: res.team ? res.team.name : "Do not have team",
+      team: res.team ? res.team.name : null,
       teamId: res.team ? res.team.id : null,
       category: res.category.name,
       data: 0,
-      timelineStart :moment(res.start).format('MM/DD/YYYY'),
-      timelineEnd : moment(res.end).format('MM/DD/YYYY'),
+      timelineStart: moment(res.start).format('MM/DD/YYYY'),
+      timelineEnd: moment(res.end).format('MM/DD/YYYY'),
     });
     if (res.team !== null) {
       const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
@@ -158,13 +158,13 @@ class ViewProject extends Component {
       }]
     })
   }
-  
+
   render() {
-    let timeline = (this.state.status === "inProgress")?( <div className="row">
-    <div className="col-lg-12 col-xs-12 col-sm-12">
-<Timeline  start = {this.state.timelineStart} end = {this.state.timelineEnd} startFor = {this.state.start} endFor ={this.state.end}/>
-</div>
-</div>) : null
+    let timeline = (this.state.status === "inProgress") ? (<div className="row">
+      <div className="col-lg-12 col-xs-12 col-sm-12">
+        <Timeline start={this.state.timelineStart} end={this.state.timelineEnd} startFor={this.state.start} endFor={this.state.end} />
+      </div>
+    </div>) : null
     let root = document.documentElement;
     if (this.state.status === "done") {
       root.style.setProperty('--bg', "#b5cefd7d")
@@ -190,31 +190,42 @@ class ViewProject extends Component {
     } else if (this.state.status === 'pending') {
       color = 'label-danger'
     }
-    let team = this.state.team === "Do not have team" ? (
+    let team = this.state.team === null ? (
       <div className="portlet light bordered">
-        <div className="portlet-title tabbable-line">
-          <div className="caption">
-            <i className=" icon-social-twitter font-dark hide" />
-            <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.team} </span>
-          </div>
+                <div className="portlet-title">
+                  <div className="caption caption-md">
+                    <i className="icon-bar-chart font-dark hide" />
+                    <span className="caption-subject font-dark bold uppercase">Team: </span>
+                  </div>
+                </div>
+                <div className="portlet-body">
+                  <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
+                    <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>
+                    <div className="general-item-list">                      
+                    Do not have team.
+                    </div>
+                  </div></div>
+                </div>
+              </div>
+    ) : (
+      <div className="portlet light bordered ">
+      <div className="portlet-title">
+        <div className="caption caption-md">
+          <i className="icon-bar-chart font-dark hide" />
+          <span className="caption-subject font-dark bold uppercase">Team </span>
         </div>
       </div>
-    ) : (
-        <div className="portlet light bordered ">
-          <div className="portlet-title tabbable-line">
-            <div className="caption">
-              <i className=" icon-social-twitter font-dark hide" />
-             <Link to={"/team/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link>
-            </div>
-          </div>
-          <div className="portlet-body-custom-color">
-            <div className="tab-content">
-              <div className="tab-pane active" id="tab_actions_pending">
-                {this.state.teamData}
-              </div>
-            </div>
+      <div className="team-btn"><Link to = {"/team/" + this.state.teamId} className={"label label-sm " + color} style={{ fontSize: "13px" }}> {this.state.team} </Link></div> 
+      <div className="portlet-body scroll-member">
+        <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
+          <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>                     
+          <div className="general-item-list mess">    
+          {this.state.teamData}
           </div>
         </div>
+        </div>
+      </div>
+    </div>
       )
     let loadData = (this.state.data !== null) ? (
       <div className="portlet box custom color">
@@ -222,7 +233,7 @@ class ViewProject extends Component {
           <div className="head-name">
             {this.state.name}   </div>
         </div>
-       {timeline}
+        {timeline}
         <div className="portlet-body">
           <div className="row">
             <div className="col-lg-6 col-xs-12 col-sm-12">
@@ -281,35 +292,7 @@ class ViewProject extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="portlet light bordered">
-                  <div className="portlet-title tabbable-line">
-                    <div className="caption">
-                      <i className=" icon-social-twitter font-dark hide" />
-                      <span className="caption-subject font-dark bold uppercase">finance</span>
-                    </div>
-                  </div>
-                  <div className="portlet-bodyx">
-                    <div className="tab-content">
-                      <div className="table-main-pagination">
-                        <div className="table-scrollable-custom">
-                          <table className="table table-striped table-bordered table-advance table-hover">
-                            <thead>
-                              <tr>
-                                <th width="50%">Earning </th>
-                                <th>Earning Per Month </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th width="50%">{this.state.earning} VND</th>
-                                <th >{this.state.earningPerMonth} VND</th>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="portlet light bordered">                  
                   <div className="portlet light bordered">
                     <div className="portlet-title tabbable-line">
                       <div className="caption">
@@ -334,7 +317,7 @@ class ViewProject extends Component {
                                   <th >{this.state.end} </th>
                                 </tr>
                               </tbody>
-                            </table>                          
+                            </table>
                           </div>
                         </div>
                       </div>
@@ -347,12 +330,32 @@ class ViewProject extends Component {
               <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
                   <div className="caption">
-                  <i className=" icon-social-twitter font-dark hide" /> 
-                    <span className="caption-subject font-dark bold uppercase">CHART</span>
+                    <i className=" icon-social-twitter font-dark hide" />
+                    <span className="caption-subject font-dark bold uppercase">Earning </span>
                   </div>
                 </div>
                 <div className="portlet-bodyx">
                   <div className="tab-content">
+                  <div className="tab-content">
+                      <div className="table-main-pagination">
+                        <div className="table-scrollable-custom">
+                          <table className="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                              <tr>
+                                <th width="50%">Project budget </th>
+                                <th>Earning Per Month </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th width="50%">{this.state.earning} VND</th>
+                                <th >{this.state.earningPerMonth} VND</th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
                     <div>
                       <Chart
                         options={this.state.options}
@@ -363,9 +366,9 @@ class ViewProject extends Component {
                       />
                     </div>
                   </div>
-                </div>
-                {team}
-              </div>
+                </div>               
+              </div>                    
+                     {team}
             </div>
           </div>
         </div>
