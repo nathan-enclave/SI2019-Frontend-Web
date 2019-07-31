@@ -14,6 +14,7 @@ import Login from '../pages/login/Login'
 import ProjectIndex from '../pages/project/index/ProjectIndex';
 import Dashboard1 from '../pages/dashboards/dashboard1/Dashboard1';
 import Dashboard2 from '../pages/dashboards/dashboard2/Dashboard2';
+import ProjecTeamDashboard from '../pages/dashboards/projectTeamDashboard/ProjectTeamDashBoard'
 import ForgetPW from '../pages/login/ForgetPW';
 import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
@@ -29,6 +30,7 @@ class RouterURL extends Component {
           <Route exact path="/home" component={Index} />
           <Route exact path="/dashboard1" component={Dashboard1} />
           <Route exact path="/dashboard2" component={Dashboard2} />          
+          <Route exact path="/project-team" component={ProjecTeamDashboard} />          
           <Route exact path="/engineer" component={EngineerIndex} />
           <Route exact path="/engineers/add" component={AddForm} />
           <Route exact path="/engineers/edit" component={EditForm} />

@@ -50,6 +50,18 @@ class LeftBar extends Component {
                                         </span>
                                     </NavLink>
                                 </li>
+                                <li className="nav-item start ">
+                                    <NavLink
+                                        to="/project-team"
+                                        activeStyle={{
+                                        backgroundColor: '#B9ECF0'
+                                    }}>
+                                        <i className="icon-briefcase"></i>
+                                        <span className="title">
+                                            Project and Team
+                                        </span>
+                                    </NavLink>
+                                </li>
                             </ul>
                         </li>
                         <li className="nav-item start">
