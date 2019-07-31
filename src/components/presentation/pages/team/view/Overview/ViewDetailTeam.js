@@ -102,7 +102,7 @@ class EditForm extends Component {
                     lastName={value.lastName}
                     role={value.role}
                     expYear={value.expYear}
-                    birthday={moment(value.birthday).format('DD/MM/YYYY')}
+                    dateJoin={moment(value.dateJoin).format('DD/MM/YYYY')}
                     salary={numeral(value.salary).format('0,0') + " VND"}
                 />
             )
@@ -129,7 +129,7 @@ class EditForm extends Component {
                             <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
                         </div>
                     </div>
-                    <div className="portlet-body4">
+                    <div className="portlet-body5">
                         <div className="tab-content">
                             <div className="tab-pane active" id="tab_actions_pending">
                                 {this.state.teamData}

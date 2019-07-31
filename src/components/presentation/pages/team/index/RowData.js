@@ -59,9 +59,6 @@ class RowData extends Component {
           <NavLink to={`/team/${this.props.id}`} className=" margin-bottom-5 margin-top-5">
             {this.props.name}
           </NavLink>
-          {/* <NavLink onClick={() => this.toggleModalView()} className=" margin-bottom-5 margin-top-5">
-            {this.props.name}
-          </NavLink> */}
         </td>
         <td className="hidden-xs">{this.props.totalMember} </td>
         <td className="hidden-xs">{this.props.projectName} </td>

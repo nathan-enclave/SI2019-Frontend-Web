@@ -3,16 +3,16 @@ import Select from 'react-select';
 
 const role = [
     {
-        value : "member",
-        label : "MEMBER"
+        value : "developer",
+        label : "Developer"
     },
     {
-        value : "QA",
-        label : "QA"
+        value : "quality assurance",
+        label : "Quanlity Assurance"
     },
     {
         value : "leader",
-        label : "LEADER"
+        label : "Leader"
     }
 ]
 export default class MemberOptions extends Component {
@@ -21,7 +21,7 @@ export default class MemberOptions extends Component {
         this.state = {
             listEngineers: [],
             engineerSelected: null,
-            roleSelected: "member",
+            roleSelected: "developer",
             error: "",
             checkValidate: false,
             role: role
