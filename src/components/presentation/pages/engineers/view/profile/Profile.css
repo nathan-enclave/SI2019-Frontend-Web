@@ -59,7 +59,7 @@
 }
 .li-item-engineer{
     padding: 10px;
-    font-size: 17px
+    font-size: 15px
 }
 .li-item-engineer img{
     margin-right: 10px;
@@ -90,9 +90,9 @@
 .tab-content-chart{
     margin-right: 10px;
     padding: 15px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 7px;
-    box-shadow: 1px 2px #ddd;
+    /* box-shadow: 1px 2px #ddd; */
 }
 .resize{
     margin: 10px;
@@ -108,4 +108,7 @@
 }
 .resize-status{
     font-size: 15px !important
+}
+.fix-col {
+    width: 30% !important
 }

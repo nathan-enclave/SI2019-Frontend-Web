@@ -11,8 +11,14 @@ class ProjectContainer {
     update(id, data){
         return putApi('projects', id, data)
     }
-    getPagination(limit, offset) {
-        return getAllApi('projects?orderBy=id&filter={"deletedAt":{"$exists":false}}&limit='+limit+'&offset='+offset)
+    getPagination(limit, offset,field=[]) {
+        // return getAllApi('projects?orderBy=id&filter={"deletedAt":{"$exists":false}}&limit='+limit+'&offset='+offset)
+        return getAllApi(`projects?orderBy=id&filter={"deletedAt":{"$exists":false}}&limit=${limit}&offset=${offset}&fields=[${field}]`)
+        
+    }
+    getPending(limit, offset,field=[]) {
+        return getAllApi(`projects?orderBy=id&filter={"deletedAt":{"$exists":false},"status":"pending"}&limit=${limit}&offset=${offset}&fields=[${field}]`)
+        
     }
     getById(id){
         return getDataByIdApi('projects', id)

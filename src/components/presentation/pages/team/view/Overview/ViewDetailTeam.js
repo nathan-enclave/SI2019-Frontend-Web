@@ -5,17 +5,18 @@ import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
-import numeral from 'numeral'
+// import numeral from 'numeral'
 import './viewProject.css'
-import TeamMember from '../../../project/viewProject/view/TeamMember';
+import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
-
+import numeral from 'numeral'
 
 class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            project: {},
             loading: true,
             teamData: "",
             id: this.props.match.params.id,
@@ -41,83 +42,82 @@ class EditForm extends Component {
             ]
         };
     }
-    async componentDidMount() {
-        const res = await getData(this.state.id);
-        this.setState({
-            id: res.id,
-            name: res.name,
-            technology: res.technology,
-            description: res.description,
-            start: moment(res.start).format('DD/MM/YYYY'),
-            end: moment(res.end).format('DD/MM/YYYY'),
-            earning: numeral(res.earning).format('0,0'),
-            earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
-            status: res.status,
-            updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
-            team: res.team ? res.team.name : "Do not have team",
-            teamId: res.team ? res.team.id : null,
-            category: res.category.name,
-            data: 0
+    async componentWillMount() {
+        const teamInfor = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
+        let teamInfo = await teamInfor.json()
+        let totalSalary = 0
+        teamInfo.engineers.forEach(element => {
+            totalSalary += element.salary
+            // console.log(new Date(element.birthday).getFullYear())
         });
 
-
-        if (res.team !== null) {
-            const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
-            let teamInf = await res2.json();
-            let catData = [], seriesData1 = [];
-            teamInf.engineers.forEach((element) => {
-                catData.push(element.firstName)
-                seriesData1.push(parseInt(element.salary / 1000000));
-            });
-            let teamTable = teamInf.engineers.map((value, key) => {
-                this.setState({
-                    options: {
-                        ...this.state.options,
-                        xaxis: {
-                            categories: catData
-                        }
-                    },
-                    series: [
-                        {
-                            name: "Milions",
-                            data: seriesData1
-                        }
-                    ]
-                })
-
-
-                return (
-                    <TeamMember
-                        key={key}
-                        id={value.id}
-                        avatar={value.avatar}
-                        email={value.email}
-                        firstName={value.firstName}
-                        lastName={value.lastName}
-                        role={value.role}
-                    />
-                )
+        console.log(totalSalary)
+        this.setState({
+            name: teamInfo.name,
+            createdAt: teamInfo.createdAt,
+            projectsId: teamInfo.projects.id,
+            engineers: teamInfo.engineers,
+            cashOut: totalSalary
+        })
+        let res = await getData(this.state.projectsId)
+        this.setState({
+            project: {
+                id: res.id,
+                name: res.name,
+                technology: res.technology,
+                description: res.description,
+                team: res.team ? res.team.name : "Do not have team",
+                teamId: res.team ? res.team.id : null,
+                category: res.category.name,
+            }
+        });
+        let catData = [], seriesData1 = [];
+        teamInfo.engineers.forEach((element) => {
+            catData.push(element.firstName)
+            seriesData1.push(parseInt(element.salary / 1000000));
+        });
+        let teamTable = teamInfo.engineers.map((value, key) => {
+            this.setState({
+                options: {
+                    ...this.state.options,
+                    xaxis: {
+                        categories: catData
+                    }
+                },
+                series: [
+                    {
+                        name: "Milions",
+                        data: seriesData1
+                    }
+                ],
             })
-            this.setState({ teamData: teamTable })
-        }
 
-
+            return (
+                <TeamMember
+                    key={key}
+                    id={value.id}
+                    avatar={value.avatar}
+                    email={value.email}
+                    firstName={value.firstName}
+                    lastName={value.lastName}
+                    role={value.role}
+                    expYear={value.expYear}
+                    birthday={moment(value.birthday).format('DD/MM/YYYY')}
+                    salary={numeral(value.salary).format('0,0') + " VND"}
+                />
+            )
+        })
+        this.setState({
+            teamData: teamTable,
+        })
     }
     render() {
-        let color = null
-        if (this.state.status === "done") {
-            color = 'label-info'
-        } else if (this.state.status === "inProgress") {
-            color = 'label-success'
-        } else if (this.state.status === 'pending') {
-            color = 'label-warning'
-        }
         let team = this.state.team === "Do not have team" ? (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
                     <div className="caption">
                         <i className=" icon-social-twitter font-dark hide" />
-                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </span>
+                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@ class EditForm extends Component {
                     <div className="portlet-title tabbable-line">
                         <div className="caption">
                             <i className=" icon-social-twitter font-dark hide" />
-                            <Link to={"/team/" + this.state.teamId} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.team} </Link>
+                            <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
                         </div>
                     </div>
                     <div className="portlet-body4">
@@ -140,123 +140,136 @@ class EditForm extends Component {
             )
         setTimeout(() => {
             this.setState({
-                loadData: (<div className="portlet-body">
-                    <div className="row">
-                        <div className="col-lg-12 col-xs-12 col-sm-12">
-                            <div className="portlet light bordered">
-                                {team}
+                loadData: (
+                    <div className="portlet red box">
+                        <div className="portlet-title">
+                            <div className="caption">
+                                {this.state.name}
                             </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-6 col-xs-12 col-sm-12">
-                            <div className="portlet light bordered">
-                                <div className="portlet-title tabbable-line">
-                                    <NavLink to={`/project/${this.state.id}`} className="caption">
-                                        <i className="icon-bubbles font-dark hide" />
-                                        <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
-
-                                    </NavLink>
+                        <div className="portlet-body">
+                            <div className="row">
+                                <div className="col-lg-8 col-xs-8 col-sm-8">
+                                    <div className="portlet light bordered">
+                                        {team}
+                                    </div>
                                 </div>
-                                <div className="portlet-body3" >
-                                    <div className="tab-content">
-                                        <div className="portlet-body">
-                                            <div className="general-item-list">
-                                                <div className="item">
-                                                    <div className="item-head">
-                                                        <div className="item-details">
-                                                            <span className="item-name" >Project name</span>
-                                                        </div>
+                                <div className="col-lg-4 col-xs-4 col-sm-4">
+                                    <div className="portlet light bordered">
+                                        <div className="portlet-title tabbable-line">
+                                            <div className="caption">
+                                                <i className=" icon-social-twitter font-dark hide" />
+                                                <span className="caption-subject font-dark bold uppercase">finance</span>
+                                            </div>
+                                        </div>
+                                        <div className="portlet-bodyx">
+                                            <div className="tab-content">
+                                                <div className="table-main-pagination">
+                                                    <div className="table-scrollable-custom">
+                                                        <table className="table table-striped table-bordered table-advance table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="50%">Cash Out </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <div className="mt-comment-text"> {this.state.name}    </div>
-                                                </div>
-                                                <div className="item">
-                                                    <div className="item-head">
-                                                        <div className="item-details">
-                                                            <span className="item-name">Status</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
-                                                </div>
-                                                <div className="item">
-                                                    <div className="item-head">
-                                                        <div className="item-details">
-                                                            <span className="item-name">Category</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="mt-comment-text"> {this.state.category}    </div>
-                                                </div>
-                                                <div className="item">
-                                                    <div className="item-head">
-                                                        <div className="item-details">
-                                                            <span className="item-name">Description</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="mt-comment-text"> {this.state.description}    </div>
-                                                </div>
-                                                <div className="item">
-                                                    <div className="item-head">
-                                                        <div className="item-details">
-                                                            <span className="item-name">Technology</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="mt-comment-text"> {this.state.technology}    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="col-lg-6 col-md-6">
-                            <div className="portlet light bordered">
-
-                                <div className="portlet-title tabbable-line">
-                                    <div className="caption">
-                                        <i className="icon-bar-chart font-dark hide" />
-                                        <span className="caption-subject font-dark bold uppercase">Salary</span>
+                            <div className="row">
+                                <div className="col-lg-6 col-xs-6 col-sm-6">
+                                    <div className="portlet light bordered">
+                                        <div className="portlet-title tabbable-line">
+                                            <NavLink to={`/project/${this.state.id}`} className="caption">
+                                                <i className="icon-bubbles font-dark hide" />
+                                                <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
+                                            </NavLink>
+                                        </div>
+                                        <div className="portlet-body3" >
+                                            <div className="tab-content">
+                                                <div className="portlet-body">
+                                                    <div className="general-item-list">
+                                                        <div className="item">
+                                                            <div className="item-head">
+                                                                <div className="item-details">
+                                                                    <span className="item-name" >Project name</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt-comment-text"> {this.state.project.name} </div>
+                                                        </div>
+                                                        <div className="item">
+                                                            <div className="item-head">
+                                                                <div className="item-details">
+                                                                    <span className="item-name">Description</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt-comment-text"> {this.state.project.description}   </div>
+                                                        </div>
+                                                        <div className="item">
+                                                            <div className="item-head">
+                                                                <div className="item-details">
+                                                                    <span className="item-name">Technology</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt-comment-text"> {this.state.project.technology}    </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                {/* chart here */}
 
-                                <div className="portlet-body">
-                                    <div className="SalaryChart" >
-                                        <Chart
-                                            options={this.state.options}
-                                            series={this.state.series}
-                                            type="bar"
-                                            width="100%"
-                                        />
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="portlet light bordered">
+
+                                        <div className="portlet-title tabbable-line">
+                                            <div className="caption">
+                                                <i className="icon-bar-chart font-dark hide" />
+                                                <span className="caption-subject font-dark bold uppercase">Salary</span>
+                                            </div>
+                                        </div>
+                                        {/* chart here */}
+
+                                        <div className="portlet-body">
+                                            <div className="SalaryChart" >
+                                                <Chart
+                                                    options={this.state.options}
+                                                    series={this.state.series}
+                                                    type="bar"
+                                                    width="100%"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div >
                     </div>
-                </div >
                 ),
-                loading : false
+                loading: false
             })
         }, 1000);
         return (
             <div className="portlet light bordered">
-                <div className="portlet red box">
-                    <div className="portlet-title">
-                        <div className="caption">
-                            {this.state.name}   </div>
-                    </div>
-                    {this.state.loading ?
-                        (<div className='sweet-loading'>
-                            <ClipLoader
-                                sizeUnit={"px"}
-                                size={50}
-                                color={'#ffc414'}
-                                loading={this.state.loading}
-                            />
-                        </div>) : this.state.loadData}
-
-                </div>
-
+                {this.state.loading ?
+                    (<div className="sweet-loading d-flex justify-center middle-loading-custom">
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={50}
+                            color={'#7ed6df'}
+                            loading={this.state.loading}
+                        />
+                    </div>) : this.state.loadData}
             </div>
         )
     }

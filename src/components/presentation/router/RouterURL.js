@@ -28,8 +28,8 @@ class RouterURL extends Component {
           <Route  exact path="/login" component={Login} /> 
           <Route exact path="/" component={Index} />
           <Route exact path="/home" component={Index} />
-          <Route exact path="/dashboard1" component={Dashboard1} />
-          <Route exact path="/dashboard2" component={Dashboard2} />          
+          <Route exact path="/cash" component={Dashboard1} />
+          <Route exact path="/human" component={Dashboard2} />          
           <Route exact path="/project-team" component={ProjecTeamDashboard} />          
           <Route exact path="/engineer" component={EngineerIndex} />
           <Route exact path="/engineers/add" component={AddForm} />

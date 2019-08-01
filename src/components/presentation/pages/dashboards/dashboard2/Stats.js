@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import numeral from 'numeral'
 import { getAllApi } from "../../../../../api/crud";
+import "./dashboard2.css"
 
 class Stats extends Component {
   constructor(props) {

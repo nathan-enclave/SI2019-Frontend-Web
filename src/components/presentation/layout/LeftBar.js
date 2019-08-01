@@ -28,25 +28,25 @@ class LeftBar extends Component {
                             <ul className="sub-menu">
                                 <li className="nav-item start">
                                     <NavLink
-                                        to="/dashboard1"
+                                        to="/cash"
                                         activeStyle={{
                                         backgroundColor: '#B9ECF0'
                                     }}>
                                         <i className="icon-graph"></i>
-                                        <span className="title">
-                                            Cash flow dashboard
+                                        <span className="title margin-left-xs">
+                                            Cash flow 
                                         </span>
                                     </NavLink>
                                 </li>
                                 <li className="nav-item start ">
                                     <NavLink
-                                        to="/dashboard2"
+                                        to="/human"
                                         activeStyle={{
                                         backgroundColor: '#B9ECF0'
                                     }}>
                                         <i className="icon-user-female"></i>
-                                        <span className="title">
-                                            Human dashboard
+                                        <span className="title margin-left-xs">
+                                            Human 
                                         </span>
                                     </NavLink>
                                 </li>
@@ -57,7 +57,7 @@ class LeftBar extends Component {
                                         backgroundColor: '#B9ECF0'
                                     }}>
                                         <i className="icon-briefcase"></i>
-                                        <span className="title">
+                                        <span className="title margin-left-xs">
                                             Project and Team
                                         </span>
                                     </NavLink>

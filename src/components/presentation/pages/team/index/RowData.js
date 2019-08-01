@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Modal from '../../../commons/modal/Modal';
 import TeamDetail from '../view/TeamDetail';
 import DeletePopUp from '../../engineers/delete/DeletePopUp';
-import DelTeam from '../../../../container/team/DelTeam'
 import EditTeam from '../../../pages/team/edit/EditTeam'
 import {NavLink } from 'react-router-dom'
+import TeamContainer from "../../../../container/team";
 
 class RowData extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class RowData extends Component {
     });
   }
   removeItem = () => {
-    DelTeam(this.props.id).then((res) => {
+    TeamContainer.delete(this.props.id).then((res) => {
       console.log(res)
       if (!res.statusCode) {
         this.toggleModalMSGDelete();
