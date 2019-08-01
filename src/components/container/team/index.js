@@ -14,7 +14,6 @@ class TeamContainer {
     getPagination(limit, offset, field=[]) {
         return getAllApi(`teams?orderBy=id&limit=${limit}&offset=${offset}&fields=[${field}]`)
     }
-
     getById(id){
         return getDataByIdApi('teams', id)
     }

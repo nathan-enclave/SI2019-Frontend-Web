@@ -7,33 +7,27 @@ class TeamMember extends Component {
     let typeLabel = (this.props.role === "leader") ? "danger" : "success"
     let level = (this.props.expYear <= 3) ? 1 : (this.props.expYear <= 5) ? 2 : (this.props.expYear <= 7) ? 3 : 4
     return (
-      <li className="row">
-      <div className="col-sm-12">
-        abc
-          {/* <div className="card" >
-            <img width="50px" alt="" height="50px" src={this.props.avatar} />
-            <div className="card-body">
-              <h5 className="card-title"> <Link to={`/engineer/${this.props.id}`} className="mt-action-author">{this.props.firstName} {this.props.lastName}
-              </Link>
-                <div> <span className={"label label-sm label-default label-mini"} > SW {level}</span> </div>
-                <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span></h5>
-              <li className="li-item-engineer" >
-                <i className="fa fa-money ss" aria-hidden="true"></i>
-                Salary: {this.props.salary} VND
-                           </li>
-              <li className="li-item-engineer" >
-                <i className="fa fa-calendar ss" aria-hidden="true" ></i>
-                Date in: {this.props.dateJoin}
-              </li>
-
-              <Link to={`/engineer/${this.props.id}`} className="btn btn-primary">Go somewhere</Link   >
-            </div>
-          </div>
-          <br /> */}
-
-        </div>
-
-      </li>
+      <li>
+                                                <div class="col1">
+                                                    <div class="cont">
+                                                        <div class="cont-col1">
+                                                            <div class="label label-sm label-info">
+                                                                <i class="fa fa-check"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="cont-col2">
+                                                            <div class="desc"> You have 4 pending tasks.
+                                                                <span class="label label-sm label-warning "> Take action
+                                                                    <i class="fa fa-share"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col2">
+                                                    <div class="date"> Just now </div>
+                                                </div>
+                                            </li>
 
 
       //       <div className="mt-actions">

@@ -33,7 +33,7 @@ class LeftBar extends Component {
                                         backgroundColor: '#B9ECF0'
                                     }}>
                                         <i className="icon-graph"></i>
-                                        <span className="title">
+                                        <span className="title margin-left-xs">
                                             Cash flow 
                                         </span>
                                     </NavLink>
@@ -45,8 +45,20 @@ class LeftBar extends Component {
                                         backgroundColor: '#B9ECF0'
                                     }}>
                                         <i className="icon-user-female"></i>
-                                        <span className="title">
+                                        <span className="title margin-left-xs">
                                             Human 
+                                        </span>
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item start ">
+                                    <NavLink
+                                        to="/project-team"
+                                        activeStyle={{
+                                        backgroundColor: '#B9ECF0'
+                                    }}>
+                                        <i className="icon-briefcase"></i>
+                                        <span className="title margin-left-xs">
+                                            Project and Team
                                         </span>
                                     </NavLink>
                                 </li>

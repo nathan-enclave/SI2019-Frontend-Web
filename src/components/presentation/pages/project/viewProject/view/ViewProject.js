@@ -11,6 +11,8 @@ import './viewProject.css'
 import TeamMember from './TeamMember';
 import Timeline from './Timeline';
 import { ClipLoader } from 'react-spinners';
+import TeamContainer from "../../../../../container/team";
+import ProjectContainer from "../../../../../container/project";
 class ViewProject extends Component {
   constructor(props) {
     super(props);
@@ -118,8 +120,7 @@ class ViewProject extends Component {
       timelineEnd: moment(res.end).format('MM/DD/YYYY'),
     });
     if (res.team !== null) {
-      const res2 = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + res.team.id)
-      let teamInf = await res2.json();
+      const teamInf =  await TeamContainer.getById(res.team.id)
       let teamTable = teamInf.engineers.map((value, key) => {
         return (
           <TeamMember
@@ -136,8 +137,8 @@ class ViewProject extends Component {
       })
       this.setState({ teamData: teamTable })
     }
-    let listProject = await fetch('https://si-enclave.herokuapp.com/api/v1/projects?limit=100000000&offset=0')
-    listProject = await listProject.json()
+    // const ls = await ProjectContainer.getPagination(10000, 0,`"earning", "status"`)
+    const listProject = await ProjectContainer.getPagination(10000, 0,`"earning", "status"`)
     let totalEarning = 0
     listProject.results.forEach(element => {
       totalEarning += element.earning

@@ -114,74 +114,328 @@ class EditForm extends Component {
     }
     render() {
         let team = this.state.team === "Do not have team" ? (
-            // <div className="portlet light bordered">
-            <div className="portlet-title tabbable-line">
-                <div className="caption">
-                    <i className=" icon-social-twitter font-dark hide" />
-                    <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
-                </div>
+            // <div className="portlet light bordered">x
+            <div>
             </div>
+
             // </div>
         ) : (
-               
-                    <ul className="feeds">
-                        {/* <div className="tab-pane active" id="tab_actions_pending"> */}
-                            {this.state.teamData}
-                        {/* </div> */}
-                    </ul>
+
+                <ul className="feeds">
+                    {/* <div className="tab-pane active" id="tab_actions_pending"> */}
+                    {this.state.teamData}
+                    {/* </div> */}
+                </ul>
                 // </div>
             )
         setTimeout(() => {
             this.setState({
                 loadData: (
-                    <div className="portlet red box">
-                        <div className="portlet-title">
-                            <div className="caption">
-                                {this.state.name}
+                    <div className="TeamDetail">
+                        <div className="row">
+                            <div className="col-lg-6 col-xs-12 col-md-6">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title">
+                                        <div className="caption">
+                                            <i className="icon-share font-dark hide"></i>
+                                            <span className="caption-subject font-dark bold uppercase">{this.state.name}</span>
+                                        </div>
+                                    </div>
+                                    <div className="portlet-body">
+                                        <div
+                                            className="scroller"
+                                            style={{
+                                                height: 300
+                                            }}
+                                            data-always-visible="1"
+                                            data-rail-visible="0">
+
+                                            <ul className="feeds">
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+                                                <li className="row">
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
+                                                        <span>
+                                                            Project 1
+                                            </span>
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span>
+                                                            Team 1
+                                            </span>
+
+                                                    </div>
+                                                    <div
+                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+                                                        <span>
+                                                            Aug 24th 2019
+                                            </span>
+
+                                                    </div>
+                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
+                                                        <span className="label label-sm label-warning deadline-label">
+                                                            Pending
+                                            </span>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div className="col-lg-6 col-xs-12 col-md-6">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title tabbable-line">
+                                        <div className="caption">
+                                            <i className=" icon-social-twitter font-dark hide" />
+                                            <span className="caption-subject font-dark bold uppercase">finance</span>
+                                        </div>
+                                    </div>
+                                    <div className="portlet-bodyx">
+                                        <div className="tab-content">
+                                            <div className="table-main-pagination">
+                                                <div className="table-scrollable-custom">
+                                                    <table className="table table-striped table-bordered table-advance table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50%">Cash Out </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                        <div className="portlet-body">
-                            <div className="row">
-                                <div className="col-lg-8 col-xs-8 col-sm-8">
-                                    <div className="portlet light bordered">
-                                        <div className="portlet-title">
-                                            <div className="caption">
-                                                <i className="icon-share font-dark hide"></i>
-                                                <span className="caption-subject font-dark bold uppercase label label-sm label-default"> MEMBER LIST</span>
-                                            </div>
-                                        </div>
-                                        <div className="portlet-body">
-                                            <div className="scroller" style={{ height: 300 }} data-always-visible="1" data-rail-visible="0">
-                                        {team}
-                                                
-                                            </div>
-                                        </div>
+                        <div className="row">
+                            <div className="col-lg-6 col-xs-12 col-md-6 ">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title tabbable-line">
+                                        <NavLink to={`/project/${this.state.id}`} className="caption">
+                                            <i className="icon-bubbles font-dark hide" />
+                                            <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
+                                        </NavLink>
                                     </div>
-                                </div>
-                                <div className="col-lg-4 col-xs-4 col-sm-4">
-                                    <div className="portlet light bordered">
-                                        <div className="portlet-title tabbable-line">
-                                            <div className="caption">
-                                                <i className=" icon-social-twitter font-dark hide" />
-                                                <span className="caption-subject font-dark bold uppercase">finance</span>
-                                            </div>
-                                        </div>
-                                        <div className="portlet-bodyx">
-                                            <div className="tab-content">
-                                                <div className="table-main-pagination">
-                                                    <div className="table-scrollable-custom">
-                                                        <table className="table table-striped table-bordered table-advance table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th width="50%">Cash Out </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                    <div className="portlet-body3" >
+                                        <div className="tab-content">
+                                            <div className="portlet-body">
+                                                <div className="general-item-list">
+                                                    <div className="item">
+                                                        <div className="item-head">
+                                                            <div className="item-details">
+                                                                <span className="item-name" >Project name</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="mt-comment-text"> {this.state.project.name} </div>
+                                                    </div>
+                                                    <div className="item">
+                                                        <div className="item-head">
+                                                            <div className="item-details">
+                                                                <span className="item-name">Description</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="mt-comment-text"> {this.state.project.description}   </div>
+                                                    </div>
+                                                    <div className="item">
+                                                        <div className="item-head">
+                                                            <div className="item-details">
+                                                                <span className="item-name">Technology</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="mt-comment-text"> {this.state.project.technology}    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,96 +443,41 @@ class EditForm extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-lg-6 col-xs-6 col-sm-6">
-                                    <div className="portlet light bordered">
-                                        <div className="portlet-title tabbable-line">
-                                            <NavLink to={`/project/${this.state.id}`} className="caption">
-                                                <i className="icon-bubbles font-dark hide" />
-                                                <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
-                                            </NavLink>
-                                        </div>
-                                        <div className="portlet-body3" >
-                                            <div className="tab-content">
-                                                <div className="portlet-body">
-                                                    <div className="general-item-list">
-                                                        <div className="item">
-                                                            <div className="item-head">
-                                                                <div className="item-details">
-                                                                    <span className="item-name" >Project name</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mt-comment-text"> {this.state.project.name} </div>
-                                                        </div>
-                                                        <div className="item">
-                                                            <div className="item-head">
-                                                                <div className="item-details">
-                                                                    <span className="item-name">Description</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mt-comment-text"> {this.state.project.description}   </div>
-                                                        </div>
-                                                        <div className="item">
-                                                            <div className="item-head">
-                                                                <div className="item-details">
-                                                                    <span className="item-name">Technology</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="mt-comment-text"> {this.state.project.technology}    </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                            <div className="col-lg-6 col-xs-12 col-md-6">
+                                <div className="portlet light bordered">
+
+                                    <div className="portlet-title tabbable-line">
+                                        <div className="caption">
+                                            <i className="icon-bar-chart font-dark hide" />
+                                            <span className="caption-subject font-dark bold uppercase">Salary</span>
                                         </div>
                                     </div>
-                                </div>
+                                    {/* chart here */}
 
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="portlet light bordered">
-
-                                        <div className="portlet-title tabbable-line">
-                                            <div className="caption">
-                                                <i className="icon-bar-chart font-dark hide" />
-                                                <span className="caption-subject font-dark bold uppercase">Salary</span>
-                                            </div>
-                                        </div>
-                                        {/* chart here */}
-
-                                        <div className="portlet-body">
-                                            <div className="SalaryChart" >
-                                                <Chart
-                                                    options={this.state.options}
-                                                    series={this.state.series}
-                                                    type="bar"
-                                                    width="100%"
-                                                />
-                                            </div>
+                                    <div className="portlet-body">
+                                        <div className="SalaryChart" >
+                                            <Chart
+                                                options={this.state.options}
+                                                series={this.state.series}
+                                                type="bar"
+                                                width="100%"
+                                            />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                {/* <div className="portlet-body5">
-                                <div className="card" style={{ width: '18rem' }}>
-                                <img width="50px" alt="" height="50px" src={this.props.avatar} />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-                                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                        <a href="#" className="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                                </div> */}
-                                <Member />
+                        </div>
 
-                            </div>
-                        </div >
                     </div>
+
                 ),
                 loading: false
             })
         }, 1000);
         return (
-            <div className="portlet light bordered">
+
+            <div className="ViewTeamDetail">
                 {this.state.loading ?
                     (<div className="sweet-loading d-flex justify-center middle-loading-custom">
                         <ClipLoader
