@@ -3,6 +3,8 @@ import Stats from './Stats';
 import HireLeft from './HireLeft';
 import Languages from './Languages';
 import Status from './Status';
+import Gender from './Gender';
+import Level from './Level'
 
 class Dashboard2 extends Component {
   render() {
@@ -11,7 +13,7 @@ class Dashboard2 extends Component {
         <Stats />
         <div className="row">
           <div className="col-lg-6 col-md-12">
-            <Languages />
+            <Level />
           </div>
           <div className="col-lg-6 col-md-12">
             <Status />
@@ -20,6 +22,14 @@ class Dashboard2 extends Component {
         <div className="row">
           <div className="col-lg-12 col-md-12">
             <HireLeft />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-5 col-md-12">
+            <Gender />
+          </div>
+          <div className="col-lg-6 col-md-12">
+            <Languages />
           </div>
         </div>
       </div>

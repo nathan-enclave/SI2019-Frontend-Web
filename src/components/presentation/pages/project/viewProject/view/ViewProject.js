@@ -9,8 +9,8 @@ import getData from '../../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
-import Preloader from '../../../../include/Preloader'
 import Timeline from './Timeline';
+import { ClipLoader } from 'react-spinners';
 class ViewProject extends Component {
   constructor(props) {
     super(props);
@@ -192,191 +192,198 @@ class ViewProject extends Component {
     }
     let team = this.state.team === null ? (
       <div className="portlet light bordered">
-                <div className="portlet-title">
-                  <div className="caption caption-md">
-                    <i className="icon-bar-chart font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">Team: </span>
-                  </div>
-                </div>
-                <div className="portlet-body">
-                  <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
-                    <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>
-                    <div className="general-item-list">                      
-                    Do not have team.
-                    </div>
-                  </div></div>
-                </div>
-              </div>
-    ) : (
-      <div className="portlet light bordered ">
-      <div className="portlet-title">
-        <div className="caption caption-md">
-          <i className="icon-bar-chart font-dark hide" />
-          <span className="caption-subject font-dark bold uppercase">Team </span>
-        </div>
-      </div>
-      <div className="team-btn"><Link to = {"/team/" + this.state.teamId} className={"label label-sm " + color} style={{ fontSize: "13px" }}> {this.state.team} </Link></div> 
-      <div className="portlet-body scroll-member">
-        <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
-          <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>                     
-          <div className="general-item-list mess">    
-          {this.state.teamData}
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-      )
-    let loadData = (this.state.data !== null) ? (
-      <div className="portlet box custom color">
         <div className="portlet-title">
-          <div className="head-name">
-            {this.state.name}   </div>
+          <div className="caption caption-md">
+            <i className="icon-bar-chart font-dark hide" />
+            <span className="caption-subject font-dark bold uppercase">Team: </span>
+          </div>
         </div>
-        {timeline}
         <div className="portlet-body">
-          <div className="row">
-            <div className="col-lg-6 col-xs-12 col-sm-12">
-              <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                  <div className="caption">
-                    <i className="icon-bubbles font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION</span>
-                  </div>
-                </div>
-                <div className="portlet-body-custom-color">
-                  <div className="tab-content">
-                    <div className="portlet-body">
-                      <div className="general-item-list">
-                        <div className="item">
-                          <div className="item-head">
-                            <div className="item-details">
-                              <span className="item-name" >Project name</span>
-                            </div>
-                          </div>
-                          <div className="mt-comment-text"> {this.state.name}    </div>
-                        </div>
-                        <div className="item">
-                          <div className="item-head">
-                            <div className="item-details">
-                              <span className="item-name">Status</span>
-                            </div>
-                          </div>
-                          <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
-                        </div>
-                        <div className="item">
-                          <div className="item-head">
-                            <div className="item-details">
-                              <span className="item-name">Category</span>
-                            </div>
-                          </div>
-                          <div className="mt-comment-text"> {this.state.category}    </div>
-                        </div>
-                        <div className="item">
-                          <div className="item-head">
-                            <div className="item-details">
-                              <span className="item-name">Description</span>
-                            </div>
-                          </div>
-                          <div className="mt-comment-text"> {this.state.description}    </div>
-                        </div>
-                        <div className="item">
-                          <div className="item-head">
-                            <div className="item-details">
-                              <span className="item-name">Technology</span>
-                            </div>
-                          </div>
-                          <div className="mt-comment-text"> {this.state.technology}    </div>
-                        </div>
-                      </div>
+          <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
+            <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>
+              <div className="general-item-list">
+                Do not have team.
                     </div>
-                  </div>
-                </div>
-                <div className="portlet light bordered">                  
-                  <div className="portlet light bordered">
-                    <div className="portlet-title tabbable-line">
-                      <div className="caption">
-                        <i className="icon-bubbles font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">TIME</span>
-                      </div>
-                    </div>
-                    <div className="portlet-bodyx">
-                      <div className="tab-content">
-                        <div className="table-main-pagination">
-                          <div className="table-scrollable-custom">
-                            <table className="table table-striped table-bordered table-advance table-hover">
-                              <thead>
-                                <tr>
-                                  <th width="50%">Start </th>
-                                  <th>End </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th width="50%">{this.state.start} </th>
-                                  <th >{this.state.end} </th>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            </div></div>
+        </div>
+      </div>
+    ) : (
+        <div className="portlet light bordered ">
+          <div className="portlet-title">
+            <div className="caption caption-md">
+              <i className="icon-bar-chart font-dark hide" />
+              <span className="caption-subject font-dark bold uppercase">Team </span>
+            </div>
+          </div>
+          <div className="team-btn"><Link to={"/team/" + this.state.teamId} className={"label label-sm " + color} style={{ fontSize: "13px" }}> {this.state.team} </Link></div>
+          <div className="portlet-body scroll-member">
+            <div className="slimScrollDiv" style={{ position: 'relative', overflow: 'hidden', width: 'auto', height: '338px' }}>
+              <div className="scroller" style={{ height: '338px', overflow: 'hidden', width: 'auto' }}>
+                <div className="general-item-list mess">
+                  {this.state.teamData}
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 col-xs-12 col-sm-12">
-              <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                  <div className="caption">
-                    <i className=" icon-social-twitter font-dark hide" />
-                    <span className="caption-subject font-dark bold uppercase">Earning </span>
-                  </div>
-                </div>
-                <div className="portlet-bodyx">
-                  <div className="tab-content">
-                  <div className="tab-content">
-                      <div className="table-main-pagination">
-                        <div className="table-scrollable-custom">
-                          <table className="table table-striped table-bordered table-advance table-hover">
-                            <thead>
-                              <tr>
-                                <th width="50%">Project budget </th>
-                                <th>Earning Per Month </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th width="50%">{this.state.earning} VND</th>
-                                <th >{this.state.earningPerMonth} VND</th>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <Chart
-                        options={this.state.options}
-                        series={this.state.series}
-                        type="bar"
-                        width="100%"
-                        height="200px"
-                      />
-                    </div>
-                  </div>
-                </div>               
-              </div>                    
-                     {team}
-            </div>
           </div>
         </div>
-      </div>
-    ) : <Preloader styleCustom={"unset"} />
+      )
     return (
       <div className="portlet light bordered ViewProject">
-        {loadData}
+        {(this.state.data === null) ? (
+          <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+            <ClipLoader
+              sizeUnit={"px"}
+              size={70}
+              color={'#7ed6df'}
+              loading={this.state.loading} />
+          </div>
+        ) : (
+            <div className="portlet box custom color">
+              <div className="portlet-title">
+                <div className="head-name">
+                  {this.state.name}   </div>
+              </div>
+              {timeline}
+              <div className="portlet-body">
+                <div className="row">
+                  <div className="col-lg-6 col-xs-12 col-sm-12">
+                    <div className="portlet light bordered">
+                      <div className="portlet-title tabbable-line">
+                        <div className="caption">
+                          <i className="icon-bubbles font-dark hide" />
+                          <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION</span>
+                        </div>
+                      </div>
+                      <div className="portlet-body-custom-color">
+                        <div className="tab-content">
+                          <div className="portlet-body">
+                            <div className="general-item-list">
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
+                                    <span className="item-name" >Project name</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.name}    </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
+                                    <span className="item-name">Status</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text">  <span className={"label label-sm " + color} style={{ fontSize: "15px" }}> {this.state.status} </span>   </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
+                                    <span className="item-name">Category</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.category}    </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
+                                    <span className="item-name">Description</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.description}    </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
+                                    <span className="item-name">Technology</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.technology}    </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="portlet light bordered">
+                        <div className="portlet light bordered">
+                          <div className="portlet-title tabbable-line">
+                            <div className="caption">
+                              <i className="icon-bubbles font-dark hide" />
+                              <span className="caption-subject font-dark bold uppercase">TIME</span>
+                            </div>
+                          </div>
+                          <div className="portlet-bodyx">
+                            <div className="tab-content">
+                              <div className="table-main-pagination">
+                                <div className="table-scrollable-custom">
+                                  <table className="table table-striped table-bordered table-advance table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th width="50%">Start </th>
+                                        <th>End </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th width="50%">{this.state.start} </th>
+                                        <th >{this.state.end} </th>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-xs-12 col-sm-12">
+                    <div className="portlet light bordered">
+                      <div className="portlet-title tabbable-line">
+                        <div className="caption">
+                          <i className=" icon-social-twitter font-dark hide" />
+                          <span className="caption-subject font-dark bold uppercase">Earning </span>
+                        </div>
+                      </div>
+                      <div className="portlet-bodyx">
+                        <div className="tab-content">
+                          <div className="tab-content">
+                            <div className="table-main-pagination">
+                              <div className="table-scrollable-custom">
+                                <table className="table table-striped table-bordered table-advance table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th width="50%">Project budget </th>
+                                      <th>Earning Per Month </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th width="50%">{this.state.earning} VND</th>
+                                      <th >{this.state.earningPerMonth} VND</th>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <Chart
+                              options={this.state.options}
+                              series={this.state.series}
+                              type="bar"
+                              width="100%"
+                              height="200px"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {team}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
       </div>
     )
   }

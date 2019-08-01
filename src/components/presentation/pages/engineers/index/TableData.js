@@ -86,6 +86,17 @@ class TableData extends Component {
     render() {
         return (
             <div className="TableArea">
+                 {this.state.loading
+                            ? (
+                                <div className='sweet-loading d-flex justify-center middle-loading-custom'>
+                                    <ClipLoader
+                                        sizeUnit={"px"}
+                                        size={70}
+                                        color={'#7ed6df'}
+                                        loading={this.state.loading}/>
+                                </div>
+                            )
+                            : (
                 <div className="portlet-title">
                 <div className="caption" >ENGINEER LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>                 
                     <div className="padding-bottom-lg d-flex space-between">
@@ -98,18 +109,7 @@ class TableData extends Component {
                         </div>
                     </div>
                     <br/>
-                    <div className="portlet-body">
-                        {this.state.loading
-                            ? (
-                                <div className='sweet-loading d-flex justify-center middle-loading-custom'>
-                                    <ClipLoader
-                                        sizeUnit={"px"}
-                                        size={70}
-                                        color={'#7ed6df'}
-                                        loading={this.state.loading}/>
-                                </div>
-                            )
-                            : (
+                    <div className="portlet-body">                       
                                 <div className="table-main-pagination">
                                     <div className="table-scrollable">
                                         <table className="table table-striped table-bordered table-advance table-hover">
@@ -164,9 +164,7 @@ class TableData extends Component {
                                             onChange={this.handlePageChange}
                                             itemClass='page-item'/>
                                     </div>
-                                </div>
-                            )
-}
+                                </div>                            
                     </div>
                     <Modal show={this.state.isOpen} onClose={this.toggleModal}>
                         <AddForm
@@ -182,6 +180,7 @@ class TableData extends Component {
                         <Message message={"Add successfully new engineer."}/>
                     </Modal>
                 </div>
+                )}
             </div>
         );
     }

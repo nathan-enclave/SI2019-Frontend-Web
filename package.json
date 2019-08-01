@@ -29,6 +29,7 @@
     "react-tag-input": "^6.4.0",
     "react-tagsinput": "^3.19.0",
     "react-validation": "^3.0.7",
+    "reactstrap": "^8.0.1",
     "serve": "^11.0.2",
     "validator": "^11.0.0"
   },

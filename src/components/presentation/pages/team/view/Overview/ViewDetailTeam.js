@@ -11,6 +11,7 @@ import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
 import numeral from 'numeral'
+import Member from '../../view/Overview/Member';
 
 class EditForm extends Component {
     constructor(props) {
@@ -113,30 +114,22 @@ class EditForm extends Component {
     }
     render() {
         let team = this.state.team === "Do not have team" ? (
-            <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                    <div className="caption">
-                        <i className=" icon-social-twitter font-dark hide" />
-                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
-                    </div>
+            // <div className="portlet light bordered">
+            <div className="portlet-title tabbable-line">
+                <div className="caption">
+                    <i className=" icon-social-twitter font-dark hide" />
+                    <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
                 </div>
             </div>
+            // </div>
         ) : (
-                <div className="portlet light bordered">
-                    <div className="portlet-title tabbable-line">
-                        <div className="caption">
-                            <i className=" icon-social-twitter font-dark hide" />
-                            <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
-                        </div>
-                    </div>
-                    <div className="portlet-body5">
-                        <div className="tab-content">
-                            <div className="tab-pane active" id="tab_actions_pending">
-                                {this.state.teamData}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
+                    <ul className="feeds">
+                        {/* <div className="tab-pane active" id="tab_actions_pending"> */}
+                            {this.state.teamData}
+                        {/* </div> */}
+                    </ul>
+                // </div>
             )
         setTimeout(() => {
             this.setState({
@@ -151,7 +144,18 @@ class EditForm extends Component {
                             <div className="row">
                                 <div className="col-lg-8 col-xs-8 col-sm-8">
                                     <div className="portlet light bordered">
+                                        <div className="portlet-title">
+                                            <div className="caption">
+                                                <i className="icon-share font-dark hide"></i>
+                                                <span className="caption-subject font-dark bold uppercase label label-sm label-default"> MEMBER LIST</span>
+                                            </div>
+                                        </div>
+                                        <div className="portlet-body">
+                                            <div className="scroller" style={{ height: 300 }} data-always-visible="1" data-rail-visible="0">
                                         {team}
+                                                
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-xs-4 col-sm-4">
@@ -252,6 +256,20 @@ class EditForm extends Component {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="row">
+                                {/* <div className="portlet-body5">
+                                <div className="card" style={{ width: '18rem' }}>
+                                <img width="50px" alt="" height="50px" src={this.props.avatar} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">Card title</h5>
+                                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                </div>
+                                </div> */}
+                                <Member />
+
                             </div>
                         </div >
                     </div>

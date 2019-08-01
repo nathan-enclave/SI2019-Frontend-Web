@@ -3,9 +3,9 @@ import RowData from './RowData';
 import Pagination from "react-js-pagination";
 import Modal from '../../../commons/modal/Modal';
 import AddForm from '.../../../src/components/presentation/pages/project/addProject/AddForm';
-import Preloader from '../../../include/Preloader'
 import Message from '../../../commons/msg/Message';
 import ProjectContainer from "../../../../container/project";
+import { ClipLoader } from 'react-spinners';
 class TableData extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class TableData extends Component {
     this.reloadData()
   }
   toggleModal = () => {
-    this.setState({isOpen: !this.state.isOpen})
+    this.setState({ isOpen: !this.state.isOpen })
   }
   reloadData = () => {
     this.setState({ isOpen: false })
@@ -33,43 +33,43 @@ class TableData extends Component {
     this.componentWillMount()
   }
   handlePageChange = async (pageNumber) => {
-    await this.setState({ activePage: pageNumber  })
+    await this.setState({ activePage: pageNumber })
     this.componentWillMount();
   }
   async componentWillMount() {
-    let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
+    let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
 
-    
+
     const res = await ProjectContainer.getPagination(this.state.itemsCountPerPage, offset);
-    if(this.state.activePage > 0 && res.results.length === 0) {
-      this.setState({activePage : this.state.activePage-1})
+    if (this.state.activePage > 0 && res.results.length === 0) {
+      this.setState({ activePage: this.state.activePage - 1 })
       this.componentWillMount()
     }
-    else{
-    await this.setState({ totalItemsCount: res.total })
-    let dataRender = res.results.map((value, key) => {   
-      let color = (value.status === "done")?'label-info':(value.status === "inProgress")?'label-success':'label-danger'     
-      return (
-        <RowData         
-          key={key}
-          id={value.id}
-          name={value.name}
-          technology={value.technology}
-          category={value.category.name}
-          color={color}
-          earning={value.earning}
-          status={value.status}
-          reloadData={() => { this.reload() }}
-        />
+    else {
+      await this.setState({ totalItemsCount: res.total })
+      let dataRender = res.results.map((value, key) => {
+        let color = (value.status === "done") ? 'label-info' : (value.status === "inProgress") ? 'label-success' : 'label-danger'
+        return (
+          <RowData
+            key={key}
+            id={value.id}
+            name={value.name}
+            technology={value.technology}
+            category={value.category.name}
+            color={color}
+            earning={value.earning}
+            status={value.status}
+            reloadData={() => { this.reload() }}
+          />
+        )
+      }
       )
+      this.setState({
+        data: dataRender
+      })
     }
-    )
-    this.setState({
-      data: dataRender
-    })
   }
-  }
-  render() {    
+  render() {
     const loader = this.state.data.length > 0 ?
       <div className="portlet-title">
         <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>
@@ -77,7 +77,7 @@ class TableData extends Component {
         <div style={{ marginBottom: '40px' }}>
           <div style={{ width: '200px', float: 'left' }}>
             <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
-          </div>        
+          </div>
         </div>
         <div className="portlet-body">
           <div className="table-main-pagination">
@@ -118,8 +118,14 @@ class TableData extends Component {
           onClose={this.toggleMessage} deleteStyleModel={true} >
           <Message message={"Add successfully new project."} />
         </Modal>
-      </div> : (this.totalItemsCount === 0)?(<div>Empty</div>):(
-        <Preloader />
+      </div> : (this.totalItemsCount === 0) ? (<div>Empty</div>) : (
+        <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+          <ClipLoader
+            sizeUnit={"px"}
+            size={70}
+            color={'#7ed6df'}
+            loading={this.state.loading} />
+        </div>
       )
     return (
       <div className="TableArea">
