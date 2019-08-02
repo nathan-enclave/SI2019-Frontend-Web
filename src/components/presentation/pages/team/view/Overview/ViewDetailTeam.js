@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
 // import numeral from 'numeral'
 import './viewProject.css'
-import TeamMember from '../../../project/viewProject/view/TeamMember';
+import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
 import numeral from 'numeral'
@@ -51,7 +51,6 @@ class EditForm extends Component {
             // console.log(new Date(element.birthday).getFullYear())
         });
 
-        console.log(totalSalary)
         this.setState({
             name: teamInfo.name,
             createdAt: teamInfo.createdAt,
@@ -102,7 +101,7 @@ class EditForm extends Component {
                     lastName={value.lastName}
                     role={value.role}
                     expYear={value.expYear}
-                    birthday= {moment(value.birthday).format('DD/MM/YYYY')}
+                    dateJoin={moment(value.dateJoin).format('DD/MM/YYYY')}
                     salary={numeral(value.salary).format('0,0') + " VND"}
                 />
             )
@@ -113,73 +112,88 @@ class EditForm extends Component {
     }
     render() {
         let team = this.state.team === "Do not have team" ? (
-            <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                    <div className="caption">
-                        <i className=" icon-social-twitter font-dark hide" />
-                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
-                    </div>
-                </div>
-            </div>
+            // <div className="portlet light bordered">x
+         <div>
+
+</div>
         ) : (
-                <div className="portlet light bordered">
-                    <div className="portlet-title tabbable-line">
-                        <div className="caption">
-                            <i className=" icon-social-twitter font-dark hide" />
-                            <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
-                        </div>
-                    </div>
-                    <div className="portlet-body4">
-                        <div className="tab-content">
-                            <div className="tab-pane active" id="tab_actions_pending">
-                                {this.state.teamData}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <ul className="feeds">
+                    {/* <div className="tab-pane active" id="tab_actions_pending"> */}
+                    {this.state.teamData}
+                    {/* </div> */}
+                </ul>
+                // </div>
             )
         setTimeout(() => {
             this.setState({
-                loadData: (<div className="portlet-body">
-                    <div className="row">
-                        <div className="col-lg-8 col-xs-8 col-sm-8">
-                            <div className="portlet light bordered">
-                                {team}
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-xs-4 col-sm-4">
-                            <div className="portlet light bordered">
-                                <div className="portlet-title tabbable-line">
-                                    <div className="caption">
-                                        <i className=" icon-social-twitter font-dark hide" />
-                                        <span className="caption-subject font-dark bold uppercase">finance</span>
+                loadData: (
+                    <div className="TeamDetail">
+                        <div className="row">
+                            <div className="col-lg-9 col-xs-12 col-md-9">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title">
+                                        <div className="caption">
+                                            <i className="icon-share font-dark hide"></i>
+                                            <span className="caption-subject font-dark bold uppercase">{this.state.name}</span>
+                                        </div>
                                     </div>
+                                    <div className="portlet-body5">
+                                        <div
+                                            className="scroller1"
+                                            style={{
+                                                height: 300,
+                                                
+                                            }}
+                                            data-always-visible="1"
+                                            data-rail-visible="0">
+
+                                            <ul className="feeds">
+                                                {team}
+   
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                                <div className="portlet-bodyx">
-                                    <div className="tab-content">
-                                        <div className="table-main-pagination">
-                                            <div className="table-scrollable-custom">
-                                                <table className="table table-striped table-bordered table-advance table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="50%">Cash Out </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                            </div>
+
+                            <div className="col-lg-3 col-xs-12 col-md-3">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title tabbable-line">
+                                        <div className="caption">
+                                            <i className=" icon-social-twitter font-dark hide" />
+                                            <span className="caption-subject font-dark bold uppercase">finance</span>
+                                        </div>
+                                    </div>
+                                    <div className="portlet-bodyx">
+                                        <div className="tab-content">
+                                            <div className="table-main-pagination">
+                                                <div className="table-scrollable-custom">
+                                                    <table className="table table-striped table-bordered table-advance table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50%">Cash Out </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                        </div>
                         <div className="row">
-                            <div className="col-lg-6 col-xs-6 col-sm-6">
+                            <div className="col-lg-6 col-xs-12 col-md-6 ">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
                                         <NavLink to={`/project/${this.state.id}`} className="caption">
@@ -222,7 +236,7 @@ class EditForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="col-lg-6 col-md-6">
+                            <div className="col-lg-6 col-xs-12 col-md-6">
                                 <div className="portlet light bordered">
 
                                     <div className="portlet-title tabbable-line">
@@ -246,33 +260,27 @@ class EditForm extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
-                    ),
-                    loading: false
-                })
-            }, 1000);
-            return (
-            <div className="portlet light bordered">
-                        <div className="portlet red box">
-                            <div className="portlet-title">
-                                <div className="caption">
-                                    {this.state.name}
-                                </div>
-                            </div>
-                            {this.state.loading ?
-                                (<div className='sweet-loading'>
-                                    <ClipLoader
-                                        sizeUnit={"px"}
-                                        size={50}
-                                        color={'#7ed6df'}
-                                        loading={this.state.loading}
-                                    />
-                                </div>) : this.state.loadData}
-
-                        </div>
 
                     </div>
-                    )
-                }
-            }
+
+                ),
+                loading: false
+            })
+        }, 1000);
+        return (
+
+            <div className="ViewTeamDetail">
+                {this.state.loading ?
+                    (<div className="sweet-loading d-flex justify-center middle-loading-custom">
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={50}
+                            color={'#7ed6df'}
+                            loading={this.state.loading}
+                        />
+                    </div>) : this.state.loadData}
+            </div>
+        )
+    }
+}
 export default EditForm;

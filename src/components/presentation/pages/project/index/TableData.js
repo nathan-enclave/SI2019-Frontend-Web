@@ -72,7 +72,10 @@ class TableData extends Component {
   render() {
     const loader = !this.state.load ?
       <div className="portlet-title">
-        <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>
+        <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST
+         <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  
+         </span>
+         </div>
         <br />
         <div style={{ marginBottom: '40px' }}>
           <div style={{ width: '200px', float: 'left' }}>

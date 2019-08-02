@@ -12,6 +12,7 @@ import { handleUpload } from "../../../../../service/upload/fileUploader";
 import EngineerContainer from "../../../../container/engineer";
 import CheckButton from 'react-validation/build/button';
 import "./validate.css"
+import { ClipLoader } from 'react-spinners';
 const required = (value) => {
     if (isEmpty(value)) {
         return <div className="small-validate">This field is required</div>;
@@ -51,7 +52,8 @@ class AddForm extends Component {
             error: 0,
             avatar: null,
             msgBirthday: null,
-            msgDateIn: null
+            msgDateIn: null,
+            addLoading : false
         };
     }
 
@@ -67,6 +69,9 @@ class AddForm extends Component {
         this.setState({ [fieldName]: value });
     }
     submitAddForm = async () => {
+        this.setState({
+            addLoading : true
+        })
         let data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
@@ -84,7 +89,6 @@ class AddForm extends Component {
             nationality : this.state.nationality,
             gender : this.state.gender
         }
-        console.log(data)
         if (this.state.avatar) {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
@@ -99,7 +103,7 @@ class AddForm extends Component {
 
                 } else {
                     if (result.statusCode !== 200) {
-                        this.setState({ msg: 'Some error occured, please try again later ' });
+                        this.setState({ msg: 'Some error occured, please try again later ',addLoading: false });
                     }
                 }
             })
@@ -132,8 +136,20 @@ class AddForm extends Component {
             skills: items.map(e => e.data)
         })
     }
+    displayLoading= ()=>{ 
+        return this.state.addLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">ADD</button>
+            )
+    }
     render() {
-        console.log(this.state.nationality)    
         let msgBirthday = this.state.msgBirthday === null ? null : (<div className="small-validate">This field is required!</div>)
         let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)
         return (
@@ -153,11 +169,7 @@ class AddForm extends Component {
                             }}>
                             {this.state.msg}</span>
                         <div className="tab-pane active" id="tab_1_1">
-                            <Form
-                                onSubmit={e => this.onSubmit(e)}
-                                ref={c => {
-                                    this.form = c
-                                }}>
+                            <Form onSubmit={e => this.onSubmit(e)}  ref={c => {this.form = c}}>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -312,12 +324,7 @@ class AddForm extends Component {
                                         style={{
                                             textAlign: 'center'
                                         }}>
-                                        <button
-                                            type="submit"
-                                            className="btn green"
-                                        >
-                                            ADD
-                                    </button>
+                                       {this.displayLoading()}
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </div>
                                 </div>

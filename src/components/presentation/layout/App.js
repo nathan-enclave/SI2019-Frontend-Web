@@ -43,7 +43,6 @@ export default class App extends Component {
                                             </button>
                                         </div>
                                     </div>
-        
                                     <LeftBar />
                                     <div className="page-fixed-main-content">
                                         <RouterURL />

@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import getTotalCategories from '../../../../container/categories/GetListCategories';
 import "./validate.css"
+import { ClipLoader } from 'react-spinners';
 const required = (value) => {
     if (isEmpty(value)) {
         return (<div className="small-validate">
@@ -29,7 +30,8 @@ class AddForm extends Component {
             categoryId: null,
             msgStart: null,
             msgEnd: null,
-            msgCat: null
+            msgCat: null,
+            addLoading : false
         };
     }
     isChange = (event) => {
@@ -38,6 +40,9 @@ class AddForm extends Component {
         this.setState({ [fieldName]: value });
     }
     submitAddForm = async () => {
+        this.setState({
+            addLoading : true
+        })
         let data = {
             name: this.state.name,
             technology: this.state.technology,
@@ -53,7 +58,7 @@ class AddForm extends Component {
                 this.props.openMessage()
             } else {
                 if (result.statusCode !== 200) {
-                    this.setState({ msg: 'Some error occured, please try again later ' });
+                    this.setState({ msg: 'Some error occured, please try again later ',addLoading : false });
                 }
             }
         })
@@ -96,6 +101,19 @@ class AddForm extends Component {
     async componentDidMount() {
         const res = await getTotalCategories();
         this.setState({ options: res });
+    }
+    displayLoading= ()=>{ 
+        return this.state.addLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">ADD</button>
+            )
     }
     render() {
         let msgStart = this.state.msgStart === null ? null : (<div className="small-validate">This field is required!</div>)
@@ -211,7 +229,7 @@ class AddForm extends Component {
                                         style={{
                                             textAlign: 'center'
                                         }}>
-                                        <button className="btn btn-success uppercase pull-center" type="submit">Submit</button>
+                                        {this.displayLoading()}
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </div>
                                 </div>

@@ -15,8 +15,6 @@ export default class Member extends Component {
         }
     }
     async handleExpand(status) {
-        // console.log(status.index);
-
         const currentMembers = this.state.listMembers
 
         const index = currentMembers.findIndex(e => e.index === status.index)
@@ -59,9 +57,6 @@ export default class Member extends Component {
 
     }
     render() {
-        // console.log(this.state.numMembers )
-
-        // console.log(this.props.memberSelected.length)
         const dataRender = []
         for (let i = 0; i < this.state.numMembers; i += 1) {
             dataRender.push(<MemberOption
@@ -73,9 +68,6 @@ export default class Member extends Component {
                     .handleExpand
                     .bind(this)} />)
         };
-        // console.log("render");
-
-
         return (
             <div className="Skills">
                 {this.state.loading ?
@@ -94,7 +86,7 @@ export default class Member extends Component {
                         <div
                             className="margin-top-10"
                             style={{
-                                textAlign: 'center'
+                                textAlign: 'right',marginBottom : "10px"
                             }}>
                             <button className="btn yellow" onClick={(event) => this.handleAddMore(event)}>
                                 Add more member
