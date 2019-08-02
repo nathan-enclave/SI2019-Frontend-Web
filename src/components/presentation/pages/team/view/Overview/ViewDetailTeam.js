@@ -21,6 +21,7 @@ class EditForm extends Component {
             teamData: "",
             id: this.props.match.params.id,
             category: "",
+            engineers: [],
             team: "",
             status: "",
             updatedAt: "",
@@ -81,7 +82,14 @@ class EditForm extends Component {
                     ...this.state.options,
                     xaxis: {
                         categories: catData
-                    }
+                    },
+                    yaxis:[
+                        {
+                        title: {
+                            text: "Millions"
+                            }
+                        }
+                    ],
                 },
                 series: [
                     {
@@ -90,7 +98,7 @@ class EditForm extends Component {
                     }
                 ],
             })
-
+            
             return (
                 <TeamMember
                     key={key}
@@ -112,18 +120,12 @@ class EditForm extends Component {
     }
     render() {
         let team = this.state.team === "Do not have team" ? (
-            // <div className="portlet light bordered">x
          <div>
-
 </div>
         ) : (
-
                 <ul className="feeds">
-                    {/* <div className="tab-pane active" id="tab_actions_pending"> */}
                     {this.state.teamData}
-                    {/* </div> */}
                 </ul>
-                // </div>
             )
         setTimeout(() => {
             this.setState({
@@ -139,12 +141,11 @@ class EditForm extends Component {
                                         </div>
                                     </div>
                                     <div className="portlet-body5">
+                                        {this.state.engineers.length < 4  ? (
                                         <div
-                                            className="scroller1"
+                                            className="scroller"
                                             style={{
-                                                height: 300,
-                                                
-                                            }}
+                                                 height: 'auto' }}
                                             data-always-visible="1"
                                             data-rail-visible="0">
 
@@ -153,10 +154,20 @@ class EditForm extends Component {
    
 
                                             </ul>
-                                        </div>
+                                        </div>) : (
+                                        <div
+                                            className="scroller1"
+                                            style={{
+                                                 height: '300px' }}
+                                            data-always-visible="1"
+                                            data-rail-visible="0">
 
+                                            <ul className="feeds">
+                                                {team}
+                                            </ul>
+                                        </div>)
+                                        }
                                     </div>
-
                                 </div>
                             </div>
 

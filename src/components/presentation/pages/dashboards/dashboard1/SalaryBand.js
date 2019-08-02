@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 import { getAllApi } from "../../../../../api/crud";
 
-class ProjectPortlet extends Component {
+class SalaryBand extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +13,13 @@ class ProjectPortlet extends Component {
         xaxis: {
           categories: []
         },
+        yaxis:[
+          {
+          title: {
+              text: "Employees"
+              }
+          }
+      ],
         colors: ['#00BFFF', '#B4CDCD', '#009ACD', '#00688B'],
         
       },
@@ -39,7 +46,7 @@ class ProjectPortlet extends Component {
             }
         },
         series: [{
-            name: "number",
+            name: "Number",
             data: seriesData
         }]
     })
@@ -66,4 +73,4 @@ class ProjectPortlet extends Component {
     );
   }
 }
-export default ProjectPortlet;
+export default SalaryBand;
