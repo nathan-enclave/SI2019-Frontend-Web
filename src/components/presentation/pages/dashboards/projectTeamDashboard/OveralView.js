@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import DashboardContainer from "../../../../container/dashboard";
-import {ClipLoader} from "react-spinners";
 export default class OveralView extends Component {
     constructor() {
         super()
