@@ -1,25 +1,22 @@
 import React, {Component} from 'react'
 import DashboardContainer from "../../../../container/dashboard";
-
+import {ClipLoader} from "react-spinners";
 export default class OveralView extends Component {
-    constructor(){
+    constructor() {
         super()
-        this.state= {
+        this.state = {
             totalProject: null,
             pending: null,
             teamInProgress: null,
-            engineerInTeam: null,
+            engineerInTeam: null
         }
     }
-    componentWillMount(){
-        DashboardContainer.getStatistic('dashboard/statistic/teamProject').then(e=>{
-            this.setState({
-                totalProject: e.countProject,
-                pending:e.countProjectPending,
-                teamInProgress: e.countTeamInProgress,
-                engineerInTeam: e.countEngineerInTeam
+    componentWillMount() {
+        DashboardContainer
+            .getStatistic('dashboard/statistic/teamProject')
+            .then(e => {
+                this.setState({totalProject: e.countProject, pending: e.countProjectPending, teamInProgress: e.countTeamInProgress, engineerInTeam: e.countEngineerInTeam})
             })
-        })
     }
     render() {
         return (
@@ -68,7 +65,7 @@ export default class OveralView extends Component {
                                 <i className="icon-users"/>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">

@@ -389,10 +389,10 @@ class AnimatedMap extends Component {
                                         }}/>))}
                                     </Geographies>
                                     <Markers>
-                                        {citiesFormatted.map((city, i) => (
+                                        {this.props.data.map((city, i) => (
                                             <Marker key={i} marker={city} onClick={this.handleCityClick}>
                                                 <circle cx={0} cy={0} r={10} fill="#FF5722" stroke="#DF3702">123</circle>
-                                                <text cursor={"pointer"} x={0} y={0} fill="white"  textAnchor="middle" fontSize="10px" alignmentBaseline="middle"> 1 </text>
+                                                <text cursor={"pointer"} x={0} y={0} fill="white"  textAnchor="middle" fontSize="10px" alignmentBaseline="middle"> {city.numProjects} </text>
                                             </Marker>
                                         ))}
                                     </Markers>
