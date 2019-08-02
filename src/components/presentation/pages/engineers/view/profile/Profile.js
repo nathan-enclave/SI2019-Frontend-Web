@@ -49,8 +49,10 @@ export default class Profile extends Component {
           break;
         case 3:
           this.setState({status : "Absence"})
-        case 0:
+          break;
+        default:
           this.setState({ status: "In team" })
+
       }
 
       if (this.state.teams.length === 0) {
