@@ -7,7 +7,7 @@ export default class ProjectMap extends Component {
                 <div className="portlet light bordered">
                     <div className="portlet-title">
                         <div className="caption">
-                            <span className="caption-subject bold uppercase font-dark">Abroad</span>
+                            <span className="caption-subject bold uppercase font-dark">Projects Abroad</span>
                         </div>
                     </div>
                     <div className="portlet-body">

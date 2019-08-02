@@ -1,6 +1,26 @@
 import React, {Component} from 'react'
+import DashboardContainer from "../../../../container/dashboard";
 
 export default class OveralView extends Component {
+    constructor(){
+        super()
+        this.state= {
+            totalProject: null,
+            pending: null,
+            teamInProgress: null,
+            engineerInTeam: null,
+        }
+    }
+    componentWillMount(){
+        DashboardContainer.getStatistic('dashboard/statistic/teamProject').then(e=>{
+            this.setState({
+                totalProject: e.countProject,
+                pending:e.countProjectPending,
+                teamInProgress: e.countTeamInProgress,
+                engineerInTeam: e.countEngineerInTeam
+            })
+        })
+    }
     render() {
         return (
             <div className="row OverallView">
@@ -9,13 +29,13 @@ export default class OveralView extends Component {
                         <div className="display">
                             <div className="number">
                                 <h3 className="font-green-sharp">
-                                    <span>235</span>
+                                    <span>{this.state.totalProject}</span>
                                     <small className="font-green-sharp"></small>
                                 </h3>
                                 <small>Total project</small>
                             </div>
                             <div className="icon">
-                                <i className="icon-pie-chart"/>
+                                <i className="icon-briefcase"/>
                             </div>
                         </div>
                     </div>
@@ -25,12 +45,12 @@ export default class OveralView extends Component {
                         <div className="display">
                             <div className="number">
                                 <h3 className="font-red-haze">
-                                    <span>12</span>
+                                    <span>{this.state.pending}</span>
                                 </h3>
                                 <small>Pending</small>
                             </div>
                             <div className="icon">
-                                <i className="icon-like"/>
+                                <i className="icon-hourglass"/>
                             </div>
                         </div>
                     </div>
@@ -40,12 +60,12 @@ export default class OveralView extends Component {
                         <div className="display">
                             <div className="number">
                                 <h3 className="font-blue-sharp">
-                                    <span>24</span>
+                                    <span>{this.state.teamInProgress}</span>
                                 </h3>
                                 <small>Current team</small>
                             </div>
                             <div className="icon">
-                                <i className="icon-basket"/>
+                                <i className="icon-users"/>
                             </div>
                         </div>
                         
@@ -56,7 +76,7 @@ export default class OveralView extends Component {
                         <div className="display">
                             <div className="number">
                                 <h3 className="font-purple-soft">
-                                    <span>102</span>
+                                    <span>{this.state.engineerInTeam}</span>
                                 </h3>
                                 <small>Engineer in team</small>
                             </div>

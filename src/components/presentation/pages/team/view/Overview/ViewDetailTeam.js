@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import { Link, NavLink } from "react-router-dom";
-import 'react-tagsinput/react-tagsinput.css';
+import React, {Component} from 'react';
+import {Link, NavLink} from "react-router-dom";
+// import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
-// import numeral from 'numeral'
-import './viewProject.css'
+// import numeral from 'numeral' import './viewProject.css'
 import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
-import { ClipLoader } from 'react-spinners';
+import {ClipLoader} from 'react-spinners';
 import numeral from 'numeral'
-import Member from '../../view/Overview/Member';
+// import Member from '../../view/Overview/Member';
 
-class EditForm extends Component {
+class ViewTeamDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,19 +46,13 @@ class EditForm extends Component {
         const teamInfor = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
         let teamInfo = await teamInfor.json()
         let totalSalary = 0
-        teamInfo.engineers.forEach(element => {
-            totalSalary += element.salary
-            // console.log(new Date(element.birthday).getFullYear())
-        });
-
-        console.log(totalSalary)
-        this.setState({
-            name: teamInfo.name,
-            createdAt: teamInfo.createdAt,
-            projectsId: teamInfo.projects.id,
-            engineers: teamInfo.engineers,
-            cashOut: totalSalary
-        })
+        teamInfo
+            .engineers
+            .forEach(element => {
+                totalSalary += element.salary
+                // console.log(new Date(element.birthday).getFullYear())
+            });
+        this.setState({name: teamInfo.name, createdAt: teamInfo.createdAt, projectsId: teamInfo.projects.id, engineers: teamInfo.engineers, cashOut: totalSalary})
         let res = await getData(this.state.projectsId)
         this.setState({
             project: {
@@ -67,34 +60,42 @@ class EditForm extends Component {
                 name: res.name,
                 technology: res.technology,
                 description: res.description,
-                team: res.team ? res.team.name : "Do not have team",
-                teamId: res.team ? res.team.id : null,
-                category: res.category.name,
+                team: res.team
+                    ? res.team.name
+                    : "Do not have team",
+                teamId: res.team
+                    ? res.team.id
+                    : null,
+                category: res.category.name
             }
         });
-        let catData = [], seriesData1 = [];
-        teamInfo.engineers.forEach((element) => {
-            catData.push(element.firstName)
-            seriesData1.push(parseInt(element.salary / 1000000));
-        });
-        let teamTable = teamInfo.engineers.map((value, key) => {
-            this.setState({
-                options: {
-                    ...this.state.options,
-                    xaxis: {
-                        categories: catData
-                    }
-                },
-                series: [
-                    {
-                        name: "Milions",
-                        data: seriesData1
-                    }
-                ],
-            })
+        let catData = [],
+            seriesData1 = [];
+        teamInfo
+            .engineers
+            .forEach((element) => {
+                catData.push(element.firstName)
+                seriesData1.push(parseInt(element.salary / 1000000));
+            });
+        let teamTable = teamInfo
+            .engineers
+            .map((value, key) => {
+                this.setState({
+                    options: {
+                        ...this.state.options,
+                        xaxis: {
+                            categories: catData
+                        }
+                    },
+                    series: [
+                        {
+                            name: "Milions",
+                            data: seriesData1
+                        }
+                    ]
+                })
 
-            return (
-                <TeamMember
+                return (<TeamMember
                     key={key}
                     id={value.id}
                     avatar={value.avatar}
@@ -104,33 +105,20 @@ class EditForm extends Component {
                     role={value.role}
                     expYear={value.expYear}
                     dateJoin={moment(value.dateJoin).format('DD/MM/YYYY')}
-                    salary={numeral(value.salary).format('0,0') + " VND"}
-                />
-            )
-        })
-        this.setState({
-            teamData: teamTable,
-        })
+                    salary={numeral(value.salary).format('0,0') + " VND"}/>)
+            })
+        this.setState({teamData: teamTable})
     }
     render() {
-        let team = this.state.team === "Do not have team" ? (
-            // <div className="portlet light bordered">x
-            <div>
-            </div>
-
-            // </div>
-        ) : (
-
-                <ul className="feeds">
-                    {/* <div className="tab-pane active" id="tab_actions_pending"> */}
-                    {this.state.teamData}
-                    {/* </div> */}
-                </ul>
-                // </div>
-            )
+        let team = (
+            <ul className="feeds">
+                {/* <div className="tab-pane active" id="tab_actions_pending"> */}
+                {this.state.teamData}
+                {/* </div> */}
+            </ul>
+        )
         setTimeout(() => {
-            this.setState({
-                loadData: (
+            this.setState({loadData: (
                     <div className="TeamDetail">
                         <div className="row">
                             <div className="col-lg-6 col-xs-12 col-md-6">
@@ -143,12 +131,12 @@ class EditForm extends Component {
                                     </div>
                                     <div className="portlet-body">
                                         <div
-                                            className="scroller"
+                                            className="engineerListScroll"
                                             style={{
-                                                height: 300
-                                            }}
-                                            data-always-visible="1"
-                                            data-rail-visible="0">
+                                            height: 300,
+                                            overflowY:'scroll',
+                                            overflowX:'hidden',
+                                        }}>
 
                                             <ul className="feeds">
                                                 <li className="row">
@@ -156,25 +144,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -182,25 +170,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -208,25 +196,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -234,25 +222,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -260,25 +248,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -286,25 +274,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -312,25 +300,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
                                                 <li className="row">
@@ -338,25 +326,25 @@ class EditForm extends Component {
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
                                                         <span>
                                                             Project 1
-                                            </span>
+                                                        </span>
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span>
                                                             Team 1
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div
                                                         className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
                                                         <span>
                                                             Aug 24th 2019
-                                            </span>
+                                                        </span>
 
                                                     </div>
                                                     <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
                                                         <span className="label label-sm label-warning deadline-label">
                                                             Pending
-                                            </span>
+                                                        </span>
                                                     </div>
                                                 </li>
 
@@ -372,7 +360,7 @@ class EditForm extends Component {
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
                                         <div className="caption">
-                                            <i className=" icon-social-twitter font-dark hide" />
+                                            <i className=" icon-social-twitter font-dark hide"/>
                                             <span className="caption-subject font-dark bold uppercase">finance</span>
                                         </div>
                                     </div>
@@ -383,12 +371,17 @@ class EditForm extends Component {
                                                     <table className="table table-striped table-bordered table-advance table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th width="50%">Cash Out </th>
+                                                                <th width="50%">Cash Out
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
+                                                                <th width="50%">{new Intl
+                                                                        .NumberFormat()
+                                                                        .format(this.state.cashOut)}
+                                                                    VND
+                                                                </th>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -405,21 +398,24 @@ class EditForm extends Component {
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
                                         <NavLink to={`/project/${this.state.id}`} className="caption">
-                                            <i className="icon-bubbles font-dark hide" />
-                                            <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
+                                            <i className="icon-bubbles font-dark hide"/>
+                                            <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT
+                                            </span>
                                         </NavLink>
                                     </div>
-                                    <div className="portlet-body3" >
+                                    <div className="portlet-body3">
                                         <div className="tab-content">
                                             <div className="portlet-body">
                                                 <div className="general-item-list">
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name" >Project name</span>
+                                                                <span className="item-name">Project name</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.name} </div>
+                                                        <div className="mt-comment-text">
+                                                            {this.state.project.name}
+                                                        </div>
                                                     </div>
                                                     <div className="item">
                                                         <div className="item-head">
@@ -427,7 +423,9 @@ class EditForm extends Component {
                                                                 <span className="item-name">Description</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.description}   </div>
+                                                        <div className="mt-comment-text">
+                                                            {this.state.project.description}
+                                                        </div>
                                                     </div>
                                                     <div className="item">
                                                         <div className="item-head">
@@ -435,7 +433,9 @@ class EditForm extends Component {
                                                                 <span className="item-name">Technology</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.technology}    </div>
+                                                        <div className="mt-comment-text">
+                                                            {this.state.project.technology}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -449,20 +449,19 @@ class EditForm extends Component {
 
                                     <div className="portlet-title tabbable-line">
                                         <div className="caption">
-                                            <i className="icon-bar-chart font-dark hide" />
+                                            <i className="icon-bar-chart font-dark hide"/>
                                             <span className="caption-subject font-dark bold uppercase">Salary</span>
                                         </div>
                                     </div>
                                     {/* chart here */}
 
                                     <div className="portlet-body">
-                                        <div className="SalaryChart" >
+                                        <div className="SalaryChart">
                                             <Chart
                                                 options={this.state.options}
                                                 series={this.state.series}
                                                 type="bar"
-                                                width="100%"
-                                            />
+                                                width="100%"/>
                                         </div>
                                     </div>
                                 </div>
@@ -471,24 +470,23 @@ class EditForm extends Component {
 
                     </div>
 
-                ),
-                loading: false
-            })
+                ), loading: false})
         }, 1000);
         return (
-
             <div className="ViewTeamDetail">
-                {this.state.loading ?
-                    (<div className="sweet-loading d-flex justify-center middle-loading-custom">
-                        <ClipLoader
-                            sizeUnit={"px"}
-                            size={50}
-                            color={'#7ed6df'}
-                            loading={this.state.loading}
-                        />
-                    </div>) : this.state.loadData}
+                {this.state.loading
+                    ? (
+                        <div className="sweet-loading d-flex justify-center middle-loading-custom">
+                            <ClipLoader
+                                sizeUnit={"px"}
+                                size={50}
+                                color={'#7ed6df'}
+                                loading={this.state.loading}/>
+                        </div>
+                    )
+                    : this.state.loadData}
             </div>
         )
     }
 }
-export default EditForm;
+export default ViewTeamDetail;

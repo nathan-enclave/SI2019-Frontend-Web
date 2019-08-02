@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import './viewProject.css'
+// import './viewProject.css'
 
 class Member extends Component {
     render() {

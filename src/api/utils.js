@@ -87,7 +87,7 @@ function requestWrapper(method) {
         const defaults = {
             method,
             headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
+                'Content-Type': 'application/json; charset=UTF-8',
             }
         };
         // check that req url is relative and request was sent to our domain

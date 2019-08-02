@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import Chart from 'react-google-charts';
 import Chart from "react-apexcharts";
-import { getAllApi } from "../../../../../api/crud";
+import DashboardContainer from "../../../../container/dashboard";
    
 
 export default class ProjectStatus extends Component {
@@ -15,9 +15,7 @@ export default class ProjectStatus extends Component {
     }
   }
   async componentDidMount() {
-    const data = await getAllApi('dashboard/statistic/projects/status')
-    console.log(data);
-    
+    const data = await DashboardContainer.getStatistic('dashboard/statistic/projects/status')
     const seriesData = []
     seriesData.push(data.done)
     seriesData.push(data.inProgress)

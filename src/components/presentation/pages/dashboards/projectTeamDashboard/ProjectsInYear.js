@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Chart from "react-apexcharts";
-
+import DashboardContainer from "../../../../container/dashboard";
 export default class ProjectsInYear extends Component {
     constructor(props) {
         super(props)
@@ -11,17 +11,6 @@ export default class ProjectsInYear extends Component {
                         dataLabels: {
                             position: 'top', // top, center, bottom
                         }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function (val) {
-                        return val + "%";
-                    },
-                    offsetY: -20,
-                    style: {
-                        fontSize: '12px',
-                        colors: ["#304758"]
                     }
                 },
                 xaxis: {
@@ -46,57 +35,19 @@ export default class ProjectsInYear extends Component {
                     axisBorder: {
                         show: false
                     },
-                    axisTicks: {
-                        show: false
-                    },
-                    crosshairs: {
-                        fill: {
-                            type: 'gradient',
-                            gradient: {
-                                colorFrom: '#D8E3F0',
-                                colorTo: '#BED1E6',
-                                stops: [
-                                    0, 100
-                                ],
-                                opacityFrom: 0.4,
-                                opacityTo: 0.5
-                            }
-                        }
-                    },
-                    tooltip: {
-                        enabled: true,
-                        offsetY: -35
-                    }
                 },
+                yaxis: [
+                    {
+                        title: {
+                            text: "Number of projects"
+                        }
+                    }
+                ],
                 fill: {
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        gradientToColors: undefined,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
-                        stops: [50, 0, 100, 100]
-                    }
-                },
-                yaxis: {
-                    axisBorder: {
-                        show: false
-                    },
-                    axisTicks: {
-                        show: false
-                    },
-                    yaxis: [
-                        {
-                            title: {
-                                text: "Number of project"
-                            }
-                        }
-                    ]
+                    colors: ['#273c75']
                 },
                 title: {
-                    text: 'Monthly Inflation in Argentina, 2002',
+                    text: 'Projects in 2019',
                     floating: true,
                     offsetY: 320,
                     align: 'center',
@@ -107,24 +58,36 @@ export default class ProjectsInYear extends Component {
             },
             series: [
                 {
-                    name: 'Inflation',
+                    name: 'Number of projects',
                     data: [
-                        2.3,
-                        3.1,
-                        4.0,
-                        10.1,
-                        4.0,
-                        3.6,
-                        3.2,
-                        2.3,
-                        1.4,
-                        0.8,
-                        0.5,
-                        0.2
+                        3,
+                        4,
+                        6,
+                        1,
+                        4,
+                        7,
+                        9,
+                        1,
+                        2,
+                        10,
+                        22,
+                        2
                     ]
                 }
             ]
         }
+    }
+    async componentDidMount() {
+        let projectInYear = await DashboardContainer.getStatistic(`dashboard/statistic/totalProject/${new Date().getFullYear()}`)
+        projectInYear = projectInYear.map(e => e.numProject)
+        this.setState({
+            series: [
+                {
+                    name: "Number of projects",
+                    data: projectInYear
+                }
+            ]
+        })
     }
     render() {
         return (
