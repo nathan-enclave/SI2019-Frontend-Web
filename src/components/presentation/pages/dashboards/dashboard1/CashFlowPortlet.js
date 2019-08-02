@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 import DashboardContainer from '../../../../container/dashboard';
+import { ClipLoader } from 'react-spinners';
 
 class CashFlowPortlet extends Component {
     constructor(props) {
         super(props);
         this.state ={
+            load : true,
                 options: {
                     colors: ['#10ac84','#2e86de',  '#FF5B5B'],
                     xaxis: {
@@ -51,6 +53,7 @@ class CashFlowPortlet extends Component {
             seriesData3.push(element.cashIn/1000000 -element.cashOut/1000000 )
         });
         this.setState({   
+            load : false,
                 options:{
                     xaxis: {
                         categories: catData
@@ -86,12 +89,22 @@ class CashFlowPortlet extends Component {
                 </div>
                 {/* chart here */}
                 <div >
+                {this.state.load === true ? (
+          <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+            <ClipLoader
+              sizeUnit={"px"}
+              size={70}
+              color={'#7ed6df'}
+              loading={this.state.loading} />
+          </div>
+        ) : (
                     <Chart
                         options={this.state.options}
                         series={this.state.series}
                         type="line"
                         height="400px"
                     />
+        )}
                 </div>
             </div>
         );

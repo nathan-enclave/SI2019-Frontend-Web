@@ -1,17 +1,29 @@
 .deadline-list {
     overflow: hidden;
 }
+
 .deadline-label {
     position: relative;
     top: -4px;
 }
+
 .ProjectTeamDashBoard .apexcharts-legend-text {
-    font-size: 15px!important
+    font-size: 15px !important;
 }
-.ProjectTeamDashBoard .apexcharts-legend-series{
-    margin-bottom: 5px
+
+.ProjectTeamDashBoard .apexcharts-legend-series {
+    margin-bottom: 5px;
 }
 
 .deadline-project {
-    background:#c7ecee
+    background: #c7ecee;
+}
+
+.DeadlineRow {
+    margin: 0 0 2px !important;
+}
+
+.DeadlineHeader .row {
+    margin: 0;
+    padding-right: 17px;
 }
