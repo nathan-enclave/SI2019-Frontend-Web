@@ -70,7 +70,7 @@ class ViewProject extends Component {
               fontSize: '12px',
             },
             formatter: function (val) {
-              return numeral(val).format('0,0')
+              return (val ===0)?"0": numeral(val/100000000).format('0,0') + " M"
             }
           }
         },

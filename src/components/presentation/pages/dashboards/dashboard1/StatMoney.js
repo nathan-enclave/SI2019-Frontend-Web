@@ -9,7 +9,7 @@ export default class ProjectCategory extends Component {
     this.state = {
       options: {
         labels: ['0-50M', '50-70M', '70-90M', '>90M'  ],
-        colors: ['#00BFFF', '#FC3751', '#009ACD', '#00688B'],
+        colors: ['#f1c40f', '#FC3751', '#009ACD', '#00688B'],
       },
       series: []
     }
