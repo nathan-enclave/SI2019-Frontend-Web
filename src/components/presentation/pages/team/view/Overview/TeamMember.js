@@ -10,9 +10,12 @@ class TeamMember extends Component {
       <div>
         <li className="row">
           <div
-            className="col-xs-2 padding-bottom-sm padding-top-sm text-center deadline-project">
-            <div>
-              <div><img width="50px" alt="" height="50px" src={this.props.avatar} /></div>
+            className="col-xs-2 padding-bottom-sm padding-top-sm text-center " style={{
+              'display': 'flex',
+              'justify-content': 'center',
+          }} >
+            <div className="avatar">
+              <img width="50px" alt="" height="50px" src={this.props.avatar}/>
             </div>
           </div>
 
