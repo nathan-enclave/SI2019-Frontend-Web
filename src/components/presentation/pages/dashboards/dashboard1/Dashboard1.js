@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import CashStats from './CashStats';
 import CashFlowPortlet from './CashFlowPortlet';
 import SalaryBand from './SalaryBand';
-// import StatProject from './StatProject';
+import StatMoney from './StatMoney';
 
 class Dashboard1 extends Component {
     render() {
@@ -14,9 +14,9 @@ class Dashboard1 extends Component {
                 <div className="col-lg-6 col-xs-12 col-sm-12">
                     <SalaryBand />
                 </div>
-                {/* <div className="col-lg-6 col-xs-12 col-sm-12">
-                    <StatProject />
-                </div> */}
+                <div className="col-lg-6 col-xs-12 col-sm-12">
+                    <StatMoney />
+                </div>
             </div>
         );
     }

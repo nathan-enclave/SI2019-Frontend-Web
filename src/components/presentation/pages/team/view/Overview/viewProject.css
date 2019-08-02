@@ -150,3 +150,8 @@
     overflow-x: hidden;
     overflow-y: scroll
 }
+.avatar{
+    border-radius: 100%;
+    overflow: hidden;
+    width: fit-content
+}
