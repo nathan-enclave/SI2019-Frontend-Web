@@ -77,8 +77,8 @@ class Level extends Component {
     }
     async componentDidMount() {
 
-        const data = await getAllApi('dashboard/statistic/engineers/sw')
-        let seriesData = [data.Sw4,data.Sw3,data.Sw2,data.Sw1]    
+        const data = await getAllApi('dashboard/statistic/engineers/salary')
+        let seriesData = [data.lever4,data.lever3,data.lever2,data.lever1]    
         this.setState({
             load: false,
             options: {
@@ -87,7 +87,7 @@ class Level extends Component {
                     id: "basic-bar"
                 },
                 xaxis: {
-                    categories: ["SW4","SW3","SW2","SW1"]
+                    categories: ["8-10","10-15","15-20",">20"]
                 }
             },
             series: [{

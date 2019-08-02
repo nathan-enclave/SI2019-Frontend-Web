@@ -13,7 +13,8 @@ class ProjectPortlet extends Component {
         xaxis: {
           categories: []
         },
-        colors: ['#1B1464']
+        colors: ['#00BFFF', '#B4CDCD', '#009ACD', '#00688B'],
+        
       },
       series: [
         {
@@ -24,23 +25,23 @@ class ProjectPortlet extends Component {
     };
   }
   async componentDidMount() {
-    const data = await getAllApi('dashboard/statistic/projects/earning/' + new Date().getFullYear())
-    let catData = [], seriesData1 = [];
-    data.results.forEach((element, idx) => {
-      catData.push(element.name)
-      seriesData1.push(parseInt(element.earningPerMonth / 1000000));
-    });
-    seriesData1 = seriesData1.slice(4, 12)
-    catData = catData.slice(4, 12)
+    const data = await getAllApi('dashboard/statistic/engineers/salary')
+    let seriesData = [data.lever1,data.lever2,data.lever3,data.lever4]    
     this.setState({
-      options: {
-        xaxis: {
-          categories: catData
-        }
-      },
-      series: [{
-        data: seriesData1
-      }]
+        load: false,
+        options: {
+            ...this.state.options,
+            chart: {
+                id: "basic-bar"
+            },
+            xaxis: {
+                categories: ["8-10 M","10-15 M","15-20 M",">20 M"]
+            }
+        },
+        series: [{
+            name: "number",
+            data: seriesData
+        }]
     })
   }
   render() {
@@ -49,7 +50,7 @@ class ProjectPortlet extends Component {
         <div className="portlet-title">
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Project</span>
+            <span className="caption-subject font-dark bold uppercase">Salary Band</span>
           </div>
         </div>
         {/* chart here */}
