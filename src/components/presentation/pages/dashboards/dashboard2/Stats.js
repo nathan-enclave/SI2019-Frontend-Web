@@ -20,7 +20,6 @@ class Stats extends Component {
     })
   }
   render() {
-    console.log(this.state)
     let loadStatistic = {}
     if (Object.keys(this.state).length > 0) {
       loadStatistic.totalEngineer = 
@@ -61,7 +60,7 @@ class Stats extends Component {
   }
     return (
       <div className="overview-engineer">
-        <div className="portlet-title">
+        <div className="portlet-title" style={{marginBottom: "-20px"}}>
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
             <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overall statistic</span>
@@ -111,4 +110,4 @@ class Stats extends Component {
     );
   }
 }
-export default Stats;
+export default Stats; 

@@ -58,7 +58,7 @@ export default class ActionRow extends Component {
                                 </div>
                                 <div className="mt-action-datetime ">
                                     <span className="mt-action-date">{moment(this.props.time).calendar()}</span>
-                                    <span className="mt-action-dot bg-green"/> {/* <span className="mt=action-time">9:30-13:00</span> */}
+                                    {/* <span className="mt-action-dot bg-green"/> <span className="mt=action-time">9:30-13:00</span> */}
                                 </div>
                             </div>
                         </div>

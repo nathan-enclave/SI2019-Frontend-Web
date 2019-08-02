@@ -3,6 +3,7 @@ import Select from 'react-select';
 import AddProject from '../../../../container/project/AddProject';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Textarea from 'react-validation/build/textarea';
 import CheckButton from 'react-validation/build/button';
 import { isEmpty } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
@@ -144,7 +145,8 @@ class AddForm extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Description</label>
-                                            <Input
+                                            <Textarea
+                                                style={{height : "100px"}}
                                                 type="text"
                                                 name="description"
                                                 onChange={(event) => this.isChange(event)}

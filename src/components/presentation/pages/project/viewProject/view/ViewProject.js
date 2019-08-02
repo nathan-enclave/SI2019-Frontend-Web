@@ -47,7 +47,7 @@ class ViewProject extends Component {
           formatter: function (val) {
             return numeral(val).format('0,0') + " VND"
           },
-          enabled: true,
+          enabled: false,
           textAnchor: 'start',
           style: {
             colors: ['#fff']
@@ -92,7 +92,7 @@ class ViewProject extends Component {
         // },
       },
       series: [{
-        name: "number",
+        name: "Earning",
         data: []
       }]
     };
@@ -160,7 +160,7 @@ class ViewProject extends Component {
   }
 
   render() {
-    let timeline = (this.state.status === "inProgress") ? (<div className="row">
+    let timeline = (this.state.status === "inProgress") ? (<div className="row" style ={{margin :"50px 0px 150px 0px"}}>
       <div className="col-lg-12 col-xs-12 col-sm-12">
         <Timeline start={this.state.timelineStart} end={this.state.timelineEnd} startFor={this.state.start} endFor={this.state.end} />
       </div>
@@ -242,9 +242,9 @@ class ViewProject extends Component {
               <div className="portlet-title">
                 <div className="head-name">
                   {this.state.name}   </div>
-              </div>
-              {timeline}
+              </div>              
               <div className="portlet-body">
+              {timeline}
                 <div className="row">
                   <div className="col-lg-6 col-xs-12 col-sm-12">
                     <div className="portlet light bordered">
@@ -372,7 +372,7 @@ class ViewProject extends Component {
                               series={this.state.series}
                               type="bar"
                               width="100%"
-                              height="200px"
+                              height="150px"
                             />
                           </div>
                         </div>

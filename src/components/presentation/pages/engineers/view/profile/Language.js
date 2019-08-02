@@ -92,26 +92,11 @@ export default class Language extends Component {
     
     render() {
         let heightValue = (this.props.data.length*30 + 100) + "px"
-        return (
-            // <div className="portlet">       
-            //  <div className="portlet text-center" >
-            //             <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Skills</span>
-            //     </div>         
-            //     <div>
-            //         <Chart
-            //             options={this.state.options}
-            //             series={this.state.series}
-            //             type="bar"
-            //             width="500px"
-            //             height = {heightValue}
-            //             />
-            //     </div>
-               
-            // </div>
+        return (           
             <div className="tabbable-line tabbable-custom-profile">
             <ul className="nav nav-tabs">
               <li className="active">
-              <span className="caption-subject font-dark bold uppercase inline-block margin-top-15">Skills</span>
+              <span className="caption-subject font-dark uppercase inline-block margin-top-15">Skills</span>
               </li>
             </ul>
             <div className="tab-content">

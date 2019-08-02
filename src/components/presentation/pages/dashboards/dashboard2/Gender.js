@@ -46,7 +46,7 @@ export default class Gender extends Component {
               loading={this.state.loading} />
           </div>
         ) : (
-            <Chart options={this.state.options} series={this.state.series} type="pie" width="100%" />
+            <Chart options={this.state.options} series={this.state.series} type="donut" width="100%" />
           )}
       </div>
     );

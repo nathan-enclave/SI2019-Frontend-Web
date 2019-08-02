@@ -26,9 +26,7 @@ class TableData extends Component {
     this.reloadData()
   }
   handlePageChange = (pageNumber) => {
-    // console.log('active page is: ' + pageNumber);
     this.setState({ activePage: pageNumber - 1 })
-    // console.log(this.state.activePage)
     this.componentWillMount();
   }
   async componentWillMount() {
@@ -36,7 +34,6 @@ class TableData extends Component {
     this.setState({ totalItemsCount: res0.total })
     let offset = ((this.state.activePage) * (this.state.itemsCountPerPage))
     const res = await getTeamPag(this.state.itemsCountPerPage, offset);
-    // this.setState({ totalItemsCount: res.total })
     let dataRender = res.results.map((value, key) => (
       <RowData
         key={key}
@@ -65,7 +62,6 @@ class TableData extends Component {
     this.componentWillMount()
   }
   render() {
-    // console.log(this.state.activePage);    
     const loader = this.state.data.length > 0 ?
       <div className="table-main-pagination">
         <div className="table-scrollable">

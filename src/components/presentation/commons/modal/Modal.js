@@ -24,7 +24,7 @@ class Modal extends React.Component {
       backgroundColor: '#fff',
       borderRadius: 5,
       width: this.props.deleteStyleModel ? '500px': '80%',
-      maxWidth: 800,
+      maxWidth: 900,
       height: this.props.deleteStyleModel ? '230px': '80%',
       maxHeight: 850,
       margin: '0 auto',

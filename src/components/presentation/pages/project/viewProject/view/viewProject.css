@@ -97,7 +97,7 @@
     position: relative;
 }
 .mess {
-    height: 700px;
+    height: 400px;
     width: 100%;
     overflow: auto;
     position: absolute;

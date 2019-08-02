@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Textarea from 'react-validation/build/textarea'
 import ProjectContainer from "../../../../container/project";
 import CategoryContainer from "../../../../container/categories";
 import DatePicker from "react-datepicker";
@@ -195,8 +196,9 @@ class EditForm extends Component {
                                         <div className="form-group">
                                             <label className="control-label">
                                                 Description</label>
-                                            <Input
-                                                type="text"
+                                            <Textarea
+                                                // type="text"
+                                                style={{height : "100px"}}
                                                 name="description"
                                                 value={this.state.description}
                                                 validations={[required]}
