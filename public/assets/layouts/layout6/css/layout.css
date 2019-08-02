@@ -19,8 +19,8 @@
 .page-header {
   margin: 0;
   padding: 0;
-  background: #2f373e;
-  border-bottom-color: #384047;
+  /* background: #2f373e;
+  border-bottom-color: #384047; */
   /* Navbar */
   /* Navbar Brand */
   /* Topbar Actions */ }
@@ -292,7 +292,8 @@
 ----------------------------------------------------*/
 /* Body */
 body {
-  background: #2f373e url(../img/bg_01.jpg) no-repeat;
+  /* background: #6c7781 url(https://backgrounddownload.com/wp-content/uploads/2018/09/admin-panel-background-images-5.jpg) no-repeat; */
+  background: linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%);
   background-position: center center;
   background-size: cover;
   background-attachment: fixed; }
@@ -1039,7 +1040,7 @@ Page sidebar
 .copyright-v2 {
   color: #55616b;
   text-align: center;
-  padding: 20px 0;
+  padding: 10px 0;
   margin-bottom: 0;
   background: #fff; }
   .copyright-v2 a {
@@ -1671,3 +1672,5 @@ Quick Sidebar Layout
   .quick-nav {
     top: 120px;
     margin-top: 0; } }
+
+

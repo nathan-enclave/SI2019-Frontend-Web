@@ -1,0 +1,155 @@
+        .wrapp-timeline {
+            width: 100%;
+            height: 100px;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            justify-content: center
+            
+        }
+        
+        .wrapp {
+            overflow: visible;
+            height: 0px;
+            /* width: 0px */
+        }
+        
+        .wrapp-body {
+            width: 800px;
+            height: 130px;
+            padding : 15px
+        }
+        
+        .events-wrapper {
+            position: relative;
+            height: 100%;
+            margin:20px 40px;
+            overflow: hidden
+        }
+        
+        .events {
+            position: absolute;
+            left: 25%;
+            top: 50px;
+            height: 4px;
+            width: 50%;
+            transform: translate3d(0px, 0px, 0px)
+        }      
+       
+        .events-bar {
+            list-style: none
+        }
+        
+        .timeline-item-1 {
+            position: absolute;
+            bottom: 0px;
+            text-align: center;
+            padding-bottom: 15px;
+            left: 0px;
+            cursor: pointer;
+            width: 10%
+        }
+        
+        .timeline-dot-1 {
+            position: absolute;
+            bottom: -5px;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+            left: 0px;
+            background-color: rgb(26, 121, 173);
+            border: 2px solid rgb(26, 121, 173)
+        }
+        
+        .timeline-item-2 {
+            position: absolute;
+            bottom: 0px;
+            text-align: left;
+            padding-bottom: 12px;
+            left: var(--distance_start_current);
+            cursor: pointer;
+            width: 20%
+        }
+        
+        .timeline-dot-2 {
+            position: absolute;
+            bottom: -5px;   
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+            left: 0px;
+            background-color: rgb(26, 121, 173);
+            border: 2px solid rgb(26, 121, 173)
+        }
+        
+        .timeline-item-3 {
+            position: absolute;
+            bottom: 0px;
+            text-align: center;
+            padding-bottom: 15px;
+            left: 100%;
+            cursor: pointer;
+            width: 10%
+        }
+        
+        .timeline-dot-3 {
+            position: absolute;
+            bottom: -5px;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease 0s, border-color 0.3s ease 0s;
+            left: 0;
+            background-color: rgb(223, 223, 223);
+            border: 2px solid rgb(223, 223, 223)
+        }
+        
+        .timeline-eventline {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            width: 100%;
+            transform-origin: left center;
+            background-color: rgb(223, 223, 223)
+        }
+        
+        .timeline-eventline2 {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            width: var(--distance_to_dot);
+            transform-origin: left center;
+            background-color: rgb(26, 121, 173)
+        }
+        
+        .limit-point {
+            bottom: -30px;
+            position: absolute;
+            text-align: center;
+            left: 0px;
+            font-size: 15px;
+            font-weight: 600
+        }
+        
+        .limit-point-end {
+            bottom: -30px;
+            position: absolute;
+            text-align: center;
+            right: 0px;
+            font-size: 15px;
+            font-weight: 600
+        }
+        
+        .current-time {
+            color: brown;
+            font-size: 15px;
+            font-weight: 600
+        }
+        .customize-center{
+            margin-left: -3px !important
+        }
+        

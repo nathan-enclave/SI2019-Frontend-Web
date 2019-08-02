@@ -12,7 +12,8 @@ body {
   padding: 0px !important;
   margin: 0px !important;
   direction: "ltr";
-  font-size: 14px; }
+  font-size: 17px;
+  }
 
 /*
  Internet Explorer 10 doesn't differentiate device width from viewport width, and thus doesn't 
@@ -5596,10 +5597,26 @@ Dropdown Checkboxes
     white-space: nowrap;
     line-height: 1.42857143;
     text-transform: uppercase; }
+  .dropdown-menu-v2 > li > span {
+    clear: both;
+    color: #606e7a;
+    display: block;
+    font-weight: 600;
+    padding: 8px 20px;
+    position: relative;
+    white-space: nowrap;
+    line-height: 1.42857143;
+    text-transform: uppercase; }
     .dropdown-menu-v2 > li > a:hover, .dropdown-menu-v2 > li > a:focus {
       background: #21282e;
       text-decoration: none;
       color: #009dc7; }
+    .dropdown-menu-v2 > li > span:hover{
+      background:  rgb(185, 236, 240);
+      cursor: pointer;
+      text-decoration: none;
+      color: #009dc7; 
+    }
   .dropdown-menu-v2 .active > a,
   .dropdown-menu-v2 .active > a:hover,
   .dropdown-menu-v2 .active > a:focus,
@@ -7740,7 +7757,6 @@ Portlets
     -ms-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     border-radius: 0 0 2px 2px;
-    height: -webkit-fill-available;
   }
     .portlet > .portlet-body p {
       margin-top: 0; }
@@ -12979,9 +12995,10 @@ Custom tables
 
 .table-advance thead tr th {
   background-color: #f1f4f7;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 400;
-  color: #3f444a; }
+  color: #3f444a;
+  }
 
 .table-advance div.success,
 .table-advance div.info,
@@ -13341,10 +13358,12 @@ Custom tabs
         margin-top: 0px; }
 
 .tabbable-line > .tab-content {
-  margin-top: 0;
+  /* margin-top: 10px; */
+  margin-top: 10px;
   border: 0;
   border-top: 1px solid #eef1f5;
-  padding: 30px 0; }
+  padding: 0px;
+  }
   .page-container-bg-solid .tabbable-line > .tab-content {
     border-top: 1px solid #dae2ea; }
   .portlet .tabbable-line > .tab-content {

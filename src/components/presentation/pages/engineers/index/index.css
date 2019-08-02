@@ -1,0 +1,20 @@
+.caption{
+    font-size: 25px;padding-bottom: 13px;color: rgb(42, 180, 192);font-weight: 600
+}
+
+.table td{
+    text-align: left !important;
+    font-weight: 400 !important
+}
+.link-name-data{
+    text-decoration: none;
+    font-weight: 400 !important;
+    font-size: 17px !important
+}
+.number-style{
+    text-align: center !important;
+    font-size: 20px
+}
+.table-scrollable > .table-bordered > thead > tr:last-child > th{
+    color: #487eb0
+}
