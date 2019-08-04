@@ -8,7 +8,7 @@ const role = [
     },
     {
         value : "quality assurance",
-        label : "Quanlity Assurance"
+        label : "Quality Assurance"
     },
     {
         value : "leader",

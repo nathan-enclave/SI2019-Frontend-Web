@@ -165,7 +165,7 @@ class TableData extends Component {
                         show={this.state.isOpenMessage}
                         onClose={this.toggleMessage}
                         deleteStyleModel={true}>
-                        <Message message={"Add successfully new engineer."}/>
+                        <Message message={"Add successfully new team."}/>
                     </Modal>
                 </div>
             </div>

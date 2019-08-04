@@ -61,57 +61,57 @@ export default class MemberOption extends Component {
     }
     render() {
         return (
-            <div className="MemberOption" id={`member_select_${this.props.keyIndex}`}>
-                <div className="row relative">
-                    {this.props.keyIndex !== 0
-                        ? <div className="border-close">
-                            <div className="close close-member" onClick={(e) => this.handleRemoveItem(e)}></div>
-                        </div>
-                        : ''}
+            <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
+            <div className="row relative">
+                {this.props.keyIndex !== 0
+                    ? <div className="border-close">
+                        <div className="close close-skill" onClick={(e) => this.handleRemoveItem(e)}></div>
+                    </div>
+                    : ''}
 
-                    <div className="col-xs-6">
-                        <div className="form-group">
-                            <div className="form-check">
-                                <label className="form-check-label">
-                                    Member:
-                                </label>
-                                {this.state.error}
-                                <Select
-                                    value={this.state.memberSelected}
-                                    options={this.props.options}
-                                    onChange={this.handleMemberChange} />
-                            </div>
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <div className="form-check">
+                            <label className="form-check-label">
+                                Member:
+                            </label>
+                            {this.state.error}
+                            <Select
+                                value={this.state.memberSelected}
+                                options={this.props.options}
+                                onChange={this.handleMemberChange} />
                         </div>
                     </div>
-                    <div className="col-xs-6">
-                        <div className="form-group">
-                            <div className="form-check">
-                                <label className="form-check-label">
-                                   Role: 
-                                </label>
-                                <Select
-                                    defaultValue={roleOfMember[1]}
-                                    value={this.state.roleSelected}
-                                    options={[
-                                        {
-                                            value: "developer",
-                                            label: "Developer",
-                                        },
-                                        {
-                                            value: "quality assurance",
-                                            label: "Quanlity Assurance"
-                                        },
-                                        {
-                                            value: "leader",
-                                            label: "Leader",
-                                        }
-                                    ]}
-                                    onChange={this.handleRoleChange} />
-                            </div>
+                </div>
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <div className="form-check">
+                            <label className="form-check-label">
+                               Role: 
+                            </label>
+                            <Select
+                                defaultValue={roleOfMember[1]}
+                                value={this.state.roleSelected}
+                                options={[
+                                    {
+                                        value: "Developer",
+                                        label: "Developer",
+                                    },
+                                    {
+                                        value: "Quality Assurance",
+                                        label: "Quality Assurance"
+                                    },
+                                    {
+                                        value: "Leader",
+                                        label: "Leader",
+                                    }
+                                ]}
+                                onChange={this.handleRoleChange} />
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         )
     }
 }
