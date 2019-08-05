@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Textarea from 'react-validation/build/textarea'
 import ProjectContainer from "../../../../container/project";
 import CategoryContainer from "../../../../container/categories";
 import DatePicker from "react-datepicker";
@@ -30,7 +31,8 @@ class EditForm extends Component {
             end: null,
             start: null,
             data: {},
-            status: ""
+            status: "",
+            saveLoading : false
         };
     }
     async componentDidMount() {
@@ -107,7 +109,9 @@ class EditForm extends Component {
         }
     }
     submitSaveForm = () => {
-        console.log(this.state.data)
+        this.setState({
+            saveLoading : true
+        })
         ProjectContainer
             .update(this.props.id, this.state.data)
             .then((result) => {
@@ -123,9 +127,11 @@ class EditForm extends Component {
                         .onOpenMSG();
                 } else {
                     if (result.statusCode !== 200) {
-                        this.setState({msg: "Error."})
+                        this.setState({msg: "Error.",saveLoading: false})
                     }
                 }
+            }).catch(error =>{
+                this.setState({msg: "Something's wrong. Please try later.",saveLoading: false})
             })
     }
     onSubmit = (e) => {
@@ -136,6 +142,19 @@ class EditForm extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.submitSaveForm()
         }
+    }
+    displayLoading= ()=>{ 
+        return this.state.saveLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">SAVE</button>
+            )
     }
     render() {
         console.log(this.state.selectOptions.length)        
@@ -195,8 +214,9 @@ class EditForm extends Component {
                                         <div className="form-group">
                                             <label className="control-label">
                                                 Description</label>
-                                            <Input
-                                                type="text"
+                                            <Textarea
+                                                // type="text"
+                                                style={{height : "100px"}}
                                                 name="description"
                                                 value={this.state.description}
                                                 validations={[required]}
@@ -278,7 +298,7 @@ class EditForm extends Component {
                                         style={{
                                         textAlign: 'center'
                                     }}>
-                                        <button className="btn btn-success uppercase pull-center" type="submit">SAVE</button>
+                                         {this.displayLoading()}
                                         <CheckButton
                                             style={{
                                             display: 'none'

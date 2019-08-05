@@ -11,7 +11,7 @@ class Dashboard1 extends Component {
             <div className="FinanceDashboard">
                 <CashStats />
                 <CashFlowPortlet />
-                <div className="col-lg-12 col-xs-12 col-sm-12">
+                <div className="col-lg-6 col-xs-12 col-sm-12">
                     <ProjectPortlet />
                 </div>
                 {/* <div className="col-lg-6 col-xs-12 col-sm-12">

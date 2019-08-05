@@ -87,8 +87,6 @@ export default class RowData extends Component {
                         <i className="fa fa-trash-o" style={{fontSize:'15px'}}/>
                         </button>
                     </div>
-                </td>
-                <td className="ActionArea">
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
                         <ViewForm id = {this.props.id}/>
                     </Modal>

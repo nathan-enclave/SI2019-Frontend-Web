@@ -21,16 +21,13 @@ class Timeline extends Component {
         let distance_start_current = this.date_diff_indays(this.state.start, this.state.current)
         let distance_start_end = this.date_diff_indays(this.state.start, this.state.end)
         // console.log(distance_start_current, distance_start_end)
-        let distance = (distance_start_current / distance_start_end) * 500
+        let distance = (distance_start_current / distance_start_end) * 100
         // console.log(distance);
         let root = document.documentElement;
-        root.style.setProperty('--distance_start_current', distance + 'px')
-        root.style.setProperty('--distance_to_dot', distance + 85 / 2 + 'px')
+        root.style.setProperty('--distance_start_current', (distance) + '%')
+        root.style.setProperty('--distance_to_dot', (distance)+"%"  )
+        console.log(distance + "%")
         return (            
-                <div className="wrapp-timeline" >
-                    <div data-radium="true" className="wrapp" >
-                        <div className="wrapp-body" >
-                            <div className="events-wrapper">
                                 <div className="events" >
                                     <span aria-hidden="true" className="timeline-eventline" />
                                     <span aria-hidden="true" className="timeline-eventline2" />
@@ -39,10 +36,16 @@ class Timeline extends Component {
                                             <span className="limit-point">{this.props.startFor}</span>
                                             <span className="timeline-dot-1" />
                                         </li>
-                                        <li data-radium="true" className="timeline-item-2">                                           
+                                        <li data-radium="true" className="timeline-item-2">            
+                                        <div className = "row">                               
+                                        <div className = "row">
                                             <span className="current-time">{moment(new Date()).format('DD/MM/YYYY')}</span>
+                                        </div>
+                                        <div className = "row customize-center" >
                                             <img src="../assets/pages/img/placeholder.png" width="20px" height="20px" alt=""/>
+                                        </div>
                                             <span data-radium="true" className="timeline-dot-2" />
+                                        </div>
                                         </li>
                                         <li className="timeline-item-3" data-radium="true" >
                                             <span className="limit-point-end">{this.props.endFor}</span>
@@ -50,10 +53,6 @@ class Timeline extends Component {
                                         </li>
                                     </ol>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         );
     }
 }

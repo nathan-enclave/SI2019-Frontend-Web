@@ -43,7 +43,7 @@ class Level extends Component {
                     colors: ['#fff']
                 },
                 xaxis: {
-                    categories: [],
+                    categories: ["SW1","SW2","SW3","SW4"],
                 },
                 yaxis: {
                     labels: {

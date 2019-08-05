@@ -8,7 +8,7 @@ import {
     Marker
 } from "react-simple-maps"
 import {Motion, spring} from "react-motion"
-import ReactTooltip from "react-tooltip"
+// import ReactTooltip from "react-tooltip"
 
 class AnimatedMap extends Component {
     constructor() {
@@ -53,11 +53,7 @@ class AnimatedMap extends Component {
             zoom: 1
         })
     }
-    componentDidMount() {
-        setTimeout(() => {
-            ReactTooltip.rebuild()
-        }, 100)
-    }
+ 
     render() {
         return (
             <div className="AnimatedMap">
@@ -74,7 +70,6 @@ class AnimatedMap extends Component {
                         {"Reset"}
                     </button>
                     <div>
-                    <ReactTooltip>agn</ReactTooltip>
                     </div>
                 </div>
                 <div className="MainMap">

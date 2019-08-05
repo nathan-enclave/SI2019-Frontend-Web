@@ -21,9 +21,16 @@
 
 .DeadlineRow {
     margin: 0 0 2px !important;
+    display: flex
 }
 
 .DeadlineHeader .row {
     margin: 0;
     padding-right: 17px;
+}
+
+.DeadlineRow .custom-center-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center
 }

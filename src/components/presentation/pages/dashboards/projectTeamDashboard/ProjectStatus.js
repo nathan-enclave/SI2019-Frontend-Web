@@ -9,7 +9,8 @@ export default class ProjectStatus extends Component {
     super(props);
     this.state = {
       options: {
-        labels: ['Done', 'In progress', 'Pending']
+        labels: ['Done', 'In progress', 'Pending'],
+        colors: ['#2980b9','#27ae60', '#f1c40f']
       },
       series: [65, 35, 12]
     }

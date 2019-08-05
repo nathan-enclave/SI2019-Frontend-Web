@@ -1,6 +1,20 @@
 import React, {Component} from 'react'
 import DeadlineRow from './DeadlineRow';
+import { ClipLoader } from "react-spinners";
+import DashBoardContainer from "../../../../../container/dashboard";
 export default class Deadline extends Component {
+    
+    constructor(){
+        super()
+        this.state={
+            deadlineData:null
+        }
+    }
+    componentWillMount(){
+        DashBoardContainer.getStatistic('dashboard/statistic/deadline').then(data=>{
+            this.setState({deadlineData: data})
+        })
+    }
     render() {
         return (
             <div className="Deadline">
@@ -50,15 +64,14 @@ export default class Deadline extends Component {
                                 overflowX: "hidden"
                             }}>
                                 <ul className="feeds">
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                    <DeadlineRow/>
-                                   
+                                    {!this.state.deadlineData?( <div className='sweet-loading d-flex justify-center middle-loading-custom'>
+                                    <ClipLoader
+                                        sizeUnit={"px"}
+                                        size={70}
+                                        color={'#7ed6df'}
+                                        loading={true}/>
+                                </div>):this.state.deadlineData.map((e, idx)=><DeadlineRow key={idx} data={e}/>)}
+                                {/* this.state.deadlineData.map(e=><DeadlineRow data={e}/>) */}
                                 </ul>
                             </div>
 

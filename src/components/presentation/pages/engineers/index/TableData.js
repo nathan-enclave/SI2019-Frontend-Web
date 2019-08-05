@@ -99,16 +99,12 @@ class TableData extends Component {
                             : (
                 <div className="portlet-title">
                 <div className="caption" >ENGINEER LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>                 
-                    <div className="padding-bottom-lg d-flex space-between">
-                        <div>
-                            <button
-                                onClick={this.toggleModal}
-                                className="btn btn-outline green btn-sm green ">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                    <br/>
+                <br />
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ width: '200px', float: 'left' }}>
+            <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
+          </div>
+        </div>
                     <div className="portlet-body">                       
                                 <div className="table-main-pagination">
                                     <div className="table-scrollable">

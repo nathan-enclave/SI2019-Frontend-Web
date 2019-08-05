@@ -46,7 +46,7 @@ class Status extends Component {
               loading={this.state.loading} />
           </div>
         ) : (
-            <Chart options={this.state.options} series={this.state.series} type="donut" width="80%"  />
+            <Chart options={this.state.options} series={this.state.series} type="pie" width="80%"  />
           )}
       </div>
     );

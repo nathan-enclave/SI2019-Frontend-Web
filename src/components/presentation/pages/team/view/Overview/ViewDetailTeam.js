@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Link, NavLink} from "react-router-dom";
-// import 'react-tagsinput/react-tagsinput.css';
+import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
+import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,7 +10,6 @@ import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import {ClipLoader} from 'react-spinners';
 import numeral from 'numeral'
-// import Member from '../../view/Overview/Member';
 
 class ViewTeamDetail extends Component {
     constructor(props) {
@@ -46,13 +45,18 @@ class ViewTeamDetail extends Component {
         const teamInfor = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
         let teamInfo = await teamInfor.json()
         let totalSalary = 0
-        teamInfo
-            .engineers
-            .forEach(element => {
-                totalSalary += element.salary
-                // console.log(new Date(element.birthday).getFullYear())
-            });
-        this.setState({name: teamInfo.name, createdAt: teamInfo.createdAt, projectsId: teamInfo.projects.id, engineers: teamInfo.engineers, cashOut: totalSalary})
+        teamInfo.engineers.forEach(element => {
+            totalSalary += element.salary
+            // console.log(new Date(element.birthday).getFullYear())
+        });
+
+        this.setState({
+            name: teamInfo.name,
+            createdAt: teamInfo.createdAt,
+            projectsId: teamInfo.projects.id,
+            engineers: teamInfo.engineers,
+            cashOut: totalSalary
+        })
         let res = await getData(this.state.projectsId)
         this.setState({
             project: {
@@ -110,18 +114,25 @@ class ViewTeamDetail extends Component {
         this.setState({teamData: teamTable})
     }
     render() {
-        let team = (
-            <ul className="feeds">
-                {/* <div className="tab-pane active" id="tab_actions_pending"> */}
-                {this.state.teamData}
-                {/* </div> */}
-            </ul>
-        )
+        let team = this.state.team === "Do not have team" ? (
+            // <div className="portlet light bordered">x
+         <div>
+
+</div>
+        ) : (
+
+                <ul className="feeds">
+                    {/* <div className="tab-pane active" id="tab_actions_pending"> */}
+                    {this.state.teamData}
+                    {/* </div> */}
+                </ul>
+                // </div>
+            )
         setTimeout(() => {
             this.setState({loadData: (
                     <div className="TeamDetail">
                         <div className="row">
-                            <div className="col-lg-6 col-xs-12 col-md-6">
+                            <div className="col-lg-9 col-xs-12 col-md-9">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title">
                                         <div className="caption">
@@ -129,224 +140,19 @@ class ViewTeamDetail extends Component {
                                             <span className="caption-subject font-dark bold uppercase">{this.state.name}</span>
                                         </div>
                                     </div>
-                                    <div className="portlet-body">
+                                    <div className="portlet-body5">
                                         <div
-                                            className="engineerListScroll"
+                                            className="scroller1"
                                             style={{
-                                            height: 300,
-                                            overflowY:'scroll',
-                                            overflowX:'hidden',
-                                        }}>
+                                                height: 300,
+                                                
+                                            }}
+                                            data-always-visible="1"
+                                            data-rail-visible="0">
 
                                             <ul className="feeds">
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="row">
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project">
-                                                        <span>
-                                                            Project 1
-                                                        </span>
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span>
-                                                            Team 1
-                                                        </span>
-
-                                                    </div>
-                                                    <div
-                                                        className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
-                                                        <span>
-                                                            Aug 24th 2019
-                                                        </span>
-
-                                                    </div>
-                                                    <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center">
-                                                        <span className="label label-sm label-warning deadline-label">
-                                                            Pending
-                                                        </span>
-                                                    </div>
-                                                </li>
+                                                {team}
+   
 
                                             </ul>
                                         </div>
@@ -356,7 +162,7 @@ class ViewTeamDetail extends Component {
                                 </div>
                             </div>
 
-                            <div className="col-lg-6 col-xs-12 col-md-6">
+                            <div className="col-lg-3 col-xs-12 col-md-3">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
                                         <div className="caption">

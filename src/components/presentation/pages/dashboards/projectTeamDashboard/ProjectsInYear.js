@@ -78,7 +78,7 @@ export default class ProjectsInYear extends Component {
         }
     }
     async componentDidMount() {
-        let projectInYear = await DashboardContainer.getStatistic(`dashboard/statistic/totalProject/${new Date().getFullYear()}`)
+        let projectInYear = await DashboardContainer.getStatistic(`dashboard/statistic/projects/perMonth?year=${new Date().getFullYear()}`)
         projectInYear = projectInYear.map(e => e.numProject)
         this.setState({
             series: [
