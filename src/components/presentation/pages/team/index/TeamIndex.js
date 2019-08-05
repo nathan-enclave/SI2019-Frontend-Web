@@ -5,13 +5,15 @@ import TableData from './TableData';
 class TeamIndex extends Component {
   render() {
     return (
+      <div className="EngineerIndex" >
       <div className="row">
-        <div className="col-md-24">
-          <div className="portlet-body">
-            <TableData />
+      <div className="col-md-12">
+          <div className="portlet box">
+            <TableData/>
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }
