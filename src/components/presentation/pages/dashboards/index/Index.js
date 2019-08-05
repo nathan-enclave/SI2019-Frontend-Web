@@ -4,7 +4,7 @@ import DashboardContainer from '../../../../container/dashboard';
 import Action from './Action/ActionList';
 import {ClipLoader} from 'react-spinners';
 import AllAction from './AllAction/AllAction';
-
+import './index.css'
 class Index extends Component {
     constructor(props) {
         super(props);
