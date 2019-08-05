@@ -5,7 +5,6 @@ import Chart from "react-apexcharts";
 import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
-import getData from '../../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
@@ -85,15 +84,6 @@ class ViewProject extends Component {
             }
           }
         },
-        // title: {
-        //   text: "This Project's Budget and the Average Earning of Total Project",
-        //   align: 'center',
-        //   floating: true,
-        //   style: {
-        //     fontSize: "20px",
-        //     color: "#0c5460"
-        //   }
-        // },
       },
       series: [{
         name: "Earning",
@@ -102,8 +92,7 @@ class ViewProject extends Component {
     };
   }
   async componentDidMount() {
-    const res = await getData(this.state.id);
-    console.log(res)
+    const res = await ProjectContainer.getById(this.state.id);
     if((res.statusCode) === 500 || res.statusCode===404){
       this.setState({error404 : true})      
     }

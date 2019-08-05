@@ -158,7 +158,7 @@ class EditForm extends Component {
             .update(this.props.id, this.state.data)
             .then(result => {
                 if (!result.statusCode) {
-                    this.props.changeMSG("Edit successful.")
+                    this.props.changeMSG("Edit successfully.")
                     this.setState({error: "", saveLoading: false})
                     this
                         .props
