@@ -8,46 +8,6 @@ import {
     Marker
 } from "react-simple-maps"
 import {Motion, spring} from "react-motion"
-// import ReactTooltip from "react-tooltip"
-
-
-
-
-
-
-const subregions = [
-    "Southern Asia",
-    "Polynesia",
-    "Micronesia",
-    "Southern Africa",
-    "Central Asia",
-    "Melanesia",
-    "Western Europe",
-    "Central America",
-    "Seven seas (open ocean)",
-    "Northern Africa",
-    "Caribbean",
-    "South-Eastern Asia",
-    "Eastern Africa",
-    "Australia and New Zealand",
-    "Eastern Europe",
-    "Western Africa",
-    "Southern Europe",
-    "Eastern Asia",
-    "South America",
-    "Middle Africa",
-    "Antarctica",
-    "Northern Europe",
-    "Northern America",
-    "Western Asia",
-  ]
-
-
-
-
-
-
-
 class AnimatedMap extends Component {
     constructor() {
         super()
@@ -55,7 +15,7 @@ class AnimatedMap extends Component {
             center: [
                 0, 20
             ],
-            zoom: 1
+            zoom: 1,
         }
         this.handleZoomIn = this
             .handleZoomIn
@@ -65,6 +25,12 @@ class AnimatedMap extends Component {
             .bind(this)
         this.handleCityClick = this
             .handleCityClick
+            .bind(this)
+        this.handleCityHover = this
+            .handleCityHover
+            .bind(this)
+        this.handleCityUnHover = this
+            .handleCityUnHover
             .bind(this)
         this.handleReset = this
             .handleReset
@@ -83,6 +49,21 @@ class AnimatedMap extends Component {
     handleCityClick(city) {
         this.setState({zoom: 4, center: city.coordinates})
     }
+    handleCityHover(city, e) {
+        const rect = this.AnimatedMap.getBoundingClientRect()
+        const parent = {
+            left:window.pageXOffset + rect.left,
+            top: window.pageYOffset + rect.top
+        } 
+        //set postion for tooltip
+        this.cityTooltip.classList.add('active')
+        this.cityTooltip.style.left = `${e.pageX - parent.left}px`
+        this.cityTooltip.style.top = `${e.pageY - parent.top - 50}px` 
+        this.cityTooltip.innerHTML =`${city.name} (${city.numProjects})`
+    }
+    handleCityUnHover(city) {
+        this.cityTooltip.classList.remove('active')
+    }
     handleReset() {
         this.setState({
             center: [
@@ -91,11 +72,12 @@ class AnimatedMap extends Component {
             zoom: 1
         })
     }
- 
 
     render() {
         return (
-            <div className="AnimatedMap">
+            <div className="AnimatedMap" ref={(el) => {
+                this.AnimatedMap = el
+            }}>
                 <div className="action-list margin-bottom-10">
                     <button onClick={this.handleZoomIn} className="btn green-meadow margin-left-md">
                         {"Zoom in"}
@@ -108,8 +90,6 @@ class AnimatedMap extends Component {
                     <button onClick={this.handleReset} className="btn red-haze  margin-left-md">
                         {"Reset"}
                     </button>
-                    <div>
-                    </div>
                 </div>
                 <div className="MainMap">
                     <Motion
@@ -175,22 +155,20 @@ class AnimatedMap extends Component {
                                             .props
                                             .data
                                             .map((city, i) => (
-                                                <Marker key={i} marker={city} onClick={this.handleCityClick}>
-                                                    <circle cx={0} cy={0} r={city.numProjects *3} fill="#FF5722" stroke="#DF3702">123</circle>
-                                                    <text
+                                                <Marker
+                                                    key={i}
+                                                    marker={city}
+                                                    onClick={this.handleCityClick}
+                                                    onMouseEnter={this.handleCityHover}
+                                                    onMouseLeave={this.handleCityUnHover}>
+                                                    <circle
                                                         cursor={"pointer"}
-                                                        x={0}
-                                                        y={0}
-                                                        fill="white"
-                                                        textAnchor="middle"
-                                                        style={{
-                                                            fontFamily: "Roboto, sans-serif",
-                                                            fill: "#ffffff"
-                                                        }}
-                                                        fontSize="10px"
-                                                        alignmentBaseline="middle">
-                                                        {city.numProjects}
-                                                    </text>
+                                                        cx={0}
+                                                        cy={0}
+                                                        r={3}
+                                                        fill="#FF5722"
+                                                        stroke="#DF3702"
+                                                       ></circle>
                                                 </Marker>
                                             ))}
                                     </Markers>
@@ -199,10 +177,12 @@ class AnimatedMap extends Component {
                         )}
 
                     </Motion>
-
                 </div>
-               
-
+                <div
+                        className='cityTooltip'
+                        ref={(el) => {
+                        this.cityTooltip = el
+                    }}></div>
             </div>
         )
     }
