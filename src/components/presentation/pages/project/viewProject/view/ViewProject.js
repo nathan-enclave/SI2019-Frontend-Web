@@ -84,7 +84,7 @@ class ViewProject extends Component {
           }
         },
         // title: {
-        //   text: 'Earning and the Average Earning',
+        //   text: "This Project's Budget and the Average Earning of Total Project",
         //   align: 'center',
         //   floating: true,
         //   style: {
@@ -286,6 +286,14 @@ class ViewProject extends Component {
                               <div className="item">
                                 <div className="item-head">
                                   <div className="item-details">
+                                    <span className="item-name">Location</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.location}    </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
                                     <span className="item-name">Description</span>
                                   </div>
                                 </div>
@@ -368,13 +376,16 @@ class ViewProject extends Component {
                             </div>
                           </div>
                           <div>
+                            <div style={{marginTop:"50px",textAlign:"center"}}>
                             <Chart
                               options={this.state.options}
                               series={this.state.series}
                               type="bar"
                               width="100%"
-                              height="150px"
+                              height="200px"
                             />
+                            <span>This Project's Budget and the Average Earning of Total Project</span>
+                            </div>
                           </div>
                         </div>
                       </div>

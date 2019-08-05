@@ -9,7 +9,7 @@ class CashFlowPortlet extends Component {
         this.state ={
             load : true,
                 options: {
-                    colors: ['#10ac84','#2e86de',  '#FF5B5B'],
+                    colors: ['#10AC84','#2E86DE',  '#E7505A'],
                     xaxis: {
                         categories: []
                       },
@@ -55,6 +55,7 @@ class CashFlowPortlet extends Component {
         this.setState({   
             load : false,
                 options:{
+                    ...this.state.options,
                     xaxis: {
                         categories: catData
                       }

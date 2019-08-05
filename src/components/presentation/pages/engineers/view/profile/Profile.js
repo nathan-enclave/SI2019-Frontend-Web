@@ -40,6 +40,11 @@ export default class Profile extends Component {
       this.setState({
         ...response
       })
+      // console.log(this.state.skills)
+      //  this.state.skills.forEach(element => {
+      //   if(element.expYear < 0 ) this.setState({skills : this.state.skills.filter(element)})
+      // });
+      // console.log(this.state.skills)
       switch (Number(this.state.status)) {
         case 1:
           this.setState({ status: "Available" });
@@ -130,7 +135,7 @@ export default class Profile extends Component {
                             <ul className="col-xs-24 ul-item-engineer">
                               <div className="li-item-engineer">
                               <li className="li-item-engineer" >
-                                  <i className="fa fa-venus-mars ss" aria-hidden="true"></i>
+                                  <i className="fa fa-user ss" aria-hidden="true"></i>
                                   Age: {new Date().getFullYear() - new Date(this.state.birthday).getFullYear()} years old
                                 </li>
                                 <li className="li-item-engineer" >
@@ -139,7 +144,7 @@ export default class Profile extends Component {
                                 </li>
                                 <li className="li-item-engineer" >
                                   <i className="fa fa-globe ss" aria-hidden="true"></i>
-                                  Nationality: {(this.state.expYear)}
+                                  Nationality: {(this.state.nationality)}
                                 </li>
                                 <li className="li-item-engineer" >
                                   <i className="fa fa-birthday-cake ss" aria-hidden="true"></i>

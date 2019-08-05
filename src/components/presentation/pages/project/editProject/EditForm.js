@@ -5,6 +5,7 @@ import Input from 'react-validation/build/input';
 import Textarea from 'react-validation/build/textarea'
 import ProjectContainer from "../../../../container/project";
 import CategoryContainer from "../../../../container/categories";
+import LocationContainer from "../../../../container/location"
 import DatePicker from "react-datepicker";
 import CheckButton from 'react-validation/build/button';
 import {isEmpty} from 'validator';
@@ -25,6 +26,8 @@ class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            optionsLocations : [],
+            selectLocations : [],
             options: [],
             selectOptions: [],
             category: [],
@@ -36,6 +39,11 @@ class EditForm extends Component {
         };
     }
     async componentDidMount() {
+        const location = await LocationContainer.getLocation();
+        let temp = []
+        location.results.forEach(element => {
+            temp.push({value : element.id,label: element.city + ", " + element.country})
+        });
         const listAllCategories = (await CategoryContainer.getAll()).results
         listAllCategories
             .forEach(e => {
@@ -44,7 +52,7 @@ class EditForm extends Component {
                 delete e.id;
                 delete e.name
             })
-        this.setState({options: listAllCategories});
+        this.setState({options: listAllCategories,optionsLocations: temp});
         const res = await ProjectContainer.getById(this.props.id);
         this.setState({
             id: String(res.id),
@@ -62,6 +70,12 @@ class EditForm extends Component {
                 {
                     value: res.category.id,
                     label: res.category.name
+                }
+            ],
+            selectLocations : [
+                {
+                    value : res.location.id,
+                    label : res.location.city + ", " + res.location.country
                 }
             ]
         })
@@ -104,6 +118,19 @@ class EditForm extends Component {
                 data: {
                     ...this.state.data,
                     categoryId: temp
+                }
+            })
+        }
+    }
+    handleChangeLocation = (selectLocations) => {
+        this.setState({selectLocations});
+        let temp = 0
+        if (selectLocations != null) {
+            temp = selectLocations.value
+            this.setState({
+                data: {
+                    ...this.state.data,
+                    locationId: temp
                 }
             })
         }
@@ -288,6 +315,17 @@ class EditForm extends Component {
                                                     value={this.state.selectOptions}
                                                     options={this.state.options}
                                                     onChange={this.handleChangeCategory}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="form-check">
+                                                <label className="form-check-label">
+                                                    Location:
+                                                </label>
+                                                <Select
+                                                    value={this.state.selectLocations}
+                                                    options={this.state.optionsLocations}
+                                                    onChange={this.handleChangeLocation}/>
                                             </div>
                                         </div>
                                     </div>

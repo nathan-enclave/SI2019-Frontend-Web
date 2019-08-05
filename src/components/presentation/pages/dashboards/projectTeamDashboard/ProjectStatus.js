@@ -51,7 +51,7 @@ export default class ProjectStatus extends Component {
             options={this.state.options}
             series={this.state.series}
             type="donut"
-            width="100%"
+            width="80%"
             // height="390"
           />
           )}
