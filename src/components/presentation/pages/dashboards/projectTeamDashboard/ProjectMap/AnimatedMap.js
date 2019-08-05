@@ -10,6 +10,44 @@ import {
 import {Motion, spring} from "react-motion"
 // import ReactTooltip from "react-tooltip"
 
+
+
+
+
+
+const subregions = [
+    "Southern Asia",
+    "Polynesia",
+    "Micronesia",
+    "Southern Africa",
+    "Central Asia",
+    "Melanesia",
+    "Western Europe",
+    "Central America",
+    "Seven seas (open ocean)",
+    "Northern Africa",
+    "Caribbean",
+    "South-Eastern Asia",
+    "Eastern Africa",
+    "Australia and New Zealand",
+    "Eastern Europe",
+    "Western Africa",
+    "Southern Europe",
+    "Eastern Asia",
+    "South America",
+    "Middle Africa",
+    "Antarctica",
+    "Northern Europe",
+    "Northern America",
+    "Western Asia",
+  ]
+
+
+
+
+
+
+
 class AnimatedMap extends Component {
     constructor() {
         super()
@@ -54,6 +92,7 @@ class AnimatedMap extends Component {
         })
     }
  
+
     render() {
         return (
             <div className="AnimatedMap">
@@ -144,6 +183,10 @@ class AnimatedMap extends Component {
                                                         y={0}
                                                         fill="white"
                                                         textAnchor="middle"
+                                                        style={{
+                                                            fontFamily: "Roboto, sans-serif",
+                                                            fill: "#ffffff"
+                                                        }}
                                                         fontSize="10px"
                                                         alignmentBaseline="middle">
                                                         {city.numProjects}
