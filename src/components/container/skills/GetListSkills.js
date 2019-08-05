@@ -1,6 +1,6 @@
 
 export default async function getTotalSkills(){
-    let response = await fetch('https://si-enclave.herokuapp.com/api/v1/skills?limit=100');
+    let response = await fetch('http://si-enclave.herokuapp.com/api/v1/skills?limit=100');
     let data = await response.json()
     data = data.results
     data.forEach(e => {
