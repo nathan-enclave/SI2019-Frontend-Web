@@ -74,8 +74,8 @@ class EditForm extends Component {
             ],
             selectLocations : [
                 {
-                    value : res.location.id,
-                    label : res.location.city + ", " + res.location.country
+                    value : res.locationId,
+                    label : res.city + ", " + res.country
                 }
             ]
         })
