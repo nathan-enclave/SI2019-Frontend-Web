@@ -17,7 +17,7 @@ export default class DeadlineRow extends Component {
         return (
             <li className="row DeadlineRow">
                 <div
-                    className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project custom-center-row">
+                    className="col-xs-3 padding-bottom-sm padding-top-sm text-center deadline-project custom-center-row padding-right-sm padding-left-sm">
                     <Link to={`/project/${this.props.data.project.id}`}>
                         <span>
                             {this.props.data.project.name}

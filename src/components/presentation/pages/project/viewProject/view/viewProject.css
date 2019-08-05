@@ -97,7 +97,7 @@
     position: relative;
 }
 .ViewProject .mess {
-    height: 400px;
+    height: 700px;
     width: 100%;
     overflow: auto;
     position: absolute;
@@ -105,4 +105,7 @@
 .ViewProject .team-btn{    
     float : right;
     font-size: 13px
+}
+.small-space{
+    margin: 10px
 }

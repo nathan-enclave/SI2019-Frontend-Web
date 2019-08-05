@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import AddProject from '../../../../container/project/AddProject';
+import ProjectContainer from '../../../../container/project'
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Textarea from 'react-validation/build/textarea';
 import CheckButton from 'react-validation/build/button';
 import { isEmpty } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
+import LocationContainer from "../../../../container/location"
 import DatePicker from "react-datepicker";
 import getTotalCategories from '../../../../container/categories/GetListCategories';
 import "./validate.css"
@@ -22,15 +23,19 @@ class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            locationOptions : [],
+            selectedLocation: [],
             isOpenMSGSuccess: false,
             start: "",
             end: "",
             options: [],
             selectOptions: [],
             categoryId: null,
+            locationId : null,
             msgStart: null,
             msgEnd: null,
             msgCat: null,
+            msgLocation: null,
             addLoading : false
         };
     }
@@ -51,9 +56,11 @@ class AddForm extends Component {
             earningPerMonth: this.state.earningPerMonth,
             start: this.state.start,
             end: this.state.end,
-            categoryId: Number(this.state.categoryId)
+            categoryId: Number(this.state.categoryId),
+            locationId : Number(this.state.locationId)
         }
-        AddProject(data).then((result) => {
+        console.log(data)
+        ProjectContainer.add(data).then((result) => {
             if (!result.statusCode) {
                 this.props.openMessage()
             } else {
@@ -61,6 +68,8 @@ class AddForm extends Component {
                     this.setState({ msg: 'Some error occured, please try again later ',addLoading : false });
                 }
             }
+        }).catch(e=>{
+            this.setState({ msg: 'Some error occured, please try again later ',addLoading : false });
         })
     }
     handleChangeStart = (date) => {
@@ -74,6 +83,17 @@ class AddForm extends Component {
             end: date,
             msgEnd: null
         });
+    }
+    handleChangeLocation = (selectedLocation) => {
+        this.setState({ selectedLocation });
+        let temp = 0
+        if (selectedLocation != null) {
+            temp = selectedLocation.value
+            this.setState({
+                locationId: temp,
+                msgLocation: null
+            });
+        }
     }
     handleChange = (selectOptions) => {
         this.setState({ selectOptions });
@@ -89,18 +109,24 @@ class AddForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
-        if (this.checkBtn.context._errors.length === 0 && this.state.start !== "" && this.state.end !== "" && this.state.categoryId !== null) {
+        if (this.checkBtn.context._errors.length === 0 && this.state.start !== "" && this.state.end !== "" && this.state.categoryId !== null && this.state.locationId!==null) {
             this.submitAddForm()
         }
         else {
             if (this.state.start === "") this.setState({ msgStart: "This field is required!" })
             if (this.state.end === "") this.setState({ msgEnd: "This field is required!" })
             if (this.state.categoryId === null) this.setState({ msgCat: "This field is required!" })
+            if (this.state.locationId === null) this.setState({ msgLocation: "This field is required!" })
         }
     }
     async componentDidMount() {
         const res = await getTotalCategories();
-        this.setState({ options: res });
+        const location = await LocationContainer.getLocation();
+        let temp = []
+        location.results.forEach(element => {
+            temp.push({value : element.id,label: element.city + ", " + element.country})
+        });
+        this.setState({ options: res,locationOptions : temp });
     }
     displayLoading= ()=>{ 
         return this.state.addLoading? (
@@ -119,6 +145,7 @@ class AddForm extends Component {
         let msgStart = this.state.msgStart === null ? null : (<div className="small-validate">This field is required!</div>)
         let msgEnd = this.state.msgEnd === null ? null : (<div className="small-validate">This field is required!</div>)
         let msgCat = this.state.msgCat === null ? null : (<div className="small-validate">This field is required!</div>)
+        let msgLocation = this.state.msgLocation === null ? null : (<div className="small-validate">This field is required!</div>)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -207,6 +234,18 @@ class AddForm extends Component {
                                                     onChange={this.handleChangeEnd}
                                                     className="form-control" />
                                                 {msgEnd}
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="form-check">
+                                                <label className="form-check-label">
+                                                    Location:
+                                                </label>
+                                                <Select
+                                                    value={this.state.selectedLocation}
+                                                    options={this.state.locationOptions}
+                                                    onChange={this.handleChangeLocation} />
+                                                {msgLocation}
                                             </div>
                                         </div>
                                         <div className="form-group">

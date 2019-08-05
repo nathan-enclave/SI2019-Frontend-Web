@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import 'react-tagsinput/react-tagsinput.css';
 import Chart from "react-apexcharts";
 import moment from 'moment';
@@ -13,10 +13,12 @@ import Timeline from './Timeline';
 import { ClipLoader } from 'react-spinners';
 import TeamContainer from "../../../../../container/team";
 import ProjectContainer from "../../../../../container/project";
+
 class ViewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error404 : false,
       teamData: null,
       id: this.props.match.params.id,
       category: "",
@@ -70,7 +72,7 @@ class ViewProject extends Component {
               fontSize: '12px',
             },
             formatter: function (val) {
-              return numeral(val).format('0,0')
+              return (val ===0)?"0": numeral(val/100000000).format('0,0') + " M"
             }
           }
         },
@@ -84,7 +86,7 @@ class ViewProject extends Component {
           }
         },
         // title: {
-        //   text: 'Earning and the Average Earning',
+        //   text: "This Project's Budget and the Average Earning of Total Project",
         //   align: 'center',
         //   floating: true,
         //   style: {
@@ -101,6 +103,11 @@ class ViewProject extends Component {
   }
   async componentDidMount() {
     const res = await getData(this.state.id);
+    console.log(res)
+    if((res.statusCode) === 500 || res.statusCode===404){
+      this.setState({error404 : true})      
+    }
+    else{
     this.setState({
       id: res.id,
       name: res.name,
@@ -137,7 +144,7 @@ class ViewProject extends Component {
       })
       this.setState({ teamData: teamTable })
     }
-    // const ls = await ProjectContainer.getPagination(10000, 0,`"earning", "status"`)
+   
     const listProject = await ProjectContainer.getPagination(10000, 0,`"earning", "status"`)
     let totalEarning = 0
     listProject.results.forEach(element => {
@@ -158,9 +165,11 @@ class ViewProject extends Component {
         data: [res.earning, averageEarning]
       }]
     })
+     }
   }
 
   render() {
+    if(this.state.error404 === true) return <Redirect to = "/error404"/>
     let timeline = (this.state.status === "inProgress") ? (<div className="row" style ={{margin :"50px 0px 150px 0px"}}>
       <div className="col-lg-12 col-xs-12 col-sm-12">
         <Timeline start={this.state.timelineStart} end={this.state.timelineEnd} startFor={this.state.start} endFor={this.state.end} />
@@ -286,6 +295,14 @@ class ViewProject extends Component {
                               <div className="item">
                                 <div className="item-head">
                                   <div className="item-details">
+                                    <span className="item-name">Location</span>
+                                  </div>
+                                </div>
+                                <div className="mt-comment-text"> {this.state.location}    </div>
+                              </div>
+                              <div className="item">
+                                <div className="item-head">
+                                  <div className="item-details">
                                     <span className="item-name">Description</span>
                                   </div>
                                 </div>
@@ -368,13 +385,16 @@ class ViewProject extends Component {
                             </div>
                           </div>
                           <div>
+                            <div style={{marginTop:"50px",textAlign:"center"}}>
                             <Chart
                               options={this.state.options}
                               series={this.state.series}
                               type="bar"
                               width="100%"
-                              height="150px"
+                              height="200px"
                             />
+                            <span>This Project's Budget and the Average Earning of Total Project</span>
+                            </div>
                           </div>
                         </div>
                       </div>

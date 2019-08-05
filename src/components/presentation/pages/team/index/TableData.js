@@ -109,12 +109,12 @@ class TableData extends Component {
                                                     <th
                                                         style={{
                                                             fontWeight: 'bold'
-                                                        }}>Team name
+                                                        }}>Name
                                                     </th>
                                                     <th
                                                         style={{
                                                             fontWeight: 'bold'
-                                                        }}>Full name
+                                                        }}>Quantity
                                                     </th>
                                                     <th
                                                         style={{

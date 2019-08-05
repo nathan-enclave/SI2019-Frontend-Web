@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 // import Chart from 'react-google-charts';
 import Chart from "react-apexcharts";
 import DashboardContainer from "../../../../container/dashboard";
+import { ClipLoader } from 'react-spinners';
    
 
 export default class ProjectStatus extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      load : true,
       options: {
         labels: ['Done', 'In progress', 'Pending'],
         colors: ['#2980b9','#27ae60', '#f1c40f']
@@ -22,6 +24,7 @@ export default class ProjectStatus extends Component {
     seriesData.push(data.inProgress)
     seriesData.push(data.pending)
     this.setState({
+      load: false,
       series: seriesData
     })
   }
@@ -36,13 +39,23 @@ export default class ProjectStatus extends Component {
         </div>
         {/* chart here */}
         <div >
+        {this.state.load === true ? (
+          <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+            <ClipLoader
+              sizeUnit={"px"}
+              size={70}
+              color={'#7ed6df'}
+              loading={this.state.loading} />
+          </div>
+        ) : (
           <Chart
             options={this.state.options}
             series={this.state.series}
             type="donut"
-            width="100%"
-            height="390"
+            width="80%"
+            // height="390"
           />
+          )}
         </div>
       </div>
     );

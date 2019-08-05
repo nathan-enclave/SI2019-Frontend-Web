@@ -5,7 +5,6 @@ import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import getTotalSkills from '../../../../container/skills/GetListSkills';
 import SkillContainer from '../../../../container/skills';
 import ImageUploader from "../../../commons/input/ImageUploader";
 import Skills from "./partials/Skills";
