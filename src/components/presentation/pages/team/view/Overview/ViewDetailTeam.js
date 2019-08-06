@@ -87,10 +87,10 @@ class EditForm extends Component {
                     xaxis: {
                         categories: catData
                     },
-                    yaxis:[
+                    yaxis: [
                         {
-                        title: {
-                            text: "Millions"
+                            title: {
+                                text: "Millions"
                             }
                         }
                     ],
@@ -102,7 +102,7 @@ class EditForm extends Component {
                     }
                 ],
             })
-            
+
             return (
                 <TeamMember
                     key={key}
@@ -126,8 +126,8 @@ class EditForm extends Component {
     render() {
         if(this.state.error === true) return (<Redirect to = "/error/404"/>)
         let team = this.state.team === "Do not have team" ? (
-         <div>
-</div>
+            <div>
+            </div>
         ) : (
                 <ul className="feeds">
                     {this.state.teamData}
@@ -138,7 +138,7 @@ class EditForm extends Component {
                 loadData: (
                     <div className="TeamDetail">
                         <div className="row">
-                            <div className="col-lg-9 col-xs-12 col-md-9">
+                            <div className="col-lg-12 col-xs-12 col-md-12">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title">
                                         <div className="caption">
@@ -146,77 +146,45 @@ class EditForm extends Component {
                                             <span className="caption-subject font-dark bold uppercase">{this.state.name}</span>
                                         </div>
                                     </div>
-                                    <div className="portlet-body5">
-                                        {this.state.engineers.length < 4  ? (
-                                        <div
-                                            className="scroller"
-                                            style={{
-                                                 height: 'auto' }}
-                                            data-always-visible="1"
-                                            data-rail-visible="0">
+                                    <div className="portlet-body">
+                                        {this.state.engineers.length < 4 ? (
+                                            <div
+                                                className="scroller"
+                                                style={{
+                                                    height: 'auto'
+                                                }}
+                                                data-always-visible="1"
+                                                data-rail-visible="0">
 
-                                            <ul className="feeds">
-                                                {team}
-   
+                                                <ul className="feeds">
+                                                    {team}
 
-                                            </ul>
-                                        </div>) : (
-                                        <div
-                                            className="scroller1"
-                                            style={{
-                                                 height: '300px' }}
-                                            data-always-visible="1"
-                                            data-rail-visible="0">
 
-                                            <ul className="feeds">
-                                                {team}
-                                            </ul>
-                                        </div>)
+                                                </ul>
+                                            </div>) : (
+                                                <div
+                                                    className="scroller1"
+                                                    style={{
+                                                        height: '300px'
+                                                    }}
+                                                    data-always-visible="1"
+                                                    data-rail-visible="0">
+
+                                                    <ul className="feeds">
+                                                        {team}
+                                                    </ul>
+                                                </div>)
                                         }
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="col-lg-3 col-xs-12 col-md-3">
-                                <div className="portlet light bordered">
-                                    <div className="portlet-title tabbable-line">
-                                        <div className="caption">
-                                            <i className=" icon-social-twitter font-dark hide" />
-                                            <span className="caption-subject font-dark bold uppercase">finance</span>
-                                        </div>
-                                    </div>
-                                    <div className="portlet-bodyx">
-                                        <div className="tab-content">
-                                            <div className="table-main-pagination">
-                                                <div className="table-scrollable-custom">
-                                                    <table className="table table-striped table-bordered table-advance table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th width="50%">Cash Out </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-lg-6 col-xs-12 col-md-6 ">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
-                                        <NavLink to={`/project/${this.state.id}`} className="caption">
                                             <i className="icon-bubbles font-dark hide" />
                                             <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
-                                        </NavLink>
                                     </div>
                                     <div className="portlet-body3" >
                                         <div className="tab-content">
@@ -225,7 +193,10 @@ class EditForm extends Component {
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name" >Project name</span>
+                                                                <NavLink to={`/project/${this.state.id}`} className="caption">
+                                                                    <i className="icon-bubbles font-dark hide" />
+                                                                    <span className="item-name">Project's Name</span>
+                                                                </NavLink>
                                                             </div>
                                                         </div>
                                                         <div className="mt-comment-text"> {this.state.project.name} </div>
@@ -233,19 +204,27 @@ class EditForm extends Component {
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name">Description</span>
+                                                                <span className="item-name">Cash-out</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.description}   </div>
+                                                        <div className="mt-comment-text"> {new Intl.NumberFormat().format(this.state.cashOut)} VND  </div>
                                                     </div>
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name">Technology</span>
+                                                                <span className="item-name">Description</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.technology}    </div>
+                                                        <div className="mt-comment-text"> {this.state.project.description}    </div>
                                                     </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Technology</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.technology}    </div>
                                                 </div>
                                             </div>
                                         </div>
