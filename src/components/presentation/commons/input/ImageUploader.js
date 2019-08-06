@@ -31,9 +31,7 @@ export default class ImageUploader extends Component {
                             <div className="close" onClick={()=>this.handleCancel()}></div>
                         </div>
                         <img src={this.state.file}  alt="file-upload" className="avatar-preview"/>
-                    </div>
-
-                    <div className="btn green relative">
+                        <div className="btn green relative" style={{marginTop: "5px",width: "100%"}}>
                         <input
                             type="file"
                             onChange={this.handleChange}
@@ -41,6 +39,7 @@ export default class ImageUploader extends Component {
                             className="upload-image-preview-input"/>
                             <div className="inline-block title-upload">{this.props.status === "add" ? "Upload" : "Change"}</div>                        
                     </div>
+                    </div>                  
             </div>
         );
     }

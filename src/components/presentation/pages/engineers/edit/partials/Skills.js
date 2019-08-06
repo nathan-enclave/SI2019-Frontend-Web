@@ -11,16 +11,12 @@ export default class Skills extends Component {
             error: "",
             numSkills: 0,
             isExpanded: false,
-            loading:false
+            loading:false         
         }
     }
-    async handleExpand(status) {
-        console.log(status.index);
-        
-        const currentSkills = this.state.listSkills
-        
+    async handleExpand(status) {        
+        const currentSkills = this.state.listSkills        
         const index = currentSkills.findIndex(e => e.index === status.index)
-
         if (index >= 0) {
             currentSkills[index] = status
         } else {
@@ -35,16 +31,13 @@ export default class Skills extends Component {
             .props
             .getData(this.state.listSkills)
     }
-
     handleAddMore = (e) => {
         e.preventDefault()
         this.setState({
             numSkills: this.state.numSkills + 1
         })
     }
-
     async componentWillMount() {
-        console.log("skill:")
         await this.setState({listSkills: this.props.skillSelected.map((e, idx)=>{
             return {
                 data: {
@@ -52,12 +45,10 @@ export default class Skills extends Component {
                     expYear: e.expYear.value
                 },
                 index: idx
-            }
-           
+            }           
         }), numSkills: this.props.skillSelected.length})
     }
     render() {
-        console.log(this.state.numSkills)
         const dataRender = []
         for (let i = 0; i < this.state.numSkills; i += 1) {
             dataRender.push(<SkillOption
@@ -68,11 +59,9 @@ export default class Skills extends Component {
                 handleExpand={this
                 .handleExpand
                 .bind(this)}/>)
-        };
-      
+        };    
         
-        return (
-        
+        return (        
             <div className="Skills">
                 {this.state.loading ? 
                 (<div className='sweet-loading d-flex justify-center'>
@@ -83,8 +72,7 @@ export default class Skills extends Component {
                   loading={this.state.loading}
                 />
                 </div>): dataRender
-                }
-               
+                }               
                 <div className="row">
                     <div className="col-12">
                         <div
@@ -98,7 +86,6 @@ export default class Skills extends Component {
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

@@ -36,7 +36,7 @@ export default class App extends Component {
                                             <li><a href="/">Admin Dashboard</a></li>
                                         </ul>
                                         <div className="content-header-menu">
-                                            <button type="button" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                                            <button type="button" className="menu-toggler responsive-togngler" data-toggle="collapse" data-target=".navbar-collapse">
                                                 <span className="toggle-icon toggle-icon-custom">
                                                 <i className="fa fa-bars"></i>
                                                 </span>

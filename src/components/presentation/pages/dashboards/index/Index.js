@@ -4,7 +4,7 @@ import DashboardContainer from '../../../../container/dashboard';
 import Action from './Action/ActionList';
 import {ClipLoader} from 'react-spinners';
 import AllAction from './AllAction/AllAction';
-
+import './index.css'
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -63,11 +63,11 @@ class Index extends Component {
                 }
 
                 <div className="portlet light bordered">
-                    <div className="padding-bottom-lg d-flex">
+                    <div className="d-flex">
                         <div className="portlet-title d-flex justify-center flex-col"  >
                             <div className="caption">
                                 <i className="icon-bar-chart font-dark hide"/>
-                                <span className="caption-subject font-dark bold uppercase">Recent activities</span>
+                                <span className="caption-subject font-dark uppercase" style={{fontSize : "20px"}}>Recent activities</span>
                             </div>
                         </div>
                         <div className="margin-left-md">

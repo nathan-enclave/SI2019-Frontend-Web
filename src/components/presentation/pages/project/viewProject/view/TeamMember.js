@@ -13,7 +13,7 @@ class TeamMember extends Component {
             <Link to={`/engineer/${this.props.id}`} className="mt-action-author">
               {this.props.firstName} {this.props.lastName}
             </Link>
-            <span className={"label label-sm label-default label-mini"}>
+            <span className={"label label-sm label-default label-mini small-space"}>
               SW {level}
             </span>
             <span className={"label label-sm label-" + typeLabel + " label-mini"}>
@@ -21,7 +21,7 @@ class TeamMember extends Component {
             </span>
           </div>
           <span className={"item-status"} style={{ marginTop: "-10px" }} >
-            <a href={"mailto:" + this.props.email} ><img alt="" height="30px" width="30px" src="../assets/img-icon/ui.png" /></a>
+            <a href={"mailto:" + this.props.email} ><img alt="" height="25px" width="25px" src="../assets/img-icon/gmail.jpg" /></a>
           </span>
         </div>
       </div>

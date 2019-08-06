@@ -63,17 +63,17 @@ class CashStats extends Component {
         return (
             <div className="CashStats">
                 <div className="portlet-title">
-                    <div className="caption">
+                    {/* <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
                         <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overall statistic</span>
                     </div>
-                    <br />
+                    <br /> */}
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div className="dashboard-stat dashboard-stat-v2 purple " style={{background: "#10ac84"}}>
                             <div className="visual">
-                                <i className="fa fa-bar-chart-o" />
+                                <i className="fa fa-money"/>
                             </div>
                             {loader.cashInTemplate}
                         </div>
@@ -81,7 +81,7 @@ class CashStats extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#2e86de" }}>
                             <div className="visual">
-                                <i className="fa fa-bar-chart-o" />
+                            <i className="fa fa-money" />
                             </div>
                             {loader.cashOutTemplate}
                         </div>
@@ -89,7 +89,7 @@ class CashStats extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div className="dashboard-stat dashboard-stat-v2 red" >
                             <div className="visual">
-                                <i className="fa fa-bar-chart-o" />
+                            <i className="fa fa-money" />
                             </div>
                             {loader.profitTemplate}
                         </div>
@@ -97,7 +97,7 @@ class CashStats extends Component {
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#1B1464"}}>
                             <div className="visual">
-                                <i className="fa fa-bar-chart-o" />
+                                <i className="fa fa-lightbulb-o" />
                             </div>
                             {loader.projectTemplate}
                         </div>  

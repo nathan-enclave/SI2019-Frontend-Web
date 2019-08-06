@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from "react-router-dom";
+import { Route,Switch  } from "react-router-dom";
 import TeamIndex from '../pages/team/index/TeamIndex';
 import EngineerIndex from '../pages/engineers/index/EngineerIndex';
 import Index from '../pages/dashboards/index/Index';
@@ -19,11 +19,13 @@ import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
 import ViewDetailTeam from '../pages/team/view/Overview/ViewDetailTeam'
 import ViewProject from '../pages/project/viewProject/view/ViewProject'
+import Error404 from '../pages/errorPage/Error404'
 
 class RouterURL extends Component {
   render() {
     return (
         <div className="MainRouter">
+          <Switch>             
           <Route  exact path="/login" component={Login} /> 
           <Route exact path="/" component={Index} />
           <Route exact path="/home" component={Index} />
@@ -44,7 +46,9 @@ class RouterURL extends Component {
           <Route  path="/resetPassword" component={ResetPassword} />
           <Route  path="/resetSuccess" component={ResetSuccess} />
           <Route exact path="/team/:id" component={ViewDetailTeam} />
-          <Route/>
+          <Route exact component={Error404} />   
+          <Route exact path="/error404" component={Error404} />         
+          </Switch>
         </div>
     );
   }

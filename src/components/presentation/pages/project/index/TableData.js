@@ -10,6 +10,7 @@ class TableData extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      load : true,
       isOpen: false,
       data: [],
       itemsCountPerPage: 10,
@@ -33,13 +34,11 @@ class TableData extends Component {
     this.componentWillMount()
   }
   handlePageChange = async (pageNumber) => {
-    await this.setState({ activePage: pageNumber })
+    await this.setState({ activePage: pageNumber,load: true })
     this.componentWillMount();
   }
   async componentWillMount() {
     let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
-
-
     const res = await ProjectContainer.getPagination(this.state.itemsCountPerPage, offset);
     if (this.state.activePage > 0 && res.results.length === 0) {
       this.setState({ activePage: this.state.activePage - 1 })
@@ -65,14 +64,18 @@ class TableData extends Component {
       }
       )
       this.setState({
-        data: dataRender
+        data: dataRender,
+        load : false
       })
     }
   }
   render() {
-    const loader = this.state.data.length > 0 ?
+    const loader = !this.state.load ?
       <div className="portlet-title">
-        <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>
+        <div className="caption" style={{ fontSize: '25px', paddingBottom: '13px ', color: "#2ab4c0", fontWeight: 600 }}>PROJECT LIST
+         <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  
+         </span>
+         </div>
         <br />
         <div style={{ marginBottom: '40px' }}>
           <div style={{ width: '200px', float: 'left' }}>
@@ -118,7 +121,7 @@ class TableData extends Component {
           onClose={this.toggleMessage} deleteStyleModel={true} >
           <Message message={"Add successfully new project."} />
         </Modal>
-      </div> : (this.totalItemsCount === 0) ? (<div>Empty</div>) : (
+      </div> :  (
         <div className='sweet-loading d-flex justify-center middle-loading-custom' >
           <ClipLoader
             sizeUnit={"px"}

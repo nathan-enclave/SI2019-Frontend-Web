@@ -77,7 +77,6 @@ export default class RowData extends Component {
               <i className="fa fa-trash-o" style={{ fontSize: '15px' }} />
             </button>
           </div>
-        </td>
           <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
             <EditForm id={this.props.id} name={this.props.name} onClose={this.toggleModalEdit} onOpenMSG={this.toggleMessage} changeMSG={(msg) => { this.setState({ msg: msg }) }} />
           </Modal>
@@ -87,10 +86,14 @@ export default class RowData extends Component {
           <Modal show={this.state.isOpenDelete} onClose={this.toggleModalDelete} deleteStyleModel={true}  >
             <DeletePopUp confirm={(redirect) => { this.removeItem(redirect) }} onClose={this.toggleModalDelete} message="You will completely delete this project." name={this.props.name} />
           </Modal>
+        </td>       
       </tr>
     );
   }
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45

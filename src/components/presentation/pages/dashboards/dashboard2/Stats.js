@@ -20,29 +20,28 @@ class Stats extends Component {
     })
   }
   render() {
-    console.log(this.state)
     let loadStatistic = {}
     if (Object.keys(this.state).length > 0) {
       loadStatistic.totalEngineer = 
       <div className="widget-thumb-body">
       <span className="widget-thumb-subtitle">Engineers</span>
-      <span className="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{numeral(this.state.total).format('0,0')}</span>
+      <span className="widget-thumb-body-stat" >{numeral(this.state.total).format('0,0')}</span>
     </div>           
       loadStatistic.totalSalary = 
       <div className="widget-thumb-body">
       <span className="widget-thumb-subtitle">VND</span>
-      <span className="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{numeral(this.state.totalSalary).format('0,0')} M</span>
+      <span className="widget-thumb-body-stat" >{numeral(this.state.totalSalary).format('0,0')} M</span>
     </div>
       loadStatistic.averageSalary =
       <div className="widget-thumb-body">
       <span className="widget-thumb-subtitle">VND</span>
-      <span className="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{numeral(this.state.avgSalary).format('0,0')} M</span>
+      <span className="widget-thumb-body-stat" >{numeral(this.state.avgSalary).format('0,0')} M</span>
     </div>
       loadStatistic.averageAge = 
       <div className="widget-thumb-body">
       <span className="widget-thumb-subtitle"></span>
       <span className="widget-thumb-subtitle">Years old</span>
-      <span className="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{numeral(this.state.avgAge).format('0,0')}</span>
+      <span className="widget-thumb-body-stat">{numeral(this.state.avgAge).format('0,0')}</span>
     </div>
   } else {   
     loadStatistic.totalEngineer
@@ -61,18 +60,18 @@ class Stats extends Component {
   }
     return (
       <div className="overview-engineer">
-        <div className="portlet-title">
-          <div className="caption">
+        <div className="portlet-title" >
+          {/* <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
             <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overall statistic</span>
             <span className="caption-helper"></span>
           </div>
-          <br />
+          <br /> */}
         </div>
         <div className="row overview-hr widget-row">
           <div className="col-md-3">
             <div className="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-              <h4 className="widget-thumb-heading">Total engineer</h4>
+              <h3 className="widget-thumb-heading" style={{fontSize:"17px"}}>Total engineer</h3>
               <div className="widget-thumb-wrap">
                 <i className="widget-thumb-icon bg-green fa fa-user"></i>
                {loadStatistic.totalEngineer}
@@ -81,7 +80,7 @@ class Stats extends Component {
           </div>
           <div className="col-md-3">
             <div className="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-              <h4 className="widget-thumb-heading">Total salary</h4>
+              <h4 className="widget-thumb-heading" style={{fontSize:"17px"}}>Total salary</h4>
               <div className="widget-thumb-wrap">
                 <i className="widget-thumb-icon bg-red fa fa-money"></i>
                 {loadStatistic.totalSalary}
@@ -90,7 +89,7 @@ class Stats extends Component {
           </div>
           <div className="col-md-3">
             <div className="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-              <h4 className="widget-thumb-heading">Average salary</h4>
+              <h4 className="widget-thumb-heading" style={{fontSize:"17px"}}>Average salary</h4>
               <div className="widget-thumb-wrap">
                 <i className="widget-thumb-icon bg-purple fa fa-money"></i>
                {loadStatistic.averageSalary}
@@ -99,9 +98,9 @@ class Stats extends Component {
           </div>
           <div className="col-md-3">
             <div className="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-              <h4 className="widget-thumb-heading">Average age</h4>
+              <h4 className="widget-thumb-heading" style={{fontSize:"17px"}}>Average age</h4>
               <div className="widget-thumb-wrap">
-                <i className="widget-thumb-icon bg-blue icon-bulb"></i>
+                <i className="widget-thumb-icon bg-blue fa fa-calendar-check-o"></i>
                 {loadStatistic.averageAge}
               </div>
             </div>
@@ -111,4 +110,4 @@ class Stats extends Component {
     );
   }
 }
-export default Stats;
+export default Stats; 

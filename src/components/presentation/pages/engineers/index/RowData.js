@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 import ViewForm from './../../engineers/view/ViewForm';
 import Modal from './../../../../presentation/commons/modal/Modal';
 import EditForm from './../../engineers/edit/EditForm';
 import DeletePopUp from './../../engineers/delete/DeletePopUp';
+<<<<<<< HEAD
+=======
+// import DelEngineer from "./../../../../container/engineer/DelEngineer";
+// import MSGDelete from '../../../commons/msg/MSGDelete'; import MSGSuccess
+// from '../../../commons/msg/MSGSuccess'; import { thisTypeAnnotation } from
+// '@babel/types';
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
 import './index.css'
@@ -22,7 +29,9 @@ export default class RowData extends Component {
         this.setState({
             isOpenMessage: !this.state.isOpenMessage
         })
-        this.props.reloadData();
+        this
+            .props
+            .reloadData();
     }
     toggleModalView = () => {
         this.setState({
@@ -38,6 +47,7 @@ export default class RowData extends Component {
         this.setState({
             isOpenDelete: !this.state.isOpenDelete
         });
+<<<<<<< HEAD
     }
     removeItem = () => {
         EngineerContainer.delete(this.props.id).then((result) => {
@@ -53,20 +63,49 @@ export default class RowData extends Component {
     handleReload = () => {
         this.toggleMessage()
         this.props.reloadData()
+=======
+    }
+    removeItem = () => {
+        EngineerContainer
+            .delete(this.props.id)
+            .then((result) => {
+                if (!result.statusCode) {
+                    this.setState({
+                        isOpenDelete: !this.state.isOpenDelete
+                    })
+                    this.setState({msg: "Delete successfully."})
+                    this.setState({isOpenMessage: true});
+                } else {
+                    this.setState({msg: "Something wrong, please try again later."})
+                }
+            })
+    }
+    handleReload = () => {
+        this.toggleMessage()
+        this
+            .props
+            .reloadData()
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
     }
     render() {
         return (
             <tr className="RowData RowDataEngineer">
                 <td className="highlight">
                     <Link to={`/engineer/${this.props.id}`}>
+<<<<<<< HEAD
                         <span
                             className=" margin-bottom-5 margin-top-5 link-name-data">
+=======
+                        <span className=" margin-bottom-5 margin-top-5 link-name-data">
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
                             {this.props.englishName}
                         </span>
                     </Link>
                 </td>
                 <td className="highlight">
-                    <span>{this.props.firstName} </span> {this.props.lastName}
+                    <span>{this.props.firstName}
+                    </span>
+                    {this.props.lastName}
                 </td>
                 <td className="highlight">
                     <a href={"mailto:" + this.props.email}>
@@ -76,16 +115,35 @@ export default class RowData extends Component {
                 <td className="number-style">{this.props.expYear}</td>
                 <td>
                     <div className="flex-center">
+<<<<<<< HEAD
                         <button onClick={() => this.toggleModalEdit()} className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5" >
                             <i className="fa fa-edit" style={{ fontSize: '15px' }} />
                         </button>
                         <button onClick={() => this.toggleModalDelete()} className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5" >
                             <i className="fa fa-trash-o" style={{ fontSize: '15px' }} />
+=======
+                        <button
+                            onClick={() => this.toggleModalEdit()}
+                            className="btn btn-outline green btn-sm green margin-bottom-5 margin-top-5">
+                            <i
+                                className="fa fa-edit"
+                                style={{
+                                fontSize: '15px'
+                            }}/>
+                        </button>
+                        <button
+                            onClick={() => this.toggleModalDelete()}
+                            className="btn btn-outline green btn-sm red margin-bottom-5 margin-top-5">
+                            <i
+                                className="fa fa-trash-o"
+                                style={{
+                                fontSize: '15px'
+                            }}/>
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
                         </button>
                     </div>
-                </td>
-                <td className="ActionArea">
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
+<<<<<<< HEAD
                         <ViewForm id={this.props.id} />
                     </Modal>
                     <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
@@ -106,6 +164,36 @@ export default class RowData extends Component {
                     </Modal>
                     <Modal show={this.state.isOpenMessage} onClose={() => this.handleReload()} deleteStyleModel={true} >
                         <Message message={this.state.msg} />
+=======
+                        <ViewForm id={this.props.id}/>
+                    </Modal>
+                    <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
+                        <EditForm
+                            id={this.props.id}
+                            englishName={this.props.englishName}
+                            onClose={this.toggleModalEdit}
+                            onOpenMSG={this.toggleMessage}
+                            changeMSG=
+                            {(msg)=>{this.setState({msg : msg})}}/>
+                    </Modal>
+                    <Modal
+                        show={this.state.isOpenDelete}
+                        onClose={this.toggleModalDelete}
+                        deleteStyleModel={true}>
+                        <DeletePopUp
+                            confirm=
+                            {()=>this.removeItem()}
+                            onClose={this.toggleModalDelete}
+                            name
+                            ={this.props.englishName}
+                            object="engineer"/>
+                    </Modal>
+                    <Modal
+                        show={this.state.isOpenMessage}
+                        onClose={() => this.handleReload()}
+                        deleteStyleModel={true}>
+                        <Message message={this.state.msg}/>
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
                     </Modal>
                 </td>
             </tr>

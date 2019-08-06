@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import { isEmail, isEmpty, isNumeric } from 'validator';
 import getTotalSkills from './../../../../container/skills/GetListSkills';
 import DatePicker from "react-datepicker";
 import Skills from "./partials/Skills";
@@ -8,7 +9,34 @@ import {ClipLoader} from 'react-spinners';
 import {handleUpload} from "../../../../../service/upload/fileUploader";
 import EngineerContainer from "../../../../container/engineer";
 import ImageUploader from "../../../commons/input/ImageUploader";
+import CheckButton from 'react-validation/build/button';
 import './EditForm.css'
+
+const required = (value) => {
+    if (isEmpty(value)) {
+        return <div className="small-validate">This field is required</div>;
+    }
+}
+const phone = (value) => {
+    if (!isNumeric(value, [
+        {
+            no_symbols: false
+        }
+    ])) {
+        return <div className="small-validate">The phone number contains only numbers.</div>;
+    }
+    else if (value.trim().length < 10) {
+        return <div className="small-validate">The phone number can't less than 10 letters.</div>;
+    }
+    else if (value.trim().length > 15) {
+        return <div className="small-validate">The phone number can't more than 15 letters.</div>;
+    }
+}
+const email = (value) => {
+    if (!isEmail(value)) {
+        return <div className="small-validate">Invalid email format.</div>;
+    }
+}
 class EditForm extends Component {
     constructor(props) {
         super(props);
@@ -23,14 +51,13 @@ class EditForm extends Component {
             selectedStatus: null,
             data: {},
             loading: true,
-            saveLoading: false,
+            saveLoading: false
         };
     }
     getImageName = (image) => {
         this.setState({avatar: image})
     }
     async componentWillMount() {
-
         let res0 = await getTotalSkills();
         await this.setState({options: res0})
         const currentEngineer = await EngineerContainer.getById(this.props.id);
@@ -111,10 +138,8 @@ class EditForm extends Component {
                 dateOut: date
             }
         });
-    }
-
-    submitSaveForm = async (event) => {
-        event.preventDefault() // prevent put default
+    }   
+    submitSaveForm = async () => {
         await this.setState({
             saveLoading: true
         })
@@ -133,7 +158,7 @@ class EditForm extends Component {
             .update(this.props.id, this.state.data)
             .then(result => {
                 if (!result.statusCode) {
-                    this.props.changeMSG("Edit successful.")
+                    this.props.changeMSG("Edit successfully.")
                     this.setState({error: "", saveLoading: false})
                     this
                         .props
@@ -152,15 +177,21 @@ class EditForm extends Component {
                         saveLoading: false
                     })
                 }   
+            }).catch(error =>{
+                this.setState({
+                    msg: "Error.",
+                    saveLoading : false
+                })
             })
         }, 500)
        
     }
     onSubmit = (e) => {
         e.preventDefault();
-        this
-            .form
-            .validateAll();
+        this.form.validateAll();
+        if (this.checkBtn.context._errors.length === 0) {
+            this.submitSaveForm()
+        }
     }
     displayStatus = () => {
         if (Number(this.state.status) === 0) 
@@ -175,6 +206,19 @@ class EditForm extends Component {
                 skills: items.map(e => e.data)
             }
         })
+    }
+    displayLoading= ()=>{ 
+        return this.state.saveLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={this.state.saveLoading}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">SAVE</button>
+            )
     }
     render() {
         return (
@@ -201,7 +245,7 @@ class EditForm extends Component {
                             <div className="tab-content">
                                 {this.state.error}
                                 <div className="tab-pane active" id="tab_1_1">
-                                    <Form >
+                                <Form onSubmit={e => this.onSubmit(e)}  ref={c => {this.form = c}}>
                                         <div className="d-flex justify-center">
                                             <ImageUploader 
                                                 data={this.state.avatar}   
@@ -215,6 +259,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">English Name</label>
                                                     <Input
+                                                    validations={[required]}
                                                         type="text"
                                                         name="englishName"
                                                         value
@@ -225,6 +270,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">First Name</label>
                                                     <Input
+                                                    validations={[required]}
                                                         type="text"
                                                         name="firstName"
                                                         value
@@ -235,6 +281,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Last Name</label>
                                                     <Input
+                                                    validations={[required]}
                                                         type="text"
                                                         name="lastName"
                                                         value
@@ -245,6 +292,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Address</label>
                                                     <Input
+                                                    validations={[required]}
                                                         type="text"
                                                         name="address"
                                                         value
@@ -256,6 +304,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Phone Number</label>
                                                     <Input
+                                                    validations={[required,phone]}
                                                         type="text"
                                                         name="phoneNumber"
                                                         value
@@ -266,6 +315,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Salary</label>
                                                     <Input
+                                                    validations={[required]}
                                                         type="number"
                                                         name="salary"
                                                         value
@@ -278,6 +328,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Email</label>
                                                     <Input
+                                                    validations={[required,email]}
                                                         type="text"
                                                         name="email"
                                                         value
@@ -288,6 +339,7 @@ class EditForm extends Component {
                                                 <div className="form-group">
                                                     <label className="control-label">Skype</label>
                                                     <Input
+                                                    validations={[required,email]}
                                                         type="text"
                                                         name="skype"
                                                         value
@@ -325,31 +377,14 @@ class EditForm extends Component {
                                                     options={this.state.options}
                                                     getData={this.getData.bind(this)}/>
                                             </div>
-                                        </div>
-                                        
-                                    </Form>
-                                    <div className="row">
+                                        </div>     
+                                        <div className="row">
                                         <div className="margin-top-20 text-center">
-                                            <button
-                                                type="submit"
-                                                className="btn green"
-                                                onClick={(event) => this.submitSaveForm(event)}>
-                                                SAVE
-                                            </button>
-                                        </div>
-                                        {
-                                            this.state.saveLoading
-                                            ? (
-                                                <div className='sweet-loading d-flex justify-center margin-top-md'>
-                                                    <ClipLoader
-                                                        sizeUnit={"px"}
-                                                        size={30}
-                                                        color={'#123abc'}
-                                                        loading={this.state.saveLoading}/>
-                                                </div>
-                                            ):""
-                                        }
-                                    </div>
+                                            {this.displayLoading()}
+                                            <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                        </div>                                       
+                                    </div>                                   
+                                    </Form>                                   
                                 </div>
                             </div>
                         )}

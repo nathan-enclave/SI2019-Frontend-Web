@@ -9,7 +9,11 @@ export default class ProjectCategory extends Component {
     this.state = {
       options: {
         labels: ['0-50M', '50-70M', '70-90M', '>90M'  ],
+<<<<<<< HEAD
         colors: ['#9183E9', '#6452DC', '#432CD7', '#230BC1'],
+=======
+        colors: ['#ff7675', '#fdcb6e', '#74b9ff', '#55efc4'],
+>>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
       },
       series: []
     }
@@ -31,14 +35,12 @@ export default class ProjectCategory extends Component {
             <span className="caption-subject font-dark bold uppercase">Statistic Money</span>
           </div>
         </div>
-        {/* chart here */}
         <div >
           <Chart
             options={this.state.options}
             series={this.state.series}
             type="donut"
-            width="100%"
-            //height="390"
+            width="80%"
           />
         </div>
       </div>

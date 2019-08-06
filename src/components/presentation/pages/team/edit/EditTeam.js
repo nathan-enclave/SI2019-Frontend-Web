@@ -7,7 +7,18 @@ import Member from './partials/Member';
 import TeamContainer from "../../../../container/team";
 import EngineerContainer from "../../../../container/engineer";
 import ProjectContainer from "../../../../container/project";
+import CheckButton from 'react-validation/build/button';
+import {isEmpty} from 'validator';
 
+const required = (value) => {
+    if (isEmpty(value)) {
+        return (
+            <div className="small-validate">
+                This field is required!
+            </div>
+        );
+    }
+}
 class EditForm extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +35,6 @@ class EditForm extends Component {
         };
     }
     async componentWillMount() {
-        //get total engineer list
         let engineerList = await EngineerContainer.getPagination(1000, 0, `"id", "firstName"`)
         engineerList = engineerList.results
         engineerList.forEach(e => {
@@ -36,8 +46,6 @@ class EditForm extends Component {
         this.setState({memberOptions: engineerList})
         let projectList = await ProjectContainer.getPending(1000, 0, `"id", "name"`);
         projectList = projectList.results
-
-        //get total project list
         projectList.forEach(e => {
             e.value = e.id;
             e.label = e.name;
@@ -45,7 +53,7 @@ class EditForm extends Component {
             delete e.name
         })
         this.setState({options: projectList})
-        const currentTeam = await TeamContainer.getById(this.props.id); //get detail team by id
+        const currentTeam = await TeamContainer.getById(this.props.id);
         setTimeout(() => {
             this.setState({
                 id: String(currentTeam.id),
@@ -128,6 +136,7 @@ class EditForm extends Component {
     }
   
     submitSaveForm = () => {
+        this.setState({saveLoading : true})
         TeamContainer.update(this.props.id,this.state.data).then((result) => {
             if (!result.statusCode) {
                 this
@@ -141,19 +150,40 @@ class EditForm extends Component {
                     .onOpenMSG();
             } else {
                 if (result.statusCode !== 200) {
-                    this.setState({msg: "Error."})
+                    this.setState({
+                        msg: "Something's wrong. Please try it later.",
+                        saveLoading : false
+                    })
                 }
             }
+        }).catch(error =>{
+            this.setState({
+                msg: "Something's wrong. Please try it later.",
+                saveLoading : false
+            })
         })
     }
     onSubmit = (e) => {
         e.preventDefault();
-        this
-            .form
-            .validateAll();
+        this.form.validateAll();
+        if (this.checkBtn.context._errors.length === 0) {
+            this.submitSaveForm() 
+         } 
+    }
+    displayLoading= ()=>{ 
+        return this.state.saveLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">SAVE</button>
+            )
     }
     render() {
-        // console.log(this.state.memberOptions)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -166,12 +196,12 @@ class EditForm extends Component {
                 <div className="portlet-body">
                     {this.state.loading
                         ? (
-                            <div className='sweet-loading d-flex justify-center'>
+                            <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                 <ClipLoader
                                     sizeUnit={"px"}
                                     size={70}
                                     color={'#7ed6df'}
-                                    loading={this.state.loading}/>
+                                    loading={true}/>
                             </div>
                         )
                         : (
@@ -182,12 +212,13 @@ class EditForm extends Component {
                                 }}>
                                     {this.state.msg}</span>
                                 <div className="tab-pane active" id="tab_1_1">
-                                    <Form >
+                                <Form onSubmit={e => this.onSubmit(e)} ref={c => {this.form = c}}>
                                         <div className="row">
                                             <div className="col-md-12 col-lg-12">
                                                 <div className="form-group">
                                                     <label className="control-label">Team Name</label>
                                                     <Input
+                                                        validations={[required]}
                                                         type="text"
                                                         name="name"
                                                         value={this.state.name}
@@ -212,22 +243,18 @@ class EditForm extends Component {
                                                     .getData
                                                     .bind(this)}/>
                                             </div>
-                                        </div>
-                                    </Form>
-                                    <div className="row">
+                                            <div className="row">
                                         <div
-                                            className="margin-top-20"
+                                            className="margin-top-20 col-xs-12"
                                             style={{
                                             textAlign: 'center'
                                         }}>
-                                            <button
-                                                type="submit"
-                                                className="btn green"
-                                                onClick={() => this.submitSaveForm()}>
-                                                SAVE
-                                            </button>
+                                            {this.displayLoading()}
+                                                <CheckButton  style={{display: 'none'}} ref={c => {this.checkBtn = c }}/>
                                         </div>
                                     </div>
+                                        </div>                                        
+                                    </Form>                                    
                                 </div>
                             </div>
                         )}

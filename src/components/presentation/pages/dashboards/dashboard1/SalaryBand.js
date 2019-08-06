@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
 import { getAllApi } from "../../../../../api/crud";
+import { ClipLoader } from 'react-spinners';
 
 class SalaryBand extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      load : true,
       options: {
         chart: {
           id: "basic-bar"
@@ -38,6 +40,7 @@ class SalaryBand extends Component {
         load: false,
         options: {
             ...this.state.options,
+            load : false,
             chart: {
                 id: "basic-bar"
             },
@@ -62,12 +65,21 @@ class SalaryBand extends Component {
         </div>
         {/* chart here */}
         <div >
+        {this.state.load === true ? (
+          <div className='sweet-loading d-flex justify-center middle-loading-custom' >
+            <ClipLoader
+              sizeUnit={"px"}
+              size={70}
+              color={'#7ed6df'}
+              loading={this.state.loading} />
+          </div>
+        ) : (
           <Chart
             options={this.state.options}
             series={this.state.series}
             type="bar"
             width="100%"
-          />
+          />)}
         </div>
       </div>
     );

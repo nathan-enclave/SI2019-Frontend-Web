@@ -12,7 +12,7 @@ class TeamMember extends Component {
           <div
             className="col-xs-2 padding-bottom-sm padding-top-sm text-center " style={{
               'display': 'flex',
-              'justify-content': 'center',
+              'justifyContent': 'center',
           }} >
             <div className="avatar">
               <img width="50px" alt="" height="50px" src={this.props.avatar}/>

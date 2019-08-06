@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import Textarea from 'react-validation/build/textarea'
 import ProjectContainer from "../../../../container/project";
 import CategoryContainer from "../../../../container/categories";
+import LocationContainer from "../../../../container/location"
 import DatePicker from "react-datepicker";
 import CheckButton from 'react-validation/build/button';
 import {isEmpty} from 'validator';
@@ -24,16 +26,24 @@ class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            optionsLocations : [],
+            selectLocations : [],
             options: [],
             selectOptions: [],
             category: [],
             end: null,
             start: null,
             data: {},
-            status: ""
+            status: "",
+            saveLoading : false
         };
     }
     async componentDidMount() {
+        const location = await LocationContainer.getLocation();
+        let temp = []
+        location.results.forEach(element => {
+            temp.push({value : element.id,label: element.city + ", " + element.country})
+        });
         const listAllCategories = (await CategoryContainer.getAll()).results
         listAllCategories
             .forEach(e => {
@@ -42,7 +52,7 @@ class EditForm extends Component {
                 delete e.id;
                 delete e.name
             })
-        this.setState({options: listAllCategories});
+        this.setState({options: listAllCategories,optionsLocations: temp});
         const res = await ProjectContainer.getById(this.props.id);
         this.setState({
             id: String(res.id),
@@ -60,6 +70,12 @@ class EditForm extends Component {
                 {
                     value: res.category.id,
                     label: res.category.name
+                }
+            ],
+            selectLocations : [
+                {
+                    value : res.locationId,
+                    label : res.city + ", " + res.country
                 }
             ]
         })
@@ -106,8 +122,23 @@ class EditForm extends Component {
             })
         }
     }
+    handleChangeLocation = (selectLocations) => {
+        this.setState({selectLocations});
+        let temp = 0
+        if (selectLocations != null) {
+            temp = selectLocations.value
+            this.setState({
+                data: {
+                    ...this.state.data,
+                    locationId: temp
+                }
+            })
+        }
+    }
     submitSaveForm = () => {
-        console.log(this.state.data)
+        this.setState({
+            saveLoading : true
+        })
         ProjectContainer
             .update(this.props.id, this.state.data)
             .then((result) => {
@@ -123,9 +154,11 @@ class EditForm extends Component {
                         .onOpenMSG();
                 } else {
                     if (result.statusCode !== 200) {
-                        this.setState({msg: "Error."})
+                        this.setState({msg: "Error.",saveLoading: false})
                     }
                 }
+            }).catch(error =>{
+                this.setState({msg: "Something's wrong. Please try later.",saveLoading: false})
             })
     }
     onSubmit = (e) => {
@@ -136,6 +169,19 @@ class EditForm extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.submitSaveForm()
         }
+    }
+    displayLoading= ()=>{ 
+        return this.state.saveLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">SAVE</button>
+            )
     }
     render() {
         console.log(this.state.selectOptions.length)        
@@ -195,8 +241,9 @@ class EditForm extends Component {
                                         <div className="form-group">
                                             <label className="control-label">
                                                 Description</label>
-                                            <Input
-                                                type="text"
+                                            <Textarea
+                                                // type="text"
+                                                style={{height : "100px"}}
                                                 name="description"
                                                 value={this.state.description}
                                                 validations={[required]}
@@ -270,6 +317,17 @@ class EditForm extends Component {
                                                     onChange={this.handleChangeCategory}/>
                                             </div>
                                         </div>
+                                        <div className="form-group">
+                                            <div className="form-check">
+                                                <label className="form-check-label">
+                                                    Location:
+                                                </label>
+                                                <Select
+                                                    value={this.state.selectLocations}
+                                                    options={this.state.optionsLocations}
+                                                    onChange={this.handleChangeLocation}/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -278,7 +336,7 @@ class EditForm extends Component {
                                         style={{
                                         textAlign: 'center'
                                     }}>
-                                        <button className="btn btn-success uppercase pull-center" type="submit">SAVE</button>
+                                         {this.displayLoading()}
                                         <CheckButton
                                             style={{
                                             display: 'none'

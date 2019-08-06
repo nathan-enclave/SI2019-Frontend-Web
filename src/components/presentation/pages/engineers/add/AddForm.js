@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-// import Select from 'react-select';
-// import AddEngineer from '../../../../container/engineer/AddEngineer';
+import React, { Component } from 'react';
+import { CountryDropdown } from 'react-country-region-selector';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
-import {isEmail, isEmpty, isNumeric} from 'validator';
+import { isEmail, isEmpty, isNumeric } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import getTotalSkills from '../../../../container/skills/GetListSkills';
+import SkillContainer from '../../../../container/skills';
 import ImageUploader from "../../../commons/input/ImageUploader";
 import Skills from "./partials/Skills";
-import {handleUpload} from "../../../../../service/upload/fileUploader";
+import { handleUpload } from "../../../../../service/upload/fileUploader";
 import EngineerContainer from "../../../../container/engineer";
 import CheckButton from 'react-validation/build/button';
 import "./validate.css"
+import { ClipLoader } from 'react-spinners';
 const required = (value) => {
     if (isEmpty(value)) {
         return <div className="small-validate">This field is required</div>;
@@ -28,7 +28,7 @@ const phone = (value) => {
     }
     else if (value.trim().length < 10) {
         return <div className="small-validate">The phone number can't less than 10 letters.</div>;
-    } 
+    }
     else if (value.trim().length > 15) {
         return <div className="small-validate">The phone number can't more than 15 letters.</div>;
     }
@@ -42,6 +42,7 @@ class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            nationality: '',
             birthday: "",
             dateIn: "",
             options: [],
@@ -51,19 +52,26 @@ class AddForm extends Component {
             error: 0,
             avatar: null,
             msgBirthday: null,
-            msgDateIn: null
+            msgDateIn: null,
+            addLoading : false
         };
     }
 
+    selectCountry(val) {
+        this.setState({ nationality: val });
+    }
     getImageName = (image) => {
-        this.setState({avatar: image})
+        this.setState({ avatar: image })
     }
     isChange = (event) => {
         const fieldName = event.target.name;
         const value = event.target.value;
-        this.setState({[fieldName]: value});
+        this.setState({ [fieldName]: value });
     }
-    submitAddForm = async() => {    
+    submitAddForm = async () => {
+        this.setState({
+            addLoading : true
+        })
         let data = {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
@@ -77,9 +85,10 @@ class AddForm extends Component {
             salary: this.state.salary,
             status: Number(this.state.status),
             skills: this.state.skills,
-            expYear : Number(this.state.expYear)
+            expYear: Number(this.state.expYear),
+            nationality : this.state.nationality,
+            gender : this.state.gender
         }
-        console.log(data)
         if (this.state.avatar) {
             const avatar = await handleUpload(this.state.avatar)
             data.avatar = avatar
@@ -94,47 +103,67 @@ class AddForm extends Component {
 
                 } else {
                     if (result.statusCode !== 200) {
-                        this.setState({msg: 'Some error occured, please try again later '});
+                        this.setState({ msg: 'Some error occured, please try again later ',addLoading: false });
                     }
                 }
             })
     }
     handleChangeBirthday = (date) => {
-        this.setState({birthday: date,msgBirthday:null});
+        this.setState({ birthday: date, msgBirthday: null });
     }
     handleChangeDateIn = (date) => {
-        this.setState({dateIn: date,msgDateIn:null});
+        this.setState({ dateIn: date, msgDateIn: null });
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
-        if (this.checkBtn.context._errors.length === 0 && this.state.birthday !== "" && this.state.dateIn !== "" ) {
+        if (this.checkBtn.context._errors.length === 0 && this.state.birthday !== "" && this.state.dateIn !== "") {
             this.submitAddForm()
         }
         else {
             if (this.state.birthday === "") this.setState({ msgBirthday: "This field is required!" })
             if (this.state.dateIn === "") this.setState({ msgDateIn: "This field is required!" })
-            
+
         }
     }
     async componentWillMount() {
-        const res = await getTotalSkills();
-        this.setState({options: res});
+        let listSkills = await SkillContainer.getAll();
+        listSkills = listSkills.results
+        listSkills.forEach(e=>{
+            e.value = e.id;
+            e.label = e.name;
+            delete e.id;
+            delete e.name
+        })
+        this.setState({ options: listSkills });
     }
-    getData = async(items) => {
+    getData = async (items) => {
         await this.setState({
             skills: items.map(e => e.data)
         })
     }
+    displayLoading= ()=>{ 
+        return this.state.addLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">ADD</button>
+            )
+    }
     render() {
         let msgBirthday = this.state.msgBirthday === null ? null : (<div className="small-validate">This field is required!</div>)
-        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)       
+        let msgDateIn = this.state.msgDateIn === null ? null : (<div className="small-validate">This field is required!</div>)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
                     <div className="caption caption-md">
-                        <i className="icon-globe theme-font hide"/>
+                        <i className="icon-globe theme-font hide" />
                         <span className="caption-subject font-blue-madison bold uppercase">Add Engineer
                         </span>
                     </div>
@@ -143,15 +172,11 @@ class AddForm extends Component {
                     <div className="tab-content">
                         <span
                             style={{
-                            color: "red"
-                        }}>
+                                color: "red"
+                            }}>
                             {this.state.msg}</span>
                         <div className="tab-pane active" id="tab_1_1">
-                            <Form
-                                onSubmit={e => this.onSubmit(e)}
-                                ref={c => {
-                                this.form = c
-                            }}>
+                            <Form onSubmit={e => this.onSubmit(e)}  ref={c => {this.form = c}}>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -161,7 +186,7 @@ class AddForm extends Component {
                                                 name="englishName"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">First Name</label>
@@ -170,7 +195,7 @@ class AddForm extends Component {
                                                 name="firstName"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Last Name</label>
@@ -179,17 +204,34 @@ class AddForm extends Component {
                                                 name="lastName"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="control-label">Nationality</label>
+                                            <CountryDropdown className="form-control"
+                                                value={this.state.nationality}
+                                                onChange={(val) => this.selectCountry(val)} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="control-label">Gender</label>
+                                            <select
+                                                className="form-control"
+                                                onChange={(event) => this.isChange(event)}
+                                                name="gender">
+                                                <option value={"Male"}>Male</option>
+                                                <option value={"Female"}>Female</option>
+                                                <option value={"Other"}>Other</option>
+                                            </select>
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Image</label>
                                             <ImageUploader
                                                 name="avatar"
                                                 function={this
-                                                .getImageName
-                                                .bind(this)}
+                                                    .getImageName
+                                                    .bind(this)}
                                                 status={'add'}
-                                                />
+                                            />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Address</label>
@@ -198,7 +240,7 @@ class AddForm extends Component {
                                                 name="address"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Phone Number</label>
@@ -207,7 +249,7 @@ class AddForm extends Component {
                                                 name="phoneNumber"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required, phone]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Status</label>
@@ -221,6 +263,7 @@ class AddForm extends Component {
                                                 <option value={3}>Absence</option>
                                             </select>
                                         </div>
+
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -230,7 +273,7 @@ class AddForm extends Component {
                                                 name="email"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required, email]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Skype</label>
@@ -239,7 +282,7 @@ class AddForm extends Component {
                                                 name="skype"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Experience year</label>
@@ -248,7 +291,7 @@ class AddForm extends Component {
                                                 name="expYear"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
                                             <label className="control-label">Salary</label>
@@ -257,48 +300,43 @@ class AddForm extends Component {
                                                 name="salary"
                                                 onChange={(event) => this.isChange(event)}
                                                 validations={[required]}
-                                                className="form-control"/>
+                                                className="form-control" />
                                         </div>
                                         <div className="form-group">
-                                            <label className="control-label">Birthday</label><br/>
+                                            <label className="control-label">Birthday</label><br />
                                             <DatePicker
                                                 selected={this.state.birthday}
                                                 onChange={this.handleChangeBirthday}
-                                                className="form-control"/>
-                                                {msgBirthday}
+                                                className="form-control" />
+                                            {msgBirthday}
                                         </div>
                                         <div className="form-group">
                                             <div className="form-check">
-                                                <label className="control-label">Date in</label><br/>
+                                                <label className="control-label">Date in</label><br />
                                                 <DatePicker
                                                     selected={this.state.dateIn}
                                                     onChange={this.handleChangeDateIn}
-                                                    className="form-control"/>
-                                                    {msgDateIn}
+                                                    className="form-control" />
+                                                {msgDateIn}
                                             </div>
                                         </div>
                                         <Skills
                                             options={this.state.options}
-                                            getData={this.getData.bind(this)}/> 
+                                            getData={this.getData.bind(this)} />
                                     </div>
                                 </div>
                                 <div className="row">
-                                <div
-                                    className="margin-top-20"
-                                    style={{
-                                    textAlign: 'center'
-                                }}>
-                                    <button
-                                        type="submit"
-                                        className="btn green"
-                                       >
-                                        ADD
-                                    </button>
-                                    <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                    <div
+                                        className="margin-top-20"
+                                        style={{
+                                            textAlign: 'center'
+                                        }}>
+                                       {this.displayLoading()}
+                                        <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
+                                    </div>
                                 </div>
-                            </div>
                             </Form>
-                            
+
                         </div>
                     </div>
                 </div>
