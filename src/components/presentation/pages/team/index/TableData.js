@@ -163,27 +163,8 @@ class TableData extends Component {
                             </Modal>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <Modal show={this.state.isOpen} onClose={this.toggleModal}>
-                        <AddForm
-                            reloadData={this.props.reload}
-                            onClose={this.toggleModal}
-                            onReload={this.reloadData}
-                            openMessage={this.toggleMessage}/>
-                    </Modal>
-                    <Modal
-                        show={this.state.isOpenMessage}
-                        onClose={this.toggleMessage}
-                        deleteStyleModel={true}>
-                        <Message message={"Add successfully new team."}/>
-                    </Modal>
-                </div>
-            </div>
-        );
-=======
                 )
         )
->>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
     }
 }
 export default TableData;

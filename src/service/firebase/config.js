@@ -7,8 +7,4 @@ exports.config = {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "enclave-23839.appspot.com",
     messagingSenderId: process.env.FIREBASE_SENDER_ID || "612565009564",
     // appId: "1:135792169448:web:0e89f7b61e782bc9"
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 19e90ef79467fb9d3002492d5415cad9f42d7a45
