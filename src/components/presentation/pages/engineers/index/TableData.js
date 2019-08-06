@@ -36,7 +36,7 @@ class TableData extends Component {
     }
     async handleSearch(search){
         
-        this.setState({
+        await this.setState({
             searchQuery: search.target.value
         })
         await this.componentWillMount()
@@ -45,38 +45,44 @@ class TableData extends Component {
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
         const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset, `"id","englishName", "firstName", "lastName","phoneNumber", "email", "expYear"`,this.state.searchQuery)
-        this.setState({totalItemsCount: dataPagination.total})
-        if (this.state.activePage > 0 && dataPagination.results.length === 0) {
-            await this.setState({
-                activePage: this.state.activePage - 1
-            })
-            this.componentWillMount()
-        } else {
-            await this.setState({totalItemsCount: dataPagination.total})
-            let dataRender = dataPagination
-                .results
-                .map((value, key) => (<RowData
-                    key={key}
-                    id={value.id}
-                    firstName={value.firstName}
-                    lastName={value.lastName}
-                    englishName={value.englishName}
-                    phoneNumber={value.phoneNumber}
-                    address={value.address}
-                    email={value.email}
-                    skype={value.skype}
-                    expYear={value.expYear}
-                    status={value.status}
-                    create={value.createdAt}
-                    update={value.updatedAt}
-                    dayOffRemain={value.dayOffRemain}
-                    reloadData=
-                    {() =>{this.reload()}}/>))
+        if(dataPagination.total === 0) {
             setTimeout(() => {
-                this.setState({data: dataRender, loading: false})
+                this.setState({data: (<tr><td>No data</td></tr>), loading: false})
             }, 250)
+        }else {
+            this.setState({totalItemsCount: dataPagination.total})
+            if (this.state.activePage > 0 && dataPagination.results.length === 0) {
+                await this.setState({
+                    activePage: this.state.activePage - 1
+                })
+                this.componentWillMount()
+            } else {
+                await this.setState({totalItemsCount: dataPagination.total})
+                let dataRender = dataPagination
+                    .results
+                    .map((value, key) => (<RowData
+                        key={key}
+                        id={value.id}
+                        firstName={value.firstName}
+                        lastName={value.lastName}
+                        englishName={value.englishName}
+                        phoneNumber={value.phoneNumber}
+                        address={value.address}
+                        email={value.email}
+                        skype={value.skype}
+                        expYear={value.expYear}
+                        status={value.status}
+                        create={value.createdAt}
+                        update={value.updatedAt}
+                        dayOffRemain={value.dayOffRemain}
+                        reloadData=
+                        {() =>{this.reload()}}/>))
+                setTimeout(() => {
+                    this.setState({data: dataRender, loading: false})
+                }, 250)
+            }
         }
-
+      
     }
     toggleModal = () => {
         this.setState({
@@ -153,8 +159,8 @@ class TableData extends Component {
                             </div>
                             <div className="portlet-body">
                                 <div className="table-main-pagination">
-                                    <div className="table-scrollable">
-                                        <table className="table table-striped table-bordered table-advance table-hover">
+                                    <div className="table-scrollable table-min-height-565">
+                                        <table className="table table-striped table-bordered table-advance table-hover ">
                                             <thead>
                                                 <tr>
                                                     <th>
