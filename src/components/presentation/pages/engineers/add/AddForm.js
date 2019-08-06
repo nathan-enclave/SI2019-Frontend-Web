@@ -5,7 +5,7 @@ import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import getTotalSkills from '../../../../container/skills/GetListSkills';
+import SkillContainer from '../../../../container/skills';
 import ImageUploader from "../../../commons/input/ImageUploader";
 import Skills from "./partials/Skills";
 import { handleUpload } from "../../../../../service/upload/fileUploader";
@@ -128,8 +128,15 @@ class AddForm extends Component {
         }
     }
     async componentWillMount() {
-        const res = await getTotalSkills();
-        this.setState({ options: res });
+        let listSkills = await SkillContainer.getAll();
+        listSkills = listSkills.results
+        listSkills.forEach(e=>{
+            e.value = e.id;
+            e.label = e.name;
+            delete e.id;
+            delete e.name
+        })
+        this.setState({ options: listSkills });
     }
     getData = async (items) => {
         await this.setState({
@@ -157,7 +164,7 @@ class AddForm extends Component {
                 <div className="portlet-title tabbable-line">
                     <div className="caption caption-md">
                         <i className="icon-globe theme-font hide" />
-                        <span className="caption-subject font-blue-madison bold uppercase">Add Engineer
+                        <span className="caption-subject font-blue-madison bold uppercase">Create new engineer profile
                         </span>
                     </div>
                 </div>
@@ -278,7 +285,7 @@ class AddForm extends Component {
                                                 className="form-control" />
                                         </div>
                                         <div className="form-group">
-                                            <label className="control-label">Experience year</label>
+                                            <label className="control-label">Years of Experience</label>
                                             <Input
                                                 type="number"
                                                 name="expYear"

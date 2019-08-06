@@ -2,3 +2,18 @@
     text-align: left;
     font-size: 15px;
 }
+.button-left {
+    margin-left:0px
+}
+.button-order{
+    float : left;
+    padding : 0px;
+    background-color: #bee5eb;
+    border: none;
+}
+.fa-long-arrow-up:hover{
+    color : black
+}
+.fa-long-arrow-down:hover{
+    color : black
+}

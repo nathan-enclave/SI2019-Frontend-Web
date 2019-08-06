@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import Chart from "react-apexcharts";
 import DashboardContainer from "../../../../container/dashboard";
-import { ClipLoader } from 'react-spinners';
+import {ClipLoader} from 'react-spinners';
 export default class ProjectsInYear extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            load : true,
+            load: true,
             options: {
                 plotOptions: {
                     bar: {
@@ -36,7 +36,7 @@ export default class ProjectsInYear extends Component {
                     },
                     axisBorder: {
                         show: false
-                    },
+                    }
                 },
                 yaxis: [
                     {
@@ -83,7 +83,7 @@ export default class ProjectsInYear extends Component {
         let projectInYear = await DashboardContainer.getStatistic(`dashboard/statistic/projects/perMonth?year=${new Date().getFullYear()}`)
         projectInYear = projectInYear.map(e => e.numProject)
         this.setState({
-            load : false,
+            load: false,
             series: [
                 {
                     name: "Number of projects",
@@ -95,30 +95,28 @@ export default class ProjectsInYear extends Component {
     render() {
         return (
             <div className="ProjectInYear">
-                <div className="col-sm-12">
-                    <div className="portlet light bordered">
-                        <div className="portlet-title">
-                            <div className="caption">
-                                <i className="icon-bar-chart font-dark hide"/>
-                                <span className="caption-subject font-dark bold uppercase">Projects in 2019</span>
-                            </div>
+                <div className="portlet light bordered">
+                    <div className="portlet-title">
+                        <div className="caption">
+                            <i className="icon-bar-chart font-dark hide"/>
+                            <span className="caption-subject font-dark bold uppercase">Projects in 2019</span>
                         </div>
-                        {this.state.load === true ? (
-          <div className='sweet-loading d-flex justify-center middle-loading-custom' >
-            <ClipLoader
-              sizeUnit={"px"}
-              size={70}
-              color={'#7ed6df'}
-              loading={this.state.loading} />
-          </div>
-        ) : (
-                        <Chart
+                    </div>
+                    {this.state.load === true
+                        ? (
+                            <div className='sweet-loading d-flex justify-center middle-loading-custom'>
+                                <ClipLoader
+                                    sizeUnit={"px"}
+                                    size={70}
+                                    color={'#7ed6df'}
+                                    loading={this.state.loading}/>
+                            </div>
+                        )
+                        : (<Chart
                             options={this.state.options}
                             series={this.state.series}
                             type="bar"
-                            height="350"/>
-        )}
-                    </div>
+                            height="350"/>)}
                 </div>
             </div>
         )

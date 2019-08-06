@@ -221,3 +221,18 @@
     font-size: 14px!important
 }
 /* Notistack custom style for notification */
+
+
+
+/* COLOR */
+.pending-color {
+    background-color: #f1c40f
+}
+
+.inProgress-color{
+    background-color: #27ae60
+}
+
+.done-color{
+    background-color: #2980b9
+}

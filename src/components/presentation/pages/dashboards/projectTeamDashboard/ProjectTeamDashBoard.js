@@ -18,16 +18,22 @@ export default class ProjectTeamDashBoard extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-6 col-xs-12 col-sm-12">
+                    <div className="col-lg-6 col-xs-12 col-md-12">
                         <ProjectsInYear/>
+                    </div>
+                    <div className="col-lg-6 col-xs-12 col-md-12">
+                        <ProjectStatus/>
+                    </div>
+                </div>
+                <div className="row margin-bottom-md">
+                    <div className="col-lg-6 col-xs-12 col-md-12">
                         <Deadline/>
                     </div>
-                    <div className="col-lg-6 col-xs-12 col-sm-12">
-                        <ProjectStatus/>
+                    <div className="col-lg-6 col-xs-12 col-md-12">
                         <ProjectCategory/>
                     </div>
                 </div>
-                
+
             </div>
         )
     }

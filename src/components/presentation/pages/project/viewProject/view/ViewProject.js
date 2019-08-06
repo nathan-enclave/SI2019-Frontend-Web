@@ -5,7 +5,6 @@ import Chart from "react-apexcharts";
 import moment from 'moment';
 import 'moment-timezone';
 import "react-datepicker/dist/react-datepicker.css";
-import getData from '../../../../../container/project/GetDetailProject';
 import numeral from 'numeral'
 import './viewProject.css'
 import TeamMember from './TeamMember';
@@ -93,9 +92,9 @@ class ViewProject extends Component {
     };
   }
   async componentDidMount() {
-    const res = await getData(this.state.id);
-    if(typeof(res.statusCode)!="undefined"){
-      this.setState({error : true})   
+    const res = await ProjectContainer.getById(this.state.id);
+    if((res.statusCode) === 500 || res.statusCode===404){
+      this.setState({error404 : true})      
     }
     else{
     this.setState({
@@ -112,6 +111,8 @@ class ViewProject extends Component {
       team: res.team ? res.team.name : null,
       teamId: res.team ? res.team.id : null,
       category: res.category.name,
+      city : res.city,
+      country : res.country,
       data: 0,
       timelineStart: moment(res.start).format('MM/DD/YYYY'),
       timelineEnd: moment(res.end).format('MM/DD/YYYY'),
@@ -288,7 +289,7 @@ class ViewProject extends Component {
                                     <span className="item-name">Location</span>
                                   </div>
                                 </div>
-                                <div className="mt-comment-text"> {this.state.location}    </div>
+                                <div className="mt-comment-text"> {this.state.city + ", " +this.state.country }    </div>
                               </div>
                               <div className="item">
                                 <div className="item-head">
