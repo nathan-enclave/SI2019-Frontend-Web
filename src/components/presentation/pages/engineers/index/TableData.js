@@ -19,8 +19,10 @@ class TableData extends Component {
             pageRangeDisplayed: 5,
             activePage: 1,
             isOpen: false,
-            loading: true
+            loading: true,
+            searchQuery: null
         }
+        this.handleSearch = this.handleSearch.bind(this)
     }
     toggleMessage = () => {
         this.setState({
@@ -32,13 +34,17 @@ class TableData extends Component {
         await this.setState({activePage: pageNumber, loading: true})
         this.componentWillMount();
     }
-    handleSearch(q){
-        console.log(q);
+    async handleSearch(search){
         
+        this.setState({
+            searchQuery: search.target.value
+        })
+        await this.componentWillMount()
+       
     }
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
-        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset, `"id","englishName", "firstName", "lastName","phoneNumber", "email", "expYear"`,this.state.searchQuery)
         this.setState({totalItemsCount: dataPagination.total})
         if (this.state.activePage > 0 && dataPagination.results.length === 0) {
             await this.setState({
