@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Select from 'react-select';
-
+import './Member.css'
 const role = [
     {
         value : "Developer",
@@ -69,7 +69,7 @@ export default class MemberOptions extends Component {
     render() {
         return (
             <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
-                <div className="row relative">
+                <div className="row relative1" >
                     {this.props.keyIndex !== 0
                         ? <div className="border-close">
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>

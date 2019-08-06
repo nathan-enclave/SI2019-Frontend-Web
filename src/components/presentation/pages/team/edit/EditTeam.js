@@ -159,7 +159,7 @@ class EditForm extends Component {
                 <div className="portlet-title tabbable-line">
                     <div className="caption caption-md">
                         <i className="icon-globe theme-font hide"/>
-                        <span className="caption-subject font-blue-madison bold uppercase">EDIT {this.state.name}'S INFORMATION
+                        <span className="caption-subject font-blue-madison bold uppercase">EDIT TEAM {this.state.name}'S INFORMATION
                         </span>
                     </div>
                 </div>

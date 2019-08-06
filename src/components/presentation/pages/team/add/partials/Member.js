@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import './Member.css'
 import MemberOptions from "./MemberOptions"
 
 export default class Member extends Component {
