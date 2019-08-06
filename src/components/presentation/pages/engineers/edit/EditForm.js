@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import { isEmail, isEmpty, isNumeric } from 'validator';
-import getTotalSkills from './../../../../container/skills/GetListSkills';
+import SkillContainer from './../../../../container/skills';
 import DatePicker from "react-datepicker";
 import Skills from "./partials/Skills";
 import {ClipLoader} from 'react-spinners';
@@ -58,8 +58,8 @@ class EditForm extends Component {
         this.setState({avatar: image})
     }
     async componentWillMount() {
-        let res0 = await getTotalSkills();
-        await this.setState({options: res0})
+        let listSkills = await SkillContainer.getAll();
+        await this.setState({options: listSkills})
         const currentEngineer = await EngineerContainer.getById(this.props.id);
         
         setTimeout(() => {
