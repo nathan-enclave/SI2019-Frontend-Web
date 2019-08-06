@@ -4,10 +4,6 @@ import ViewForm from './../../engineers/view/ViewForm';
 import Modal from './../../../../presentation/commons/modal/Modal';
 import EditForm from './../../engineers/edit/EditForm';
 import DeletePopUp from './../../engineers/delete/DeletePopUp';
-// import DelEngineer from "./../../../../container/engineer/DelEngineer";
-// import MSGDelete from '../../../commons/msg/MSGDelete';
-// import MSGSuccess from '../../../commons/msg/MSGSuccess';
-// import { thisTypeAnnotation } from '@babel/types';
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
 import './index.css'
@@ -43,8 +39,8 @@ export default class RowData extends Component {
             isOpenDelete: !this.state.isOpenDelete
         });
     }    
-    removeItem = ()=>{
-        EngineerContainer.delete(this.props.id).then((result) => {
+    removeItem = ()=>{     
+        EngineerContainer.delete(this.props.id).then((result) => {                    
             if (!result.statusCode) { 
                 this.setState({isOpenDelete: !this.state.isOpenDelete}) 
                 this.setState({msg: "Delete successfully." })
@@ -52,7 +48,14 @@ export default class RowData extends Component {
             } else {
                 this.setState({msg: "Something wrong, please try again later." })
             }
+        }).catch(e=>{
+            if(e.code === 403) {
+                this.toggleModalDelete()
+                this.setState({msg : "Forbidden"})
+                this.toggleMessage()
+            }
         })
+        
     }
     handleReload =()=> {
         this.toggleMessage()
