@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route,Switch  } from "react-router-dom";
+import { Route,Switch ,Redirect } from "react-router-dom";
 import TeamIndex from '../pages/team/index/TeamIndex';
 import EngineerIndex from '../pages/engineers/index/EngineerIndex';
 import Index from '../pages/dashboards/index/Index';
@@ -20,10 +20,10 @@ import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
 import ViewDetailTeam from '../pages/team/view/Overview/ViewDetailTeam'
 import ViewProject from '../pages/project/viewProject/view/ViewProject'
-import Error404 from '../pages/errorPage/Error404'
+import ErrorPage from '../pages/errorPage/ErrorPage'
 
 class RouterURL extends Component {
-  render() {
+  render() {   
     return (
         <div className="MainRouter">
           <Switch>             
@@ -47,9 +47,10 @@ class RouterURL extends Component {
           <Route  path="/forgotPassword" component={ForgetPW} />
           <Route  path="/resetPassword" component={ResetPassword} />
           <Route  path="/resetSuccess" component={ResetSuccess} />
-          <Route exact path="/team/:id" component={ViewDetailTeam} />
-          <Route exact component={Error404} />   
-          <Route exact path="/error404" component={Error404} />         
+          <Route exact path="/team/:id" component={ViewDetailTeam} />           
+          {/* <Route exact path="/error"><ErrorPage errorCode="Something went wrong."/></Route>             */}
+          <Route exact path="/error/404"><ErrorPage errorCode="404 - Page Not Found" description ={"No URL match with: " + window.location.pathname}/></Route>      
+          <Redirect from="*" to ="/error/404" />  
           </Switch>
         </div>
     );

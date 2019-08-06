@@ -18,7 +18,7 @@ class ViewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error404 : false,
+      error : false,
       teamData: null,
       id: this.props.match.params.id,
       category: "",
@@ -84,16 +84,7 @@ class ViewProject extends Component {
               color: "#0c5460"
             }
           }
-        },
-        // title: {
-        //   text: "This Project's Budget and the Average Earning of Total Project",
-        //   align: 'center',
-        //   floating: true,
-        //   style: {
-        //     fontSize: "20px",
-        //     color: "#0c5460"
-        //   }
-        // },
+        }
       },
       series: [{
         name: "Earning",
@@ -103,9 +94,8 @@ class ViewProject extends Component {
   }
   async componentDidMount() {
     const res = await getData(this.state.id);
-    console.log(res)
-    if((res.statusCode) === 500 || res.statusCode===404){
-      this.setState({error404 : true})      
+    if(typeof(res.statusCode)!="undefined"){
+      this.setState({error : true})   
     }
     else{
     this.setState({
@@ -169,7 +159,7 @@ class ViewProject extends Component {
   }
 
   render() {
-    if(this.state.error404 === true) return <Redirect to = "/error404"/>
+    if(this.state.error === true) return (<Redirect to = "/error/404"/>)
     let timeline = (this.state.status === "inProgress") ? (<div className="row" style ={{margin :"50px 0px 150px 0px"}}>
       <div className="col-lg-12 col-xs-12 col-sm-12">
         <Timeline start={this.state.timelineStart} end={this.state.timelineEnd} startFor={this.state.start} endFor={this.state.end} />

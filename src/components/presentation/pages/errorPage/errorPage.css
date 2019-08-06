@@ -44,7 +44,7 @@
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
-    background: url('./bg.jpg') no-repeat;
+    background: #487eb0;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: cover;
@@ -55,7 +55,7 @@
   .notfound h2 {
     font-family: 'Montserrat', sans-serif;
     color: #000;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
     text-transform: uppercase;
     margin-top: 0;
@@ -95,3 +95,7 @@
       }
   }
   
+  code {
+    font-size: 20px;
+    margin: 10px
+  }

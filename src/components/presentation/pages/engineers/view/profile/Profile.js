@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { Redirect } from "react-router-dom";
 import Language from './Language';
 import moment from 'moment';
 import numeral from 'numeral'
 import './Profile.css'
 import TeamInfo from './TeamInfo';
 import { ClipLoader } from 'react-spinners';
-import { getDataByIdApi } from "../../../../../../api/crud";
+import EngineerContainer from "../../../../../container/engineer";
 import Modal from '../../../../commons/modal/Modal';
 import EditForm from '../../edit/EditForm';
 import Message from '../../../../commons/msg/Message';
@@ -35,16 +36,15 @@ export default class Profile extends Component {
   }
   async componentWillMount() {
     const { id } = this.props.match.params
-    let response = await getDataByIdApi('engineers', id)
+    let response = await EngineerContainer.getById( id).catch(error =>{})
+    if(typeof(response)==="undefined"){
+      this.setState({error : true})   
+    }
+    else{
     setTimeout(() => {
       this.setState({
         ...response
       })
-      // console.log(this.state.skills)
-      //  this.state.skills.forEach(element => {
-      //   if(element.expYear < 0 ) this.setState({skills : this.state.skills.filter(element)})
-      // });
-      // console.log(this.state.skills)
       switch (Number(this.state.status)) {
         case 1:
           this.setState({ status: "Available" });
@@ -106,8 +106,10 @@ export default class Profile extends Component {
       }
     }, 500)
   }
+  }
   render() {
-    let level = (this.state.expYear <= 3) ? 1 : (this.state.expYear <= 5) ? 2 : (this.state.expYear <= 7) ? 3 : 4
+    if(this.state.error === true) return (<Redirect to = "/error/404"/>)
+    let level = (this.state.expYear <= 3) ? 1 : (this.state.expYear <= 5) ? 2 : (this.state.expYear <= 7) ? 3 : 4    
     return (
       <div className="tab-content">
         <div className="tab-pane active" id="tab_1_1">

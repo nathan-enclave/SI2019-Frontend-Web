@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink ,Redirect} from "react-router-dom";
 import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
@@ -43,9 +43,13 @@ class EditForm extends Component {
             ]
         };
     }
-    async componentWillMount() {
+    async componentDidMount() {
         const teamInfor = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
         let teamInfo = await teamInfor.json()
+        if(typeof(teamInfo.statusCode)!="undefined"){
+            this.setState({error : true})   
+          }
+          else{
         let totalSalary = 0
         teamInfo.engineers.forEach(element => {
             totalSalary += element.salary
@@ -118,7 +122,9 @@ class EditForm extends Component {
             teamData: teamTable,
         })
     }
+    }
     render() {
+        if(this.state.error === true) return (<Redirect to = "/error/404"/>)
         let team = this.state.team === "Do not have team" ? (
          <div>
 </div>
@@ -279,7 +285,6 @@ class EditForm extends Component {
             })
         }, 1000);
         return (
-
             <div className="ViewTeamDetail">
                 {this.state.loading ?
                     (<div className="sweet-loading d-flex justify-center middle-loading-custom">
