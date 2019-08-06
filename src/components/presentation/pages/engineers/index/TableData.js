@@ -32,6 +32,10 @@ class TableData extends Component {
         await this.setState({activePage: pageNumber, loading: true})
         this.componentWillMount();
     }
+    handleSearch(q){
+        console.log(q);
+        
+    }
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
         const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
@@ -118,6 +122,27 @@ class TableData extends Component {
                                     <button
                                         onClick={this.toggleModal}
                                         className="btn btn-outline green btn-sm green ">Add</button>
+                                </div>
+                                <div
+                                    className="search-form"
+                                    style={{
+                                    float: 'right',
+                                    width: '200px',
+                                    backgroundColor: '#B9ECF0'
+                                }}>
+                                    <div className="input-group">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Search here"
+                                            name="query"
+                                            onChange={this.handleSearch}/>
+                                        <span className="input-group-btn">
+                                            <a href="abc" className="btn md-skip submit">
+                                                <i className="fa fa-search"/>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div className="portlet-body">
