@@ -61,6 +61,7 @@ class EditForm extends Component {
         let res0 = await getTotalSkills();
         await this.setState({options: res0})
         const currentEngineer = await EngineerContainer.getById(this.props.id);
+        
         setTimeout(() => {
             this.setState({
                 id: String(currentEngineer.id),
