@@ -40,6 +40,24 @@ export default class RowData extends Component {
         this.setState({
             isOpenDelete: !this.state.isOpenDelete
         });
+    }    
+    removeItem = ()=>{     
+        EngineerContainer.delete(this.props.id).then((result) => {                    
+            if (!result.statusCode) { 
+                this.setState({isOpenDelete: !this.state.isOpenDelete}) 
+                this.setState({msg: "Delete successfully." })
+                this.setState({isOpenMessage: true});  
+            } else {
+                this.setState({msg: "Something wrong, please try again later." })
+            }
+        }).catch(e=>{
+            if(e.code === 403) {
+                this.toggleModalDelete()
+                this.setState({msg : "Forbidden"})
+                this.toggleMessage()
+            }
+        })
+        
     }
     removeItem = () => {
         EngineerContainer

@@ -75,7 +75,7 @@ export default class MemberOptions extends Component {
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-                    <div className="col-md-6">
+                    <div className="col-md-6" >
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
