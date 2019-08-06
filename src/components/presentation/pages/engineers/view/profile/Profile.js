@@ -192,7 +192,7 @@ export default class Profile extends Component {
                                       </li>
                                       <li className="li-item-engineer" >
                                       <img src="/assets/img-icon/technical-support.png" alt="" />
-                                        Experience years: {(this.state.expYear)}
+                                      Years of Experience: {(this.state.expYear)}
                                       </li>
                                       <li className="li-item-engineer" >
                                       <img src="/assets/img-icon/money.png" alt="" />
