@@ -70,14 +70,14 @@ export default class SkillOption extends Component {
     render() {
         return (
             <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
-                <div className="row relative">
+                <div className="row relative" style={{marginLeft:-20, marginRight:-20}}>
                     {this.props.keyIndex !== 0
                         ? <div className="border-close">
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
 
-                    <div className="col-xs-6">
+                    <div className="col-md-6 padding-right-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
@@ -91,11 +91,11 @@ export default class SkillOption extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-md-6 padding-left-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                Experience years:
+                                Years of experience:
                                 </label>
                                 <Select
                                     // defaultValue={yearsOfExp[1]}

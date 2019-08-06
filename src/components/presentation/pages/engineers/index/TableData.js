@@ -29,46 +29,43 @@ class TableData extends Component {
         this.reloadData()
     }
     handlePageChange = async(pageNumber) => {
-        await this.setState({
-            activePage: pageNumber,
-            loading: true
-        })
+        await this.setState({activePage: pageNumber, loading: true})
         this.componentWillMount();
     }
-    async componentWillMount() {       
-        let offset = ((this.state.activePage-1) * (this.state.itemsCountPerPage))
-        const dataPagination =  await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+    async componentWillMount() {
+        let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
+        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
         this.setState({totalItemsCount: dataPagination.total})
-        if(this.state.activePage > 0 && dataPagination.results.length === 0) {
-           await this.setState({activePage : this.state.activePage-1})
+        if (this.state.activePage > 0 && dataPagination.results.length === 0) {
+            await this.setState({
+                activePage: this.state.activePage - 1
+            })
             this.componentWillMount()
+        } else {
+            await this.setState({totalItemsCount: dataPagination.total})
+            let dataRender = dataPagination
+                .results
+                .map((value, key) => (<RowData
+                    key={key}
+                    id={value.id}
+                    firstName={value.firstName}
+                    lastName={value.lastName}
+                    englishName={value.englishName}
+                    phoneNumber={value.phoneNumber}
+                    address={value.address}
+                    email={value.email}
+                    skype={value.skype}
+                    expYear={value.expYear}
+                    status={value.status}
+                    create={value.createdAt}
+                    update={value.updatedAt}
+                    dayOffRemain={value.dayOffRemain}
+                    reloadData=
+                    {() =>{this.reload()}}/>))
+            setTimeout(() => {
+                this.setState({data: dataRender, loading: false})
+            }, 250)
         }
-        else{
-        await this.setState({totalItemsCount: dataPagination.total})
-        let dataRender = dataPagination
-            .results
-            .map((value, key) => (<RowData
-                key={key}
-                id={value.id}
-                firstName={value.firstName}
-                lastName={value.lastName}
-                englishName={value.englishName}
-                phoneNumber={value.phoneNumber}
-                address={value.address}
-                email={value.email}
-                skype={value.skype}
-                expYear={value.expYear}
-                status={value.status}
-                create={value.createdAt}
-                update={value.updatedAt}
-                dayOffRemain={value.dayOffRemain}
-                reloadData=
-                {() =>{this.reload()}}/>)
-                )
-        setTimeout(() => {
-            this.setState({data: dataRender, loading: false})
-        }, 250)
-    }
 
     }
     toggleModal = () => {
@@ -86,59 +83,66 @@ class TableData extends Component {
     render() {
         return (
             <div className="TableArea">
-                 {this.state.loading
-                            ? (
-                                <div className='sweet-loading d-flex justify-center middle-loading-custom'>
-                                    <ClipLoader
-                                        sizeUnit={"px"}
-                                        size={70}
-                                        color={'#7ed6df'}
-                                        loading={this.state.loading}/>
+                {this.state.loading
+                    ? (
+                        <div className='sweet-loading d-flex justify-center middle-loading-custom'>
+                            <ClipLoader
+                                sizeUnit={"px"}
+                                size={70}
+                                color={'#7ed6df'}
+                                loading={this.state.loading}/>
+                        </div>
+                    )
+                    : (
+                        <div className="portlet-title">
+                            <div className="caption">ENGINEER LIST
+                                <span
+                                    style={{
+                                    fontSize: '20px',
+                                    float: "right"
+                                }}
+                                    className="label label-sm label-warning">
+                                    Total: {this.state.totalItemsCount}
+                                </span>
+                            </div>
+                            <br/>
+                            <div
+                                style={{
+                                marginBottom: '40px'
+                            }}>
+                                <div
+                                    style={{
+                                    width: '200px',
+                                    float: 'left'
+                                }}>
+                                    <button
+                                        onClick={this.toggleModal}
+                                        className="btn btn-outline green btn-sm green ">Add</button>
                                 </div>
-                            )
-                            : (
-                <div className="portlet-title">
-                <div className="caption" >ENGINEER LIST <span style={{ fontSize: '20px', float: "right" }} className="label label-sm label-warning" > Total: {this.state.totalItemsCount}  </span></div>                 
-                <br />
-        <div style={{ marginBottom: '40px' }}>
-          <div style={{ width: '200px', float: 'left' }}>
-            <button onClick={this.toggleModal} className="btn btn-outline green btn-sm green ">Add</button>
-          </div>
-        </div>
-                    <div className="portlet-body">                       
+                            </div>
+                            <div className="portlet-body">
                                 <div className="table-main-pagination">
                                     <div className="table-scrollable">
                                         <table className="table table-striped table-bordered table-advance table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>English name
+                                                    <th>
+                                                        <b>English Name</b>
                                                     </th>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>Full name
+                                                    <th>
+                                                        <b>Full Name</b>
                                                     </th>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>Email
+                                                    <th>
+                                                        <b>Email</b>
                                                     </th>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>Phone number
+                                                    <th>
+                                                        <b>Phone Number</b>
                                                     </th>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>Experience years</th>
-                                                    <th
-                                                        style={{
-                                                        fontWeight: 'bold'
-                                                    }}>Action
+                                                    <th>
+                                                        <b>Years of Experience</b>
+                                                    </th>
+                                                    <th>
+                                                        <b>Action</b>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -147,11 +151,7 @@ class TableData extends Component {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div
-                                        className="PaginationArea"
-                                        style={{
-                                        textAlign: "center"
-                                    }}>
+                                    <div className="PaginationArea text-center">
                                         <Pagination
                                             activePage={this.state.activePage}
                                             itemsCountPerPage={this.state.itemsCountPerPage}
@@ -160,23 +160,23 @@ class TableData extends Component {
                                             onChange={this.handlePageChange}
                                             itemClass='page-item'/>
                                     </div>
-                                </div>                            
-                    </div>
-                    <Modal show={this.state.isOpen} onClose={this.toggleModal}>
-                        <AddForm
-                            reloadData={this.props.reload}
-                            onClose={this.toggleModal}
-                            onReload={this.reloadData}
-                            openMessage={this.toggleMessage}/>
-                    </Modal>
-                    <Modal
-                        show={this.state.isOpenMessage}
-                        onClose={this.toggleMessage}
-                        deleteStyleModel={true}>
-                        <Message message={"Add successfully new engineer."}/>
-                    </Modal>
-                </div>
-                )}
+                                </div>
+                            </div>
+                            <Modal show={this.state.isOpen} onClose={this.toggleModal}>
+                                <AddForm
+                                    reloadData={this.props.reload}
+                                    onClose={this.toggleModal}
+                                    onReload={this.reloadData}
+                                    openMessage={this.toggleMessage}/>
+                            </Modal>
+                            <Modal
+                                show={this.state.isOpenMessage}
+                                onClose={this.toggleMessage}
+                                deleteStyleModel={true}>
+                                <Message message={"Added successfully new engineer."}/>
+                            </Modal>
+                        </div>
+                    )}
             </div>
         );
     }
