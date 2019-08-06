@@ -12,6 +12,7 @@ class TableData extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            prevActive : null,
             order : "-id",
             isOpenMessage: false,
             data: [],
@@ -71,7 +72,10 @@ class TableData extends Component {
     }
     async changOrder(order){
         await this.setState({order:order})
+        if(this.state.prevActive!==null) document.getElementById(this.state.prevActive).classList.remove("active-arrow")
+        document.getElementById(order).classList.add("active-arrow")
         this.componentWillMount()
+        this.setState({prevActive:order})
     }
     toggleModal = () => {
         this.setState({
@@ -79,7 +83,7 @@ class TableData extends Component {
         })
     }
     reloadData = () => {
-        this.setState({isOpen: false})
+        this.setState({isOpen: false})       
         this.componentWillMount()
     }
     reload = () => {
@@ -134,46 +138,46 @@ class TableData extends Component {
                                                     <th>
                                                         <b>English Name</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("englishName")} >
-                                                            <i className="fa fa-long-arrow-up " aria-hidden="true"></i>
+                                                            <i id="englishName" className="fa fa-long-arrow-up " aria-hidden="true"></i>
                                                             </button>
                                                             <button  className="button-order" onClick={()=>this.changOrder("-englishName")}>
-                                                            <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                            <i id="-englishName" className="fa fa-long-arrow-down" aria-hidden="true"></i>
                                                             </button>
                                                     </th>
                                                     <th>
                                                         <b>Full Name</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("firstName,lastName")}>
-                                                        <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        <i id="firstName,lastName" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
                                                         <button  className="button-order" onClick={()=>this.changOrder("-firstName,-lastName")}>
-                                                        <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        <i id="-firstName,-lastName" className="fa fa-long-arrow-down" aria-hidden="true"></i>
                                                         </button>
                                                     </th>
                                                     <th>
                                                         <b>Email</b>
                                                         <button  className="button-left button-order" onClick={()=>this.changOrder("email")}>
-                                                        <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        <i id="email" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
                                                         <button  className="button-order" onClick={()=>this.changOrder("-email")}>
-                                                        <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        <i  id="-email"className="fa fa-long-arrow-down" aria-hidden="true"></i>
                                                         </button>
                                                     </th>
                                                     <th>
                                                     <b>Phone Number</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("phoneNumber")}>
-                                                        <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        <i id="phoneNumber"className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
                                                         <button  className="button-order" onClick={()=>this.changOrder("-phoneNumber")}>
-                                                        <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        <i id="-phoneNumber" className="fa fa-long-arrow-down" aria-hidden="true"></i>
                                                         </button>
                                                     </th>
                                                     <th>
                                                         <b>Years of Experience</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("expYear")}>
-                                                        <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        <i id="expYear" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
                                                         <button className="button-order" onClick={()=>this.changOrder("-expYear")}>
-                                                        <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        <i id="-expYear" className="fa fa-long-arrow-down" aria-hidden="true"></i>
                                                         </button>
                                                     </th>
                                                     <th>
