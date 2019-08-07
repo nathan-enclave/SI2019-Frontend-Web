@@ -65,7 +65,7 @@ export default class ProjectCategory extends Component {
                             options={this.state.options}
                             series={this.state.series}
                             type="donut"
-                            width="90%"
+                            width="100%"
                             />)}
                 </div>
             </div>

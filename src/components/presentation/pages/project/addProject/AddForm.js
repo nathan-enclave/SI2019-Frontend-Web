@@ -207,15 +207,6 @@ class AddForm extends Component {
                                                 validations={[required]}
                                                 className="form-control" />
                                         </div>
-                                        <div className="form-group">
-                                            <label className="control-label">Earning/Month</label>
-                                            <Input
-                                                type="number"
-                                                name="earningPerMonth"
-                                                onChange={(event) => this.isChange(event)}
-                                                validations={[required]}
-                                                className="form-control" />
-                                        </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
