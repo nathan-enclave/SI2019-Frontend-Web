@@ -21,8 +21,10 @@ class TableData extends Component {
             pageRangeDisplayed: 5,
             activePage: 1,
             isOpen: false,
-            loading: true
+            loading: true,
+            searchQuery: null
         }
+        this.handleSearch = this.handleSearch.bind(this)
     }
     toggleMessage = () => {
         this.setState({
@@ -34,41 +36,55 @@ class TableData extends Component {
         await this.setState({activePage: pageNumber, loading: true})
         this.componentWillMount();
     }
+    async handleSearch(search){
+        
+        await this.setState({
+            searchQuery: search.target.value
+        })
+        await this.componentWillMount()
+       
+    }
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
-        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset,this.state.order)
-        this.setState({totalItemsCount: dataPagination.total})
-        if (this.state.activePage > 0 && dataPagination.results.length === 0) {
-            await this.setState({
-                activePage: this.state.activePage - 1
-            })
-            this.componentWillMount()
-        } else {
-            await this.setState({totalItemsCount: dataPagination.total})
-            let dataRender = dataPagination
-                .results
-                .map((value, key) => (<RowData
-                    key={key}
-                    id={value.id}
-                    firstName={value.firstName}
-                    lastName={value.lastName}
-                    englishName={value.englishName}
-                    phoneNumber={value.phoneNumber}
-                    address={value.address}
-                    email={value.email}
-                    skype={value.skype}
-                    expYear={value.expYear}
-                    status={value.status}
-                    create={value.createdAt}
-                    update={value.updatedAt}
-                    dayOffRemain={value.dayOffRemain}
-                    reloadData=
-                    {() =>{this.reload()}}/>))
+        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset, `"id","englishName", "firstName", "lastName","phoneNumber", "email", "expYear"`,this.state.searchQuery)
+        if(dataPagination.total === 0) {
             setTimeout(() => {
-                this.setState({data: dataRender, loading: false})
+                this.setState({data: (<tr><td>No data</td></tr>), loading: false})
             }, 250)
+        }else {
+            this.setState({totalItemsCount: dataPagination.total})
+            if (this.state.activePage > 0 && dataPagination.results.length === 0) {
+                await this.setState({
+                    activePage: this.state.activePage - 1
+                })
+                this.componentWillMount()
+            } else {
+                await this.setState({totalItemsCount: dataPagination.total})
+                let dataRender = dataPagination
+                    .results
+                    .map((value, key) => (<RowData
+                        key={key}
+                        id={value.id}
+                        firstName={value.firstName}
+                        lastName={value.lastName}
+                        englishName={value.englishName}
+                        phoneNumber={value.phoneNumber}
+                        address={value.address}
+                        email={value.email}
+                        skype={value.skype}
+                        expYear={value.expYear}
+                        status={value.status}
+                        create={value.createdAt}
+                        update={value.updatedAt}
+                        dayOffRemain={value.dayOffRemain}
+                        reloadData=
+                        {() =>{this.reload()}}/>))
+                setTimeout(() => {
+                    this.setState({data: dataRender, loading: false})
+                }, 250)
+            }
         }
-
+      
     }
     async changOrder(order){
         await this.setState({order:order})
@@ -128,15 +144,36 @@ class TableData extends Component {
                                         onClick={this.toggleModal}
                                         className="btn btn-outline green btn-sm green ">Add</button>
                                 </div>
+                                <div
+                                    className="search-form"
+                                    style={{
+                                    float: 'right',
+                                    width: '200px',
+                                    backgroundColor: '#B9ECF0'
+                                }}>
+                                    <div className="input-group">
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Search here"
+                                            name="query"
+                                            onChange={this.handleSearch}/>
+                                        <span className="input-group-btn">
+                                            <a href="abc" className="btn md-skip submit">
+                                                <i className="fa fa-search"/>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <div className="portlet-body">
                                 <div className="table-main-pagination">
-                                    <div className="table-scrollable">
-                                        <table className="table table-striped table-bordered table-advance table-hover">
+                                    <div className="table-scrollable table-min-height-565">
+                                        <table className="table table-striped table-bordered table-advance table-hover ">
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <b>English Name</b>
+                                                        <b>English Name &nbsp;</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("englishName")} >
                                                             <i id="englishName" className="fa fa-long-arrow-up " aria-hidden="true"></i>
                                                             </button>
@@ -145,7 +182,7 @@ class TableData extends Component {
                                                             </button>
                                                     </th>
                                                     <th>
-                                                        <b>Full Name</b>
+                                                        <b>Full Name &nbsp;</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("firstName,lastName")}>
                                                         <i id="firstName,lastName" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
@@ -154,7 +191,7 @@ class TableData extends Component {
                                                         </button>
                                                     </th>
                                                     <th>
-                                                        <b>Email</b>
+                                                        <b>Email &nbsp;</b>
                                                         <button  className="button-left button-order" onClick={()=>this.changOrder("email")}>
                                                         <i id="email" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
@@ -163,7 +200,7 @@ class TableData extends Component {
                                                         </button>
                                                     </th>
                                                     <th>
-                                                    <b>Phone Number</b>
+                                                    <b>Phone Number &nbsp;</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("phoneNumber")}>
                                                         <i id="phoneNumber"className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
@@ -172,7 +209,7 @@ class TableData extends Component {
                                                         </button>
                                                     </th>
                                                     <th>
-                                                        <b>Years of Experience</b>
+                                                        <b>Years of Experience &nbsp;</b>
                                                         <button className="button-left button-order" onClick={()=>this.changOrder("expYear")}>
                                                         <i id="expYear" className="fa fa-long-arrow-up" aria-hidden="true"></i>
                                                         </button>
