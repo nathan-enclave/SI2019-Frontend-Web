@@ -287,7 +287,7 @@ class ViewProject extends Component {
                                     <span className="item-name">Location</span>
                                   </div>
                                 </div>
-                                <div className="mt-comment-text"> {this.state.location}    </div>
+                                <div className="mt-comment-text"> {this.state.city + ", " +this.state.country }    </div>
                               </div>
                               <div className="item">
                                 <div className="item-head">
