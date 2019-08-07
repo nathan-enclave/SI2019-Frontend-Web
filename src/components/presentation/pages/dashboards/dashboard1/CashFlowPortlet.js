@@ -16,7 +16,7 @@ class CashFlowPortlet extends Component {
                     yaxis:[
                         {
                         title: {
-                            text: "Millions"
+                            text: "Millions (VND)"
                             }
                         }
                     ],

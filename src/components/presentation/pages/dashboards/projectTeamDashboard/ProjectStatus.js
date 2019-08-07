@@ -51,7 +51,7 @@ export default class ProjectStatus extends Component {
           <Chart
             options={this.state.options}
             series={this.state.series}
-            type="donut"
+            type="pie"
             width="80%"
             // height="390"
           />

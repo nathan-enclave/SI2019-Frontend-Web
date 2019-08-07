@@ -35,14 +35,14 @@ class EditForm extends Component {
         };
     }
     async componentWillMount() {
-        let engineerList = await EngineerContainer.getPagination(1000, 0,`"id", "firstName"`)
+        let engineerList = await EngineerContainer.getPagination(1000, 0,`"id", "firstName"`,"firstName")
         engineerList = engineerList.results
         console.log(engineerList)
         engineerList.forEach(e => {
             e.value = e.id;
-            e.label = e.firstName;
+            e.label = e.firstName ;
             delete e.id;
-            delete e.firstName
+            delete e.firstName 
         })
         this.setState({memberOptions: engineerList})
         let projectList = await ProjectContainer.getPending(1000, 0, `"id", "name"`);
@@ -190,7 +190,7 @@ class EditForm extends Component {
                 <div className="portlet-title tabbable-line">
                     <div className="caption caption-md">
                         <i className="icon-globe theme-font hide"/>
-                        <span className="caption-subject font-blue-madison bold uppercase">EDIT {this.state.name}'S INFORMATION
+                        <span className="caption-subject font-blue-madison bold uppercase">EDIT TEAM {this.state.name}'S INFORMATION
                         </span>
                     </div>
                 </div>

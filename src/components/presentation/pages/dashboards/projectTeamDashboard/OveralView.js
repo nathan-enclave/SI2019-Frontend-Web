@@ -47,13 +47,6 @@ export default class OveralView extends Component {
         }
         return (
             <div className="row OverallView">
-                  {/* <div className="portlet-title">
-                    <div className="caption">
-                        <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overview</span>
-                    </div>
-                    <br />
-                </div> */}
                 <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div className="dashboard-stat2 bordered" style={{padding:"20px"}} >
                         <div className="display" >
@@ -105,7 +98,7 @@ export default class OveralView extends Component {
                                 <small style={{fontSize: "17px"}}>Engineers in team</small>
                             </div>
                             <div className="icon">
-                                <i className="icon-user" style={{fontSize: "50px"}}/>
+                                <i className="icon-user" style={{fontSize: "35px"}}/>
                             </div>
                         </div>
                     </div>

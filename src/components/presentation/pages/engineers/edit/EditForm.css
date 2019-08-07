@@ -21,3 +21,8 @@
 .EditUploader .btn .title-upload {
     top: 6.5px
 }
+.relative1 {
+    position: relative;
+    margin-left: -20px;
+    margin-right: -20px;
+}

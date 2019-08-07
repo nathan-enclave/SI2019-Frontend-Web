@@ -45,7 +45,7 @@ class SalaryBand extends Component {
                 id: "basic-bar"
             },
             xaxis: {
-                categories: ["8-10 M","10-15 M","15-20 M",">20 M"]
+                categories: ["8-10M (VND)","10-15M (VND)","15-20M (VND)",">20M (VND)"]
             }
         },
         series: [{

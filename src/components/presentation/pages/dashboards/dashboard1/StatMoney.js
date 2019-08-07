@@ -8,8 +8,8 @@ export default class ProjectCategory extends Component {
     super(props);
     this.state = {
       options: {
-        labels: ['0-50M', '50-70M', '70-90M', '>90M'  ],
-        colors: ['#ff7675', '#fdcb6e', '#74b9ff', '#55efc4'],
+        labels: ['0-50M (VND)', '50-70M (VND)', '70-90M (VND)', '>90M (VND)'],
+        colors: ['#8c7ae6', '#e67e22', '#432CD7', '#16a085'],
       },
       series: []
     }
@@ -36,7 +36,7 @@ export default class ProjectCategory extends Component {
             options={this.state.options}
             series={this.state.series}
             type="donut"
-            width="80%"
+            width="100%"
           />
         </div>
       </div>
