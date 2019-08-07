@@ -35,13 +35,13 @@ class EditForm extends Component {
         };
     }
     async componentWillMount() {
-        let engineerList = await EngineerContainer.getPagination(1000, 0, `"id", "firstName"`)
+        let engineerList = await EngineerContainer.getPagination(1000, 0, "firstName",`"id", "firstName"`)
         engineerList = engineerList.results
         engineerList.forEach(e => {
             e.value = e.id;
-            e.label = e.firstName;
+            e.label = e.firstName ;
             delete e.id;
-            delete e.firstName
+            delete e.firstName 
         })
         this.setState({memberOptions: engineerList})
         let projectList = await ProjectContainer.getPending(1000, 0, `"id", "name"`);

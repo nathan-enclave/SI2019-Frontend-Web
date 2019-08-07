@@ -12,6 +12,8 @@ class TableData extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            prevActive : null,
+            order : "-id",
             isOpenMessage: false,
             data: [],
             itemsCountPerPage: 10,
@@ -34,7 +36,7 @@ class TableData extends Component {
     }
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
-        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset)
+        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset,this.state.order)
         this.setState({totalItemsCount: dataPagination.total})
         if (this.state.activePage > 0 && dataPagination.results.length === 0) {
             await this.setState({
@@ -68,13 +70,20 @@ class TableData extends Component {
         }
 
     }
+    async changOrder(order){
+        await this.setState({order:order})
+        if(this.state.prevActive!==null) document.getElementById(this.state.prevActive).classList.remove("active-arrow")
+        document.getElementById(order).classList.add("active-arrow")
+        this.componentWillMount()
+        this.setState({prevActive:order})
+    }
     toggleModal = () => {
         this.setState({
             isOpen: !this.state.isOpen
         })
     }
     reloadData = () => {
-        this.setState({isOpen: false})
+        this.setState({isOpen: false})       
         this.componentWillMount()
     }
     reload = () => {
@@ -128,18 +137,48 @@ class TableData extends Component {
                                                 <tr>
                                                     <th>
                                                         <b>English Name</b>
+                                                        <button className="button-left button-order" onClick={()=>this.changOrder("englishName")} >
+                                                            <i id="englishName" className="fa fa-long-arrow-up " aria-hidden="true"></i>
+                                                            </button>
+                                                            <button  className="button-order" onClick={()=>this.changOrder("-englishName")}>
+                                                            <i id="-englishName" className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                            </button>
                                                     </th>
                                                     <th>
                                                         <b>Full Name</b>
+                                                        <button className="button-left button-order" onClick={()=>this.changOrder("firstName,lastName")}>
+                                                        <i id="firstName,lastName" className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button  className="button-order" onClick={()=>this.changOrder("-firstName,-lastName")}>
+                                                        <i id="-firstName,-lastName" className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        </button>
                                                     </th>
                                                     <th>
                                                         <b>Email</b>
+                                                        <button  className="button-left button-order" onClick={()=>this.changOrder("email")}>
+                                                        <i id="email" className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button  className="button-order" onClick={()=>this.changOrder("-email")}>
+                                                        <i  id="-email"className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        </button>
                                                     </th>
                                                     <th>
-                                                        <b>Phone Number</b>
+                                                    <b>Phone Number</b>
+                                                        <button className="button-left button-order" onClick={()=>this.changOrder("phoneNumber")}>
+                                                        <i id="phoneNumber"className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button  className="button-order" onClick={()=>this.changOrder("-phoneNumber")}>
+                                                        <i id="-phoneNumber" className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        </button>
                                                     </th>
                                                     <th>
                                                         <b>Years of Experience</b>
+                                                        <button className="button-left button-order" onClick={()=>this.changOrder("expYear")}>
+                                                        <i id="expYear" className="fa fa-long-arrow-up" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button className="button-order" onClick={()=>this.changOrder("-expYear")}>
+                                                        <i id="-expYear" className="fa fa-long-arrow-down" aria-hidden="true"></i>
+                                                        </button>
                                                     </th>
                                                     <th>
                                                         <b>Action</b>
@@ -158,7 +197,7 @@ class TableData extends Component {
                                             totalItemsCount={this.state.totalItemsCount}
                                             pageRangeDisplayed={this.state.pageRangeDisplayed}
                                             onChange={this.handlePageChange}
-                                            itemClass='page-item'/>
+                                            itemclassName='page-item'/>
                                     </div>
                                 </div>
                             </div>
