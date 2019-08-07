@@ -9,7 +9,7 @@ export default class ProjectCategory extends Component {
     this.state = {
       options: {
         labels: ['0-50M (VND)', '50-70M (VND)', '70-90M (VND)', '>90M (VND)'],
-        colors: ['#8c7ae6', '#e67e22', '#432CD7', '#16a085'],
+        colors: ['#74b9ff', '#00b894', '#ff7675', '#d63031'],
       },
       series: []
     }
@@ -28,7 +28,7 @@ export default class ProjectCategory extends Component {
         <div className="portlet-title">
           <div className="caption">
             <i className="icon-bar-chart font-dark hide" />
-            <span className="caption-subject font-dark bold uppercase">Statistic Money</span>
+            <span className="caption-subject font-dark bold uppercase">Cashout for Team</span>
           </div>
         </div>
         <div >
