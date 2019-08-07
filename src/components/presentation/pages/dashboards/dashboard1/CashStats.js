@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Preloader from '../../../include/Preloader'
 import numeral from 'numeral'
 import { getAllApi } from "../../../../../api/crud";
+import { ClipLoader } from 'react-spinners';
 
 class CashStats extends Component {
     constructor(props){
@@ -28,46 +28,26 @@ class CashStats extends Component {
     render() {
         let loader = {}
         if (Object.keys(this.state).length > 0) {
-            loader.cashInTemplate = 
-                    <div className="details">
-                        <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in</div>
-                            <span data-counter="counterup" >{numeral(this.state.cashIn).format('0,0')} M</span>
-                        </div>
-                    </div>              
-            loader.cashOutTemplate = 
-                    <div className="details">
-                        <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out</div>
-                            <span data-counter="counterup" >{numeral(this.state.cashOut).format('0,0')} M</span>
-                        </div>
-                    </div>
-            loader.profitTemplate =
-                    <div className="details">
-                        <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Profit </div>
-                            <span data-counter="counterup" />{numeral(this.state.profit).format('0,0')} M </div>
-                    </div>
-            loader.projectTemplate = 
-                    <div className="details">
-                        <div className="number">
-                            <div className="desc" style={{fontSize:"22px"}}> Projects </div>
-                            <span data-counter="counterup" />{numeral(this.state.project).format('0,0')} </div>
-                    </div>
+            loader.cashInTemplate = <span data-counter="counterup" >{numeral(this.state.cashIn).format('0,0')} M</span>                                  
+            loader.cashOutTemplate =<span data-counter="counterup" >{numeral(this.state.cashOut).format('0,0')} M</span>
+            loader.profitTemplate =<span data-counter="counterup" >{numeral(this.state.profit).format('0,0')} M </span>
+            loader.projectTemplate = <span data-counter="counterup" >{numeral(this.state.project).format('0,0')} </span>
         } else {
-            loader.cashInTemplate = <Preloader styleCustom={"unset"}/>
-            loader.cashOutTemplate = <Preloader styleCustom={"unset"}/>
-            loader.profitTemplate = <Preloader styleCustom={"unset"}/>
-            loader.projectTemplate = <Preloader styleCustom={"unset"}/>            
+            loader.cashInTemplate 
+            = loader.cashOutTemplate
+            = loader.profitTemplate 
+            = loader.projectTemplate 
+            = ( <div className='sweet-loading d-flex justify-center' >
+            <ClipLoader
+                sizeUnit={"px"}
+                size={40}
+                color={'#7ed6df'}
+                loading={true} />
+        </div>)                  
         }
         return (
             <div className="CashStats">
                 <div className="portlet-title">
-                    {/* <div className="caption">
-                        <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase" style={{fontSize:"16px"}}>Overall statistic</span>
-                    </div>
-                    <br /> */}
                 </div>
                 <div className="row">
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -75,15 +55,25 @@ class CashStats extends Component {
                             <div className="visual">
                                 <i className="fa fa-money"/>
                             </div>
+                            <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in (VND)</div>
                             {loader.cashInTemplate}
                         </div>
+                        </div>
+                    </div>       
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div className="dashboard-stat dashboard-stat-v2 green" style={{background: "#2e86de" }}>
                             <div className="visual">
                             <i className="fa fa-money" />
                             </div>
+                            <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out (VND)</div>
                             {loader.cashOutTemplate}
+                        </div>
+                        </div>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -91,7 +81,12 @@ class CashStats extends Component {
                             <div className="visual">
                             <i className="fa fa-money" />
                             </div>
+                            <div className="details">
+                        <div className="number">
+                            <div className="desc"  style={{fontSize:"22px"}}> Profit (VND)</div>
                             {loader.profitTemplate}
+                            </div>
+                    </div>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -99,7 +94,12 @@ class CashStats extends Component {
                             <div className="visual">
                                 <i className="fa fa-lightbulb-o" />
                             </div>
+                            <div className="details">
+                        <div className="number">
+                            <div className="desc" style={{fontSize:"22px"}}> Projects </div>
                             {loader.projectTemplate}
+                            </div>
+                    </div>
                         </div>  
                     </div>
                 </div>

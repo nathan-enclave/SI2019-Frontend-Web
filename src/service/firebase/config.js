@@ -1,3 +1,4 @@
+
 exports.config = {
     apiKey: process.env.FIREBASE_API_KEY || 'AIzaSyBQiQpaNalheNwpw47onRRQSHrKY8sXLFQ',
     authDomain: process.env.FIREBASE_AUTH_DOMAIN || "enclave-23839.firebaseapp.com",

@@ -1,14 +1,11 @@
-import React, {Component} from 'react'
-
-import {DialogTitle, Dialog} from '@material-ui/core';
-
+import React, { Component } from 'react'
+import { DialogTitle, Dialog } from '@material-ui/core';
 import ActionRow from './ActionRow'
 import './AllAction.css'
-
 import firebase from 'firebase'
-import {initializeFirebase} from "../../../../../../service/firebase"
-import {ClipLoader} from "react-spinners";
-import {DialogContent} from '@material-ui/core';
+import { initializeFirebase } from "../../../../../../service/firebase"
+import { ClipLoader } from "react-spinners";
+import { DialogContent } from '@material-ui/core';
 initializeFirebase();
 const db = firebase.firestore();
 
@@ -19,10 +16,8 @@ export default class AllAction extends Component {
             data: null
         }
     }
-
     componentWillMount() {
         const actionList = this;
-
         db
             .collection("activities")
             .orderBy('time', 'desc')
@@ -32,13 +27,12 @@ export default class AllAction extends Component {
                     list.push(e.data())
                 })
                 setTimeout(() => {
-                    actionList.setState({data: list})
+                    actionList.setState({ data: list })
                 }, 250)
 
             });
     }
     render() {
-
         return (
             <div className="AllAction">
                 <Dialog
@@ -55,21 +49,20 @@ export default class AllAction extends Component {
                             <span className="glyphicon glyphicon-remove"></span>
                         </div>
                     </div>
-
                     <DialogContent>
                         {!this.state.data
                             ? (
                                 <div className='sweet-loading d-flex justify-center middle-loading-custom'>
                                     <ClipLoader
                                         sizeUnit={"px"}
-                                        size={70}
+                                        size={50}
                                         color={'#7ed6df'}
-                                        loading={true}/>
+                                        loading={true} />
                                 </div>
                             )
                             : (
                                 <div className="mt-element-list">
-                                    <div className="mt-list-container list-simple" style={{border: '1px solid #e7ecf1'}}>
+                                    <div className="mt-list-container list-simple" style={{ border: '1px solid #e7ecf1' }}>
                                         <ul className="AllActivityList">
                                             {this
                                                 .state
@@ -80,14 +73,12 @@ export default class AllAction extends Component {
                                                     action={e.action}
                                                     user={e.fullName}
                                                     time={e.time}
-                                                    type={e.status}/>))}
-
+                                                    type={e.status} />))}
                                         </ul>
                                     </div>
                                 </div>
                             )
-}
-
+                        }
                     </DialogContent>
                 </Dialog>
             </div>

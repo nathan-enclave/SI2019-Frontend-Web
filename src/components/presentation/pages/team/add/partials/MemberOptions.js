@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import Select from 'react-select';
-
+import './Member.css'
 const role = [
     {
-        value : "developer",
+        value : "Developer",
         label : "Developer"
     },
     {
-        value : "quality assurance",
-        label : "Quanlity Assurance"
+        value : "Quality Assurance",
+        label : "Quality Assurance"
     },
     {
-        value : "leader",
+        value : "Leader",
         label : "Leader"
     }
 ]
@@ -21,7 +21,7 @@ export default class MemberOptions extends Component {
         this.state = {
             listEngineers: [],
             engineerSelected: null,
-            roleSelected: "developer",
+            roleSelected: "Developer",
             error: "",
             checkValidate: false,
             role: role
@@ -69,13 +69,13 @@ export default class MemberOptions extends Component {
     render() {
         return (
             <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
-                <div className="row relative">
+                <div className="row relative1" >
                     {this.props.keyIndex !== 0
                         ? <div className="border-close">
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-                    <div className="col-md-6">
+                    <div className="col-md-6" >
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">

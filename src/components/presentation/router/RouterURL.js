@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route,Switch  } from "react-router-dom";
+import { Route,Switch ,Redirect } from "react-router-dom";
 import TeamIndex from '../pages/team/index/TeamIndex';
 import EngineerIndex from '../pages/engineers/index/EngineerIndex';
 import Index from '../pages/dashboards/index/Index';
@@ -9,7 +9,6 @@ import ViewForm from '../pages/engineers/view/ViewForm';
 import Profile from '../pages/engineers/view/profile/Profile';
 import AddTeam from '../pages/team/add/AddTeam';
 import EditTeam from '../pages/team/edit/EditTeam';
-import TeamDetail from '../pages/team/view/TeamDetail';
 import Login from '../pages/login/Login'
 import ProjectIndex from '../pages/project/index/ProjectIndex';
 import Dashboard1 from '../pages/dashboards/dashboard1/Dashboard1';
@@ -20,10 +19,10 @@ import ResetPassword from '../pages/login/ResetPassword';
 import ResetSuccess from '../pages/login/ResetSuccess';
 import ViewDetailTeam from '../pages/team/view/Overview/ViewDetailTeam'
 import ViewProject from '../pages/project/viewProject/view/ViewProject'
-import Error404 from '../pages/errorPage/Error404'
+import ErrorPage from '../pages/errorPage/ErrorPage'
 
 class RouterURL extends Component {
-  render() {
+  render() {   
     return (
         <div className="MainRouter">
           <Switch>             
@@ -39,7 +38,6 @@ class RouterURL extends Component {
           <Route exact path="/engineers/view" component={ViewForm} />
           <Route exact path="/engineer/:id" component={Profile} />
           <Route exact path="/team" component={TeamIndex} />
-          <Route exact path="/teams/view" component={TeamDetail} />
           <Route exact path="/teams/add" component={AddTeam} />
           <Route exact path="/teams/edit" component={EditTeam} />
           <Route exact path="/project" component={ProjectIndex} />    
@@ -47,9 +45,10 @@ class RouterURL extends Component {
           <Route  path="/forgotPassword" component={ForgetPW} />
           <Route  path="/resetPassword" component={ResetPassword} />
           <Route  path="/resetSuccess" component={ResetSuccess} />
-          <Route exact path="/team/:id" component={ViewDetailTeam} />
-          <Route exact component={Error404} />   
-          <Route exact path="/error404" component={Error404} />         
+          <Route exact path="/team/:id" component={ViewDetailTeam} />           
+          {/* <Route exact path="/error"><ErrorPage errorCode="Something went wrong."/></Route>             */}
+          <Route exact path="/error/404"><ErrorPage errorCode="404 - Page Not Found" description ={"No URL match with: " + window.location.pathname}/></Route>      
+          <Redirect from="*" to ="/error/404" />  
           </Switch>
         </div>
     );

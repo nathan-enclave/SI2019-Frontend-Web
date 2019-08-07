@@ -11,8 +11,14 @@ class EngineerContainer {
     update(id, data){
         return putApi('engineers', id, data)
     }
-    getPagination(limit, offset, field=[]) {
-        return getAllApi(`engineers?orderBy=-expYear&filter={"deletedAt":{"$exists":false},"dateOut":{"$exists":false}}&limit=${limit}&offset=${offset}&fields=[${field}]`)
+    getPagination(limit, offset, field=[],order="id", searchQuery) {
+        // console.log(searchQuery);
+        if(searchQuery) {
+            return getAllApi(`engineers?orderBy=${order}&filter={"deletedAt":{"$exists":false},"dateOut":{"$exists":false}}&limit=${limit}&offset=${offset}&fields=[${field}]&q=${searchQuery}`)
+        } else {
+            return getAllApi(`engineers?orderBy=${order}&filter={"deletedAt":{"$exists":false},"dateOut":{"$exists":false}}&limit=${limit}&offset=${offset}&fields=[${field}]`)
+        }
+        
     }
 
     getById(id){

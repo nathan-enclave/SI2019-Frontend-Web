@@ -82,7 +82,7 @@ export default class Member extends Component {
                 }
 
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-xs-12">
                         <div
                             className="margin-top-10"
                             style={{

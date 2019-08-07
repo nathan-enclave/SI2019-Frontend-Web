@@ -139,6 +139,7 @@ class EditForm extends Component {
         this.setState({
             saveLoading : true
         })
+        console.log(this.state.data)
         ProjectContainer
             .update(this.props.id, this.state.data)
             .then((result) => {
@@ -184,7 +185,6 @@ class EditForm extends Component {
             )
     }
     render() {
-        console.log(this.state.selectOptions.length)        
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">

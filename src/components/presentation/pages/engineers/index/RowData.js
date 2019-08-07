@@ -1,13 +1,9 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import ViewForm from './../../engineers/view/ViewForm';
 import Modal from './../../../../presentation/commons/modal/Modal';
 import EditForm from './../../engineers/edit/EditForm';
 import DeletePopUp from './../../engineers/delete/DeletePopUp';
-// import DelEngineer from "./../../../../container/engineer/DelEngineer";
-// import MSGDelete from '../../../commons/msg/MSGDelete'; import MSGSuccess
-// from '../../../commons/msg/MSGSuccess'; import { thisTypeAnnotation } from
-// '@babel/types';
 import EngineerContainer from "../../../../container/engineer";
 import Message from '../../../commons/msg/Message';
 import './index.css'
@@ -44,6 +40,24 @@ export default class RowData extends Component {
         this.setState({
             isOpenDelete: !this.state.isOpenDelete
         });
+    }    
+    removeItem = ()=>{     
+        EngineerContainer.delete(this.props.id).then((result) => {                    
+            if (!result.statusCode) { 
+                this.setState({isOpenDelete: !this.state.isOpenDelete}) 
+                this.setState({msg: "Delete successfully." })
+                this.setState({isOpenMessage: true});  
+            } else {
+                this.setState({msg: "Something wrong, please try again later." })
+            }
+        }).catch(e=>{
+            if(e.code === 403) {
+                this.toggleModalDelete()
+                this.setState({msg : "Forbidden"})
+                this.toggleMessage()
+            }
+        })
+        
     }
     removeItem = () => {
         EngineerContainer
@@ -53,10 +67,10 @@ export default class RowData extends Component {
                     this.setState({
                         isOpenDelete: !this.state.isOpenDelete
                     })
-                    this.setState({msg: "Delete successfully."})
-                    this.setState({isOpenMessage: true});
+                    this.setState({ msg: "Delete successfully." })
+                    this.setState({ isOpenMessage: true });
                 } else {
-                    this.setState({msg: "Something wrong, please try again later."})
+                    this.setState({ msg: "Something wrong, please try again later." })
                 }
             })
     }
@@ -97,8 +111,8 @@ export default class RowData extends Component {
                             <i
                                 className="fa fa-edit"
                                 style={{
-                                fontSize: '15px'
-                            }}/>
+                                    fontSize: '15px'
+                                }} />
                         </button>
                         <button
                             onClick={() => this.toggleModalDelete()}
@@ -106,12 +120,12 @@ export default class RowData extends Component {
                             <i
                                 className="fa fa-trash-o"
                                 style={{
-                                fontSize: '15px'
-                            }}/>
+                                    fontSize: '15px'
+                                }} />
                         </button>
                     </div>
                     <Modal show={this.state.isOpenView} onClose={this.toggleModalView}>
-                        <ViewForm id={this.props.id}/>
+                        <ViewForm id={this.props.id} />
                     </Modal>
                     <Modal show={this.state.isOpenEdit} onClose={this.toggleModalEdit}>
                         <EditForm
@@ -120,7 +134,7 @@ export default class RowData extends Component {
                             onClose={this.toggleModalEdit}
                             onOpenMSG={this.toggleMessage}
                             changeMSG=
-                            {(msg)=>{this.setState({msg : msg})}}/>
+                            {(msg) => { this.setState({ msg: msg }) }} />
                     </Modal>
                     <Modal
                         show={this.state.isOpenDelete}
@@ -128,17 +142,17 @@ export default class RowData extends Component {
                         deleteStyleModel={true}>
                         <DeletePopUp
                             confirm=
-                            {()=>this.removeItem()}
+                            {() => this.removeItem()}
                             onClose={this.toggleModalDelete}
                             name
                             ={this.props.englishName}
-                            object="engineer"/>
+                            object="engineer" />
                     </Modal>
                     <Modal
                         show={this.state.isOpenMessage}
                         onClose={() => this.handleReload()}
                         deleteStyleModel={true}>
-                        <Message message={this.state.msg}/>
+                        <Message message={this.state.msg} />
                     </Modal>
                 </td>
             </tr>
