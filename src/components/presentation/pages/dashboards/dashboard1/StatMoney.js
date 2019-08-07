@@ -35,7 +35,7 @@ export default class ProjectCategory extends Component {
           <Chart
             options={this.state.options}
             series={this.state.series}
-            type="donut"
+            type="pie"
             width="100%"
           />
         </div>
