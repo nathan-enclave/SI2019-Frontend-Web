@@ -70,7 +70,7 @@ export default class SkillOption extends Component {
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-                    <div className="col-md-6">
+                    <div className="col-md-6 padding-right-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
@@ -84,11 +84,11 @@ export default class SkillOption extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 padding-left-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                Experience:
+                                Years of experience:
                                 </label>
                                 <Select
                                     defaultValue={yearsOfExp[1]}

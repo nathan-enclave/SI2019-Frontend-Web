@@ -93,7 +93,9 @@ export default class RowData extends Component {
                 <td className="highlight">
                     <span>{this.props.firstName}
                     </span>
+                    <span className="margin-left-xs">
                     {this.props.lastName}
+                    </span>
                 </td>
                 <td className="highlight">
                     <a href={"mailto:" + this.props.email}>

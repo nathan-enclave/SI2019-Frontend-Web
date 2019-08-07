@@ -13,6 +13,7 @@ import EngineerContainer from "../../../../container/engineer";
 import CheckButton from 'react-validation/build/button';
 import "./validate.css"
 import { ClipLoader } from 'react-spinners';
+
 const required = (value) => {
     if (isEmpty(value)) {
         return <div className="small-validate">This field is required</div>;
@@ -164,7 +165,7 @@ class AddForm extends Component {
                 <div className="portlet-title tabbable-line">
                     <div className="caption caption-md">
                         <i className="icon-globe theme-font hide" />
-                        <span className="caption-subject font-blue-madison bold uppercase">Add Engineer
+                        <span className="caption-subject font-blue-madison bold uppercase">Create new engineer profile
                         </span>
                     </div>
                 </div>
@@ -285,7 +286,7 @@ class AddForm extends Component {
                                                 className="form-control" />
                                         </div>
                                         <div className="form-group">
-                                            <label className="control-label">Experience year</label>
+                                            <label className="control-label">Years of Experience</label>
                                             <Input
                                                 type="number"
                                                 name="expYear"

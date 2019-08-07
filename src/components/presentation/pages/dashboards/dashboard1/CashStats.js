@@ -57,7 +57,7 @@ class CashStats extends Component {
                             </div>
                             <div className="details">
                         <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in</div>
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in (VND)</div>
                             {loader.cashInTemplate}
                         </div>
                         </div>
@@ -70,7 +70,7 @@ class CashStats extends Component {
                             </div>
                             <div className="details">
                         <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out</div>
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out (VND)</div>
                             {loader.cashOutTemplate}
                         </div>
                         </div>
@@ -83,7 +83,7 @@ class CashStats extends Component {
                             </div>
                             <div className="details">
                         <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Profit </div>
+                            <div className="desc"  style={{fontSize:"22px"}}> Profit (VND)</div>
                             {loader.profitTemplate}
                             </div>
                     </div>
