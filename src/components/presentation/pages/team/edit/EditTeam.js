@@ -34,15 +34,15 @@ class EditForm extends Component {
             saveLoading: false
         };
     }
+
     async componentWillMount() {
-        let engineerList = await EngineerContainer.getPagination(1000, 0,`"id", "firstName"`,"firstName")
+        let engineerList = await EngineerContainer.getPagination(1000, 0, `"id", "firstName"`, "firstName")
         engineerList = engineerList.results
-        console.log(engineerList)
         engineerList.forEach(e => {
             e.value = e.id;
-            e.label = e.firstName ;
+            e.label = e.firstName;
             delete e.id;
-            delete e.firstName 
+            delete e.firstName
         })
         this.setState({memberOptions: engineerList})
         let projectList = await ProjectContainer.getPending(1000, 0, `"id", "name"`);
@@ -70,7 +70,7 @@ class EditForm extends Component {
                             },
                             role: {
                                 value: e.role,
-                                label: e.role
+                                label: (e.role === 'leader') ? 'Leader' : (e.role === 'developer') ? 'Developer' : 'Quality Assurance'
                             }
                         }
                     }),
@@ -135,52 +135,49 @@ class EditForm extends Component {
             })
         }
     }
-  
+
     submitSaveForm = () => {
-        this.setState({saveLoading : true})
-        TeamContainer.update(this.props.id,this.state.data).then((result) => {
-            if (!result.statusCode) {
-                this
-                    .props
-                    .changeMSG("Edit successful.")
-                this
-                    .props
-                    .onClose();
-                this
-                    .props
-                    .onOpenMSG();
-            } else {
-                if (result.statusCode !== 200) {
-                    this.setState({
-                        msg: "Something's wrong. Please try it later.",
-                        saveLoading : false
-                    })
+        this.setState({saveLoading: true})
+        TeamContainer
+            .update(this.props.id, this.state.data)
+            .then((result) => {
+                if (!result.statusCode) {
+                    this
+                        .props
+                        .changeMSG("Edit successful.")
+                    this
+                        .props
+                        .onClose();
+                    this
+                        .props
+                        .onOpenMSG();
+                } else {
+                    if (result.statusCode !== 200) {
+                        this.setState({msg: "Something's wrong. Please try it later.", saveLoading: false})
+                    }
                 }
-            }
-        }).catch(error =>{
-            this.setState({
-                msg: "Something's wrong. Please try it later.",
-                saveLoading : false
             })
-        })
+            .catch(error => {
+                this.setState({msg: "Something's wrong. Please try it later.", saveLoading: false})
+            })
     }
     onSubmit = (e) => {
         e.preventDefault();
-        this.form.validateAll();
+        this
+            .form
+            .validateAll();
         if (this.checkBtn.context._errors.length === 0) {
-            this.submitSaveForm() 
-         } 
+            this.submitSaveForm()
+        }
     }
-    displayLoading= ()=>{ 
-        return this.state.saveLoading? (
+    displayLoading = () => {
+        return this.state.saveLoading
+            ? (
                 <div className='sweet-loading d-flex justify-center margin-top-md'>
-                    <ClipLoader
-                        sizeUnit={"px"}
-                        size={30}
-                        color={'#123abc'}
-                        loading={true}/>
+                    <ClipLoader sizeUnit={"px"} size={30} color={'#123abc'} loading={true}/>
                 </div>
-            ):(
+            )
+            : (
                 <button type="submit" className="btn green">SAVE</button>
             )
     }
@@ -198,11 +195,7 @@ class EditForm extends Component {
                     {this.state.loading
                         ? (
                             <div className='sweet-loading d-flex justify-center middle-loading-custom'>
-                                <ClipLoader
-                                    sizeUnit={"px"}
-                                    size={70}
-                                    color={'#7ed6df'}
-                                    loading={true}/>
+                                <ClipLoader sizeUnit={"px"} size={70} color={'#7ed6df'} loading={true}/>
                             </div>
                         )
                         : (
@@ -213,7 +206,11 @@ class EditForm extends Component {
                                 }}>
                                     {this.state.msg}</span>
                                 <div className="tab-pane active" id="tab_1_1">
-                                <Form onSubmit={e => this.onSubmit(e)} ref={c => {this.form = c}}>
+                                    <Form
+                                        onSubmit={e => this.onSubmit(e)}
+                                        ref={c => {
+                                        this.form = c
+                                    }}>
                                         <div className="row">
                                             <div className="col-md-12 col-lg-12">
                                                 <div className="form-group">
@@ -245,17 +242,23 @@ class EditForm extends Component {
                                                     .bind(this)}/>
                                             </div>
                                             <div className="row">
-                                        <div
-                                            className="margin-top-20 col-xs-12"
-                                            style={{
-                                            textAlign: 'center'
-                                        }}>
-                                            {this.displayLoading()}
-                                                <CheckButton  style={{display: 'none'}} ref={c => {this.checkBtn = c }}/>
+                                                <div
+                                                    className="margin-top-20 col-xs-12"
+                                                    style={{
+                                                    textAlign: 'center'
+                                                }}>
+                                                    {this.displayLoading()}
+                                                    <CheckButton
+                                                        style={{
+                                                        display: 'none'
+                                                    }}
+                                                        ref={c => {
+                                                        this.checkBtn = c
+                                                    }}/>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                        </div>                                        
-                                    </Form>                                    
+                                    </Form>
                                 </div>
                             </div>
                         )}

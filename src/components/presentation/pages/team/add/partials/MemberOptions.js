@@ -3,16 +3,16 @@ import Select from 'react-select';
 import './Member.css'
 const role = [
     {
-        value : "Developer",
-        label : "Developer"
+        value: "developer",
+        label: "Developer",
     },
     {
-        value : "Quality Assurance",
-        label : "Quality Assurance"
+        value: "quality assurance",
+        label: "Quality Assurance"
     },
     {
-        value : "Leader",
-        label : "Leader"
+        value: "leader",
+        label: "Leader",
     }
 ]
 export default class MemberOptions extends Component {

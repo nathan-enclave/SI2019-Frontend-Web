@@ -95,15 +95,15 @@ export default class MemberOption extends Component {
                                 value={this.state.roleSelected}
                                 options={[
                                     {
-                                        value: "Developer",
+                                        value: "developer",
                                         label: "Developer",
                                     },
                                     {
-                                        value: "Quality Assurance",
+                                        value: "quality assurance",
                                         label: "Quality Assurance"
                                     },
                                     {
-                                        value: "Leader",
+                                        value: "leader",
                                         label: "Leader",
                                     }
                                 ]}
