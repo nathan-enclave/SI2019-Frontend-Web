@@ -35,8 +35,9 @@ class EditForm extends Component {
         };
     }
     async componentWillMount() {
-        let engineerList = await EngineerContainer.getPagination(1000, 0, `"id", "firstName"`)
+        let engineerList = await EngineerContainer.getPagination(1000, 0,`"id", "firstName"`)
         engineerList = engineerList.results
+        console.log(engineerList)
         engineerList.forEach(e => {
             e.value = e.id;
             e.label = e.firstName;

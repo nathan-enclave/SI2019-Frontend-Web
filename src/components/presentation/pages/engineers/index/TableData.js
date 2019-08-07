@@ -36,7 +36,7 @@ class TableData extends Component {
     }
     async componentWillMount() {
         let offset = ((this.state.activePage - 1) * (this.state.itemsCountPerPage))
-        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset,this.state.order)
+        const dataPagination = await EngineerContainer.getPagination(this.state.itemsCountPerPage, offset,`"id","englishName", "firstName", "lastName","phoneNumber", "email", "expYear"`,this.state.order)
         this.setState({totalItemsCount: dataPagination.total})
         if (this.state.activePage > 0 && dataPagination.results.length === 0) {
             await this.setState({

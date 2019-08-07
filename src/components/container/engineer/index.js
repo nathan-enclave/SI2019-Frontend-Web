@@ -11,7 +11,7 @@ class EngineerContainer {
     update(id, data){
         return putApi('engineers', id, data)
     }
-    getPagination(limit, offset,order, field=[]) {
+    getPagination(limit, offset, field=[],order="id") {
         return getAllApi(`engineers?orderBy=${order}&filter={"deletedAt":{"$exists":false},"dateOut":{"$exists":false}}&limit=${limit}&offset=${offset}&fields=[${field}]`)
     }
 
