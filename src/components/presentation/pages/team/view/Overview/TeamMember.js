@@ -4,13 +4,13 @@ import './viewProject.css'
 
 class TeamMember extends Component {
   render() {
-    let typeLabel = (this.props.role === "Leader") ? "danger" : "success"
+    let typeLabel = (this.props.role === "leader") ? "danger" : "success"
     let level = (this.props.expYear <= 3) ? 1 : (this.props.expYear <= 5) ? 2 : (this.props.expYear <= 7) ? 3 : 4
     return (
       <div>
         <li className="row">
           <div
-            className="col-xs-2 padding-bottom-sm padding-top-sm text-center " style={{
+            className="col-xs-1 padding-bottom-sm padding-top-sm text-center " style={{
               'display': 'flex',
               'justifyContent': 'center',
           }} >
@@ -33,7 +33,7 @@ class TeamMember extends Component {
           <div className="col-xs-2 padding-bottom-sm padding-top-sm text-center">
             <span className={"label label-sm label-" + typeLabel + " label-mini"}> {this.props.role} </span>
           </div>
-          <div className="col-xs-2 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
+          <div className="col-xs-3 padding-bottom-sm padding-top-sm text-center padding-left-sm padding-right-sm">
             <span>
               <div className="fa fa-money ss" aria-hidden="true"></div>
               Salary: {this.props.salary}

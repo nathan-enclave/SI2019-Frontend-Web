@@ -70,7 +70,7 @@ class EditForm extends Component {
                             },
                             role: {
                                 value: e.role,
-                                label: e.role
+                                label: e.role === 'leader' ? 'Leader' : (e.role === 'developer')? 'Developer':'Quality Assurance'
                             }
                         }
                     }),

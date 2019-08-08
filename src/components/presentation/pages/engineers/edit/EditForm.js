@@ -78,6 +78,8 @@ class EditForm extends Component {
                 oldAvatar: currentEngineer.avatar,
                 salary: String(currentEngineer.salary),
                 address: currentEngineer.address,
+                dayOffRemain : String(currentEngineer.dayOffRemain),
+                overTime : String(currentEngineer.overTime),
                 email: currentEngineer.email,
                 skype: currentEngineer.skype,
                 expYear: String(currentEngineer.expYear),
@@ -349,6 +351,28 @@ class EditForm extends Component {
                                                         name="skype"
                                                         value
                                                         ={this.state.skype}
+                                                        onChange={(event) => this.isChange(event)}
+                                                        className="form-control" />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="control-label">Remaning Days Off</label>
+                                                    <Input
+                                                        validations={[required]}
+                                                        type="number"
+                                                        name="dayOffRemain"
+                                                        value
+                                                        ={this.state.dayOffRemain}
+                                                        onChange={(event) => this.isChange(event)}
+                                                        className="form-control" />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label className="control-label">Over Time( Hour)</label>
+                                                    <Input
+                                                        validations={[required]}
+                                                        type="number"
+                                                        name="overTime"
+                                                        value
+                                                        ={this.state.overTime}
                                                         onChange={(event) => this.isChange(event)}
                                                         className="form-control" />
                                                 </div>

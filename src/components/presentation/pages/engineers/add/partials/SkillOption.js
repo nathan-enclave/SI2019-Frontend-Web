@@ -74,7 +74,7 @@ export default class SkillOption extends Component {
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                    Skill:
+                                    Skill
                                 </label>
                                 {this.state.error}
                                 <Select
@@ -88,7 +88,7 @@ export default class SkillOption extends Component {
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                Years of experience:
+                                Years of experience
                                 </label>
                                 <Select
                                     defaultValue={yearsOfExp[1]}

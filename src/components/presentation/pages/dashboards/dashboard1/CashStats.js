@@ -57,7 +57,7 @@ class CashStats extends Component {
                             </div>
                             <div className="details">
                         <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going in (VND)</div>
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash in (VND)</div>
                             {loader.cashInTemplate}
                         </div>
                         </div>
@@ -70,7 +70,7 @@ class CashStats extends Component {
                             </div>
                             <div className="details">
                         <div className="number">
-                            <div className="desc"  style={{fontSize:"22px"}}> Cash going out (VND)</div>
+                            <div className="desc"  style={{fontSize:"22px"}}> Cash out (VND)</div>
                             {loader.cashOutTemplate}
                         </div>
                         </div>

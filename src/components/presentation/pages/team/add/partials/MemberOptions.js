@@ -3,15 +3,15 @@ import Select from 'react-select';
 import './Member.css'
 const role = [
     {
-        value : "Developer",
+        value : "developer",
         label : "Developer"
     },
     {
-        value : "Quality Assurance",
+        value : "quality assurance",
         label : "Quality Assurance"
     },
     {
-        value : "Leader",
+        value : "leader",
         label : "Leader"
     }
 ]
