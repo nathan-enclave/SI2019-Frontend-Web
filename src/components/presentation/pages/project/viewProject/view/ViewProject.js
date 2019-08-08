@@ -107,6 +107,8 @@ class ViewProject extends Component {
         updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
         team: res.team ? res.team.name : null,
         teamId: res.team ? res.team.id : null,
+        city : res.city,
+        country : res.country,
         category: res.category.name,
         data: 0,
         timelineStart: moment(res.start).format('MM/DD/YYYY'),
