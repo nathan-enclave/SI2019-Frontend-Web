@@ -47,7 +47,7 @@ class TableData extends Component {
     else {
       await this.setState({ totalItemsCount: res.total })
       let dataRender = res.results.map((value, key) => {
-        let color = (value.status === "done") ? 'label-info' : (value.status === "inProgress") ? 'label-success' : 'label-warning'
+        let color = (value.status === "done") ? 'label-danger' : (value.status === "inProgress") ? 'label-success' : 'label-warning'
         return (
           <RowData
             key={key}

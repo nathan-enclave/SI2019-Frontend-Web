@@ -12,7 +12,7 @@ export default class ProjectStatus extends Component {
       load : true,
       options: {
         labels: ['Done', 'In progress', 'Pending'],
-        colors: ['#2980b9','#27ae60', '#f1c40f']
+        colors: ['#d9534f','#00cec9', '#f1c40f']
       },
       series: [65, 35, 12]
     }

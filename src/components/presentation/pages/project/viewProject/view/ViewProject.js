@@ -139,7 +139,7 @@ class ViewProject extends Component {
         totalEarning += element.earning
       });
       let averageEarning = Math.round(totalEarning / listProject.results.length)
-      let color = res.status === "done" ? "#B5CEFD" : res.status === "inProgress" ? "#B8E7F5" : "#FFFFCA"
+      let color = res.status === "done" ? "#FFCACA" : res.status === "inProgress" ? "#B8E7F5" : "#FFFFCA"
       this.setState({
         options: {
           ...this.state.options,
@@ -168,9 +168,9 @@ class ViewProject extends Component {
     </div>) : null
     let root = document.documentElement;
     if (this.state.status === "done") {
-      root.style.setProperty('--bg', "#b5cefd7d")
+      root.style.setProperty('--bg', "#d9534f2e")
       root.style.setProperty('--border', "#ff")
-      root.style.setProperty('--boxColor', "#659be0")
+      root.style.setProperty('--boxColor', "#d9534f")
     }
     if (this.state.status === "pending") {
       root.style.setProperty('--bg', "#FFFFCA")
@@ -185,7 +185,7 @@ class ViewProject extends Component {
 
     let color = null
     if (this.state.status === "done") {
-      color = 'label-info'
+      color = 'label-danger'
     } else if (this.state.status === "inProgress") {
       color = 'label-success'
     } else if (this.state.status === 'pending') {

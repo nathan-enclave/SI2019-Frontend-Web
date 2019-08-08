@@ -18,13 +18,13 @@ export default class OveralView extends Component {
     render() {
         let loadStatistic = {}
         if (Object.keys(this.state).length > 0) {
-            loadStatistic.totalProject = <h3 className="font-green-sharp" >
+            loadStatistic.totalProject = <h3 className="font-blue-sharp" >
                 <span style={{fontSize: "50px"}}>{this.state.totalProject}</span>
             </h3>
             loadStatistic.pending = <h3 className="font-yellow-crusta">
                 <span style={{fontSize: "50px"}}>{this.state.pending}</span>
             </h3>
-            loadStatistic.currentTeam = <h3 className="font-blue-sharp">
+            loadStatistic.currentTeam = <h3 className="font-green-sharp">
                 <span style={{fontSize: "50px"}}>{this.state.teamInProgress}</span>
             </h3>
             loadStatistic.engineerInTeam = <h3 className="font-purple-soft">
