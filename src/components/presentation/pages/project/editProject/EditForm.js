@@ -260,18 +260,7 @@ class EditForm extends Component {
                                                 validations={[required]}
                                                 onChange={(event) => this.isChange(event)}
                                                 className="form-control"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="control-label">
-                                                Earning Per Month</label>
-                                            <Input
-                                                type="text"
-                                                name="earningPerMonth"
-                                                value={this.state.earningPerMonth}
-                                                validations={[required]}
-                                                onChange={(event) => this.isChange(event)}
-                                                className="form-control"/>
-                                        </div>
+                                        </div>                                       
                                     </div>
                                     <div
                                         className="col-md-6"

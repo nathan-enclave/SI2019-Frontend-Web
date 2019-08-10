@@ -104,6 +104,8 @@ class ViewProject extends Component {
         earning: numeral(res.earning).format('0,0'),
         earningPerMonth: numeral(res.earningPerMonth).format('0,0'),
         status: res.status,
+        city : res.city,
+        country : res.country,
         updatedAt: moment(res.updatedAt).format('DD/MM/YYYY'),
         team: res.team ? res.team.name : null,
         teamId: res.team ? res.team.id : null,
@@ -139,7 +141,7 @@ class ViewProject extends Component {
         totalEarning += element.earning
       });
       let averageEarning = Math.round(totalEarning / listProject.results.length)
-      let color = res.status === "done" ? "#B5CEFD" : res.status === "inProgress" ? "#B8E7F5" : "#fab1a0"
+      let color = res.status === "done" ? "#B5CEFD" : res.status === "inProgress" ? "#B8E7F5" : "#FFFFCA"
       this.setState({
         options: {
           ...this.state.options,
@@ -173,9 +175,9 @@ class ViewProject extends Component {
       root.style.setProperty('--boxColor', "#659be0")
     }
     if (this.state.status === "pending") {
-      root.style.setProperty('--bg', "#fab1a047")
+      root.style.setProperty('--bg', "#FFFFCA")
       root.style.setProperty('--border', "#ff")
-      root.style.setProperty('--boxColor', "#ed6b75")
+      root.style.setProperty('--boxColor', "#F1C40F")
     }
     if (this.state.status === "inProgress") {
       root.style.setProperty('--bg', "#b8e7f596")
@@ -189,7 +191,7 @@ class ViewProject extends Component {
     } else if (this.state.status === "inProgress") {
       color = 'label-success'
     } else if (this.state.status === 'pending') {
-      color = 'label-danger'
+      color = 'label-warning'
     }
     let team = this.state.team === null ? (
       <div className="portlet light bordered">

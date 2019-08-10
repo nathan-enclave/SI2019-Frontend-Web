@@ -21,7 +21,7 @@ export default class OveralView extends Component {
             loadStatistic.totalProject = <h3 className="font-green-sharp" >
                 <span style={{fontSize: "50px"}}>{this.state.totalProject}</span>
             </h3>
-            loadStatistic.pending = <h3 className="font-red-haze">
+            loadStatistic.pending = <h3 className="font-yellow-crusta">
                 <span style={{fontSize: "50px"}}>{this.state.pending}</span>
             </h3>
             loadStatistic.currentTeam = <h3 className="font-blue-sharp">

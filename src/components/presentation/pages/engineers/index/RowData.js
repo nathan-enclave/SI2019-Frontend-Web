@@ -72,6 +72,14 @@ export default class RowData extends Component {
                 } else {
                     this.setState({ msg: "Something wrong, please try again later." })
                 }
+            }).catch(e=>{
+                if(e.code === 403) {
+                    this.setState({
+                        isOpenDelete: !this.state.isOpenDelete
+                    })
+                    this.setState({ msg: "Not allowed to delete." })
+                    this.setState({ isOpenMessage: true });
+                }
             })
     }
     handleReload = () => {
