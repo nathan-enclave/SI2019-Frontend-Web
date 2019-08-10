@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import AddProject from '../../../../container/project/AddProject';
+import ProjectContainer from '../../../../container/project'
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import Textarea from 'react-validation/build/textarea';
 import CheckButton from 'react-validation/build/button';
 import { isEmpty } from 'validator';
 import "react-datepicker/dist/react-datepicker.css";
+import LocationContainer from "../../../../container/location"
 import DatePicker from "react-datepicker";
 import getTotalCategories from '../../../../container/categories/GetListCategories';
 import "./validate.css"
+import { ClipLoader } from 'react-spinners';
 const required = (value) => {
     if (isEmpty(value)) {
         return (<div className="small-validate">
@@ -21,15 +23,20 @@ class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            locationOptions : [],
+            selectedLocation: [],
             isOpenMSGSuccess: false,
             start: "",
             end: "",
             options: [],
             selectOptions: [],
             categoryId: null,
+            locationId : null,
             msgStart: null,
             msgEnd: null,
-            msgCat: null
+            msgCat: null,
+            msgLocation: null,
+            addLoading : false
         };
     }
     isChange = (event) => {
@@ -38,6 +45,9 @@ class AddForm extends Component {
         this.setState({ [fieldName]: value });
     }
     submitAddForm = async () => {
+        this.setState({
+            addLoading : true
+        })
         let data = {
             name: this.state.name,
             technology: this.state.technology,
@@ -46,16 +56,20 @@ class AddForm extends Component {
             earningPerMonth: this.state.earningPerMonth,
             start: this.state.start,
             end: this.state.end,
-            categoryId: Number(this.state.categoryId)
+            categoryId: Number(this.state.categoryId),
+            locationId : Number(this.state.locationId)
         }
-        AddProject(data).then((result) => {
+        console.log(data)
+        ProjectContainer.add(data).then((result) => {
             if (!result.statusCode) {
                 this.props.openMessage()
             } else {
                 if (result.statusCode !== 200) {
-                    this.setState({ msg: 'Some error occured, please try again later ' });
+                    this.setState({ msg: 'Some error occured, please try again later ',addLoading : false });
                 }
             }
+        }).catch(e=>{
+            this.setState({ msg: 'Some error occured, please try again later ',addLoading : false });
         })
     }
     handleChangeStart = (date) => {
@@ -69,6 +83,17 @@ class AddForm extends Component {
             end: date,
             msgEnd: null
         });
+    }
+    handleChangeLocation = (selectedLocation) => {
+        this.setState({ selectedLocation });
+        let temp = 0
+        if (selectedLocation != null) {
+            temp = selectedLocation.value
+            this.setState({
+                locationId: temp,
+                msgLocation: null
+            });
+        }
     }
     handleChange = (selectOptions) => {
         this.setState({ selectOptions });
@@ -84,23 +109,43 @@ class AddForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.form.validateAll();
-        if (this.checkBtn.context._errors.length === 0 && this.state.start !== "" && this.state.end !== "" && this.state.categoryId !== null) {
+        if (this.checkBtn.context._errors.length === 0 && this.state.start !== "" && this.state.end !== "" && this.state.categoryId !== null && this.state.locationId!==null) {
             this.submitAddForm()
         }
         else {
             if (this.state.start === "") this.setState({ msgStart: "This field is required!" })
             if (this.state.end === "") this.setState({ msgEnd: "This field is required!" })
             if (this.state.categoryId === null) this.setState({ msgCat: "This field is required!" })
+            if (this.state.locationId === null) this.setState({ msgLocation: "This field is required!" })
         }
     }
     async componentDidMount() {
         const res = await getTotalCategories();
-        this.setState({ options: res });
+        const location = await LocationContainer.getLocation();
+        let temp = []
+        location.results.forEach(element => {
+            temp.push({value : element.id,label: element.city + ", " + element.country})
+        });
+        this.setState({ options: res,locationOptions : temp });
+    }
+    displayLoading= ()=>{ 
+        return this.state.addLoading? (
+                <div className='sweet-loading d-flex justify-center margin-top-md'>
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={30}
+                        color={'#123abc'}
+                        loading={true}/>
+                </div>
+            ):(
+                <button type="submit" className="btn green">ADD</button>
+            )
     }
     render() {
         let msgStart = this.state.msgStart === null ? null : (<div className="small-validate">This field is required!</div>)
         let msgEnd = this.state.msgEnd === null ? null : (<div className="small-validate">This field is required!</div>)
         let msgCat = this.state.msgCat === null ? null : (<div className="small-validate">This field is required!</div>)
+        let msgLocation = this.state.msgLocation === null ? null : (<div className="small-validate">This field is required!</div>)
         return (
             <div className="portlet light bordered">
                 <div className="portlet-title tabbable-line">
@@ -162,15 +207,6 @@ class AddForm extends Component {
                                                 validations={[required]}
                                                 className="form-control" />
                                         </div>
-                                        <div className="form-group">
-                                            <label className="control-label">Earning/Month</label>
-                                            <Input
-                                                type="number"
-                                                name="earningPerMonth"
-                                                onChange={(event) => this.isChange(event)}
-                                                validations={[required]}
-                                                className="form-control" />
-                                        </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -194,6 +230,18 @@ class AddForm extends Component {
                                         <div className="form-group">
                                             <div className="form-check">
                                                 <label className="form-check-label">
+                                                    Location:
+                                                </label>
+                                                <Select
+                                                    value={this.state.selectedLocation}
+                                                    options={this.state.locationOptions}
+                                                    onChange={this.handleChangeLocation} />
+                                                {msgLocation}
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="form-check">
+                                                <label className="form-check-label">
                                                     Categories:
                                                 </label>
                                                 <Select
@@ -211,7 +259,7 @@ class AddForm extends Component {
                                         style={{
                                             textAlign: 'center'
                                         }}>
-                                        <button className="btn btn-success uppercase pull-center" type="submit">Submit</button>
+                                        {this.displayLoading()}
                                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                                     </div>
                                 </div>

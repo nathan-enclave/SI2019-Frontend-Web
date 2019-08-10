@@ -50,11 +50,11 @@ class Level extends Component {
                         show: false
                     }
                 },
-                title: {
-                    text: 'Level of engineer',
-                    align: 'center',
-                    floating: true
-                },
+                // title: {
+                //     text: 'Level of engineer',
+                //     align: 'center',
+                //     floating: true
+                // },
                 tooltip: {
                     theme: 'dark',
                     x: {
@@ -103,7 +103,7 @@ class Level extends Component {
                 <div className="portlet-title">
                     <div className="caption">
                         <i className="icon-bar-chart font-dark hide" />
-                        <span className="caption-subject font-dark bold uppercase">Level</span>
+                        <span className="caption-subject font-dark bold uppercase">Engineer level</span>
                         <span className="caption-helper"></span>
                     </div>
                 </div>

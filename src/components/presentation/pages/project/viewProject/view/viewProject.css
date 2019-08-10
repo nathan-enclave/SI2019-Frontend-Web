@@ -1,20 +1,20 @@
 /* :root{
     --bg : #abd1f7
 } */
-.portlet-body-custom-color{
+.ViewProject .portlet-body-custom-color{
     background-color:var(--bg);
     border-radius: 5px;
     border : 1px solid var(--border);
     padding: 17px
 }
- .item-name{
+.ViewProject .item-name{
     margin-bottom: 5px;
     color: #0c5460;
     font-size : 20px;
     font-family: Arial;
     font-weight: 600
 }
-.item-last{
+.ViewProject .item-last{
     margin-bottom: 5px;
     color: #155724;
     font-size : 20px;
@@ -22,14 +22,14 @@
     font-weight: 600;
     border-bottom: 0
 }
-.item-block{
+.ViewProject .item-block{
     color: #155724;
     font-size : 20px;
     font-family: Arial;
     border-bottom: 1px solid #FFFFFF;
     font-weight: 600
 }
-.mt-comment-text{
+.ViewProject .mt-comment-text{
     margin-top: 5px;
     margin-bottom: 5px;
     color: #3d3d3d;
@@ -37,57 +37,57 @@
     font-size: 17px;
     font-weight: 600
 }
-.mt-actions .mt-action{
+.ViewProject .mt-actions .mt-action{
     border-bottom: 1px solid white !important;
 }
-.mt-actions .mt-action .mt-action-body{
+.ViewProject .mt-actions .mt-action .mt-action-body{
     padding-top: 10px;
     padding-left: 20px
 }
-.mt-actions .mt-action .mt-action-details{
+.ViewProject .mt-actions .mt-action .mt-action-details{
    font-size: 17px
 }
-.mt-actions .mt-action .mt-action-details{
+.ViewProject .mt-actions .mt-action .mt-action-details{
     font-size: 17px
  }
-.mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author{
+.ViewProject .mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author{
     text-decoration: none;
     color: #856404 !important
 }
-.mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author:hover{
+.ViewProject .mt-actions .mt-action .mt-action-body .mt-action-row .mt-action-info .mt-action-details .mt-action-author:hover{
     text-decoration: none;
     color: #c7b682 !important
 }
-.portlet.box.custom.color > .portlet-title{
+.ViewProject .portlet.box.custom.color > .portlet-title{
     background-color: var(--boxColor);
 }
-.portlet.box.custom.color {
+.ViewProject .portlet.box.custom.color {
     border: 1px solid var(--boxColor);
 }
-.table-scrollable-custom{
+.ViewProject .table-scrollable-custom{
     border-radius: 5px;
     /* border: 1px solid var(--border) */
 }
-.table-scrollable-custom> .table-bordered > thead > tr:last-child > th{
+.ViewProject .table-scrollable-custom> .table-bordered > thead > tr:last-child > th{
     background-color: var(--bg);
     padding : 10px;
     font-size: 20px;
     font-weight: 600;
     color : #0c5460
 }
-.table-scrollable > .table-bordered > thead > tr:last-child > th{
+.ViewProject .table-scrollable > .table-bordered > thead > tr:last-child > th{
     font-size: 17px;
     font-weight: 600;
     text-align: center;
     padding: 10px
 }
-.head-name{
+.ViewProject .head-name{
     color: #fff;
     font-size: 20px;
     font-weight: 600;
     margin: 5px;
 }
-.scroll-member{
+.ViewProject .scroll-member{
     /* border : 1px solid #ddd; */
     /* border: 1px solid #ddd; */
     width: 100%;
@@ -96,13 +96,16 @@
     overflow: hidden; 
     position: relative;
 }
-.mess {
-    height: 400px;
+.ViewProject .mess {
+    height: 700px;
     width: 100%;
     overflow: auto;
     position: absolute;
 }
-.team-btn{    
+.ViewProject .team-btn{    
     float : right;
     font-size: 13px
+}
+.small-space{
+    margin: 10px
 }

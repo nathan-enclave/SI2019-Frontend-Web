@@ -55,7 +55,7 @@ export default class Language extends Component {
                     colors: ['#fff']
                 },
                 xaxis: {
-                    categories: this.props.data.map(e=>e.name)
+                    categories: this.props.data.filter(e=>(e.expYear>0)).map(e=>(e.name))
                 },
                 yaxis: {
                     labels: {
@@ -84,7 +84,7 @@ export default class Language extends Component {
             },
             series: [
                 {
-                    data: this.props.data.map(e=>e.expYear)
+                    data: this.props.data.filter(e=>(e.expYear>0)).map(e=>e.expYear)
                 }
             ]
         }

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Stats from './Stats';
-import getTotal from '../../../../container/dashboard/GetTotal';
+import DashboardContainer from '../../../../container/dashboard';
 import Action from './Action/ActionList';
 import {ClipLoader} from 'react-spinners';
 import AllAction from './AllAction/AllAction';
-
+import './index.css'
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +17,7 @@ class Index extends Component {
         this.handleClose = this.handleClose.bind(this)
     }
     async componentWillMount() {
-        const res = await getTotal();
+        const res = await DashboardContainer.getStatistic('dashboard/total');
         setTimeout(() => {
             this.setState({
                 data: {

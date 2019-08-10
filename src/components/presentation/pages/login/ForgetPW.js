@@ -35,18 +35,18 @@ export default class ForgetPW extends Component {
     }
     checkEmail = ()=>{        
        checkManagerEmail(this.state.email).then((result)=>{
-           console.log(result  )
-            if(result.statusCode === 404  ){
-                this.setState({msg : "This is not a director email.",redirect: false})
+            if(result.statusCode === 403  ){
+                this.setState({msg : "Forbidden Email.",redirect: false})
+            }
+            else if(result.statusCode === 404 ){
+                this.setState({msg : "Email Not Found in System.",redirect: false})
             }
             else if(result.statusCode === 400){
-                this.setState({msg : "Check your email, please.",redirect: false})
+                this.setState({msg : "Check your Email, Please.",redirect: false})
             }
             else {                
                 sendCode(this.state.email).then((result2) =>{
-                    // if(result === "sended"){
                         this.setState({director : result,redirect : true})
-                    // }
                 })
             }
         })
@@ -67,7 +67,6 @@ export default class ForgetPW extends Component {
          }
     }
     render() {
-        console.log(this.state.director)
         if(this.state.redirect){
             return (<ResetPassword email ={this.state.director.email} id = {this.state.director.id}/>)
         }       
@@ -81,7 +80,6 @@ export default class ForgetPW extends Component {
                         <Input   validations={[required, email]} type="text" onChange={(e) =>this.handlerEmail(e)} name="email"  autoComplete="off" placeholder="Email" className="form-control placeholder-no-fix"/> </div>
                     <div className="form-actions">
                         <Link to="/login" id="back-btn" className="btn green btn-outline">Back</Link>
-                        {/* <Link to={this.state.url} type="submit" onClick= {this.checkEmail} className="btn btn-success uppercase pull-right">Submit</Link> */}
                         <button  className="btn btn-success uppercase pull-right" type  ="submit">Submit</button>
                         <CheckButton style={{ display: 'none' }} ref={c => { this.checkBtn = c }} />
                     </div>

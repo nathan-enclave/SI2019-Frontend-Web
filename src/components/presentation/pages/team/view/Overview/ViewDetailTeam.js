@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from "react-router-dom";
+import { NavLink ,Redirect} from "react-router-dom";
 import 'react-tagsinput/react-tagsinput.css';
 import moment from 'moment';
 import 'moment-timezone';
@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import getData from '../../../../../container/project/GetDetailProject';
 // import numeral from 'numeral'
 import './viewProject.css'
-import TeamMember from '../../../project/viewProject/view/TeamMember';
+import TeamMember from '../../../team/view/Overview/TeamMember';
 import Chart from "react-apexcharts";
 import { ClipLoader } from 'react-spinners';
 import numeral from 'numeral'
@@ -21,6 +21,7 @@ class EditForm extends Component {
             teamData: "",
             id: this.props.match.params.id,
             category: "",
+            engineers: [],
             team: "",
             status: "",
             updatedAt: "",
@@ -42,16 +43,19 @@ class EditForm extends Component {
             ]
         };
     }
-    async componentWillMount() {
+    async componentDidMount() {
         const teamInfor = await fetch('https://si-enclave.herokuapp.com/api/v1/teams/' + this.state.id)
         let teamInfo = await teamInfor.json()
+        if(typeof(teamInfo.statusCode)!="undefined"){
+            this.setState({error : true})   
+          }
+          else{
         let totalSalary = 0
         teamInfo.engineers.forEach(element => {
             totalSalary += element.salary
             // console.log(new Date(element.birthday).getFullYear())
         });
 
-        console.log(totalSalary)
         this.setState({
             name: teamInfo.name,
             createdAt: teamInfo.createdAt,
@@ -82,7 +86,14 @@ class EditForm extends Component {
                     ...this.state.options,
                     xaxis: {
                         categories: catData
-                    }
+                    },
+                    yaxis: [
+                        {
+                            title: {
+                                text: "Millions"
+                            }
+                        }
+                    ],
                 },
                 series: [
                     {
@@ -102,7 +113,7 @@ class EditForm extends Component {
                     lastName={value.lastName}
                     role={value.role}
                     expYear={value.expYear}
-                    birthday= {moment(value.birthday).format('DD/MM/YYYY')}
+                    dateJoin={moment(value.dateJoin).format('DD/MM/YYYY')}
                     salary={numeral(value.salary).format('0,0') + " VND"}
                 />
             )
@@ -111,81 +122,69 @@ class EditForm extends Component {
             teamData: teamTable,
         })
     }
+    }
     render() {
+        if(this.state.error === true) return (<Redirect to = "/error/404"/>)
         let team = this.state.team === "Do not have team" ? (
-            <div className="portlet light bordered">
-                <div className="portlet-title tabbable-line">
-                    <div className="caption">
-                        <i className=" icon-social-twitter font-dark hide" />
-                        <span className={"label label-sm label-default"} style={{ fontSize: "15px" }}> {this.state.name} </span>
-                    </div>
-                </div>
+            <div>
             </div>
         ) : (
-                <div className="portlet light bordered">
-                    <div className="portlet-title tabbable-line">
-                        <div className="caption">
-                            <i className=" icon-social-twitter font-dark hide" />
-                            <Link to={"/team/" + this.state.id} className={"label label-sm label-default"} style={{ fontSize: "15px" }}> MEMBER LIST </Link>
-                        </div>
-                    </div>
-                    <div className="portlet-body4">
-                        <div className="tab-content">
-                            <div className="tab-pane active" id="tab_actions_pending">
-                                {this.state.teamData}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ul className="feeds">
+                    {this.state.teamData}
+                </ul>
             )
         setTimeout(() => {
             this.setState({
-                loadData: (<div className="portlet-body">
-                    <div className="row">
-                        <div className="col-lg-8 col-xs-8 col-sm-8">
-                            <div className="portlet light bordered">
-                                {team}
-                            </div>
-                        </div>
-                        <div className="col-lg-4 col-xs-4 col-sm-4">
-                            <div className="portlet light bordered">
-                                <div className="portlet-title tabbable-line">
-                                    <div className="caption">
-                                        <i className=" icon-social-twitter font-dark hide" />
-                                        <span className="caption-subject font-dark bold uppercase">finance</span>
-                                    </div>
-                                </div>
-                                <div className="portlet-bodyx">
-                                    <div className="tab-content">
-                                        <div className="table-main-pagination">
-                                            <div className="table-scrollable-custom">
-                                                <table className="table table-striped table-bordered table-advance table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="50%">Cash Out </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th width="50%">{new Intl.NumberFormat().format(this.state.cashOut)} VND </th>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                loadData: (
+                    <div className="TeamDetail">
+                        <div className="row">
+                            <div className="col-lg-12 col-xs-12 col-md-12">
+                                <div className="portlet light bordered">
+                                    <div className="portlet-title">
+                                        <div className="caption">
+                                            <i className="icon-share font-dark hide"></i>
+                                            <span className="caption-subject font-dark bold uppercase">{this.state.name}</span>
                                         </div>
                                     </div>
+                                    <div className="portlet-body">
+                                        {this.state.engineers.length < 4 ? (
+                                            <div
+                                                className="scroller"
+                                                style={{
+                                                    height: 'auto'
+                                                }}
+                                                data-always-visible="1"
+                                                data-rail-visible="0">
+
+                                                <ul className="feeds">
+                                                    {team}
+
+
+                                                </ul>
+                                            </div>) : (
+                                                <div
+                                                    className="scroller1"
+                                                    style={{
+                                                        height: '300px'
+                                                    }}
+                                                    data-always-visible="1"
+                                                    data-rail-visible="0">
+
+                                                    <ul className="feeds">
+                                                        {team}
+                                                    </ul>
+                                                </div>)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
                         <div className="row">
-                            <div className="col-lg-6 col-xs-6 col-sm-6">
+                            <div className="col-lg-6 col-xs-12 col-md-6 ">
                                 <div className="portlet light bordered">
                                     <div className="portlet-title tabbable-line">
-                                        <NavLink to={`/project/${this.state.id}`} className="caption">
                                             <i className="icon-bubbles font-dark hide" />
                                             <span className="caption-subject font-dark bold uppercase">BASIC INFORMATION ABOUT PROJECT </span>
-                                        </NavLink>
                                     </div>
                                     <div className="portlet-body3" >
                                         <div className="tab-content">
@@ -194,7 +193,10 @@ class EditForm extends Component {
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name" >Project name</span>
+                                                                <NavLink to={`/project/${this.state.id}`} className="caption">
+                                                                    <i className="icon-bubbles font-dark hide" />
+                                                                    <span className="item-name">Project's Name</span>
+                                                                </NavLink>
                                                             </div>
                                                         </div>
                                                         <div className="mt-comment-text"> {this.state.project.name} </div>
@@ -202,19 +204,27 @@ class EditForm extends Component {
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name">Description</span>
+                                                                <span className="item-name">Cash-out</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.description}   </div>
+                                                        <div className="mt-comment-text"> {new Intl.NumberFormat().format(this.state.cashOut)} VND  </div>
                                                     </div>
                                                     <div className="item">
                                                         <div className="item-head">
                                                             <div className="item-details">
-                                                                <span className="item-name">Technology</span>
+                                                                <span className="item-name">Description</span>
                                                             </div>
                                                         </div>
-                                                        <div className="mt-comment-text"> {this.state.project.technology}    </div>
+                                                        <div className="mt-comment-text"> {this.state.project.description}    </div>
                                                     </div>
+                                                </div>
+                                                <div className="item">
+                                                    <div className="item-head">
+                                                        <div className="item-details">
+                                                            <span className="item-name">Technology</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-comment-text"> {this.state.project.technology}    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,7 +232,7 @@ class EditForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="col-lg-6 col-md-6">
+                            <div className="col-lg-6 col-xs-12 col-md-6">
                                 <div className="portlet light bordered">
 
                                     <div className="portlet-title tabbable-line">
@@ -246,33 +256,26 @@ class EditForm extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div >
-                    ),
-                    loading: false
-                })
-            }, 1000);
-            return (
-            <div className="portlet light bordered">
-                        <div className="portlet red box">
-                            <div className="portlet-title">
-                                <div className="caption">
-                                    {this.state.name}
-                                </div>
-                            </div>
-                            {this.state.loading ?
-                                (<div className='sweet-loading'>
-                                    <ClipLoader
-                                        sizeUnit={"px"}
-                                        size={50}
-                                        color={'#7ed6df'}
-                                        loading={this.state.loading}
-                                    />
-                                </div>) : this.state.loadData}
-
-                        </div>
 
                     </div>
-                    )
-                }
-            }
+
+                ),
+                loading: false
+            })
+        }, 1000);
+        return (
+            <div className="ViewTeamDetail">
+                {this.state.loading ?
+                    (<div className="sweet-loading d-flex justify-center middle-loading-custom">
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={50}
+                            color={'#7ed6df'}
+                            loading={this.state.loading}
+                        />
+                    </div>) : this.state.loadData}
+            </div>
+        )
+    }
+}
 export default EditForm;

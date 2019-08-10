@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Select from 'react-select';
+import './Skill.css'
 
 const yearsOfExp = []
 for (let index = 0; index <= 30; index++) {
@@ -63,13 +64,13 @@ export default class SkillOption extends Component {
     render() {
         return (
             <div className="SkillOption" id={`skill_select_${this.props.keyIndex}`}>
-                <div className="row relative">
+                <div className="row relative1">
                     {this.props.keyIndex !== 0
                         ? <div className="border-close">
                                 <div className="close close-skill"  onClick={(e)=>this.handleRemoveItem(e)}></div>
                             </div>
                         : ''}
-                    <div className="col-md-6">
+                    <div className="col-md-6 padding-right-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
@@ -83,11 +84,11 @@ export default class SkillOption extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 padding-left-md">
                         <div className="form-group">
                             <div className="form-check">
                                 <label className="form-check-label">
-                                Experience years:
+                                Years of experience:
                                 </label>
                                 <Select
                                     defaultValue={yearsOfExp[1]}

@@ -88,9 +88,16 @@
     font-weight: 600
 }
 .portlet-body4 {
-    background-color: #fff3cd;
+    background-color: #fffecd;
     border-radius: 5px;
-    border : 1px solid #ffeeba;
+    border : 1px solid #fff3ba;
+    padding: 5px;
+    padding-left: 10px
+}
+.portlet-body5 {
+    background-color: #f2f7f7;
+    border-radius: 5px;
+    border : 1px solid #09d4f8;
     padding: 5px;
     padding-left: 10px
 }
@@ -136,4 +143,15 @@
     font-size: 17px;
     text-align: center;
     padding: 10px
+}
+.scroller1{
+    padding: 0 12px 0 0;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll
+}
+.avatar{
+    border-radius: 100%;
+    overflow: hidden;
+    width: fit-content
 }

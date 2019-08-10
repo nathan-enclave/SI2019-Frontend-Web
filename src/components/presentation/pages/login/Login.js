@@ -79,8 +79,6 @@ export default class Login extends Component {
     }
 
     render() {
-        console.log(this.state.error);
-        
         if (this.state.redirect) {
             return (
                 <div>{this.redirect()}
@@ -107,7 +105,7 @@ export default class Login extends Component {
                         </a>
                     </div>
                     <div className="login-form">
-                        <h3 className="form-title font-green">Sign In</h3>
+                        <h3 className="form-title font-green">Management System</h3>
                         <div className="alert alert-danger display-hide">
                             <button className="close" data-close="alert"/>
                             <span>
